@@ -1,0 +1,24 @@
+# Build trees (CMakePresets put everything under Build/)
+/Build/
+/build*/
+/out/
+CMakeUserPresets.json
+compile_commands.json
+
+# IDEs
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# OS clutter
+.DS_Store
+Thumbs.db
+desktop.ini
+*.lnk
+
+# Player runtime output
+Player.log
+Player-prev.log
+Screenshot-*.png

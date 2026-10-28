@@ -1,0 +1,14 @@
+* text=auto eol=lf
+*.bat text eol=crlf
+*.sln text eol=crlf
+
+# Binary content. Git LFS is not required yet (see docs/adr/0008-repository-and-binary-assets.md);
+# when it is adopted, replace "binary" with "filter=lfs diff=lfs merge=lfs -text".
+*.png   binary
+*.jpg   binary
+*.wav   binary
+*.ogg   binary
+*.flac  binary
+*.pdf   binary
+*.assets   binary
+*.resource binary

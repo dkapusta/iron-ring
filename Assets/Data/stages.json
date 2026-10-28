@@ -1,0 +1,40 @@
+{
+  "stages": [
+    {
+      "id": "breaker_pier",
+      "name": "Breaker Pier",
+      "image": "Stages/BreakerPier/breaker_pier.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "floor_y_logical": 316,
+      "description": "Sunset harbor, warm timber floor and steel bridge.",
+      "parallax_status": "Single flattened background in the kit; layer separation planned"
+    },
+    {
+      "id": "lantern_exchange",
+      "name": "Lantern Exchange",
+      "image": "Stages/LanternExchange/lantern_exchange.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "floor_y_logical": 316,
+      "description": "Night market, terracotta floor, amber lamps and teal beams.",
+      "parallax_status": "Single flattened background in the kit; layer separation planned"
+    },
+    {
+      "id": "observatory_crown",
+      "name": "Observatory Crown",
+      "image": "Stages/ObservatoryCrown/observatory_crown.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "floor_y_logical": 316,
+      "description": "Blue dawn coast, pale limestone and an oxidized dome.",
+      "parallax_status": "Single flattened background in the kit; layer separation planned"
+    }
+  ]
+}

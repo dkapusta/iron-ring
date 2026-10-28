@@ -1,0 +1,76 @@
+{
+  "fighters": [
+    {
+      "id": "mara",
+      "name": "Mara Voss",
+      "role": "Boxer / counter",
+      "palette_accent": "teal",
+      "identity": "Compact pressure and a precise jab.",
+      "signature_concepts": [
+        "Breakwater Jab",
+        "Rivet Hook"
+      ],
+      "starter_selectable": true
+    },
+    {
+      "id": "rook",
+      "name": "Rook Calder",
+      "role": "Grappler / power",
+      "palette_accent": "coral",
+      "identity": "Slow advance, strong close-range reads; throws planned.",
+      "signature_concepts": [
+        "Dock Palm",
+        "Crane Hook"
+      ],
+      "starter_selectable": true
+    },
+    {
+      "id": "lina",
+      "name": "Lina Vale",
+      "role": "Mobile kickboxer",
+      "palette_accent": "violet",
+      "identity": "Air movement, angle changes and fast kicks.",
+      "signature_concepts": [
+        "Spiral Step",
+        "Glassline Kick"
+      ],
+      "starter_selectable": false
+    },
+    {
+      "id": "tariq",
+      "name": "Tariq Moss",
+      "role": "Long-range striker",
+      "palette_accent": "muted_blue",
+      "identity": "Controls space with extended kicks and deliberate recovery.",
+      "signature_concepts": [
+        "Horizon Heel",
+        "Mastline Kick"
+      ],
+      "starter_selectable": false
+    },
+    {
+      "id": "edda",
+      "name": "Edda Flint",
+      "role": "Power brawler",
+      "palette_accent": "brass",
+      "identity": "Stable guard and heavy short-range punishes.",
+      "signature_concepts": [
+        "Forge Knuckle",
+        "Anchor Drop"
+      ],
+      "starter_selectable": false
+    },
+    {
+      "id": "kei",
+      "name": "Kei Sato",
+      "role": "Rushdown / feint",
+      "palette_accent": "coral",
+      "identity": "Low movement and quick pressure resets.",
+      "signature_concepts": [
+        "Courier Step",
+        "Signal Break"
+      ],
+      "starter_selectable": false
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$comment": "Keyboard bindings by SDL scancode name (SDL_GetScancodeFromName). Gamepads and remapping UI: ROADMAP M2.",
+  "players": [
+    {
+      "left": ["A"], "right": ["D"], "up": ["W"], "down": ["S"],
+      "lightPunch": ["F"], "heavyPunch": ["G"], "lightKick": ["H"], "heavyKick": ["J"],
+      "guard": ["Space"]
+    },
+    {
+      "left": ["Left"], "right": ["Right"], "up": ["Up"], "down": ["Down"],
+      "lightPunch": ["Keypad 1"], "heavyPunch": ["Keypad 2"], "lightKick": ["Keypad 3"], "heavyKick": ["Keypad 0"],
+      "guard": ["Right Shift"]
+    }
+  ]
+}

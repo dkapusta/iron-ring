@@ -1,0 +1,54 @@
+{
+  "canvas": [
+    640,
+    360
+  ],
+  "p1": {
+    "portrait": [
+      12,
+      10,
+      32,
+      32
+    ],
+    "health": [
+      50,
+      12,
+      220,
+      14
+    ],
+    "meter": [
+      20,
+      338,
+      140,
+      9
+    ]
+  },
+  "p2": {
+    "portrait": [
+      596,
+      10,
+      32,
+      32
+    ],
+    "health": [
+      370,
+      12,
+      220,
+      14
+    ],
+    "meter": [
+      480,
+      338,
+      140,
+      9
+    ]
+  },
+  "timer": [
+    294,
+    8,
+    52,
+    35
+  ],
+  "safe_text_inset": 12,
+  "note": "SVG is editable interface geometry. Starter uses rectangles and SDL debug text, without portrait art."
+}

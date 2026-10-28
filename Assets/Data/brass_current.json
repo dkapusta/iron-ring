@@ -1,0 +1,26 @@
+{
+  "colors": {
+    "ink": "091627",
+    "deep_teal": "123C4A",
+    "steel": "29465E",
+    "muted_blue": "506981",
+    "brass_dark": "9D6236",
+    "brass": "EFBA59",
+    "cream": "F7E4B5",
+    "pale": "FFF3DB",
+    "coral_dark": "A44035",
+    "coral": "F4774E",
+    "teal_dark": "176B76",
+    "teal": "2EBEB9",
+    "violet_dark": "493552",
+    "violet": "9C5F9F",
+    "forest": "2F544A",
+    "stone": "B8AD99"
+  },
+  "rules": [
+    "Reserve cream for faces, clean highlights and interface text.",
+    "Teal identifies P1/current/defense; coral identifies P2/impact.",
+    "Give each material a controlled ramp; reduce tiny isolated pixels.",
+    "Use stage contrast to separate fighter outlines; do not tint sprites with full-screen filters."
+  ]
+}

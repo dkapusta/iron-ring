@@ -1,0 +1,7 @@
+player-version=@PROJECT_VERSION@
+window-mode=fullscreen
+presentation=integer
+vsync=1
+hdr=auto
+hdr-max-boost=2.0
+render-driver=

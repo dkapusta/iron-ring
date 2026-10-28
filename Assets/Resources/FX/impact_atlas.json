@@ -1,0 +1,26 @@
+{
+  "image": "impact_atlas.png",
+  "columns": 4,
+  "rows": 2,
+  "source_size": [
+    1774,
+    887
+  ],
+  "effects": [
+    "light_hit",
+    "heavy_hit",
+    "guard",
+    "current_break",
+    "punch_streak",
+    "kick_swoosh",
+    "landing_dust",
+    "ko_accent"
+  ],
+  "runtime_uses": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "status": "Single-frame visual concepts; animated effects remain to be authored"
+}

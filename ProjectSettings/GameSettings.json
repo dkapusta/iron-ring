@@ -1,0 +1,19 @@
+{
+  "logicalResolution": [640, 360],
+  "textureFilter": "linear",
+  "startStage": "breaker_pier",
+  "fighters": [
+    { "id": "mara", "atlas": "Fighters/Mara/mara_pose_atlas.json", "displayName": "MARA VOSS", "heightPixels": 142 },
+    { "id": "rook", "atlas": "Fighters/Rook/rook_pose_atlas.json", "displayName": "ROOK CALDER", "heightPixels": 156 }
+  ],
+  "stages": "Data/stages.json",
+  "effects": "Resources/FX/impact_atlas.json",
+  "sounds": {
+    "light_hit": "Resources/Audio/light_hit.wav",
+    "heavy_hit": "Resources/Audio/heavy_hit.wav",
+    "guard": "Resources/Audio/guard.wav",
+    "current_break": "Resources/Audio/current_break.wav",
+    "round_bell": "Resources/Audio/round_bell.wav",
+    "menu_confirm": "Resources/Audio/menu_confirm.wav"
+  }
+}

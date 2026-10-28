@@ -1,0 +1,27 @@
+{
+  "$comment": "Maps source folders to player archives. Read by CMake (output names) and AssetPacker (contents). Virtual path = file path relative to 'root'. See docs/asset-pipeline.md.",
+  "archives": [
+    {
+      "output": "globalgamemanagers",
+      "root": ".",
+      "include": ["ProjectSettings"]
+    },
+    {
+      "output": "resources.assets",
+      "root": "Assets",
+      "include": ["Resources"],
+      "excludeExtensions": [".wav", ".ogg", ".flac"]
+    },
+    {
+      "output": "resources.resource",
+      "root": "Assets",
+      "include": ["Resources"],
+      "extensions": [".wav", ".ogg", ".flac"]
+    },
+    {
+      "output": "sharedassets0.assets",
+      "root": "Assets",
+      "include": ["Data", "Fighters", "Stages"]
+    }
+  ]
+}
