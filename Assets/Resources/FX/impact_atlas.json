@@ -10,7 +10,7 @@
     "light_hit",
     "heavy_hit",
     "guard",
-    "current_break",
+    "breakaway",
     "punch_streak",
     "kick_swoosh",
     "landing_dust",

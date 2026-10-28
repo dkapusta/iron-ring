@@ -43,7 +43,7 @@ If a change seems to need a forbidden edge, stop and write an ADR instead.
 
 ## Assets
 
-- Source content lives in `Assets/`; runtime code addresses it by **virtual path** relative to `Assets/` (`"Stages/BreakerPier/breaker_pier.png"`). Settings live under `"ProjectSettings/..."`.
+- Source content lives in `Assets/`; runtime code addresses it by **virtual path** relative to `Assets/` (`"Stages/PierNine/pier_nine.png"`). Settings live under `"ProjectSettings/..."`.
 - A file under `Assets/` that no pipeline rule packs produces an AssetPacker warning — fix the rule, don't ignore the warning.
 - Use `-assets-folder Assets` to iterate on content without repacking.
 - Never commit franchise material (Fatal Fury or otherwise) — reference images stay outside the repository.

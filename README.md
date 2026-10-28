@@ -1,10 +1,10 @@
 # Iron Ring
 
-An early-90s style arcade fighting game — big hand-drawn sprites, four attack buttons, short explosive exchanges — built on a small, testable C++20 / SDL3 codebase.
+An early-90s style arcade fighting game about the **Iron Ring** — an illegal, invitation-only fight-club tournament in the dying port city of Grayhaven, 1992. Big hand-drawn sprites, four attack buttons, short explosive exchanges, built on a small, testable C++20 / SDL3 codebase. Setting and cast: [docs/design/setting.md](docs/design/setting.md).
 
 ![First headless capture of the M0 player](docs/images/m0-batchmode-capture.jpg)
 
-*Above: a real frame from this commit, captured with `-batchmode -screenshot`. Art is placeholder content from the Brass Current concept kit (see [docs/research/brass-current-kit.md](docs/research/brass-current-kit.md)).*
+*Above: a real frame captured with `-batchmode -screenshot` — Dee Marlowe vs Bram Hollis at Pier 9. All art is placeholder from the Brass Current concept kit, which serves as visual reference only; final art will be generated for Iron Ring ([ADR-0007](docs/adr/0007-concept-kit-as-placeholder-content.md)).*
 
 > **Status: M0 — Foundation.** The build, asset pipeline, engine skeleton and a ported deterministic combat core are in place. Gameplay is a placeholder versus screen. See [ROADMAP.md](ROADMAP.md).
 
@@ -68,7 +68,7 @@ The folder is self-contained and can be zipped and copied as is. The player writ
 | Light punch / heavy punch | F / G | Keypad 1 / 2 |
 | Light kick / sweep | H / J | Keypad 3 / 0 |
 | Guard | Space, or hold back | Right Shift, or hold back |
-| Current Break (50 meter) | Guard + G + J | Guard + Keypad 2 + 0 |
+| Breakaway (50 Heat) | Guard + G + J | Guard + Keypad 2 + 0 |
 
 Tab: CPU / local 2P · F2: next stage · F5: reset round · F1: debug overlay · F11 or Alt+Enter: fullscreen · F12: screenshot · Esc: quit. Bindings live in [`ProjectSettings/InputManager.json`](ProjectSettings/InputManager.json).
 
@@ -120,6 +120,6 @@ docs/                ADRs, architecture, asset pipeline, research, concept art
 
 No license has been chosen yet; until one is added, all rights are reserved by the author. Third-party libraries keep their own licenses (SDL3 and SDL3_mixer: zlib; miniz: MIT; nlohmann/json: MIT; doctest: MIT).
 
-Art and audio under `Assets/` are AI-generated placeholder concepts from the *Brass Current* kit. No Fatal Fury (or any other franchise) artwork, characters, names, logos or audio are included; Fatal Fury 2 is used only as genre and era reference ([docs/research/fatal-fury-2.md](docs/research/fatal-fury-2.md)).
+Art and audio under `Assets/` are AI-generated placeholders from the *Brass Current* concept kit, renamed to Iron Ring paths; they will be replaced by generated Iron Ring art. No Fatal Fury (or any other franchise) artwork, characters, names, logos or audio are included; Fatal Fury 2 is used only as genre and era reference ([docs/research/fatal-fury-2.md](docs/research/fatal-fury-2.md)).
 
 Unity and UnityPlayer are trademarks of Unity Technologies. Iron Ring is not affiliated with or endorsed by Unity, and contains no Unity code; the file naming is a stylistic choice that can be changed with one CMake variable ([ADR-0003](docs/adr/0003-unity-style-player-layout.md)).

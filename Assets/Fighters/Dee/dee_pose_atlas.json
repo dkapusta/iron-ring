@@ -1,5 +1,5 @@
 {
-  "image": "rook_pose_atlas.png",
+  "image": "dee_pose_atlas.png",
   "source_size": [
     1774,
     887
@@ -12,112 +12,112 @@
       "index": 0,
       "name": "idle",
       "source_rect": [
-        43,
-        38,
-        361,
-        360
+        67,
+        45,
+        333,
+        391
       ],
       "pivot_pixels": [
-        180.0,
-        360
+        166.0,
+        391
       ]
     },
     {
       "index": 1,
       "name": "step",
       "source_rect": [
-        483,
-        38,
-        403,
-        360
+        472,
+        48,
+        328,
+        388
       ],
       "pivot_pixels": [
-        195.0,
-        360
+        163.5,
+        388
       ]
     },
     {
       "index": 2,
       "name": "guard",
       "source_rect": [
-        944,
-        34,
-        327,
-        364
+        950,
+        60,
+        295,
+        376
       ],
       "pivot_pixels": [
-        163.0,
-        364
+        147.0,
+        376
       ]
     },
     {
       "index": 3,
       "name": "light_punch",
       "source_rect": [
-        1329,
-        37,
-        413,
-        361
+        1338,
+        57,
+        411,
+        379
       ],
       "pivot_pixels": [
         190.5,
-        361
+        379
       ]
     },
     {
       "index": 4,
       "name": "heavy_punch",
       "source_rect": [
-        33,
-        483,
-        407,
-        357
+        49,
+        492,
+        404,
+        373
       ],
       "pivot_pixels": [
-        193.0,
-        357
+        181.5,
+        373
       ]
     },
     {
       "index": 5,
       "name": "kick",
       "source_rect": [
-        484,
-        473,
-        411,
-        367
+        548,
+        459,
+        373,
+        406
       ],
       "pivot_pixels": [
-        51.5,
-        367
+        65.5,
+        406
       ]
     },
     {
       "index": 6,
       "name": "hit",
       "source_rect": [
-        944,
-        497,
-        368,
-        343
+        1000,
+        489,
+        283,
+        376
       ],
       "pivot_pixels": [
-        183.5,
-        343
+        136.5,
+        376
       ]
     },
     {
       "index": 7,
       "name": "victory",
       "source_rect": [
-        1414,
-        434,
-        326,
-        406
+        1388,
+        425,
+        336,
+        440
       ],
       "pivot_pixels": [
-        162.5,
-        406
+        167.5,
+        440
       ]
     }
   ]

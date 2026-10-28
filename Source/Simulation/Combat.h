@@ -19,7 +19,7 @@ inline constexpr int kStageMinX = 30;
 inline constexpr int kStageMaxX = 610;
 inline constexpr int kTickRate = 60;
 inline constexpr int kRoundSeconds = 99;
-inline constexpr int kBreakCost = 50;     // Current Break meter cost
+inline constexpr int kBreakCost = 50;     // Breakaway cost, in Heat meter units
 inline constexpr int kMeterMax = 100;
 
 enum Button : std::uint16_t {
@@ -32,7 +32,7 @@ inline constexpr Input kInputMask = 511;
 
 enum class Archetype : std::int32_t { Boxer = 0, Grappler = 1 };
 enum class Outcome : std::int32_t { Running = 0, Player1 = 1, Player2 = 2, Draw = 3 };
-enum class Effect : std::int32_t { LightHit = 0, HeavyHit = 1, Guard = 2, CurrentBreak = 3 };
+enum class Effect : std::int32_t { LightHit = 0, HeavyHit = 1, Guard = 2, Breakaway = 3 };
 
 struct Move {
     int startup, active, recovery, reach, damage, stun, knockback;

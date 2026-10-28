@@ -37,7 +37,7 @@ private:
 [[nodiscard]] SDL_ScaleMode parseScaleMode(std::string_view name);
 
 // Resolves a path relative to another asset's folder:
-//   siblingPath("Fighters/Mara/atlas.json", "atlas.png") == "Fighters/Mara/atlas.png"
+//   siblingPath("Fighters/Dee/atlas.json", "atlas.png") == "Fighters/Dee/atlas.png"
 [[nodiscard]] std::string siblingPath(std::string_view assetPath, std::string_view relative);
 
 } // namespace iron
