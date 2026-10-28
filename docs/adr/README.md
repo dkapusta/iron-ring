@@ -12,3 +12,4 @@ One file per decision, numbered, never renumbered. Supersede rather than rewrite
 | [0006](0006-deterministic-simulation.md) | Deterministic integer simulation ported from the concept kit | Accepted |
 | [0007](0007-concept-kit-as-placeholder-content.md) | Brass Current kit as placeholder content; setting reconciliation | Proposed |
 | [0008](0008-repository-and-binary-assets.md) | Binary assets in plain Git until a size threshold, then LFS | Accepted |
+| [0009](0009-mingw-static-runtime.md) | Link the MinGW runtime statically (no runtime DLLs next to binaries) | Accepted |

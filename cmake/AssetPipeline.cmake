@@ -18,13 +18,27 @@ file(GLOB_RECURSE _asset_sources CONFIGURE_DEPENDS
     "${PROJECT_SOURCE_DIR}/Assets/*"
     "${PROJECT_SOURCE_DIR}/ProjectSettings/*")
 
+# The packer runs on the build machine. When cross-compiling (e.g. MinGW on
+# Linux) the freshly built AssetPacker can't run, so point IR_ASSET_PACKER at
+# a host build of it, or set CMAKE_CROSSCOMPILING_EMULATOR (e.g. wine).
+set(IR_ASSET_PACKER "" CACHE FILEPATH "Host-runnable AssetPacker (cross-compiling only)")
+if(IR_ASSET_PACKER)
+    set(_packer "${IR_ASSET_PACKER}")
+    set(_packer_dependency "")
+elseif(CMAKE_CROSSCOMPILING AND NOT CMAKE_CROSSCOMPILING_EMULATOR)
+    message(FATAL_ERROR "Cross-compiling: set IR_ASSET_PACKER to a host AssetPacker executable")
+else()
+    set(_packer AssetPacker)
+    set(_packer_dependency AssetPacker)
+endif()
+
 add_custom_command(
     OUTPUT  ${_outputs}
-    COMMAND AssetPacker
+    COMMAND ${_packer}
             --project  "${PROJECT_SOURCE_DIR}"
             --pipeline "${_pipeline}"
             --output   "${IR_DATA_OUTPUT_DIR}"
-    DEPENDS AssetPacker ${_asset_sources}
+    DEPENDS ${_packer_dependency} ${_asset_sources}
     COMMENT "Packing assets into ${IR_DATA_DIR_NAME}"
     VERBATIM)
 
