@@ -12,7 +12,7 @@ cmake --preset debug && cmake --build --preset debug && ctest --preset debug
 - Player smoke test (no display needed):
   `Build/debug/Player/Debug/IronRing.x86_64 -batchmode -screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -frames 205 -screenshot /tmp/shot.png`
   Exit code 0 and a sensible PNG is the bar for any change to `Source/Runtime` or `Assets/`. Look at the image.
-- Configure with `-DIR_WARNINGS_AS_ERRORS=ON` before declaring work done. CI (`.github/workflows/ci.yml`) enforces it on Linux GCC/Clang and Windows MSVC/MinGW — a change isn't done until all four jobs are green.
+- Configure with `-DIR_WARNINGS_AS_ERRORS=ON` before declaring work done. CI (`.github/workflows/ci.yml`) enforces it on Linux GCC/Clang and Windows MSVC/MinGW — a change isn't done until every job is green.
 - Names and world facts come from [docs/design/setting.md](docs/design/setting.md); the Brass Current kit is visual reference only.
 - Offline or slow network: point FetchContent at local checkouts, e.g. `-DFETCHCONTENT_SOURCE_DIR_SDL3=/src/SDL` (also `_SDL3_MIXER`, `_MINIZ`, `_NLOHMANN_JSON`, `_DOCTEST`).
 
@@ -28,7 +28,7 @@ cmake --preset debug && cmake --build --preset debug && ctest --preset debug
 
 If a change seems to need a forbidden edge, stop and write an ADR instead.
 
-The launcher ↔ engine API (`Public/IronRing/Player.h`) is **C only**: plain C types, no `std::` objects, no exceptions crossing it. With MinGW each side links its own static C++ runtime ([ADR-0009](docs/adr/0009-mingw-static-runtime.md)).
+The launcher ↔ engine API (`Public/IronRing/Player.h`) is **C only**: plain C types, no `std::` objects, no exceptions crossing it. With MinGW each side may link its own static C++ runtime ([ADR-0009](docs/adr/0009-mingw-static-runtime.md)).
 
 ## Simulation rules (determinism)
 

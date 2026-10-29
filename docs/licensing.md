@@ -1,6 +1,18 @@
-# Licensing options (decision pending)
+# Licensing
 
-Iron Ring will be **free and open source**. This note compares the realistic options so the owner can choose; nothing is licensed yet (all rights reserved until a `LICENSE` file lands). Not legal advice.
+**Decision (2026-10-29): Iron Ring is licensed under the [zlib License](../LICENSE)**, the same licence as SDL and SDL_mixer. Third-party components are listed in [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md). Not legal advice.
+
+**Scope.** The zlib licence covers the whole repository: code, build files, documentation, and the current placeholder assets in `Assets/`. When the generated Iron Ring art replaces the placeholders, a content-specific licence can still be chosen for `Assets/` (see *Content licences* below); until then nothing in the repository is under different terms.
+
+**What zlib asks of others.** Anyone may use, modify and redistribute the code, including commercially and closed-source, provided they:
+
+1. don't misrepresent who wrote the original;
+2. plainly mark altered source versions;
+3. keep the licence notice in source distributions.
+
+Unlike MIT, a notice in binary-only distributions is appreciated but not required.
+
+The comparison that led to the choice follows.
 
 Two things need licences, and they usually get **different** ones:
 
@@ -25,7 +37,7 @@ Two things need licences, and they usually get **different** ones:
 - *Permissive vs copyleft:* permissive (MIT/zlib/BSD/Apache) lets anyone, including commercial studios, take the engine closed-source. Copyleft (MPL/GPL) forces improvements back into the open. GPL also prevents shipping a fork on platforms whose terms conflict with it (historically console SDKs, some app stores).
 - All permissive options are compatible with every current dependency (SDL3, SDL3_mixer: zlib; miniz, nlohmann/json, doctest: MIT; GCC runtime exception; winpthreads: MIT-style).
 
-**Recommendation:** **MIT** for code, as suggested, unless you'd like the zlib match with SDL (equally good) or the patent clause of Apache-2.0. If the wish is "nobody may close it", choose MPL-2.0 rather than GPL to stay engine-friendly.
+**Outcome:** zlib was chosen over MIT (equally permissive) to match SDL, so the engine and its main dependency share one licence family.
 
 ## Content licences
 
@@ -52,4 +64,4 @@ Things to know before choosing:
 | Keep improvements and remixes open | MPL-2.0 | CC BY-SA 4.0 |
 | Open engine, protected world | MIT | CC BY-SA 4.0 for files + trademark policy for name/characters |
 
-Once decided: add `LICENSE` (code) and `Assets/LICENSE` (content), an SPDX line in README, and `THIRD_PARTY_NOTICES.md`.
+Done: `LICENSE` (zlib) and `THIRD_PARTY_NOTICES.md` are in the repository root. If a separate content licence is chosen later, add it as `Assets/LICENSE` and state the split in README.
