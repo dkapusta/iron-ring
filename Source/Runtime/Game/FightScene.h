@@ -24,6 +24,7 @@ enum class Control { VsCpu, TwoPlayers, Demo };
 struct FightOptions {
     Control control = Control::VsCpu;
     bool training = false;
+    std::string stage; // stage id; empty = GameSettings startStage
 };
 
 // Versus screen: a best-of-3 sim::Match between the two fighters listed in

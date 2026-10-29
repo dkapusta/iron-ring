@@ -1,0 +1,32 @@
+{
+  "throw_hold_0": {
+    "partner": [
+      30,
+      0
+    ]
+  },
+  "throw_hold_1": {
+    "partner": [
+      34,
+      34
+    ]
+  },
+  "hoist_0": {
+    "partner": [
+      30,
+      0
+    ]
+  },
+  "hoist_1": {
+    "partner": [
+      4,
+      126
+    ]
+  },
+  "hoist_2": {
+    "partner": [
+      44,
+      6
+    ]
+  }
+}

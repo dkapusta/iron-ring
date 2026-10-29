@@ -1,6 +1,6 @@
 # ADR-0011: Procedural interim art, replaceable through a written spec and an importer
 
-- **Status:** Accepted
+- **Status:** Accepted. Fighters, portraits and stages have since been replaced by external art ([ADR-0012](0012-adopting-external-art.md)); effects, fonts, palette and icon remain procedural.
 - **Date:** 2026-10-29
 
 ## Context

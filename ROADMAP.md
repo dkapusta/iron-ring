@@ -37,7 +37,8 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 - ✅ Training overlay (F3 / `-training`): hit and hurt boxes, move names with frame data, frame advantage
 - ✅ CPU vs CPU demo mode (`-demo`, Tab); CI smoke run uses it
 - ✅ Windows icon and version resources; window icon on both platforms
-- 🔜 **Final art** for Dee, Bram and Pier 9 through the spec and importer (outside generation plus a pixel cleanup pass)
+- ✅ **Final art** for Dee, Bram, their portraits and all three stages (Art Pack v1, re-registered at one scale per fighter; sources in `ArtSource/`, [ADR-0012](docs/adr/0012-adopting-external-art.md))
+- ⬜ Animator pass on the generated frames in training mode (punch extension on Bram's LP/HP, walk-cycle smoothness, held-pose contact)
 - ⬜ Training mode, rest: input display, dummy settings (block all / stand / crouch / jump), position reset
 - ⬜ Per-frame hurt boxes for moves that change the silhouette (sweeps, uppercut)
 - ⬜ Audio: mix groups (SFX / voice / music), music streaming from `.resource`, hit-confirm layering; throw, tech and KO sounds
@@ -91,6 +92,7 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 | 2026-10-29 | License | zlib, matching SDL ([LICENSE](LICENSE), [docs/licensing.md](docs/licensing.md)) |
 | 2026-10-29 | Desperation moves | None. Heat pays only for the Breakaway |
 | 2026-10-29 | Art | Procedural interim art now; final art made elsewhere against the [asset spec](docs/art/asset-spec.md) and imported ([ADR-0011](docs/adr/0011-procedural-interim-art.md)) |
+| 2026-10-30 | Final art | Art Pack v1 adopted; frames re-registered at one scale, 48 colours per fighter ([ADR-0012](docs/adr/0012-adopting-external-art.md)) |
 
 ## Open questions for the project owner
 

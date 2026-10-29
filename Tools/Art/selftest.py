@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-"""Checks the art tools (run in CI; also handy after editing Tools/Art).
+"""Checks the art tools and the committed art (run in CI).
 
-1. The committed Assets/ match what generate.py produces (pixels and JSON),
-   so nobody edits generated files by hand or forgets to regenerate.
-2. Every fighter survives export -> import unchanged (pixels, pivots, partners),
+1. Procedural assets in Assets/ match what generate.py produces (pixels and
+   JSON), so nobody edits generated files by hand or forgets to regenerate.
+   Externally authored folders (ironart/ownership.py) are skipped.
+2. Externally authored fighter atlases equal a fresh pack of their source
+   frames in ArtSource/, so the sources and the game never drift apart.
+3. Every fighter survives export -> import unchanged (pixels, pivots, partners),
    which proves the importer's keying, scaling and packing are lossless for
    art that is already game-ready.
 
@@ -27,6 +30,7 @@ from ironart import effects, fighters, font, palette, stages  # noqa: E402
 from ironart.characters import CHARACTERS  # noqa: E402
 from ironart.importer import (REFERENCE_ORIGIN, FighterImport, export_references,  # noqa: E402
                               import_fighter)
+from ironart.ownership import EXTERNAL, fighter_frames, is_external  # noqa: E402
 
 ROOT = HERE.parent.parent
 ASSETS = ROOT / "Assets"
@@ -58,6 +62,8 @@ def check_generated(work: Path) -> list[str]:
         if produced.is_dir():
             continue
         relative = produced.relative_to(work)
+        if is_external(relative):
+            continue
         committed = ASSETS / relative
         if not committed.exists():
             errors.append(f"{relative}: generated but not committed")
@@ -66,6 +72,26 @@ def check_generated(work: Path) -> list[str]:
                 errors.append(f"{relative}: pixels differ from generate.py output (regenerate)")
         elif produced.read_bytes() != committed.read_bytes():
             errors.append(f"{relative}: differs from generate.py output (regenerate)")
+    return errors
+
+
+def check_sources(work: Path) -> list[str]:
+    errors = []
+    for folder in sorted(EXTERNAL):
+        if folder[0] != "Fighters":
+            continue
+        fighter = folder[1].lower()
+        source = fighter_frames(fighter)
+        (work / "Fighters" / folder[1]).mkdir(parents=True, exist_ok=True)
+        import_fighter(FighterImport(fighter=fighter, source=source, origin=REFERENCE_ORIGIN, scale=1,
+                                     quantize=False, manifest=source / "manifest.json"), work)
+        committed = frames(ASSETS / "Fighters" / folder[1] / f"{fighter}_atlas.json")
+        packed = frames(work / "Fighters" / folder[1] / f"{fighter}_atlas.json")
+        if committed != packed:
+            changed = sorted(n for n in committed.keys() | packed.keys() if committed.get(n) != packed.get(n))
+            errors.append(f"{fighter}: atlas differs from ArtSource frames ({', '.join(changed[:5])}); repack "
+                          f"with import_art.py fighter {fighter} {source.relative_to(ROOT)} --origin 128 232 "
+                          f"--scale 1 --no-quantize --manifest .../manifest.json")
     return errors
 
 
@@ -79,7 +105,7 @@ def check_round_trip(work: Path) -> list[str]:
         (target / "Fighters" / fighter.capitalize()).mkdir(parents=True, exist_ok=True)
         import_fighter(FighterImport(fighter=fighter, source=refs,
                                      origin=(REFERENCE_ORIGIN[0] * scale, REFERENCE_ORIGIN[1] * scale),
-                                     scale=1 / scale, manifest=refs / "manifest.json"), target)
+                                     scale=1 / scale, quantize=False, manifest=refs / "manifest.json"), target)
         original = frames(ASSETS / "Fighters" / fighter.capitalize() / f"{fighter}_atlas.json")
         imported = frames(target / "Fighters" / fighter.capitalize() / f"{fighter}_atlas.json")
         for name, value in original.items():
@@ -90,7 +116,9 @@ def check_round_trip(work: Path) -> list[str]:
 
 def main() -> int:
     with tempfile.TemporaryDirectory() as tmp:
-        errors = check_generated(Path(tmp) / "generated") + check_round_trip(Path(tmp) / "roundtrip")
+        work = Path(tmp)
+        errors = (check_generated(work / "generated") + check_sources(work / "sources")
+                  + check_round_trip(work / "roundtrip"))
     for e in errors:
         print("FAIL: " + e)
     print("art selftest: " + ("FAILED" if errors else "ok"))

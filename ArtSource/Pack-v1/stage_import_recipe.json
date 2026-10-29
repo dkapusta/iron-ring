@@ -1,0 +1,107 @@
+{
+  "pier_nine": {
+    "folder": "PierNine",
+    "source_chain_y": [
+      288,
+      346
+    ],
+    "input": "Source/Generated/pier_nine_approved.png",
+    "output": "Assets/Stages/PierNine/pier_nine.png",
+    "logical_size": [
+      640,
+      360
+    ],
+    "scanline_anchors_in": [
+      0,
+      52,
+      288,
+      346,
+      360
+    ],
+    "scanline_anchors_out": [
+      0,
+      52,
+      302,
+      350,
+      360
+    ],
+    "floor_luma_max": 102,
+    "hud_luma_max": 58,
+    "chain_bbox_approx": [
+      38,
+      302,
+      564,
+      48
+    ]
+  },
+  "lantern_row": {
+    "folder": "LanternRow",
+    "source_chain_y": [
+      291,
+      343
+    ],
+    "input": "Source/Generated/lantern_row_approved.png",
+    "output": "Assets/Stages/LanternRow/lantern_row.png",
+    "logical_size": [
+      640,
+      360
+    ],
+    "scanline_anchors_in": [
+      0,
+      52,
+      291,
+      343,
+      360
+    ],
+    "scanline_anchors_out": [
+      0,
+      52,
+      302,
+      350,
+      360
+    ],
+    "floor_luma_max": 102,
+    "hud_luma_max": 58,
+    "chain_bbox_approx": [
+      38,
+      302,
+      564,
+      48
+    ]
+  },
+  "the_crown": {
+    "folder": "TheCrown",
+    "source_chain_y": [
+      288,
+      342
+    ],
+    "input": "Source/Generated/the_crown_approved.png",
+    "output": "Assets/Stages/TheCrown/the_crown.png",
+    "logical_size": [
+      640,
+      360
+    ],
+    "scanline_anchors_in": [
+      0,
+      52,
+      288,
+      342,
+      360
+    ],
+    "scanline_anchors_out": [
+      0,
+      52,
+      302,
+      350,
+      360
+    ],
+    "floor_luma_max": 102,
+    "hud_luma_max": 58,
+    "chain_bbox_approx": [
+      38,
+      302,
+      564,
+      48
+    ]
+  }
+}

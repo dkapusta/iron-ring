@@ -42,13 +42,13 @@ Application::Application(const PlayerSettings& settings, const ProductInfo& info
 
     audio_ = std::make_unique<AudioSystem>();
 
-    // "linear" suits the high-resolution concept art; switch GameSettings.json
-    // to "pixelart" once sprites are redrawn on the 640x360 grid (ROADMAP M1).
+    // "pixelart" keeps the 640x360 art crisp at any integer or letterbox scale.
     const auto filter = parseScaleMode(gameSettings.value("textureFilter", "linear"));
     assets_ = std::make_unique<AssetLibrary>(vfs_, display_->renderer(), filter);
     FightOptions options;
     options.control = settings_.demo ? Control::Demo : Control::VsCpu;
     options.training = settings_.training;
+    options.stage = settings_.stage;
     scene_ = std::make_unique<FightScene>(*assets_, *audio_, options);
 }
 

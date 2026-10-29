@@ -33,7 +33,8 @@ FightScene::FightScene(AssetLibrary& assets, AudioSystem& audio, FightOptions op
     for (std::size_t i = 0; i < views_.size(); ++i)
         views_[i] = std::make_unique<FighterView>(assets, roster.at(i).get<std::string>());
 
-    loadStages(assets, settings.at("stages").get<std::string>(), settings.value("startStage", ""));
+    loadStages(assets, settings.at("stages").get<std::string>(),
+               options.stage.empty() ? settings.value("startStage", "") : options.stage);
     effects_ = std::make_unique<Effects>(assets, settings.at("effects").get<std::string>());
     small_ = std::make_unique<BitmapFont>(assets, settings.at("fonts").at("small").get<std::string>());
     large_ = std::make_unique<BitmapFont>(assets, settings.at("fonts").at("large").get<std::string>());
@@ -53,6 +54,11 @@ void FightScene::loadStages(AssetLibrary& assets, const std::string& stagesPath,
         stages_.push_back({s.at("name").get<std::string>(), &assets.texture(s.at("image").get<std::string>())});
     }
     if (stages_.empty()) throw std::runtime_error(stagesPath + ": no stages");
+    const bool found = std::any_of(catalog.at("stages").begin(), catalog.at("stages").end(),
+                                   [&](const auto& s) { return s.at("id").template get<std::string>() == startStage; });
+    if (!startStage.empty() && !found)
+        SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "Unknown stage '%s'; starting on %s", startStage.c_str(),
+                    stages_.front().name.c_str());
 }
 
 void FightScene::newMatch() {
