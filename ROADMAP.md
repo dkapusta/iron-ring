@@ -23,9 +23,10 @@ Milestones are ordered; items inside a milestone are roughly ordered. ✅ done �
 Goal: two characters that feel good in local play on one stage. Target platforms: **Windows and Linux** (macOS later).
 
 - ✅ **CI**: GitHub Actions — Linux GCC/Clang, Windows MSVC and MinGW: build with warnings as errors, `ctest`, batch-mode capture uploaded as an artifact
-- ✅ **MinGW static runtime**: binaries run from the build folder without MinGW DLLs (ADR-0009)
+- ✅ **MinGW runtime**: binaries run from the build folder without MinGW on PATH (ADR-0009)
 - ✅ **Iron Ring setting** and renamed content ([setting.md](docs/design/setting.md), ADR-0007)
-- 🔜 **License** files once chosen ([docs/licensing.md](docs/licensing.md))
+- ✅ **License**: zlib (`LICENSE`), third-party notices (`THIRD_PARTY_NOTICES.md`)
+- ✅ **MinGW toolchain robustness**: static runtime when it links, runtime DLLs copied otherwise (CLion 2026.2 bundled GCC 15.2); CI covers an msvcrt GCC 15.2 toolchain
 - 🔜 **Content data at runtime**: move/frame data loaded from JSON instead of `kBaseMoves`; schema validated by AssetPacker at bake time (bad data fails the build, not the game)
 - ⬜ **Animation format**: per-frame source rect, pivot, duration, hurt boxes, hit boxes, push box; authoring as JSON next to the atlas (or Aseprite export → converter in AssetPacker)
 - ⬜ **Art pass**: generate Dee and Bram for the Iron Ring setting on the 640×360 grid (idle, walk, jump, crouch, 4 attacks × startup/active/recovery, block, hit, KO, win), plus Pier 9 at night; switch `textureFilter` to `pixelart`. Needs an art-generation workflow decision (tools, prompts from `setting.md`, cleanup pass)
@@ -81,10 +82,10 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 | 2026-10-29 | Names | Renamed for Iron Ring ([setting.md](docs/design/setting.md)) |
 | 2026-10-29 | Company name | Keep `dkapusta` |
 | 2026-10-29 | Platforms | Windows + Linux; macOS later (M5) |
-| 2026-10-29 | MinGW runtime DLLs | Link statically ([ADR-0009](docs/adr/0009-mingw-static-runtime.md)) |
+| 2026-10-29 | MinGW runtime DLLs | Static when the toolchain allows, DLLs copied next to executables otherwise ([ADR-0009](docs/adr/0009-mingw-static-runtime.md)) |
+| 2026-10-29 | License | zlib, matching SDL ([LICENSE](LICENSE), [docs/licensing.md](docs/licensing.md)) |
 
 ## Open questions for the project owner
 
-1. **License** for code and for content — options compared in [docs/licensing.md](docs/licensing.md); MIT is the working assumption for code.
-2. **Art generation workflow** for the M1 art pass: which tools, who does pixel cleanup, how sprites are kept consistent across frames.
-3. **Desperation moves vs. Heat** — keep only the meter, or add a Fatal Fury-style low-health super? (affects M1 special-move design)
+1. **Art generation workflow** for the M1 art pass: which tools, who does pixel cleanup, how sprites are kept consistent across frames.
+2. **Desperation moves vs. Heat** — keep only the meter, or add a Fatal Fury-style low-health super? (affects M1 special-move design)

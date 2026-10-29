@@ -1,6 +1,7 @@
 # Iron Ring
 
 [![CI](https://github.com/dkapusta/iron-ring/actions/workflows/ci.yml/badge.svg)](https://github.com/dkapusta/iron-ring/actions/workflows/ci.yml)
+[![License: Zlib](https://img.shields.io/badge/license-zlib-blue.svg)](LICENSE)
 
 An early-90s style arcade fighting game about the **Iron Ring** — an illegal, invitation-only fight-club tournament in the dying port city of Grayhaven, 1992. Big hand-drawn sprites, four attack buttons, short explosive exchanges, built on a small, testable C++20 / SDL3 codebase. Setting and cast: [docs/design/setting.md](docs/design/setting.md).
 
@@ -125,14 +126,14 @@ docs/                ADRs, architecture, asset pipeline, research, concept art
 - [docs/design/setting.md](docs/design/setting.md) — the Iron Ring world, roster and venues
 - [AGENTS.md](AGENTS.md) — working agreements for contributors and coding agents
 - [docs/architecture.md](docs/architecture.md) — module map and runtime flow
-- [docs/licensing.md](docs/licensing.md) — licence options (decision pending)
+- [docs/licensing.md](docs/licensing.md) — licence choice and rationale
 - [docs/asset-pipeline.md](docs/asset-pipeline.md) — adding content, archives, virtual paths
 - [docs/adr/](docs/adr/) — architecture decision records
 - [docs/research/](docs/research/) — reference analysis (Fatal Fury 2) and concept-kit review
 
 ## Content and licensing
 
-No license has been chosen yet (options: [docs/licensing.md](docs/licensing.md)); until one is added, all rights are reserved by the author. Third-party libraries keep their own licenses (SDL3 and SDL3_mixer: zlib; miniz: MIT; nlohmann/json: MIT; doctest: MIT).
+Iron Ring is free and open source under the **[zlib License](LICENSE)**, the same licence as SDL. It covers the code, documentation and the current placeholder assets ([docs/licensing.md](docs/licensing.md)). Third-party components keep their own licences, listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 Art and audio under `Assets/` are AI-generated placeholders from the *Brass Current* concept kit, renamed to Iron Ring paths; they will be replaced by generated Iron Ring art. No Fatal Fury (or any other franchise) artwork, characters, names, logos or audio are included; Fatal Fury 2 is used only as genre and era reference ([docs/research/fatal-fury-2.md](docs/research/fatal-fury-2.md)).
 

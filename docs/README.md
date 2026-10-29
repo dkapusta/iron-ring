@@ -9,4 +9,4 @@
 | [research/fatal-fury-2.md](research/fatal-fury-2.md) | discussing genre references and what not to copy |
 | [research/brass-current-kit.md](research/brass-current-kit.md) | dealing with placeholder content and its known issues |
 | [concept/](concept/README.md) | you need the visual reference |
-| [licensing.md](licensing.md) | choosing or applying licences |
+| [licensing.md](licensing.md) | the zlib licence decision and its scope |
