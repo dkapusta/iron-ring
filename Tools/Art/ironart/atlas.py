@@ -19,6 +19,7 @@ from pathlib import Path
 from PIL import Image
 
 PADDING = 2
+FLOOR_TOLERANCE = 3  # px a frame may reach below its pivot (sole outlines, cloth)
 
 
 @dataclass
@@ -60,6 +61,15 @@ def pack(frames: list[Frame], max_width: int = 1024) -> tuple[Image.Image, dict[
         rx, ry, _, _ = rects[f.name]
         atlas.paste(f.image, (rx, ry))
     return atlas, rects
+
+
+def below_floor(frames: list[Frame]) -> list[str]:
+    """Frames that reach further below the ground line than FLOOR_TOLERANCE.
+
+    Meaningless for effects (centred pivots); callers check fighter atlases only.
+    """
+    return [f"{f.name} ({f.image.height - f.pivot[1]} px)" for f in frames
+            if f.image.height - f.pivot[1] > FLOOR_TOLERANCE]
 
 
 def write(frames: list[Frame], png: Path, extra: dict | None = None) -> dict:

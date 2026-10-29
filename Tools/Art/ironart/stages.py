@@ -315,17 +315,19 @@ def the_crown() -> Painter:
         p.rect(cx, 196, cx + 2, 236, "night_1")
         p.rect(cx - 16, 196, cx + 20, 198, "night_1")
 
-    # Rooftop sign scaffold with bulb letters, a few dead.
-    p.glow(320, 60, 170, ["night_2", "coral_1", "sodium_1"], 0.6, squash=0.35)
-    p.rect(150, 70, 490, 73, "ink")
-    for x in range(156, 490, 30):
-        p.line(x, 73, x + 15, 104, "ink")
-        p.line(x + 30, 73, x + 15, 104, "ink")
-    p.rect(150, 104, 490, 107, "ink")
+    # Rooftop sign scaffold with bulb letters, a few dead. Starts below the
+    # top HUD band (y 0..52) so the timer and round label stay readable.
+    top = 58
+    p.glow(320, top + 26, 170, ["night_2", "coral_1", "sodium_1"], 0.6, squash=0.35)
+    p.rect(150, top + 36, 490, top + 39, "ink")
+    for x in range(154, 460, 30):
+        p.line(x, top + 39, x + 15, top + 70, "ink")
+        p.line(x + 30, top + 39, x + 15, top + 70, "ink")
+    p.rect(150, top + 70, 490, top + 73, "ink")
     for x in (166, 470):
-        p.rect(x, 73, x + 4, 238, "ink")
-    bulb_text(p, "CROWN", 320 - (5 * 6 * 5 - 5) // 2, 34, 5, "sodium_3", dead_every=7)
-    bulb_text(p, "HOTEL", 320 - (5 * 6 * 3 - 3) // 2, 112, 3, "coral_3", dead_every=5)
+        p.rect(x, top + 39, x + 4, 238, "ink")
+    bulb_text(p, "CROWN", 320 - (5 * 6 * 5 - 5) // 2, top, 5, "sodium_3", dead_every=7)
+    bulb_text(p, "HOTEL", 320 - (5 * 6 * 3 - 3) // 2, top + 78, 3, "coral_3", dead_every=5)
 
     # Water tower on stilts.
     p.rect(30, 120, 96, 186, "wood_1")

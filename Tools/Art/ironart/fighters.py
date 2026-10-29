@@ -61,3 +61,5 @@ def generate(assets: Path, report: Path | None = None) -> None:
             report.mkdir(parents=True, exist_ok=True)
             (report / f"{cid}_points.json").write_text(json.dumps(points, indent=1), encoding="utf-8")
         print(f"fighters: {cid}: {len(frames)} frames")
+        if sunk := atlas.below_floor(frames):
+            print(f"fighters: {cid}: WARNING below the floor: {', '.join(sunk)}")

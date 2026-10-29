@@ -67,11 +67,11 @@ class PoseBook:
     def lying(self, pelvis_x: float = 0.0, **changes) -> Pose:
         """On the back, head towards -x: author upright, rotate +90 about the pelvis."""
         b = self.b
-        pelvis = (pelvis_x, self.b.chest_r + 1)
+        pelvis = (pelvis_x, self.b.chest_r + 4)
         down = self.hip - b.ankle
         pose = Pose(pelvis=pelvis, lean=0, head=-10, rotate=90,
                     near_foot=add(pelvis, (6, -down + 2)), far_foot=add(pelvis, (-3, -down + 4)),
-                    near_hand=add(pelvis, (12, 8)), far_hand=add(pelvis, (-3, 22)),
+                    near_hand=add(pelvis, (12, 8)), far_hand=add(pelvis, (9, 18)),
                     near_knee=1, far_knee=1, expression="hurt")
         return replace(pose, **changes)
 
@@ -146,7 +146,7 @@ class PoseBook:
                          far_foot=(s.back, b.ankle), far_toe=20, near_hand=add(lsh, (10, -6)),
                          far_hand=(s.back + 10, 6), far_open=True, near_open=s.open_hands)
         f["hk_1"] = Pose(pelvis=(4.0, low), lean=36, near_foot=(s.sweep[0] - b.foot * 0.6, s.sweep[1] + 1),
-                         far_foot=(-14, b.ankle), far_knee=1, far_toe=30, near_toe=-6,
+                         far_foot=(-8, b.ankle), far_knee=1, far_toe=30, near_toe=-6,
                          near_hand=add(lsh, (10, -10)), far_hand=(-4, 5), far_open=True, near_open=s.open_hands)
         f["hk_2"] = replace(f["hk_1"], near_foot=(s.sweep[0] - b.foot * 0.6 - 14, s.sweep[1] + 3), lean=32)
         f["hk_3"] = replace(f["crouch"], lean=28)

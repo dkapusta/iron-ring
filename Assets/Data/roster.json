@@ -1,5 +1,5 @@
 {
-  "$comment": "Iron Ring roster. Identities per docs/design/setting.md; art is placeholder from the concept kit.",
+  "$comment": "Iron Ring roster (docs/design/setting.md). Playable fighters are defined in Fighters/<Name>/<id>.fighter.json; the rest are planned.",
   "fighters": [
     {
       "id": "dee",
@@ -9,7 +9,8 @@
       "identity": "Banned Golden Gloves contender. Compact pressure, a precise jab, punishes whiffs.",
       "signature_concepts": [
         "Stiff Jab",
-        "Cross Counter"
+        "Cross Counter",
+        "Rush Uppercut"
       ],
       "starter_selectable": true
     },
@@ -18,10 +19,11 @@
       "name": "Bram Hollis",
       "role": "Grappler / power",
       "palette_accent": "coral",
-      "identity": "Laid-off shipyard rigger and the Ring's reigning gatekeeper. Slow advance, close-range reads; throws planned.",
+      "identity": "Laid-off shipyard rigger and the Ring's reigning gatekeeper. Slow advance, close-range reads, a command throw.",
       "signature_concepts": [
         "Anchor Hook",
-        "Hull Breaker"
+        "Hull Breaker",
+        "Dock Hoist"
       ],
       "starter_selectable": true
     },
