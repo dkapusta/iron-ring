@@ -1,0 +1,155 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # 1080p headless frame; uploaded so reviewers can see what changed.
+  SMOKE_ARGS: -batchmode -screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -frames 205
+
+jobs:
+  linux:
+    name: Linux (${{ matrix.compiler }})
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - compiler: gcc
+            cc: gcc
+            cxx: g++
+          - compiler: clang
+            cc: clang
+            cxx: clang++
+    env:
+      CC: ${{ matrix.cc }}
+      CXX: ${{ matrix.cxx }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install SDL build dependencies
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q ninja-build \
+            libx11-dev libxext-dev libxcursor-dev libxi-dev libxrandr-dev libxss-dev libxfixes-dev libxtst-dev \
+            libwayland-dev libxkbcommon-dev libegl1-mesa-dev libgl1-mesa-dev libasound2-dev libpulse-dev \
+            libudev-dev libdbus-1-dev
+
+
+      - name: Configure
+        run: cmake --preset release -DIR_WARNINGS_AS_ERRORS=ON
+
+      - name: Build
+        run: cmake --build --preset release
+
+      - name: Test
+        run: ctest --preset release
+
+      - name: Smoke run (batch mode)
+        run: Build/release/Player/Release/IronRing.x86_64 $SMOKE_ARGS -screenshot smoke-linux-${{ matrix.compiler }}.png
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: smoke-linux-${{ matrix.compiler }}
+          path: smoke-linux-${{ matrix.compiler }}.png
+
+  windows-msvc:
+    name: Windows (MSVC)
+    runs-on: windows-latest
+    env:
+      # The runner image also has MinGW on PATH; make Ninja pick MSVC.
+      CC: cl
+      CXX: cl
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ilammy/msvc-dev-cmd@v1
+
+
+      - name: Configure
+        run: cmake --preset release -DIR_WARNINGS_AS_ERRORS=ON
+
+      - name: Build
+        run: cmake --build --preset release
+
+      - name: Test
+        run: ctest --preset release
+
+      - name: Smoke run (batch mode)
+        shell: pwsh
+        run: |
+          $p = Start-Process -FilePath Build/release/Player/Release/IronRing.exe -Wait -PassThru -NoNewWindow `
+               -ArgumentList "$env:SMOKE_ARGS -screenshot smoke-windows-msvc.png".Split(' ')
+          if ($p.ExitCode -ne 0) { throw "IronRing.exe exited with $($p.ExitCode)" }
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: player-windows-msvc
+          path: |
+            smoke-windows-msvc.png
+            Build/release/Player/Release/
+
+  windows-mingw:
+    name: Windows (MinGW UCRT64)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: false
+          install: >-
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-cmake
+            mingw-w64-ucrt-x86_64-ninja
+            git
+
+
+      - name: Configure and build
+        shell: msys2 {0}
+        run: |
+          cmake --preset release -DIR_WARNINGS_AS_ERRORS=ON
+          cmake --build --preset release
+
+      - name: No MinGW runtime DLL imports (ADR-0009)
+        shell: msys2 {0}
+        run: |
+          status=0
+          for f in Build/release/Player/Release/IronRing.exe Build/release/Player/Release/UnityPlayer.dll \
+                   Build/release/Tests/IronRingTests.exe Build/release/Tools/Release/AssetPacker.exe; do
+            imports=$(objdump -p "$f" | grep "DLL Name" | awk '{print $3}' | sort -u | tr '\n' ' ')
+            echo "$f: $imports"
+            if echo "$imports" | grep -qiE 'libgcc|libstdc\+\+|libwinpthread'; then
+              echo "::error file=$f::imports a MinGW runtime DLL"; status=1
+            fi
+          done
+          exit $status
+
+      # The remaining steps run in PowerShell, outside MSYS2, with no MinGW
+      # bin folder on PATH: exactly the situation of a CLion run configuration.
+      - name: Test (outside MSYS2)
+        shell: pwsh
+        run: |
+          Build/release/Tests/IronRingTests.exe
+          if ($LASTEXITCODE -ne 0) { throw "tests failed" }
+
+      - name: Smoke run (outside MSYS2)
+        shell: pwsh
+        run: |
+          $p = Start-Process -FilePath Build/release/Player/Release/IronRing.exe -Wait -PassThru -NoNewWindow `
+               -ArgumentList "$env:SMOKE_ARGS -screenshot smoke-windows-mingw.png".Split(' ')
+          if ($p.ExitCode -ne 0) { throw "IronRing.exe exited with $($p.ExitCode)" }
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: player-windows-mingw
+          path: |
+            smoke-windows-mingw.png
+            Build/release/Player/Release/

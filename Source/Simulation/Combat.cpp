@@ -74,7 +74,7 @@ StepEvents Match::step(const std::array<Input, 2>& inputs) {
     ++tick;
 
     // Edge detection and input buffering run even during hitstop, so a
-    // Current Break can be entered while the game is frozen.
+    // Breakaway can be entered while the game is frozen.
     std::array<Input, 2> pressed{};
     for (std::size_t i = 0; i < 2; ++i) {
         auto& f = fighters[i];
@@ -115,7 +115,7 @@ StepEvents Match::step(const std::array<Input, 2>& inputs) {
         const bool canBreak = f.guarding && f.meter >= kBreakCost && f.breakTicks > 0 &&
                               std::abs(other.x - f.x) < kBreakRange * kFixed;
         if (canBreak) {
-            // Current Break: spend meter, cancel blockstun, push the opponent away.
+            // Breakaway: spend meter, cancel blockstun, push the opponent away.
             f.meter -= kBreakCost;
             f.stun = 0;
             f.blockstun = false;
@@ -126,7 +126,7 @@ StepEvents Match::step(const std::array<Input, 2>& inputs) {
             clampToStage(other);
             hitstop = 6;
             effectTicks = 12;
-            effect = Effect::CurrentBreak;
+            effect = Effect::Breakaway;
             effectX = f.x;
             effectY = f.y + 55 * kFixed;
             events.push(effect, effectX, effectY);

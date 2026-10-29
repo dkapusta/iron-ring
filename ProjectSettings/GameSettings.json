@@ -1,19 +1,33 @@
 {
-  "logicalResolution": [640, 360],
+  "logicalResolution": [
+    640,
+    360
+  ],
   "textureFilter": "linear",
-  "startStage": "breaker_pier",
+  "startStage": "pier_nine",
   "fighters": [
-    { "id": "mara", "atlas": "Fighters/Mara/mara_pose_atlas.json", "displayName": "MARA VOSS", "heightPixels": 142 },
-    { "id": "rook", "atlas": "Fighters/Rook/rook_pose_atlas.json", "displayName": "ROOK CALDER", "heightPixels": 156 }
+    {
+      "id": "dee",
+      "atlas": "Fighters/Dee/dee_pose_atlas.json",
+      "displayName": "DEE MARLOWE",
+      "heightPixels": 142
+    },
+    {
+      "id": "bram",
+      "atlas": "Fighters/Bram/bram_pose_atlas.json",
+      "displayName": "BRAM HOLLIS",
+      "heightPixels": 156
+    }
   ],
   "stages": "Data/stages.json",
   "effects": "Resources/FX/impact_atlas.json",
   "sounds": {
-    "light_hit": "Resources/Audio/light_hit.wav",
-    "heavy_hit": "Resources/Audio/heavy_hit.wav",
+    "breakaway": "Resources/Audio/breakaway.wav",
     "guard": "Resources/Audio/guard.wav",
-    "current_break": "Resources/Audio/current_break.wav",
-    "round_bell": "Resources/Audio/round_bell.wav",
-    "menu_confirm": "Resources/Audio/menu_confirm.wav"
-  }
+    "heavy_hit": "Resources/Audio/heavy_hit.wav",
+    "light_hit": "Resources/Audio/light_hit.wav",
+    "menu_confirm": "Resources/Audio/menu_confirm.wav",
+    "round_bell": "Resources/Audio/round_bell.wav"
+  },
+  "meterName": "HEAT"
 }

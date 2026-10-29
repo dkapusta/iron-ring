@@ -1,40 +1,41 @@
 {
+  "$comment": "Iron Ring venues. Images are placeholder concept art (day/sunset scenes) until night-ring art is produced.",
   "stages": [
     {
-      "id": "breaker_pier",
-      "name": "Breaker Pier",
-      "image": "Stages/BreakerPier/breaker_pier.png",
+      "id": "pier_nine",
+      "name": "Pier 9",
+      "image": "Stages/PierNine/pier_nine.png",
       "size": [
         1920,
         1080
       ],
       "floor_y_logical": 316,
-      "description": "Sunset harbor, warm timber floor and steel bridge.",
-      "parallax_status": "Single flattened background in the kit; layer separation planned"
+      "description": "Closed cargo pier after the night shift; a chalk ring between crane legs, dockers betting behind the rail.",
+      "parallax_status": "Single flattened placeholder; layer separation planned"
     },
     {
-      "id": "lantern_exchange",
-      "name": "Lantern Exchange",
-      "image": "Stages/LanternExchange/lantern_exchange.png",
+      "id": "lantern_row",
+      "name": "Lantern Row",
+      "image": "Stages/LanternRow/lantern_row.png",
       "size": [
         1920,
         1080
       ],
       "floor_y_logical": 316,
-      "description": "Night market, terracotta floor, amber lamps and teal beams.",
-      "parallax_status": "Single flattened background in the kit; layer separation planned"
+      "description": "Night market after curfew; stalls shuttered, the ring roped off under the old station clock.",
+      "parallax_status": "Single flattened placeholder; layer separation planned"
     },
     {
-      "id": "observatory_crown",
-      "name": "Observatory Crown",
-      "image": "Stages/ObservatoryCrown/observatory_crown.png",
+      "id": "the_crown",
+      "name": "The Crown",
+      "image": "Stages/TheCrown/the_crown.png",
       "size": [
         1920,
         1080
       ],
       "floor_y_logical": 316,
-      "description": "Blue dawn coast, pale limestone and an oxidized dome.",
-      "parallax_status": "Single flattened background in the kit; layer separation planned"
+      "description": "Rooftop terrace of the derelict Crown Hotel at first light; the final bout of the Iron Ring.",
+      "parallax_status": "Single flattened placeholder; layer separation planned"
     }
   ]
 }

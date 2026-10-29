@@ -50,6 +50,7 @@ private:
     std::vector<StageView> stages_;
     std::unique_ptr<SpriteAtlas> effects_;
     nlohmann::json hud_;
+    std::string meterName_;
     std::size_t stage_ = 0;
     bool cpu_ = true;
     int roundOverTicks_ = 0;

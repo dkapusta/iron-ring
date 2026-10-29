@@ -44,9 +44,9 @@ struct TempDir {
 } // namespace
 
 TEST_CASE("virtual paths are normalised and sandboxed") {
-    CHECK(normalizePath("Fighters/Mara/atlas.png") == "Fighters/Mara/atlas.png");
-    CHECK(normalizePath("Fighters\\Mara\\atlas.png") == "Fighters/Mara/atlas.png");
-    CHECK(normalizePath("./Fighters//Mara/./atlas.png") == "Fighters/Mara/atlas.png");
+    CHECK(normalizePath("Fighters/Dee/atlas.png") == "Fighters/Dee/atlas.png");
+    CHECK(normalizePath("Fighters\\Dee\\atlas.png") == "Fighters/Dee/atlas.png");
+    CHECK(normalizePath("./Fighters//Dee/./atlas.png") == "Fighters/Dee/atlas.png");
     CHECK(normalizePath("../secrets.txt").empty());
     CHECK(normalizePath("Fighters/../../x").empty());
     CHECK(normalizePath("/etc/passwd").empty());

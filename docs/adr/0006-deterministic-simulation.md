@@ -5,7 +5,7 @@
 
 ## Context
 
-The concept kit ships a compact combat prototype (`combat.hpp/.cpp`) with tests: movement, jump, four attacks, standing/crouch guard, one hit per move, simultaneous trades, hitstop, six-tick input buffer, Current Break from blockstun, timer/KO, a deterministic CPU, and an FNV-1a state checksum. Rollback netcode (M4) needs bit-exact determinism from the start; retrofitting it is painful.
+The concept kit ships a compact combat prototype (`combat.hpp/.cpp`) with tests: movement, jump, four attacks, standing/crouch guard, one hit per move, simultaneous trades, hitstop, six-tick input buffer, Current Break (now Breakaway) from blockstun, timer/KO, a deterministic CPU, and an FNV-1a state checksum. Rollback netcode (M4) needs bit-exact determinism from the start; retrofitting it is painful.
 
 ## Decision
 

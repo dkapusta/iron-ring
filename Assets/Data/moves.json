@@ -1,7 +1,7 @@
 {
   "units": "Frames at 60Hz; reach/knockback are logical pixels; startup counts ticks from age 0",
   "fighters": {
-    "mara": [
+    "dee": [
       {
         "startup": 4,
         "active": 3,
@@ -11,7 +11,7 @@
         "hitstun": 14,
         "knockback": 5,
         "low": false,
-        "name": "Breakwater Jab",
+        "name": "Stiff Jab",
         "input": "LP"
       },
       {
@@ -23,7 +23,7 @@
         "hitstun": 23,
         "knockback": 10,
         "low": false,
-        "name": "Rivet Hook",
+        "name": "Cross Counter",
         "input": "HP"
       },
       {
@@ -35,7 +35,7 @@
         "hitstun": 18,
         "knockback": 8,
         "low": false,
-        "name": "Step Kick",
+        "name": "Shin Kick",
         "input": "LK"
       },
       {
@@ -47,11 +47,11 @@
         "hitstun": 26,
         "knockback": 14,
         "low": true,
-        "name": "Low Tide",
+        "name": "Leg Sweep",
         "input": "HK"
       }
     ],
-    "rook": [
+    "bram": [
       {
         "startup": 4,
         "active": 3,
@@ -61,7 +61,7 @@
         "hitstun": 14,
         "knockback": 5,
         "low": false,
-        "name": "Dock Palm",
+        "name": "Palm Shove",
         "input": "LP"
       },
       {
@@ -73,7 +73,7 @@
         "hitstun": 23,
         "knockback": 10,
         "low": false,
-        "name": "Crane Hook",
+        "name": "Anchor Hook",
         "input": "HP"
       },
       {
@@ -85,7 +85,7 @@
         "hitstun": 18,
         "knockback": 8,
         "low": false,
-        "name": "Iron Boot",
+        "name": "Boot Kick",
         "input": "LK"
       },
       {
@@ -97,19 +97,10 @@
         "hitstun": 26,
         "knockback": 14,
         "low": true,
-        "name": "Deck Sweep",
+        "name": "Hull Breaker",
         "input": "HK"
       }
     ]
-  },
-  "current_break": {
-    "cost": 50,
-    "range": 120,
-    "push": 55,
-    "damage": 0,
-    "input": "Guard + HP + HK",
-    "can_cancel_blockstun": true,
-    "input_buffer_ticks": 6
   },
   "meter_gain": {
     "attacker_hit": 12,
@@ -117,5 +108,14 @@
     "attacker_blocked": 3,
     "defender_block": 8
   },
-  "note": "Data mirrors the starter. The starter does not parse this JSON at runtime."
+  "note": "Data mirrors the compiled-in simulation constants (kBaseMoves). Becomes the runtime source in M1.",
+  "breakaway": {
+    "cost": 50,
+    "range": 120,
+    "push": 55,
+    "damage": 0,
+    "input": "Guard + HP + HK",
+    "can_cancel_blockstun": true,
+    "input_buffer_ticks": 6
+  }
 }

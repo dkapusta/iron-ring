@@ -94,12 +94,26 @@ int runPlayer(const std::vector<std::string>& args) {
     }
 }
 
+// The exported functions are a C ABI boundary: the launcher and the engine
+// may each carry their own statically linked C++ runtime (MinGW, ADR-0009),
+// so no exception may escape across it.
+int guardedRun(const std::vector<std::string>& args) noexcept {
+    try {
+        return runPlayer(args);
+    } catch (const std::exception& e) {
+        SDL_LogCritical(SDL_LOG_CATEGORY_APPLICATION, "Fatal (startup): %s", e.what());
+    } catch (...) {
+        SDL_LogCritical(SDL_LOG_CATEGORY_APPLICATION, "Fatal (startup): unknown exception");
+    }
+    return 1;
+}
+
 } // namespace
 
 extern "C" IR_PLAYER_API int PlayerMain(int argc, char** argv) {
     std::vector<std::string> args;
     for (int i = 1; i < argc; ++i) args.emplace_back(argv[i]);
-    return runPlayer(args);
+    return guardedRun(args);
 }
 
 #if defined(_WIN32)
@@ -115,6 +129,6 @@ extern "C" IR_PLAYER_API int UnityMain(void* /*hInstance*/, void* /*hPrevInstanc
         args.push_back(std::move(utf8));
     }
     LocalFree(argvW);
-    return runPlayer(args);
+    return guardedRun(args);
 }
 #endif

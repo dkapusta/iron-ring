@@ -1,10 +1,12 @@
 # Iron Ring
 
-An early-90s style arcade fighting game — big hand-drawn sprites, four attack buttons, short explosive exchanges — built on a small, testable C++20 / SDL3 codebase.
+[![CI](https://github.com/dkapusta/iron-ring/actions/workflows/ci.yml/badge.svg)](https://github.com/dkapusta/iron-ring/actions/workflows/ci.yml)
+
+An early-90s style arcade fighting game about the **Iron Ring** — an illegal, invitation-only fight-club tournament in the dying port city of Grayhaven, 1992. Big hand-drawn sprites, four attack buttons, short explosive exchanges, built on a small, testable C++20 / SDL3 codebase. Setting and cast: [docs/design/setting.md](docs/design/setting.md).
 
 ![First headless capture of the M0 player](docs/images/m0-batchmode-capture.jpg)
 
-*Above: a real frame from this commit, captured with `-batchmode -screenshot`. Art is placeholder content from the Brass Current concept kit (see [docs/research/brass-current-kit.md](docs/research/brass-current-kit.md)).*
+*Above: a real frame captured with `-batchmode -screenshot` — Dee Marlowe vs Bram Hollis at Pier 9. All art is placeholder from the Brass Current concept kit, which serves as visual reference only; final art will be generated for Iron Ring ([ADR-0007](docs/adr/0007-concept-kit-as-placeholder-content.md)).*
 
 > **Status: M0 — Foundation.** The build, asset pipeline, engine skeleton and a ported deterministic combat core are in place. Gameplay is a placeholder versus screen. See [ROADMAP.md](ROADMAP.md).
 
@@ -19,7 +21,7 @@ An early-90s style arcade fighting game — big hand-drawn sprites, four attack 
 
 ## Building
 
-Requirements: CMake ≥ 3.25, Ninja (or Visual Studio 2022), a C++20 compiler (MSVC 19.3x, GCC ≥ 12, Clang ≥ 15), Git (FetchContent clones the dependencies on first configure).
+Requirements: CMake ≥ 3.25, Ninja (or Visual Studio 2022), a C++20 compiler (MSVC 19.3x, GCC/MinGW-w64 ≥ 12, Clang ≥ 15), Git (FetchContent clones the dependencies on first configure). Supported platforms: **Windows and Linux**; macOS is planned later.
 
 ```sh
 cmake --preset release          # first configure downloads SDL3 & friends (a few minutes)
@@ -28,6 +30,10 @@ ctest --preset release
 ```
 
 Windows with Visual Studio: `cmake --preset vs2022` then `cmake --build --preset vs2022-release`.
+
+**CLion on Windows (MinGW).** CLion picks up `CMakePresets.json`: enable the `debug`/`release` presets under *Settings → Build, Execution, Deployment → CMake* and select the MinGW toolchain for them (the presets use Ninja, which CLion bundles). Use the `IronRingPlayer` run configuration; set its working directory to `Build/<preset>/Player/<Config>/` if you start it with relative paths. MinGW builds link libgcc, libstdc++ and winpthread statically, so the player, tests and AssetPacker run straight from the build folder — no `libgcc_s_seh-1.dll` / `libstdc++-6.dll` / `libwinpthread-1.dll` needed ([ADR-0009](docs/adr/0009-mingw-static-runtime.md)). Opt out with `-DIR_MINGW_STATIC_RUNTIME=OFF`.
+
+Cross-compiling for Windows from Linux: see `cmake/toolchains/mingw-w64-x86_64.cmake` (pass a host-built `AssetPacker` via `-DIR_ASSET_PACKER=...`).
 
 Core-only (no SDL; simulation, archives, tools and tests): `cmake --preset core && cmake --build --preset core && ctest --preset core`.
 
@@ -68,7 +74,7 @@ The folder is self-contained and can be zipped and copied as is. The player writ
 | Light punch / heavy punch | F / G | Keypad 1 / 2 |
 | Light kick / sweep | H / J | Keypad 3 / 0 |
 | Guard | Space, or hold back | Right Shift, or hold back |
-| Current Break (50 meter) | Guard + G + J | Guard + Keypad 2 + 0 |
+| Breakaway (50 Heat) | Guard + G + J | Guard + Keypad 2 + 0 |
 
 Tab: CPU / local 2P · F2: next stage · F5: reset round · F1: debug overlay · F11 or Alt+Enter: fullscreen · F12: screenshot · Esc: quit. Bindings live in [`ProjectSettings/InputManager.json`](ProjectSettings/InputManager.json).
 
@@ -109,17 +115,19 @@ docs/                ADRs, architecture, asset pipeline, research, concept art
 
 ## Documentation
 
-- [ROADMAP.md](ROADMAP.md) — milestones and open questions
+- [ROADMAP.md](ROADMAP.md) — milestones, decisions log and open questions
+- [docs/design/setting.md](docs/design/setting.md) — the Iron Ring world, roster and venues
 - [AGENTS.md](AGENTS.md) — working agreements for contributors and coding agents
 - [docs/architecture.md](docs/architecture.md) — module map and runtime flow
+- [docs/licensing.md](docs/licensing.md) — licence options (decision pending)
 - [docs/asset-pipeline.md](docs/asset-pipeline.md) — adding content, archives, virtual paths
 - [docs/adr/](docs/adr/) — architecture decision records
 - [docs/research/](docs/research/) — reference analysis (Fatal Fury 2) and concept-kit review
 
 ## Content and licensing
 
-No license has been chosen yet; until one is added, all rights are reserved by the author. Third-party libraries keep their own licenses (SDL3 and SDL3_mixer: zlib; miniz: MIT; nlohmann/json: MIT; doctest: MIT).
+No license has been chosen yet (options: [docs/licensing.md](docs/licensing.md)); until one is added, all rights are reserved by the author. Third-party libraries keep their own licenses (SDL3 and SDL3_mixer: zlib; miniz: MIT; nlohmann/json: MIT; doctest: MIT).
 
-Art and audio under `Assets/` are AI-generated placeholder concepts from the *Brass Current* kit. No Fatal Fury (or any other franchise) artwork, characters, names, logos or audio are included; Fatal Fury 2 is used only as genre and era reference ([docs/research/fatal-fury-2.md](docs/research/fatal-fury-2.md)).
+Art and audio under `Assets/` are AI-generated placeholders from the *Brass Current* concept kit, renamed to Iron Ring paths; they will be replaced by generated Iron Ring art. No Fatal Fury (or any other franchise) artwork, characters, names, logos or audio are included; Fatal Fury 2 is used only as genre and era reference ([docs/research/fatal-fury-2.md](docs/research/fatal-fury-2.md)).
 
 Unity and UnityPlayer are trademarks of Unity Technologies. Iron Ring is not affiliated with or endorsed by Unity, and contains no Unity code; the file naming is a stylistic choice that can be changed with one CMake variable ([ADR-0003](docs/adr/0003-unity-style-player-layout.md)).

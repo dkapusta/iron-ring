@@ -15,7 +15,7 @@ inline constexpr std::string_view kHeaderEntryName = ".archive";
 inline constexpr int kFormatVersion = 1;
 
 // Virtual paths are relative, '/'-separated and case-sensitive:
-//   "Fighters/Mara/mara_pose_atlas.png"
+//   "Fighters/Dee/dee_pose_atlas.png"
 // Returns an empty string when the path is invalid (absolute, contains "..",
 // or empty after normalisation).
 [[nodiscard]] std::string normalizePath(std::string_view path);

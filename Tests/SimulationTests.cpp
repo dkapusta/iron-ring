@@ -88,18 +88,18 @@ TEST_CASE("fighters stay within stage bounds") {
     CHECK(m.fighters[1].x == kStageMaxX * kFixed);
 }
 
-TEST_CASE("Current Break spends meter and pushes without damage") {
+TEST_CASE("Breakaway spends meter and pushes without damage") {
     auto m = closeMatch();
     m.fighters[0].meter = kBreakCost;
     const auto events = m.step({Guard | HeavyPunch | HeavyKick, 0});
     CHECK(m.fighters[0].meter == 0);
     CHECK(m.fighters[1].hp == 100);
-    CHECK(m.effect == Effect::CurrentBreak);
+    CHECK(m.effect == Effect::Breakaway);
     REQUIRE(events.count == 1);
-    CHECK(events.items[0].effect == Effect::CurrentBreak);
+    CHECK(events.items[0].effect == Effect::Breakaway);
 }
 
-TEST_CASE("Current Break entered during hitstop executes from blockstun") {
+TEST_CASE("Breakaway entered during hitstop executes from blockstun") {
     auto m = closeMatch();
     m.fighters[0].meter = kBreakCost;
     (void)m.step({Guard, LightPunch});
@@ -111,7 +111,7 @@ TEST_CASE("Current Break entered during hitstop executes from blockstun") {
     for (int i = 0; i < 5; ++i) (void)m.step({Guard, 0});
     CHECK(m.fighters[0].meter == 8);
     CHECK_FALSE(m.fighters[0].blockstun);
-    CHECK(m.effect == Effect::CurrentBreak);
+    CHECK(m.effect == Effect::Breakaway);
 }
 
 TEST_CASE("identical input histories produce identical checksums every tick") {

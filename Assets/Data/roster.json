@@ -1,74 +1,75 @@
 {
+  "$comment": "Iron Ring roster. Identities per docs/design/setting.md; art is placeholder from the concept kit.",
   "fighters": [
     {
-      "id": "mara",
-      "name": "Mara Voss",
+      "id": "dee",
+      "name": "Dee Marlowe",
       "role": "Boxer / counter",
       "palette_accent": "teal",
-      "identity": "Compact pressure and a precise jab.",
+      "identity": "Banned Golden Gloves contender. Compact pressure, a precise jab, punishes whiffs.",
       "signature_concepts": [
-        "Breakwater Jab",
-        "Rivet Hook"
+        "Stiff Jab",
+        "Cross Counter"
       ],
       "starter_selectable": true
     },
     {
-      "id": "rook",
-      "name": "Rook Calder",
+      "id": "bram",
+      "name": "Bram Hollis",
       "role": "Grappler / power",
       "palette_accent": "coral",
-      "identity": "Slow advance, strong close-range reads; throws planned.",
+      "identity": "Laid-off shipyard rigger and the Ring's reigning gatekeeper. Slow advance, close-range reads; throws planned.",
       "signature_concepts": [
-        "Dock Palm",
-        "Crane Hook"
+        "Anchor Hook",
+        "Hull Breaker"
       ],
       "starter_selectable": true
     },
     {
-      "id": "lina",
-      "name": "Lina Vale",
+      "id": "sable",
+      "name": "Sable Reyes",
       "role": "Mobile kickboxer",
       "palette_accent": "violet",
-      "identity": "Air movement, angle changes and fast kicks.",
+      "identity": "Night courier who fights for the purse. Air movement, angle changes and fast kicks.",
       "signature_concepts": [
-        "Spiral Step",
-        "Glassline Kick"
+        "Switch Step",
+        "Wire Kick"
       ],
       "starter_selectable": false
     },
     {
-      "id": "tariq",
-      "name": "Tariq Moss",
+      "id": "idris",
+      "name": "Idris Okafor",
       "role": "Long-range striker",
       "palette_accent": "muted_blue",
-      "identity": "Controls space with extended kicks and deliberate recovery.",
+      "identity": "Former merchant sailor stranded in Grayhaven. Controls space with long kicks and deliberate recovery.",
       "signature_concepts": [
-        "Horizon Heel",
-        "Mastline Kick"
+        "Bowline Heel",
+        "Mast Kick"
       ],
       "starter_selectable": false
     },
     {
-      "id": "edda",
-      "name": "Edda Flint",
+      "id": "greta",
+      "name": "Greta Voll",
       "role": "Power brawler",
       "palette_accent": "brass",
-      "identity": "Stable guard and heavy short-range punishes.",
+      "identity": "Foundry forewoman settling a score with the Broker. Stable guard and heavy short-range punishes.",
       "signature_concepts": [
-        "Forge Knuckle",
-        "Anchor Drop"
+        "Slag Knuckle",
+        "Ladle Drop"
       ],
       "starter_selectable": false
     },
     {
-      "id": "kei",
-      "name": "Kei Sato",
+      "id": "jun",
+      "name": "Jun Arata",
       "role": "Rushdown / feint",
       "palette_accent": "coral",
-      "identity": "Low movement and quick pressure resets.",
+      "identity": "Pickpocket who works the crowd between bouts. Low movement and quick pressure resets.",
       "signature_concepts": [
-        "Courier Step",
-        "Signal Break"
+        "Lift Step",
+        "Sleight Feint"
       ],
       "starter_selectable": false
     }

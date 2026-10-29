@@ -27,7 +27,10 @@ void fill(SDL_Renderer* r, SDL_FRect rect, Rgba c) {
     SDL_RenderFillRect(r, &rect);
 }
 
+// Placeholder text with a 1px ink shadow so it reads over busy stage art.
 void text(SDL_Renderer* r, float x, float y, const char* s, Rgba c = kCream) {
+    SDL_SetRenderDrawColor(r, kInk.r, kInk.g, kInk.b, 255);
+    SDL_RenderDebugText(r, x + 1, y + 1, s);
     SDL_SetRenderDrawColor(r, c.r, c.g, c.b, c.a);
     SDL_RenderDebugText(r, x, y, s);
 }
@@ -41,7 +44,7 @@ const char* soundFor(sim::Effect effect) {
     case sim::Effect::LightHit:     return "light_hit";
     case sim::Effect::HeavyHit:     return "heavy_hit";
     case sim::Effect::Guard:        return "guard";
-    case sim::Effect::CurrentBreak: return "current_break";
+    case sim::Effect::Breakaway: return "breakaway";
     }
     return "";
 }
@@ -75,6 +78,7 @@ FightScene::FightScene(AssetLibrary& assets, AudioSystem& audio)
     loadStages(assets, settings.at("stages").get<std::string>(), settings.value("startStage", ""));
     effects_ = std::make_unique<SpriteAtlas>(assets, settings.at("effects").get<std::string>());
     hud_ = assets.json("Resources/UI/hud_layout.json");
+    meterName_ = settings.value("meterName", "METER");
 
     for (const auto& [id, path] : settings.at("sounds").items()) audio_.load(id, assets.bytes(path.get<std::string>()));
     restartRound();
@@ -159,7 +163,7 @@ void FightScene::drawFighter(SDL_Renderer* r, const sim::Fighter& f, const Fight
 void FightScene::drawEffect(const RenderContext& context) const {
     if (match_.effectTicks <= 0) return;
     const SpriteFrame& frame = effects_->frame(static_cast<int>(match_.effect));
-    const float size = match_.effect == sim::Effect::CurrentBreak ? 72.0f : 44.0f;
+    const float size = match_.effect == sim::Effect::Breakaway ? 72.0f : 44.0f;
     const float x = static_cast<float>(match_.effectX) / sim::kFixed;
     const float y = static_cast<float>(sim::kFloorY) - static_cast<float>(match_.effectY) / sim::kFixed;
     const SDL_FRect dst{x - size / 2, y - size / 2, size, size};
@@ -195,7 +199,7 @@ void FightScene::drawHud(SDL_Renderer* r) const {
         fill(r, {meter.x + 1, meter.y + 1, meter.w - 2, meter.h - 2}, kInk);
         fill(r, {meter.x + 1, meter.y + 1, (meter.w - 2) * static_cast<float>(f.meter) / sim::kMeterMax, meter.h - 2},
              f.meter >= sim::kBreakCost ? kTeal : Rgba{23, 107, 118, 255});
-        text(r, meter.x, meter.y + meter.h + 2, "CURRENT");
+        text(r, meter.x, meter.y + meter.h + 2, meterName_.c_str());
     }
 
     const SDL_FRect timer = rectFrom(hud_.at("timer"));
