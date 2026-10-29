@@ -90,10 +90,10 @@ TEST_CASE("fighter parsing") {
 
     auto broken = minimalFighter();
     broken["moves"].erase("heavyKick");
-    CHECK_THROWS_WITH_AS(parseFighter(broken, "x.json"), doctest::Contains("heavyKick"), ContentError);
+    CHECK_THROWS_WITH_AS((void)parseFighter(broken, "x.json"), doctest::Contains("heavyKick"), ContentError);
     broken = minimalFighter();
     broken["moves"]["lightPunch"]["hitbox"] = {1, 2, 3};
-    CHECK_THROWS_AS(parseFighter(broken, "x.json"), ContentError);
+    CHECK_THROWS_AS((void)parseFighter(broken, "x.json"), ContentError);
 }
 
 TEST_CASE("animation timing") {

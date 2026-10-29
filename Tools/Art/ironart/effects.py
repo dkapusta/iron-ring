@@ -29,14 +29,16 @@ class Fx:
             self.img[yi, xi, :3] = palette.rgb(colour)
             self.img[yi, xi, 3] = 255
 
-    def ray(self, angle: float, r0: float, r1: float, colours: list[str], width: float = 1.0) -> None:
+    def ray(self, angle: float, r0: float, r1: float, colours: list[str], width: float = 1.0,
+            cy: float | None = None) -> None:
+        cy = self.cy if cy is None else cy
         steps = int((r1 - r0) * 2) + 1
         for i in range(steps):
             r = r0 + (r1 - r0) * i / max(steps - 1, 1)
             colour = colours[min(int(i / steps * len(colours)), len(colours) - 1)]
             for w in np.arange(-width / 2 + 0.5, width / 2, 1.0) if width > 1 else (0.0,):
                 x = self.cx + r * math.cos(angle) - w * math.sin(angle)
-                y = self.cy + r * math.sin(angle) + w * math.cos(angle)
+                y = cy + r * math.sin(angle) + w * math.cos(angle)
                 self.put(x, y, colour)
 
     def disc(self, r: float, colour: str, dither: float = 1.0, cx: float | None = None, cy: float | None = None,
@@ -153,9 +155,9 @@ def slam_dust() -> list[Image.Image]:
             dither = 1.0 - i * 0.15
             f.disc(r, "steel_2", dither, cx=x, cy=f.h - r * 0.7, squash=0.7)
             f.disc(r * 0.6, "fog", dither, cx=x - 1, cy=f.h - r * 0.9, squash=0.7)
-        if i < 2:
+        if i < 2:  # skid lines along the ground, either side of the impact
             for k in (-1, 1):
-                f.ray(math.pi if k < 0 else 0, 6, 30 + i * 8, ["chalk", "bone"], 1)
+                f.ray(math.pi if k < 0 else 0, 6, 30 + i * 8, ["chalk", "bone"], 1, cy=f.h - 2)
         frames.append(f.image())
     return frames
 

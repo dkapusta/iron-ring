@@ -26,7 +26,7 @@ An early-90s style arcade fighting game about the **Iron Ring** — an illegal, 
 Requirements: CMake ≥ 3.25, Ninja (or Visual Studio 2022), a C++20 compiler (MSVC 19.3x, GCC/MinGW-w64 ≥ 12, Clang ≥ 15), Git (FetchContent clones the dependencies on first configure). Supported platforms: **Windows and Linux**; macOS is planned later.
 
 ```sh
-cmake --preset release          # first configure downloads SDL3 & friends (a few minutes)
+cmake --preset release          # first configure of a preset downloads SDL3 & friends (a few minutes)
 cmake --build --preset release
 ctest --preset release
 ```

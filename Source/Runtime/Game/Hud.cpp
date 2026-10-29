@@ -1,7 +1,7 @@
 #include "Game/Hud.h"
 
 #include <algorithm>
-#include <cstdio>
+#include <string>
 
 namespace iron {
 namespace {
@@ -151,9 +151,9 @@ void Hud::draw(SDL_Renderer* r, const sim::Match& match, const std::array<const 
     const SDL_FRect t = rectOf(layout_.at("timer"));
     frame(r, t);
     fill(r, t.x, t.y, t.w, t.h, kNight);
-    const int seconds = std::max(0, (match.round.remaining + sim::kTickRate - 1) / sim::kTickRate);
-    char clock[8];
-    std::snprintf(clock, sizeof clock, "%02d", seconds);
+    // Arcade clocks show two digits.
+    const int seconds = std::clamp((match.round.remaining + sim::kTickRate - 1) / sim::kTickRate, 0, 99);
+    const std::string clock = (seconds < 10 ? "0" : "") + std::to_string(seconds);
     large_.draw(r, clock, t.x + t.w / 2, t.y + 4, {255, 255, 255, 255}, Align::Centre);
 
     const auto round = layout_.at("roundLabel");
