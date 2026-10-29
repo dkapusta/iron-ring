@@ -36,8 +36,4 @@ private:
 // "linear" | "nearest" | "pixelart"; unknown values fall back to linear.
 [[nodiscard]] SDL_ScaleMode parseScaleMode(std::string_view name);
 
-// Resolves a path relative to another asset's folder:
-//   siblingPath("Fighters/Dee/atlas.json", "atlas.png") == "Fighters/Dee/atlas.png"
-[[nodiscard]] std::string siblingPath(std::string_view assetPath, std::string_view relative);
-
 } // namespace iron

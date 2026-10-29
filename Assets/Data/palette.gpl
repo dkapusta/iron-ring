@@ -1,20 +1,110 @@
 GIMP Palette
-Name: Iron Ring (placeholder)
+Name: Iron Ring
 Columns: 8
 #
-  9  22  39 ink
- 18  60  74 deep_teal
- 41  70  94 steel
- 80 105 129 muted_blue
-157  98  54 brass_dark
-239 186  89 brass
-247 228 181 cream
-255 243 219 pale
-164  64  53 coral_dark
-244 119  78 coral
- 23 107 118 teal_dark
- 46 190 185 teal
- 73  53  82 violet_dark
-156  95 159 violet
- 47  84  74 forest
-184 173 153 stone
+  7   9  15	ink
+ 12  16  32	night_0
+ 20  26  48	night_1
+ 31  39  66	night_2
+ 43  53  80	steel_0
+ 61  74 102	steel_1
+ 90 103 130	steel_2
+138 147 168	fog
+ 90  46  23	sodium_0
+156  79  30	sodium_1
+217 130  43	sodium_2
+242 176  78	sodium_3
+255 227 161	sodium_4
+ 13  47  54	teal_0
+ 20  85  96	teal_1
+ 31 138 140	teal_2
+ 63 196 184	teal_3
+166 240 224	teal_4
+ 61  18  22	coral_0
+122  31  34	coral_1
+191  58  46	coral_2
+239 106  69	coral_3
+255 180 138	coral_4
+241 234 216	chalk
+207 196 168	bone
+ 42  26  18	wood_0
+ 74  46  29	wood_1
+110  69  40	wood_2
+148  98  56	wood_3
+ 58  26  26	brick_0
+107  46  38	brick_1
+ 28  15  11	dee_skin_0
+ 61  34  24	dee_skin_1
+ 92  52  35	dee_skin_2
+125  74  49	dee_skin_3
+163 104  63	dee_skin_4
+  6   6  10	dee_hair_0
+ 15  15  22	dee_hair_1
+ 27  27  38	dee_hair_2
+ 44  44  60	dee_hair_3
+ 69  70  92	dee_hair_4
+  7  29  34	dee_top_0
+ 13  58  66	dee_top_1
+ 20  99 106	dee_top_2
+ 31 138 140	dee_top_3
+ 63 196 184	dee_top_4
+  6   7  12	dee_pants_0
+ 17  19  29	dee_pants_1
+ 29  33  48	dee_pants_2
+ 44  50  71	dee_pants_3
+ 67  76 102	dee_pants_4
+ 42  38  32	dee_stripe_0
+140 132 112	dee_stripe_1
+189 179 153	dee_stripe_2
+227 218 194	dee_stripe_3
+246 241 227	dee_stripe_4
+ 58  53  44	dee_wraps_0
+154 145 123	dee_wraps_1
+199 190 165	dee_wraps_2
+230 223 202	dee_wraps_3
+251 247 236	dee_wraps_4
+  5   5   8	dee_boots_0
+ 16  17  24	dee_boots_1
+ 28  29  40	dee_boots_2
+ 43  45  61	dee_boots_3
+ 68  71  92	dee_boots_4
+ 42  22  12	bram_skin_0
+ 92  54  32	bram_skin_1
+138  86  52	bram_skin_2
+176 117  72	bram_skin_3
+210 154 104	bram_skin_4
+ 12   7   5	bram_beard_0
+ 31  19  12	bram_beard_1
+ 51  32  21	bram_beard_2
+ 74  48  32	bram_beard_3
+ 99  68  45	bram_beard_4
+  8   9  13	bram_shirt_0
+ 23  26  34	bram_shirt_1
+ 38  43  54	bram_shirt_2
+ 58  65  80	bram_shirt_3
+ 86  96 115	bram_shirt_4
+ 32  12   7	bram_overall_0
+ 78  29  16	bram_overall_1
+122  48  24	bram_overall_2
+168  72  31	bram_overall_3
+207 106  46	bram_overall_4
+ 18  10   6	bram_straps_0
+ 58  36  18	bram_straps_1
+ 94  59  27	bram_straps_2
+138  90  39	bram_straps_3
+185 132  55	bram_straps_4
+  4   4   4	bram_boots_0
+ 14  13  13	bram_boots_1
+ 27  25  24	bram_boots_2
+ 43  40  38	bram_boots_3
+ 67  62  58	bram_boots_4
+ 11  13  18	metal_0
+ 61  74 102	metal_1
+ 90 103 130	metal_2
+138 147 168	metal_3
+213 219 230	metal_4
+  5   6  10	eye_0
+  5   6  10	eye_1
+  5   6  10	eye_2
+241 234 216	eye_3
+255 255 255	eye_4

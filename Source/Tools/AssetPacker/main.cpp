@@ -6,6 +6,7 @@
 
 #include "Pipeline.h"
 
+#include "Content/Validation.h"
 #include "Vfs/ArchiveWriter.h"
 #include "Vfs/ZipMount.h"
 
@@ -16,6 +17,7 @@
 #include <fstream>
 #include <iostream>
 #include <map>
+#include <optional>
 #include <string>
 
 namespace fs = std::filesystem;
@@ -64,6 +66,22 @@ int pack(const fs::path& project, const fs::path& pipelineFile, const fs::path& 
     const auto config = tools::loadPipeline(pipelineFile);
     const auto plan = tools::planPack(config, project);
     for (const auto& w : plan.warnings) std::cout << "AssetPacker: warning: " << w << '\n';
+
+    // Validate exactly what is about to be packed; broken content fails the build.
+    std::map<std::string, fs::path, std::less<>> files;
+    for (const auto& archive : plan.archives)
+        for (const auto& file : archive) files.emplace(file.virtualPath, file.source);
+    const auto report = content::validateProject([&](std::string_view path) -> std::optional<vfs::Bytes> {
+        const auto it = files.find(path);
+        if (it == files.end()) return std::nullopt;
+        return readFile(it->second);
+    });
+    for (const auto& w : report.warnings) std::cout << "AssetPacker: warning: " << w << '\n';
+    for (const auto& e : report.errors) std::cerr << "AssetPacker: error: " << e << '\n';
+    if (!report.ok()) {
+        std::cerr << "AssetPacker: " << report.errors.size() << " content error(s); nothing was written\n";
+        return 1;
+    }
 
     fs::create_directories(output);
     for (std::size_t i = 0; i < config.archives.size(); ++i) {

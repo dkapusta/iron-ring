@@ -22,3 +22,5 @@ desktop.ini
 Player.log
 Player-prev.log
 Screenshot-*.png
+__pycache__/
+*.pyc

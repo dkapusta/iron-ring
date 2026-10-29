@@ -6,6 +6,14 @@
 # local checkout (e.g. -DFETCHCONTENT_SOURCE_DIR_SDL3=/src/SDL), or set
 # FETCHCONTENT_FULLY_DISCONNECTED=ON after a first successful configure.
 
+# Build trees configured by older presets cached a Build/_deps shared by every
+# preset; FetchContent also keeps the dependencies' build trees there, so
+# configurations overwrote each other's objects. Move them to this build tree.
+if(FETCHCONTENT_BASE_DIR STREQUAL "${CMAKE_SOURCE_DIR}/Build/_deps")
+    message(STATUS "Dependencies move from the shared Build/_deps to ${CMAKE_BINARY_DIR}/_deps")
+    set(FETCHCONTENT_BASE_DIR "${CMAKE_BINARY_DIR}/_deps" CACHE PATH "FetchContent base directory" FORCE)
+endif()
+
 include(FetchContent)
 
 # Let option() in older dependency scripts honour the variables set below.

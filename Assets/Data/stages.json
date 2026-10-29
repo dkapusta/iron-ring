@@ -1,41 +1,41 @@
 {
-  "$comment": "Iron Ring venues. Images are placeholder concept art (day/sunset scenes) until night-ring art is produced.",
+  "$comment": "Iron Ring venues (docs/design/setting.md). Backdrops are 640x360 logical-pixel images, feet on y = 316 (docs/art/asset-spec.md). Interim art from Tools/Art/generate.py.",
   "stages": [
     {
       "id": "pier_nine",
       "name": "Pier 9",
       "image": "Stages/PierNine/pier_nine.png",
       "size": [
-        1920,
-        1080
+        640,
+        360
       ],
       "floor_y_logical": 316,
       "description": "Closed cargo pier after the night shift; a chalk ring between crane legs, dockers betting behind the rail.",
-      "parallax_status": "Single flattened placeholder; layer separation planned"
+      "parallax_status": "Single flattened layer; parallax layers planned (ROADMAP M3)"
     },
     {
       "id": "lantern_row",
       "name": "Lantern Row",
       "image": "Stages/LanternRow/lantern_row.png",
       "size": [
-        1920,
-        1080
+        640,
+        360
       ],
       "floor_y_logical": 316,
       "description": "Night market after curfew; stalls shuttered, the ring roped off under the old station clock.",
-      "parallax_status": "Single flattened placeholder; layer separation planned"
+      "parallax_status": "Single flattened layer; parallax layers planned (ROADMAP M3)"
     },
     {
       "id": "the_crown",
       "name": "The Crown",
       "image": "Stages/TheCrown/the_crown.png",
       "size": [
-        1920,
-        1080
+        640,
+        360
       ],
       "floor_y_logical": 316,
       "description": "Rooftop terrace of the derelict Crown Hotel at first light; the final bout of the Iron Ring.",
-      "parallax_status": "Single flattened placeholder; layer separation planned"
+      "parallax_status": "Single flattened layer; parallax layers planned (ROADMAP M3)"
     }
   ]
 }

@@ -22,7 +22,7 @@ The project needs SDL3, SDL3_mixer, a ZIP library, a JSON library and a test fra
 - Tags are cache variables (`IR_SDL3_TAG`, …) so a bump is one line and can be tried without editing files.
 - Every dependency is built **static**, with its own tests/examples/install disabled. SDL3 and SDL3_mixer are linked into the engine module, so the player folder has no extra DLLs.
 - `SYSTEM` keeps third-party headers out of our warning flags.
-- Offline builds: `FETCHCONTENT_SOURCE_DIR_<NAME>` for local checkouts, or `FETCHCONTENT_FULLY_DISCONNECTED=ON` after one successful configure. Presets put all downloads in `Build/_deps`, shared by every preset.
+- Offline builds: `FETCHCONTENT_SOURCE_DIR_<NAME>` for local checkouts, or `FETCHCONTENT_FULLY_DISCONNECTED=ON` after one successful configure. Each preset keeps its dependencies in its own `Build/<preset>/_deps`. *(Revised 2026-10-29: presets first shared one `Build/_deps`, but FetchContent keeps the dependencies' build trees there too, so debug and release overwrote each other's SDL objects and could link the other configuration's code. A shallow clone per preset is the price of correctness.)*
 
 ## Consequences
 

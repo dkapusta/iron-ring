@@ -27,15 +27,21 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 - ✅ **Iron Ring setting** and renamed content ([setting.md](docs/design/setting.md), ADR-0007)
 - ✅ **License**: zlib (`LICENSE`), third-party notices (`THIRD_PARTY_NOTICES.md`)
 - ✅ **MinGW toolchain robustness**: static runtime when it links, runtime DLLs copied otherwise (CLion 2026.2 bundled GCC 15.2); CI covers an msvcrt GCC 15.2 toolchain
-- 🔜 **Content data at runtime**: move/frame data loaded from JSON instead of `kBaseMoves`; schema validated by AssetPacker at bake time (bad data fails the build, not the game)
-- ⬜ **Animation format**: per-frame source rect, pivot, duration, hurt boxes, hit boxes, push box; authoring as JSON next to the atlas (or Aseprite export → converter in AssetPacker)
-- ⬜ **Art pass**: generate Dee and Bram for the Iron Ring setting on the 640×360 grid (idle, walk, jump, crouch, 4 attacks × startup/active/recovery, block, hit, KO, win), plus Pier 9 at night; switch `textureFilter` to `pixelart`. Needs an art-generation workflow decision (tools, prompts from `setting.md`, cleanup pass)
-- ⬜ Bram's throws; throw tech; the first special move per character
-- ⬜ Round flow: intro, best-of-3, round/KO/time-over banners, win markers
-- ⬜ HUD with a bitmap font and portraits (replaces SDL debug text)
-- ⬜ Audio: mix groups (SFX / voice / music), music streaming from `.resource`, hit-confirm layering
-- ⬜ Training mode basics: frame advantage readout, hitbox overlay, input display, dummy settings
-- ⬜ Platform polish: Windows icon + version resource; Linux `.desktop` file and icon
+- ✅ **Fighters as data**: one `<id>.fighter.json` per fighter (frame data, boxes, physics, animations), parsed by the SDL-free Content library and validated by AssetPacker at bake time, timing contract included ([ADR-0010](docs/adr/0010-fighter-content-format.md))
+- ✅ **Animation format**: named frames in a trimmed atlas with pivots and throw-partner offsets; per-animation tick timing in the fighter file. Hurt boxes are per state (stand/crouch), hit boxes per move
+- ✅ **Interim art**: procedural pixel art for Dee, Bram, Pier 9, Lantern Row, The Crown, effects, fonts, portraits and icon on the 640×360 grid; `textureFilter: pixelart` ([ADR-0011](docs/adr/0011-procedural-interim-art.md))
+- ✅ **Art contract for final art**: [asset specification](docs/art/asset-spec.md), [generation prompts](docs/art/generation-prompts.md), importer with pose-reference export, art self-test in CI
+- ✅ Throws for both fighters (LP + LK) with a throw-tech window; one special each (Dee's Rush Uppercut 236P, Bram's Dock Hoist 63214P command throw); knockdowns
+- ✅ Round flow: intro, best-of-3 (up to 5 rounds on draws), ROUND/FIGHT/K.O./TIME/DRAW banners, win markers, match winner
+- ✅ HUD with bitmap fonts, portraits, ghost health bars and Heat meters
+- ✅ Training overlay (F3 / `-training`): hit and hurt boxes, move names with frame data, frame advantage
+- ✅ CPU vs CPU demo mode (`-demo`, Tab); CI smoke run uses it
+- ✅ Windows icon and version resources; window icon on both platforms
+- 🔜 **Final art** for Dee, Bram and Pier 9 through the spec and importer (outside generation plus a pixel cleanup pass)
+- ⬜ Training mode, rest: input display, dummy settings (block all / stand / crouch / jump), position reset
+- ⬜ Per-frame hurt boxes for moves that change the silhouette (sweeps, uppercut)
+- ⬜ Audio: mix groups (SFX / voice / music), music streaming from `.resource`, hit-confirm layering; throw, tech and KO sounds
+- ⬜ Linux `.desktop` file and icon
 
 ## M2 — Complete local play
 
@@ -49,8 +55,8 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 
 ## M3 — Roster and world
 
-- ⬜ Sable, Idris, Greta, Jun (identities in `setting.md`; kit designs as visual reference)
-- ⬜ Lantern Row and The Crown art; new venues (dry dock, foundry, ship's hold, the Broker's club)
+- ⬜ Sable, Idris, Greta, Jun (identities in `setting.md`; a fighter file, atlas and portrait each — no code)
+- ⬜ Final art for Lantern Row and The Crown; new venues (dry dock, foundry, ship's hold, the Broker's club)
 - ⬜ The Broker (boss), story intros/endings, win quotes
 - ⬜ Asset streaming: per-stage `sharedassetsN.assets` + `levelN` loaded on demand
 
@@ -72,7 +78,6 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 ## Later / maybe
 
 - A Fatal Fury-style **two-plane** (foreground/background line) mechanic, prototyped as an optional stage rule — only if the single-plane game is already fun.
-- Low-health desperation moves (another Fatal Fury 2 trait) vs. the meter-based Heat system — pick one, not both.
 
 ## Decisions log
 
@@ -84,8 +89,10 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 | 2026-10-29 | Platforms | Windows + Linux; macOS later (M5) |
 | 2026-10-29 | MinGW runtime DLLs | Static when the toolchain allows, DLLs copied next to executables otherwise ([ADR-0009](docs/adr/0009-mingw-static-runtime.md)) |
 | 2026-10-29 | License | zlib, matching SDL ([LICENSE](LICENSE), [docs/licensing.md](docs/licensing.md)) |
+| 2026-10-29 | Desperation moves | None. Heat pays only for the Breakaway |
+| 2026-10-29 | Art | Procedural interim art now; final art made elsewhere against the [asset spec](docs/art/asset-spec.md) and imported ([ADR-0011](docs/adr/0011-procedural-interim-art.md)) |
 
 ## Open questions for the project owner
 
-1. **Art generation workflow** for the M1 art pass: which tools, who does pixel cleanup, how sprites are kept consistent across frames.
-2. **Desperation moves vs. Heat** — keep only the meter, or add a Fatal Fury-style low-health super? (affects M1 special-move design)
+1. **Final art production**: which generator(s) and who does the pixel cleanup pass. The [workflow](docs/art/generation-prompts.md) assumes a tool that accepts a pose or structure reference (img2img or ControlNet-style).
+2. **Sound**: keep the kit's placeholder sound effects for M1, or replace them alongside the final art?

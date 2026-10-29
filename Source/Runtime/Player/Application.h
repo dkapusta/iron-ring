@@ -33,6 +33,7 @@ public:
 
 private:
     void mountData();
+    void setWindowIcon();
     void handleEvent(const SDL_Event& event);
     void render(const std::filesystem::path& capturePath);
     void drawOverlay();

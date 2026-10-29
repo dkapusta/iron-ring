@@ -11,10 +11,24 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  # 1080p headless frame; uploaded so reviewers can see what changed.
-  SMOKE_ARGS: -batchmode -screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -frames 205
+  # 1080p headless frame of a CPU-vs-CPU match; uploaded so reviewers can see what changed.
+  SMOKE_ARGS: -batchmode -demo -screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -frames 420
 
 jobs:
+  art:
+    name: Art tools
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: Tools/Art/requirements.txt
+      - run: pip install -r Tools/Art/requirements.txt
+      # Committed assets match the generator; export -> import is lossless.
+      - run: python3 Tools/Art/selftest.py
+
   linux:
     name: Linux (${{ matrix.compiler }})
     runs-on: ubuntu-24.04

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Simulation/Combat.h"
+#include "Simulation/Round.h"
 
 #include <SDL3/SDL.h>
 #include <nlohmann/json.hpp>

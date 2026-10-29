@@ -16,6 +16,8 @@ The concept book adds the pitch ("the fight comes first", readable silhouettes, 
 
 ## What was imported
 
+> **Update (M1):** all kit images in `Assets/` were replaced by Iron Ring's procedural art, and `moves.json` by per-fighter definitions ([ADR-0010](../adr/0010-fighter-content-format.md), [ADR-0011](../adr/0011-procedural-interim-art.md)). Only the kit's sound effects remain in `Assets/`. The table records the initial import.
+
 | Kit path | Repository path | Notes |
 | --- | --- | --- |
 | `assets/stages/*.png` | `Assets/Stages/<Name>/` | unchanged |
@@ -35,9 +37,9 @@ Not imported: `prototype/src/main.cpp` and `generated_art.hpp` (superseded by th
 
 1. **Stray Windows shortcut** `assets/ui/Brass_Current_Game_Kit - Shortcut.lnk` pointing at a local Downloads folder. Harmless, but it leaks a machine name and path. Excluded; `.gitignore` and AssetPacker now ignore `*.lnk`.
 2. **Frontend never compiled.** The kit's README says so. It was not reused; the new engine is built and smoke-tested in this commit.
-3. **Atlas geometry.** Poses aren't on equal cells and some poses nearly touch neighbours; pivots vary per pose. Rendering uses the measured rectangles, which works, but placeholder sprites visibly overlap at close range because the art is wider than the 36 px push box. Fixed properly by the M1 redraw with per-frame boxes.
+3. **Atlas geometry.** Poses aren't on equal cells and some poses nearly touch neighbours; pivots vary per pose. Rendering uses the measured rectangles, which works, but placeholder sprites visibly overlap at close range because the art is wider than the 36 px push box. Resolved in M1: the new art is drawn to the hurt boxes and push width.
 4. **Resolution mismatch.** Art is ~3× the 640×360 logical grid. Rendering with linear filtering at native resolution looks fine (ADR-0005), but final art must be authored on the grid.
-5. **JSON is reference-only** in the kit (constants are duplicated in C++). M1 makes JSON the runtime source with validation in AssetPacker.
+5. **JSON is reference-only** in the kit (constants are duplicated in C++). Resolved in M1: fighter JSON is the runtime source, validated by AssetPacker.
 6. **Tone vs. brief.** The kit's public, family-friendly festival differs from the Iron Ring brief (illegal underground fights). See ADR-0007 for the proposed reconciliation.
 
 ## Verified

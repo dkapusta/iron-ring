@@ -1,0 +1,170 @@
+#include "Content/Validation.h"
+
+#include "Content/Paths.h"
+
+#include <set>
+
+namespace iron::content {
+namespace {
+
+using nlohmann::json;
+
+std::optional<json> readJson(const FileReader& read, std::string_view path, ValidationReport& report) {
+    const auto bytes = read(path);
+    if (!bytes) {
+        report.errors.push_back(std::string(path) + ": file not found");
+        return std::nullopt;
+    }
+    auto parsed = json::parse(reinterpret_cast<const char*>(bytes->data()),
+                              reinterpret_cast<const char*>(bytes->data() + bytes->size()), nullptr, false);
+    if (parsed.is_discarded()) {
+        report.errors.push_back(std::string(path) + ": malformed JSON");
+        return std::nullopt;
+    }
+    return parsed;
+}
+
+std::optional<std::pair<int, int>> readPng(const FileReader& read, std::string_view path, ValidationReport& report) {
+    const auto bytes = read(path);
+    if (!bytes) {
+        report.errors.push_back(std::string(path) + ": file not found");
+        return std::nullopt;
+    }
+    const auto size = pngSize(*bytes);
+    if (!size) report.errors.push_back(std::string(path) + ": not a PNG file");
+    return size;
+}
+
+void requireFile(const FileReader& read, std::string_view path, ValidationReport& report) {
+    if (!read(path)) report.errors.push_back(std::string(path) + ": file not found");
+}
+
+void checkAtlasBounds(const AtlasDefinition& atlas, std::pair<int, int> size, std::string_view owner,
+                      std::vector<std::string>& errors) {
+    for (const auto& [name, f] : atlas.frames) {
+        if (f.w <= 0 || f.h <= 0 || f.x < 0 || f.y < 0 || f.x + f.w > size.first || f.y + f.h > size.second)
+            errors.push_back(std::string(owner) + ": frame '" + name + "' lies outside " + atlas.image);
+    }
+}
+
+} // namespace
+
+std::vector<std::string> validateFighter(const FighterDefinition& d, const AtlasDefinition& atlas,
+                                         std::pair<int, int> imageSize) {
+    std::vector<std::string> errors;
+    const auto err = [&](const std::string& what) { errors.push_back(d.id + ": " + what); };
+
+    checkAtlasBounds(atlas, imageSize, d.id, errors);
+    for (const auto name : kRequiredAnimations)
+        if (!d.hasAnimation(name)) err("missing animation '" + std::string(name) + "'");
+    for (const auto frame : kSharedFrames)
+        if (!atlas.find(frame)) err("atlas lacks shared frame '" + std::string(frame) + "'");
+
+    for (const auto& [name, animation] : d.animations) {
+        for (const auto& f : animation.frames) {
+            if (!atlas.find(f.frame)) err("animation '" + name + "' uses unknown frame '" + f.frame + "'");
+            if (!f.partnerFrame.empty() && !atlas.find(f.partnerFrame))
+                err("animation '" + name + "' names partner frame '" + f.partnerFrame + "' that no atlas has");
+            if (!f.partnerFrame.empty() && atlas.find(f.frame) && !atlas.find(f.frame)->partner)
+                err("frame '" + f.frame + "' holds an opponent but has no partner offset in the atlas");
+        }
+    }
+
+    // Animation timing must match the simulation exactly, or art and hitboxes drift apart.
+    for (std::size_t slot = 0; slot < kMoveKeys.size(); ++slot) {
+        const auto& m = d.spec.moves[slot];
+        const auto& info = d.moves[slot];
+        if (!m.enabled) continue;
+        if (m.hitbox.empty()) err("moves." + info.key + ": empty hitbox");
+        if (!d.hasAnimation(info.animation)) {
+            err("moves." + info.key + ": unknown animation '" + info.animation + "'");
+            continue;
+        }
+        const int ticks = d.animation(info.animation).totalTicks();
+        if (ticks != m.duration())
+            err("moves." + info.key + ": animation '" + info.animation + "' lasts " + std::to_string(ticks) +
+                " ticks, the move " + std::to_string(m.duration()) + " (startup + active + recovery)");
+        if (m.kind == sim::MoveKind::Throw) {
+            if (!d.hasAnimation(info.holdAnimation)) {
+                err("moves." + info.key + ": unknown holdAnimation '" + info.holdAnimation + "'");
+            } else if (const int hold = d.animation(info.holdAnimation).totalTicks(); hold != m.throwDuration) {
+                err("moves." + info.key + ": holdAnimation lasts " + std::to_string(hold) + " ticks, throwDuration is " +
+                    std::to_string(m.throwDuration));
+            }
+        }
+    }
+    if (d.hasAnimation("knockdown") && d.animation("knockdown").totalTicks() != d.spec.knockdownTicks)
+        err("animation 'knockdown' must last body.knockdownTicks (" + std::to_string(d.spec.knockdownTicks) + ")");
+    if (d.spec.standHurt.empty() || d.spec.crouchHurt.empty()) err("empty hurt box");
+    return errors;
+}
+
+ValidationReport validateProject(const FileReader& read) {
+    ValidationReport report;
+    const auto settings = readJson(read, "ProjectSettings/GameSettings.json", report);
+    if (!settings) return report;
+    (void)readJson(read, "ProjectSettings/InputManager.json", report);
+
+    try {
+        // Fighters.
+        std::vector<std::pair<FighterDefinition, AtlasDefinition>> fighters;
+        for (const auto& entry : settings->at("fighters")) {
+            const auto path = entry.get<std::string>();
+            const auto json = readJson(read, path, report);
+            if (!json) continue;
+            try {
+                auto fighter = parseFighter(*json, path);
+                const auto atlasJson = readJson(read, fighter.atlas, report);
+                if (!atlasJson) continue;
+                auto atlas = parseAtlas(*atlasJson, fighter.atlas);
+                (void)readPng(read, fighter.portrait, report);
+                if (const auto size = readPng(read, atlas.image, report)) {
+                    for (auto& e : validateFighter(fighter, atlas, *size)) report.errors.push_back(path + ": " + e);
+                }
+                fighters.emplace_back(std::move(fighter), std::move(atlas));
+            } catch (const ContentError& e) {
+                report.errors.push_back(e.what());
+            }
+        }
+        if (fighters.size() < 2) report.errors.push_back("GameSettings.json: at least two fighters are required");
+
+        // Stages.
+        const auto stagesPath = settings->at("stages").get<std::string>();
+        if (const auto stages = readJson(read, stagesPath, report)) {
+            for (const auto& stage : stages->at("stages")) {
+                const auto image = stage.at("image").get<std::string>();
+                if (const auto size = readPng(read, image, report); size && *size != std::pair{640, 360})
+                    report.warnings.push_back(image + ": stages are expected to be 640x360");
+            }
+        }
+
+        // Effects.
+        const auto effectsPath = settings->at("effects").get<std::string>();
+        if (const auto json = readJson(read, effectsPath, report)) {
+            const auto atlas = parseAtlas(*json, effectsPath);
+            if (const auto size = readPng(read, atlas.image, report)) {
+                std::vector<std::string> errors;
+                checkAtlasBounds(atlas, *size, effectsPath, errors);
+                report.errors.insert(report.errors.end(), errors.begin(), errors.end());
+            }
+            for (const auto effect : kEffects)
+                if (!atlas.find(std::string(effect) + "_0"))
+                    report.errors.push_back(effectsPath + ": missing effect '" + std::string(effect) + "'");
+        }
+
+        // Fonts and sounds.
+        for (const auto& [name, path] : settings->at("fonts").items()) {
+            const auto fontPath = path.get<std::string>();
+            if (const auto json = readJson(read, fontPath, report))
+                (void)readPng(read, siblingPath(fontPath, json->at("image").get<std::string>()), report);
+        }
+        for (const auto& [id, path] : settings->at("sounds").items()) requireFile(read, path.get<std::string>(), report);
+    } catch (const nlohmann::json::exception& e) {
+        report.errors.push_back(std::string("GameSettings.json: ") + e.what());
+    } catch (const ContentError& e) {
+        report.errors.push_back(e.what());
+    }
+    return report;
+}
+
+} // namespace iron::content

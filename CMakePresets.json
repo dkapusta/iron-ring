@@ -5,10 +5,7 @@
     {
       "name": "base",
       "hidden": true,
-      "binaryDir": "${sourceDir}/Build/${presetName}",
-      "cacheVariables": {
-        "FETCHCONTENT_BASE_DIR": "${sourceDir}/Build/_deps"
-      }
+      "binaryDir": "${sourceDir}/Build/${presetName}"
     },
     {
       "name": "debug",

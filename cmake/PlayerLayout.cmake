@@ -36,3 +36,22 @@ function(ir_place_in_player target)
         ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib/$<CONFIG>"
         PDB_OUTPUT_DIRECTORY     "${PROJECT_BINARY_DIR}/symbols/$<CONFIG>")
 endfunction()
+
+# Windows VERSIONINFO (and optionally the icon) for a player binary. The
+# strings name our product and company; nothing claims to be Unity (ADR-0003).
+function(ir_add_version_resource target description filename type icon)
+    if(NOT WIN32)
+        return()
+    endif()
+    set(IR_RC_DESCRIPTION "${description}")
+    set(IR_RC_FILENAME "${filename}")
+    set(IR_RC_FILETYPE "${type}")
+    if(icon)
+        set(IR_RC_ICON_LINE "1 ICON \"${icon}\"")
+    else()
+        set(IR_RC_ICON_LINE "")
+    endif()
+    set(rc "${PROJECT_BINARY_DIR}/generated/${target}.rc")
+    configure_file("${PROJECT_SOURCE_DIR}/cmake/templates/version.rc.in" "${rc}" @ONLY)
+    target_sources(${target} PRIVATE "${rc}")
+endfunction()

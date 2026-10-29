@@ -1,0 +1,5 @@
+# Pinned: selftest.py compares generated pixels exactly, and rasterisation can
+# change between releases. Bump together with a regeneration (generate.py).
+pillow==12.3.0
+numpy==2.5.3
+scipy==1.18.1

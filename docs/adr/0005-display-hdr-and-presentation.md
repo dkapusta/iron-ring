@@ -16,7 +16,7 @@ Requirements: fullscreen at the native desktop resolution, and HDR on compatible
 - `integer` (default): largest integer scale that fits, black borders otherwise (1080p → 3×, 1440p → 4×, 2160p → 6×). Pixel-perfect.
 - `letterbox`: fill one axis with a fractional scale. For odd displays (1366×768) where integer bars are too large.
 
-SDL3 applies logical presentation by scaling draw coordinates, not via an intermediate 640×360 texture, so high-resolution placeholder textures still render at full native detail. Texture filtering is a per-project setting (`GameSettings.json`, `textureFilter`): `linear` for the concept art, `pixelart` (`SDL_SCALEMODE_PIXELART`) once sprites live on the 640×360 grid.
+SDL3 applies logical presentation by scaling draw coordinates, not via an intermediate 640×360 texture, so high-resolution placeholder textures still render at full native detail. Texture filtering is a per-project setting (`GameSettings.json`, `textureFilter`): `linear` for the concept art, `pixelart` (`SDL_SCALEMODE_PIXELART`) once sprites live on the 640×360 grid. *Update (M1): all art is now on the 640×360 grid and the project uses `pixelart` ([ADR-0011](0011-procedural-interim-art.md)).*
 
 **HDR.** At startup the window's `SDL_PROP_WINDOW_HDR_ENABLED_BOOLEAN` decides (`boot.config: hdr=auto`; `on`/`off` override). If HDR is wanted, the renderer is created with `SDL_COLORSPACE_SRGB_LINEAR` (scRGB; SDL documents support in the direct3d11, direct3d12 and metal renderers). If creation fails, we fall back to the default sRGB renderer and log why.
 

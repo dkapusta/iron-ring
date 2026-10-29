@@ -3,13 +3,13 @@
 [![CI](https://github.com/dkapusta/iron-ring/actions/workflows/ci.yml/badge.svg)](https://github.com/dkapusta/iron-ring/actions/workflows/ci.yml)
 [![License: Zlib](https://img.shields.io/badge/license-zlib-blue.svg)](LICENSE)
 
-An early-90s style arcade fighting game about the **Iron Ring** — an illegal, invitation-only fight-club tournament in the dying port city of Grayhaven, 1992. Big hand-drawn sprites, four attack buttons, short explosive exchanges, built on a small, testable C++20 / SDL3 codebase. Setting and cast: [docs/design/setting.md](docs/design/setting.md).
+An early-90s style arcade fighting game about the **Iron Ring** — an illegal, invitation-only fight-club tournament in the dying port city of Grayhaven, 1992. Big pixel-art sprites, four attack buttons, throws and specials, short explosive exchanges, built on a small, testable C++20 / SDL3 codebase. Setting and cast: [docs/design/setting.md](docs/design/setting.md).
 
-![First headless capture of the M0 player](docs/images/m0-batchmode-capture.jpg)
+![Bram Hollis throws Dee Marlowe at Pier 9](docs/images/m1-demo-capture.png)
 
-*Above: a real frame captured with `-batchmode -screenshot` — Dee Marlowe vs Bram Hollis at Pier 9. All art is placeholder from the Brass Current concept kit, which serves as visual reference only; final art will be generated for Iron Ring ([ADR-0007](docs/adr/0007-concept-kit-as-placeholder-content.md)).*
+*Above: a real frame captured with `-batchmode -demo -screenshot`: Bram Hollis's Pier Toss on Dee Marlowe at Pier 9. The art is interim, drawn procedurally by `Tools/Art/generate.py`; the [asset specification](docs/art/asset-spec.md) and importer let final art made elsewhere replace it ([ADR-0011](docs/adr/0011-procedural-interim-art.md)).*
 
-> **Status: M0 — Foundation.** The build, asset pipeline, engine skeleton and a ported deterministic combat core are in place. Gameplay is a placeholder versus screen. See [ROADMAP.md](ROADMAP.md).
+> **Status: M1 — First playable matchup, in progress.** Dee vs Bram, data-driven fighters, throws, specials, knockdowns, best-of-3 rounds, a pixel-art HUD and a training overlay. See [ROADMAP.md](ROADMAP.md).
 
 ## Highlights
 
@@ -17,7 +17,8 @@ An early-90s style arcade fighting game about the **Iron Ring** — an illegal, 
 - **HDR on compatible displays.** When the display reports HDR and the renderer supports scRGB output (Direct3D 11/12, Metal), impact highlights are pushed above SDR white. SDR displays get the same image, unchanged. [ADR-0005](docs/adr/0005-display-hdr-and-presentation.md)
 - **Unity-style build layout** — a deliberate gimmick. The output folder looks like a Unity player: `IronRing.exe`, `UnityPlayer.dll`, `IronRing_Data/` with `globalgamemanagers`, `resources.assets`, `sharedassets0.assets`, `boot.config`, `app.info`. [ADR-0003](docs/adr/0003-unity-style-player-layout.md)
 - **Asset pipeline.** `AssetPacker` bakes `Assets/` and `ProjectSettings/` into deterministic ZIP archives with Unity-like names; the runtime mounts them into a virtual file system. [ADR-0004](docs/adr/0004-asset-archives.md)
-- **Deterministic simulation.** Integer-only 60 Hz combat core, no SDL dependency, snapshot checksums, bit-exact with the concept-kit prototype. [ADR-0006](docs/adr/0006-deterministic-simulation.md)
+- **Deterministic simulation.** Integer-only 60 Hz combat core, no SDL dependency, snapshot checksums; started as a bit-exact port of the concept-kit prototype. [ADR-0006](docs/adr/0006-deterministic-simulation.md)
+- **Fighters are data.** One `<id>.fighter.json` per fighter: frame data, boxes, throws, specials and animation timing, validated at build time. [ADR-0010](docs/adr/0010-fighter-content-format.md)
 - **Dependencies via CMake FetchContent**, pinned to release tags: SDL 3.4.18, SDL3_mixer 3.2.4, miniz 3.1.2, nlohmann/json 3.12.0, doctest 2.5.3. [ADR-0002](docs/adr/0002-dependencies-via-fetchcontent.md)
 
 ## Building
@@ -25,7 +26,7 @@ An early-90s style arcade fighting game about the **Iron Ring** — an illegal, 
 Requirements: CMake ≥ 3.25, Ninja (or Visual Studio 2022), a C++20 compiler (MSVC 19.3x, GCC/MinGW-w64 ≥ 12, Clang ≥ 15), Git (FetchContent clones the dependencies on first configure). Supported platforms: **Windows and Linux**; macOS is planned later.
 
 ```sh
-cmake --preset release          # first configure downloads SDL3 & friends (a few minutes)
+cmake --preset release          # first configure of a preset downloads SDL3 & friends (a few minutes)
 cmake --build --preset release
 ctest --preset release
 ```
@@ -79,11 +80,19 @@ The folder is self-contained and can be zipped and copied as is. The player writ
 | --- | --- | --- |
 | Move / jump / crouch | A D / W / S | Arrow keys |
 | Light punch / heavy punch | F / G | Keypad 1 / 2 |
-| Light kick / sweep | H / J | Keypad 3 / 0 |
+| Light kick / heavy kick | H / J | Keypad 3 / 0 |
 | Guard | Space, or hold back | Right Shift, or hold back |
+| Throw (close) / throw tech (when grabbed) | F + H (LP + LK) | Keypad 1 + 3 |
 | Breakaway (50 Heat) | Guard + G + J | Guard + Keypad 2 + 0 |
 
-Tab: CPU / local 2P · F2: next stage · F5: reset round · F1: debug overlay · F11 or Alt+Enter: fullscreen · F12: screenshot · Esc: quit. Bindings live in [`ProjectSettings/InputManager.json`](ProjectSettings/InputManager.json).
+Moves, written for a fighter facing right (numpad notation: 6 = forward, 2 = down, 3 = down-forward):
+
+| Fighter | LP | HP | LK | HK | Throw | Special |
+| --- | --- | --- | --- | --- | --- | --- |
+| **Dee Marlowe** | Stiff Jab | Cross Counter | Shin Kick | Leg Sweep (low, knockdown) | Clinch Toss | **Rush Uppercut** — 236 + P (↓↘→ + punch) |
+| **Bram Hollis** | Palm Shove | Anchor Hook | Boot Kick | Hull Breaker (low, knockdown) | Pier Toss | **Dock Hoist** — 63214 + P (→↘↓↙← + punch), command throw, can't be teched |
+
+Tab: vs CPU → 2 players → CPU vs CPU · F2: next stage · F3: training overlay (boxes, frame data, frame advantage) · F5: new match · F1: debug overlay · F11 or Alt+Enter: fullscreen · F12: screenshot · Esc: quit. Bindings live in [`ProjectSettings/InputManager.json`](ProjectSettings/InputManager.json); fighter data in `Assets/Fighters/<Name>/<id>.fighter.json`.
 
 ### Command line
 
@@ -97,25 +106,29 @@ Unity-compatible names where they exist:
 | `-batchmode` | Headless: offscreen video, dummy audio, one tick per frame, quits after `-frames` |
 | `-frames N` | Frames to run in batch mode (default 180) |
 | `-screenshot <path>` | Save the final batch-mode frame as PNG |
+| `-demo` | Start in CPU vs CPU mode |
+| `-training` | Start with the training overlay on |
 | `-hdr auto\|on\|off`, `-vsync 0\|1`, `-presentation integer\|letterbox`, `-render-driver <name>` | Override `boot.config` |
 | `-data-folder <path>` | Use another `<name>_Data` folder |
 | `-assets-folder <path>` | Mount a loose `Assets/` folder over the archives (edit-and-run without repacking) |
 
-Smoke test used by this commit: `IronRing.x86_64 -batchmode -screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -frames 205 -screenshot shot.png`.
+Smoke test used by CI: `IronRing.x86_64 -batchmode -demo -screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -frames 420 -screenshot shot.png`.
 
 ## Repository layout
 
 ```text
-Assets/              source content (placeholder art from the concept kit)
+Assets/              source content: fighters, stages, effects, UI, sounds
 ProjectSettings/     GameSettings, InputManager, AssetPipeline (→ globalgamemanagers)
 Source/
   Core/              settings parsing (boot.config, command line)          — no SDL
   Vfs/               archive format, writer, ZIP/folder mounts, VFS         — no SDL
   Simulation/        deterministic combat core                              — no SDL
+  Content/           fighter/atlas parsing and content validation           — no SDL
   Runtime/           engine module (UnityPlayer): display, HDR, audio, scenes
   Launcher/          player executable
   Tools/AssetPacker/ asset baking tool
 Tests/               doctest unit tests + packer smoke test
+Tools/Art/           procedural art generator, art importer, art self-test (Python)
 cmake/               dependencies, compiler options, player layout, asset pipeline
 docs/                ADRs, architecture, asset pipeline, research, concept art
 ```
@@ -128,13 +141,14 @@ docs/                ADRs, architecture, asset pipeline, research, concept art
 - [docs/architecture.md](docs/architecture.md) — module map and runtime flow
 - [docs/licensing.md](docs/licensing.md) — licence choice and rationale
 - [docs/asset-pipeline.md](docs/asset-pipeline.md) — adding content, archives, virtual paths
+- [docs/art/asset-spec.md](docs/art/asset-spec.md) — the art contract: sizes, frames, pivots, timing, layout; [generation prompts](docs/art/generation-prompts.md)
 - [docs/adr/](docs/adr/) — architecture decision records
 - [docs/research/](docs/research/) — reference analysis (Fatal Fury 2) and concept-kit review
 
 ## Content and licensing
 
-Iron Ring is free and open source under the **[zlib License](LICENSE)**, the same licence as SDL. It covers the code, documentation and the current placeholder assets ([docs/licensing.md](docs/licensing.md)). Third-party components keep their own licences, listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Iron Ring is free and open source under the **[zlib License](LICENSE)**, the same licence as SDL. It covers the code, documentation and the assets ([docs/licensing.md](docs/licensing.md)). Third-party components keep their own licences, listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-Art and audio under `Assets/` are AI-generated placeholders from the *Brass Current* concept kit, renamed to Iron Ring paths; they will be replaced by generated Iron Ring art. No Fatal Fury (or any other franchise) artwork, characters, names, logos or audio are included; Fatal Fury 2 is used only as genre and era reference ([docs/research/fatal-fury-2.md](docs/research/fatal-fury-2.md)).
+Art under `Assets/` is generated procedurally by the code in `Tools/Art/` (interim, to be replaced by final art following the [asset specification](docs/art/asset-spec.md)); the sound effects are placeholders from the *Brass Current* concept kit. No Fatal Fury (or any other franchise) artwork, characters, names, logos or audio are included; Fatal Fury 2 is used only as genre and era reference ([docs/research/fatal-fury-2.md](docs/research/fatal-fury-2.md)).
 
 Unity and UnityPlayer are trademarks of Unity Technologies. Iron Ring is not affiliated with or endorsed by Unity, and contains no Unity code; the file naming is a stylistic choice that can be changed with one CMake variable ([ADR-0003](docs/adr/0003-unity-style-player-layout.md)).

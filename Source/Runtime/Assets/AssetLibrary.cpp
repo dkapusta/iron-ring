@@ -38,10 +38,4 @@ SDL_ScaleMode parseScaleMode(std::string_view name) {
     return SDL_SCALEMODE_LINEAR;
 }
 
-std::string siblingPath(std::string_view assetPath, std::string_view relative) {
-    const auto slash = assetPath.rfind('/');
-    if (slash == std::string_view::npos) return std::string(relative);
-    return std::string(assetPath.substr(0, slash + 1)) + std::string(relative);
-}
-
 } // namespace iron
