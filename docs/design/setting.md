@@ -15,7 +15,8 @@ The **Iron Ring** is an illegal, invitation-only fighting tournament run by a pr
 | Term | Meaning | In code / data |
 | --- | --- | --- |
 | **Heat** | 0–100 meter built by hitting, getting hit and blocking — the crowd's attention | `Fighter::meter`, HUD label `meterName` |
-| **Breakaway** | Guard + heavy punch + heavy kick for 50 Heat: a non-damaging shove that cancels blockstun | `Effect::Breakaway`, `kBreakCost`, `moves.json → breakaway` |
+| **Breakaway** | Guard + heavy punch + heavy kick for 50 Heat: a non-damaging shove that cancels blockstun. The only thing Heat pays for | `Effect::Breakaway`, `sim::kBreakCost` |
+| **Desperation moves** | None, by decision (2026-10-29). Low health gives no super; comebacks come from Heat and reads | — |
 | **The Broker** | Unseen promoter; final-boss candidate | — |
 
 ## Roster
@@ -31,21 +32,39 @@ Archetypes and gameplay roles are inherited from the concept kit; identities are
 | `greta` | **Greta Voll** | Power brawler | Foundry forewoman whose plant the Broker's money shut down. |
 | `jun` | **Jun Arata** | Rushdown / feint | Pickpocket who works the crowd between bouts; feints, resets, cheap shots that are technically legal. |
 
-Starter move names (`Assets/Data/moves.json`): Dee — Stiff Jab, Cross Counter, Shin Kick, Leg Sweep; Bram — Palm Shove, Anchor Hook, Boot Kick, Hull Breaker.
+### Starter fighters in detail
+
+Moves and frame data live in `Assets/Fighters/<Name>/<id>.fighter.json`.
+
+**Dee Marlowe**: lean, athletic, late twenties. Cropped dark curls, a silver stud earring. Teal sleeveless top, charcoal track pants with a chalk side stripe, white hand wraps and tape to mid-forearm, black boxing boots. A compact boxer's stance, chin tucked. Fast, precise, punishes whiffs.
+
+- Stiff Jab (LP), Cross Counter (HP), Shin Kick (LK), Leg Sweep (HK, low, knockdown)
+- Clinch Toss (throw, LP + LK)
+- **Rush Uppercut** (236 + P): a dashing uppercut that reaches high and knocks down; it closes the gap on Bram's slow advance, but leaves her wide open if blocked
+
+**Bram Hollis**: huge and heavy, forties. Shaved head, full dark beard, heavy brow. Charcoal T-shirt, rust work overalls with the bib folded down and straps hanging, leather wrist straps, steel-toe boots. A wide, low stance with open hands. Slow, but every touch hurts.
+
+- Palm Shove (LP), Anchor Hook (HP), Boot Kick (LK), Hull Breaker (HK, low, knockdown)
+- Pier Toss (throw, LP + LK)
+- **Dock Hoist** (63214 + P): a command grab that lifts the opponent overhead and slams them; it can't be teched, so Dee has to stay out of reach or hit him first
+
+The colour coding stays with the characters: teal for Dee, rust/coral for Bram.
 
 ## Venues
 
-| id | Name | Scene | Placeholder art |
-| --- | --- | --- | --- |
-| `pier_nine` | **Pier 9** | Closed cargo pier at night; chain ring between crane legs, dockers betting behind the rail, floodlights from a moored freighter. | kit *Breaker Pier* (sunset) |
-| `lantern_row` | **Lantern Row** | Night market after curfew; shutters down, the ring roped off under the old station clock, lanterns half lit. | kit *Lantern Exchange* |
-| `the_crown` | **The Crown** | Roof terrace of the derelict Crown Hotel at first light — the final bout. | kit *Observatory Crown* (dawn) |
+| id | Name | Scene |
+| --- | --- | --- |
+| `pier_nine` | **Pier 9** | Closed cargo pier at night; chain ring between crane legs, dockers betting behind the rail, floodlights from a moored freighter. |
+| `lantern_row` | **Lantern Row** | Night market after curfew; shutters down, the ring roped off under the old station clock, lanterns half lit. |
+| `the_crown` | **The Crown** | Roof terrace of the derelict Crown Hotel at first light, under the hotel's half-dead bulb sign — the final bout. |
 
 Planned additions (M3): a flooded dry dock, a foundry floor, a ship's hold, the Broker's private club.
 
-## Art direction notes for the generated art pass
+## Art direction
 
-- The concept kit is a **visual reference only** (silhouette clarity, palette discipline, sprite scale, HUD layout); every final asset will be regenerated for Iron Ring.
+The binding rules (sizes, palette, frames, layout) are in the [asset specification](../art/asset-spec.md); the current art is procedural and interim ([ADR-0011](../adr/0011-procedural-interim-art.md)).
+
+- The concept kit is a **visual reference only** (silhouette clarity, palette discipline, sprite scale, HUD layout); none of its art ships.
 - Night is the default; The Crown is the one dawn stage. Warm sodium/amber key light against teal-blue shadow keeps the kit's teal/coral readability.
 - The chain ring on the floor is the series' visual signature; keep the floor clear and lower-contrast than the fighters.
 - Crowds sit behind barriers: dockers, market traders, bookmakers with chalk boards, a few well-dressed spectators who obviously aren't from the docks.

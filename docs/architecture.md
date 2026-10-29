@@ -13,14 +13,16 @@ flowchart LR
         EXE[IronRing.exe / .x86_64] -->|UnityMain / PlayerMain| ENG[UnityPlayer.dll / .so]
         ENG --> CORE[IronRingCore\nsettings]
         ENG --> VFS[IronRingVfs\narchives + mounts]
-        ENG --> SIM[IronRingSimulation\ncombat]
         ENG --> SDL[SDL3 + SDL3_mixer\nstatic]
         VFS -->|mounts| DATA
     end
+    CON[IronRingContent\nfighter data, atlases, validation] --> SIM[IronRingSimulation\ncombat]
+    ENG --> CON
+    AP -->|validates with| CON
     AP --> VFS
 ```
 
-Static libraries without SDL (`Core`, `Vfs`, `Simulation`) carry everything that can be unit-tested; the engine module adds the platform. The launcher knows only `Public/IronRing/Player.h`.
+Static libraries without SDL (`Core`, `Vfs`, `Simulation`, `Content`) carry everything that can be unit-tested; `Content` turns JSON into the simulation's plain `FighterSpec` and checks the timing contract ([ADR-0010](adr/0010-fighter-content-format.md)), so the simulation never sees JSON; the engine module adds the platform. The launcher knows only `Public/IronRing/Player.h`.
 
 ## Engine internals (`Source/Runtime`)
 
@@ -33,9 +35,13 @@ Static libraries without SDL (`Core`, `Vfs`, `Simulation`) carry everything that
 | `Assets/AssetLibrary` | virtual path → JSON / decoded texture (cached) |
 | `Audio/AudioSystem` | SDL3_mixer mixer; one-shot SFX by id; silent fallback |
 | `Game/Scene` | scene interface (`handleEvent`, `fixedUpdate`, `render`, `status`) |
-| `Game/FightScene` | placeholder versus screen: simulation + atlases + HUD + events → sounds |
+| `Game/FightScene` | versus screen: loads fighters and stages from data; `Match` + views + effects + HUD + overlay; events → sounds; vs CPU / 2P / demo |
+| `Game/FighterView` | simulation state → animation frame (and the held opponent's pose during throws) |
+| `Game/Effects` | short sprite effects spawned from `StepEvents`, HDR-boosted |
+| `Game/Hud` | health, Heat, timer, portraits, win markers, round banners, from `hud_layout.json` |
+| `Game/TrainingOverlay` | F3: hit/hurt boxes, move frame data, frame advantage |
 | `Game/InputMapper` | keyboard → simulation input bits, edge latch between ticks |
-| `Game/SpriteAtlas` | atlas JSON (measured frames or uniform grid) |
+| `Render/SpriteSheet`, `Render/BitmapFont` | atlas frames drawn at their pivots (flippable); monospaced bitmap text |
 
 ## Startup sequence
 
@@ -53,8 +59,8 @@ Any exception during setup is logged as `Fatal:` and shown in a message box (exc
 ```text
 fixedUpdate (60 Hz)                         render (display rate)
   InputMapper.sample(p1, p2 | CPU)            clear → stage → fighters (z by attacker)
-  Match.step(inputs) → StepEvents             → effect (colour scale = HDR boost)
-  events → AudioSystem.play(...)              → HUD → [overlay] → [capture] → present
+  Match.step(inputs) → MatchStep              → effects (colour scale = HDR boost)
+  events → AudioSystem.play(...), Effects     → HUD → [training overlay] → [debug overlay] → [capture] → present
 ```
 
 ## Conventions that cross modules

@@ -1,6 +1,6 @@
 # ADR-0007: Concept kit as visual reference and placeholder content; Iron Ring setting
 
-- **Status:** Accepted
+- **Status:** Accepted. The placeholder-art part is superseded by [ADR-0011](0011-procedural-interim-art.md): kit images were replaced by generated Iron Ring art; kit sounds remain.
 - **Date:** 2026-10-28 (proposed), 2026-10-29 (accepted)
 
 ## Context

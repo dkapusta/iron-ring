@@ -3,7 +3,7 @@
 Python tools that produce Iron Ring's art. The game never runs them: their output is committed under `Assets/` (and the Windows icon under `Source/Launcher/Resources/`), and AssetPacker packs and validates it at build time.
 
 ```sh
-pip install -r Tools/Art/requirements.txt        # Pillow, numpy, scipy (Python 3.10+)
+pip install -r Tools/Art/requirements.txt        # pinned Pillow, numpy, scipy (Python 3.13)
 ```
 
 | Script | Purpose |
