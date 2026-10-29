@@ -1,11 +1,13 @@
 add_executable(IronRingTests
     main.cpp
+    ContentTests.cpp
     GameplayTests.cpp
     PlayerSettingsTests.cpp
     SimulationTests.cpp
     VfsTests.cpp)
 target_link_libraries(IronRingTests PRIVATE
-    IronRingCore IronRingSimulation IronRingVfs doctest::doctest)
+    IronRingContent IronRingCore IronRingSimulation IronRingVfs doctest::doctest)
+target_compile_definitions(IronRingTests PRIVATE IR_SOURCE_DIR="${PROJECT_SOURCE_DIR}")
 ir_configure_target(IronRingTests)
 
 add_test(NAME IronRingTests COMMAND IronRingTests)

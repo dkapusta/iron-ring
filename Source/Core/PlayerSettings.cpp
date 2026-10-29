@@ -124,6 +124,10 @@ std::vector<std::string> applyCommandLine(PlayerSettings& settings, std::span<co
         bool ok = true;
         if (arg == "-batchmode") {
             settings.batchMode = true;
+        } else if (arg == "-demo") {
+            settings.demo = true;
+        } else if (arg == "-training") {
+            settings.training = true;
         } else if (arg == "-screen-fullscreen") {
             const auto v = next(i);
             const auto b = v ? toBool(*v) : std::nullopt;

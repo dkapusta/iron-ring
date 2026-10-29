@@ -439,21 +439,23 @@ std::uint64_t Round::checksum() const {
     return h;
 }
 
-Input cpuInput(const Round& r) {
-    const auto& self = r.fighters[1];
-    const auto& other = r.fighters[0];
+Input cpuInput(const Round& r, int side) {
+    const auto& self = r.fighters[static_cast<std::size_t>(side)];
+    const auto& other = r.fighters[static_cast<std::size_t>(1 - side)];
+    // Offset the schedules per side so two CPUs don't mirror each other.
+    const int tick = r.tick + (1 - side) * 37;
     const FighterSpec& s = r.spec(self);
     const int distance = std::abs(self.x - other.x) / kFixed;
 
     // Held: try to tech roughly half of the throws.
-    if (self.heldTicks > 0) return (r.tick / 7) % 2 == 0 ? Input(LightPunch | LightKick) : Input(0);
+    if (self.heldTicks > 0) return (tick / 7) % 2 == 0 ? Input(LightPunch | LightKick) : Input(0);
     if (self.busy()) return 0;
 
     // Specials are typed over several ticks; the schedule is a pure function
     // of the tick counter, so the CPU stays deterministic.
     const MoveSpec& special = s.moves[SpecialSlot];
     if (special.enabled && special.motionLength > 0 && distance > 36 && distance < 90 && other.knockdown == 0) {
-        const int phase = r.tick % 113;
+        const int phase = tick % 113;
         const int steps = special.motionLength * 2;
         if (phase <= steps) {
             const auto dir = special.motion[static_cast<std::size_t>(std::min(phase / 2, special.motionLength - 1))];
@@ -462,21 +464,25 @@ Input cpuInput(const Round& r) {
             return in;
         }
     }
-    const bool throwable = !other.busy() && other.stun == 0 && other.y == 0;
-    if (s.moves[ThrowSlot].enabled && distance < 46 && throwable && r.tick % 53 == 0)
+    // Every fourth second the CPU presses in to throwing range.
+    const bool pressing = (tick / kTickRate) % 4 == 3;
+    const MoveSpec& grab = s.moves[ThrowSlot];
+    const bool throwable = !other.busy() && other.stun == 0 && other.y == 0 && self.y == 0;
+    if (grab.enabled && throwable && tick % 7 == 0 &&
+        place(grab.hitbox, self).overlaps(place(r.hurtbox(other), other)))
         return LightPunch | LightKick;
 
     Input result = 0;
-    if (distance > 62) result |= other.x < self.x ? Left : Right;
-    if (other.move >= 0 && distance < 90 && r.tick % 4 != 0) {
+    if (distance > (pressing ? 30 : 62)) result |= other.x < self.x ? Left : Right;
+    if (other.move >= 0 && distance < 90 && tick % 4 != 0) {
         result |= Guard;
         if (r.currentMove(other).low) result |= Down;
-        if (self.meter >= kBreakCost && r.tick % 31 == 0) result |= HeavyPunch | HeavyKick;
-    } else if (distance < 80 && r.tick % 36 == 0) {
+        if (self.meter >= kBreakCost && tick % 31 == 0) result |= HeavyPunch | HeavyKick;
+    } else if (distance < 80 && tick % 36 == 0) {
         constexpr Input sequence[]{LightPunch, LightKick, HeavyPunch, HeavyKick};
-        result |= sequence[(r.tick / 36) % 4];
+        result |= sequence[(tick / 36) % 4];
     }
-    if (r.tick % 211 == 0 && distance > 100) result |= Up;
+    if (tick % 211 == 0 && distance > 100) result |= Up;
     return result;
 }
 

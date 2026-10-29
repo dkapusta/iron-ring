@@ -1,54 +1,23 @@
 {
-  "canvas": [
-    640,
-    360
-  ],
+  "$comment": "HUD placement on the 640x360 logical canvas. Rects are [x, y, w, h]; points are [x, y]. Player 2 mirrors player 1.",
   "p1": {
-    "portrait": [
-      12,
-      10,
-      32,
-      32
-    ],
-    "health": [
-      50,
-      12,
-      220,
-      14
-    ],
-    "meter": [
-      20,
-      338,
-      140,
-      9
-    ]
+    "portrait": [10, 8, 32, 32],
+    "health": [46, 10, 230, 12],
+    "name": [46, 25],
+    "wins": [46, 36],
+    "meter": [10, 342, 140, 7],
+    "meterLabel": [10, 332]
   },
   "p2": {
-    "portrait": [
-      596,
-      10,
-      32,
-      32
-    ],
-    "health": [
-      370,
-      12,
-      220,
-      14
-    ],
-    "meter": [
-      480,
-      338,
-      140,
-      9
-    ]
+    "portrait": [598, 8, 32, 32],
+    "health": [364, 10, 230, 12],
+    "name": [594, 25],
+    "wins": [594, 36],
+    "meter": [490, 342, 140, 7],
+    "meterLabel": [630, 332]
   },
-  "timer": [
-    294,
-    8,
-    52,
-    35
-  ],
-  "safe_text_inset": 12,
-  "note": "SVG is editable interface geometry. Starter uses rectangles and SDL debug text, without portrait art."
+  "timer": [298, 6, 44, 30],
+  "roundLabel": [320, 39],
+  "banner": [320, 120],
+  "status": [320, 350]
 }

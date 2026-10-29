@@ -4,86 +4,46 @@
 #include "Audio/AudioSystem.h"
 
 #include <algorithm>
+#include <cmath>
 #include <cstdio>
-#include <cstdlib>
 
 namespace iron {
 namespace {
 
-constexpr int kRoundOverDelayTicks = 3 * sim::kTickRate;
-
-struct Rgba {
-    Uint8 r, g, b, a;
-};
-constexpr Rgba kInk{9, 22, 39, 235};
-constexpr Rgba kBrass{239, 186, 89, 255};
-constexpr Rgba kCream{247, 228, 181, 255};
-constexpr Rgba kTeal{46, 190, 185, 255};
-constexpr Rgba kCoral{244, 119, 78, 255};
-constexpr Rgba kDamage{66, 35, 36, 255};
-
-void fill(SDL_Renderer* r, SDL_FRect rect, Rgba c) {
-    SDL_SetRenderDrawColor(r, c.r, c.g, c.b, c.a);
-    SDL_RenderFillRect(r, &rect);
-}
-
-// Placeholder text with a 1px ink shadow so it reads over busy stage art.
-void text(SDL_Renderer* r, float x, float y, const char* s, Rgba c = kCream) {
-    SDL_SetRenderDrawColor(r, kInk.r, kInk.g, kInk.b, 255);
-    SDL_RenderDebugText(r, x + 1, y + 1, s);
-    SDL_SetRenderDrawColor(r, c.r, c.g, c.b, c.a);
-    SDL_RenderDebugText(r, x, y, s);
-}
-
-SDL_FRect rectFrom(const nlohmann::json& a) {
-    return {a[0].get<float>(), a[1].get<float>(), a[2].get<float>(), a[3].get<float>()};
-}
-
 const char* soundFor(sim::Effect effect) {
     switch (effect) {
-    case sim::Effect::LightHit:     return "light_hit";
-    case sim::Effect::HeavyHit:     return "heavy_hit";
-    case sim::Effect::Guard:        return "guard";
+    case sim::Effect::LightHit:  return "light_hit";
+    case sim::Effect::HeavyHit:  return "heavy_hit";
+    case sim::Effect::Guard:     return "guard";
     case sim::Effect::Breakaway: return "breakaway";
-    case sim::Effect::ThrowTech:    return "guard";
-    case sim::Effect::Slam:         return "heavy_hit";
+    case sim::Effect::ThrowTech: return "guard";
+    case sim::Effect::Slam:      return "heavy_hit";
     }
     return "";
 }
 
-// Maps simulation state to the kit's eight concept poses:
-// 0 idle, 1 step, 2 guard, 3 light punch, 4 heavy punch, 5 kick, 6 hit, 7 victory.
-int poseFor(const sim::Fighter& f, int tick, sim::Outcome outcome, int index) {
-    const bool won = (outcome == sim::Outcome::Player1 && index == 0) || (outcome == sim::Outcome::Player2 && index == 1);
-    if (won) return 7;
-    if (f.hp == 0) return 6;
-    if (f.stun > 0) return f.blockstun ? 2 : 6;
-    if (f.move >= 0) return f.move == 0 ? 3 : (f.move == 1 ? 4 : 5);
-    if (f.guarding || f.crouching) return 2;
-    if (f.y > 0) return 0;
-    return (tick / 12) % 2;
-}
-
 } // namespace
 
-FightScene::FightScene(AssetLibrary& assets, AudioSystem& audio)
-    : audio_(audio), input_(assets.json("ProjectSettings/InputManager.json")) {
+FightScene::FightScene(AssetLibrary& assets, AudioSystem& audio, FightOptions options)
+    : audio_(audio), input_(assets.json("ProjectSettings/InputManager.json")), control_(options.control) {
     const auto settings = assets.json("ProjectSettings/GameSettings.json");
 
     const auto& roster = settings.at("fighters");
-    for (std::size_t i = 0; i < fighters_.size(); ++i) {
-        const auto& f = roster.at(i);
-        fighters_[i].atlas = std::make_unique<SpriteAtlas>(assets, f.at("atlas").get<std::string>());
-        fighters_[i].displayName = f.at("displayName").get<std::string>();
-        fighters_[i].heightPixels = f.value("heightPixels", 140.0f);
-    }
+    if (roster.size() < 2) throw std::runtime_error("GameSettings.json: two fighters are required");
+    for (std::size_t i = 0; i < views_.size(); ++i)
+        views_[i] = std::make_unique<FighterView>(assets, roster.at(i).get<std::string>());
+
     loadStages(assets, settings.at("stages").get<std::string>(), settings.value("startStage", ""));
-    effects_ = std::make_unique<SpriteAtlas>(assets, settings.at("effects").get<std::string>());
-    hud_ = assets.json("Resources/UI/hud_layout.json");
-    meterName_ = settings.value("meterName", "METER");
+    effects_ = std::make_unique<Effects>(assets, settings.at("effects").get<std::string>());
+    small_ = std::make_unique<BitmapFont>(assets, settings.at("fonts").at("small").get<std::string>());
+    large_ = std::make_unique<BitmapFont>(assets, settings.at("fonts").at("large").get<std::string>());
+    hud_ = std::make_unique<Hud>(assets.json("Resources/UI/hud_layout.json"), *small_, *large_,
+                                 settings.value("meterName", "METER"));
+    overlay_ = std::make_unique<TrainingOverlay>(*small_);
+    if (options.training) overlay_->toggle();
 
     for (const auto& [id, path] : settings.at("sounds").items()) audio_.load(id, assets.bytes(path.get<std::string>()));
-    restartRound();
+    newMatch();
 }
 
 void FightScene::loadStages(AssetLibrary& assets, const std::string& stagesPath, const std::string& startStage) {
@@ -92,12 +52,12 @@ void FightScene::loadStages(AssetLibrary& assets, const std::string& stagesPath,
         if (s.at("id").get<std::string>() == startStage) stage_ = stages_.size();
         stages_.push_back({s.at("name").get<std::string>(), &assets.texture(s.at("image").get<std::string>())});
     }
+    if (stages_.empty()) throw std::runtime_error(stagesPath + ": no stages");
 }
 
-void FightScene::restartRound() {
-    match_.reset();
-    roundOverTicks_ = 0;
-    audio_.play("round_bell");
+void FightScene::newMatch() {
+    match_ = std::make_unique<sim::Match>(views_[0]->definition().spec, views_[1]->definition().spec);
+    effects_->clear();
 }
 
 void FightScene::handleEvent(const SDL_Event& event) {
@@ -105,122 +65,112 @@ void FightScene::handleEvent(const SDL_Event& event) {
     input_.onKeyDown(event.key);
     if (event.key.repeat) return;
     switch (event.key.scancode) {
-    case SDL_SCANCODE_TAB: cpu_ = !cpu_; break;
+    case SDL_SCANCODE_TAB:
+        control_ = control_ == Control::VsCpu ? Control::TwoPlayers
+                 : control_ == Control::TwoPlayers ? Control::Demo : Control::VsCpu;
+        break;
     case SDL_SCANCODE_F2: stage_ = (stage_ + 1) % stages_.size(); break;
-    case SDL_SCANCODE_F5: restartRound(); break;
+    case SDL_SCANCODE_F3: overlay_->toggle(); break;
+    case SDL_SCANCODE_F5: newMatch(); break;
+    default: break;
+    }
+}
+
+void FightScene::playEvents(const sim::MatchStep& step) {
+    for (int i = 0; i < step.round.count; ++i) {
+        const auto& e = step.round.items[static_cast<std::size_t>(i)];
+        effects_->spawn(e, clock_);
+        audio_.play(soundFor(e.effect));
+    }
+    switch (step.flow) {
+    case sim::FlowEvent::RoundCall: audio_.play("menu_confirm"); break;
+    case sim::FlowEvent::Fight:
+    case sim::FlowEvent::RoundEnd: audio_.play("round_bell"); break;
     default: break;
     }
 }
 
 void FightScene::fixedUpdate() {
-    if (match_.outcome != sim::Outcome::Running) {
-        if (++roundOverTicks_ >= kRoundOverDelayTicks) restartRound();
-        return;
-    }
-    const std::array<sim::Input, 2> inputs{input_.sample(0), cpu_ ? sim::cpuInput(match_) : input_.sample(1)};
+    const auto& round = match_->round;
+    const bool demo = control_ == Control::Demo;
+    const std::array<sim::Input, 2> inputs{demo ? sim::cpuInput(round, 0) : input_.sample(0),
+                                           control_ == Control::TwoPlayers ? input_.sample(1) : sim::cpuInput(round, 1)};
     input_.endTick();
 
-    const auto events = match_.step(inputs);
-    for (int i = 0; i < events.count; ++i) audio_.play(soundFor(events.items[static_cast<std::size_t>(i)].effect));
-    if (match_.outcome != sim::Outcome::Running) audio_.play("round_bell");
+    const auto step = match_->step(inputs);
+    playEvents(step);
+    if (step.flow == sim::FlowEvent::Finished) {
+        newMatch();
+        return;
+    }
+
+    const bool fighting = match_->phase == sim::Phase::Fight;
+    if (!fighting || match_->round.hitstop == 0) ++clock_;
+    if (fighting && (step.round.count > 0 || match_->round.hitstop == 0))
+        overlay_->observe(match_->round, step.round.count > 0);
+    for (int side = 0; side < 2; ++side) views_[static_cast<std::size_t>(side)]->update(*match_, side, clock_);
+    effects_->update(clock_);
+    hud_->update(*match_);
+}
+
+void FightScene::drawShadow(SDL_Renderer* r, float x, float groundY, float height) const {
+    // A soft dithered oval that shrinks as the fighter rises.
+    const float scale = std::clamp(1.0f - height / 160.0f, 0.4f, 1.0f);
+    const int half = static_cast<int>(22 * scale);
+    SDL_SetRenderDrawColor(r, 7, 9, 15, 140);
+    for (int row = -2; row <= 2; ++row) {
+        const int w = half - std::abs(row) * 5;
+        for (int dx = -w; dx <= w; ++dx) {
+            if ((dx + row) % 2 != 0 && std::abs(dx) > w - 6) continue;
+            SDL_RenderPoint(r, std::floor(x) + static_cast<float>(dx), groundY + static_cast<float>(row));
+        }
+    }
 }
 
 void FightScene::render(const RenderContext& context) {
     SDL_Renderer* r = context.renderer;
+    SDL_SetRenderDrawBlendMode(r, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor(r, 0, 0, 0, 255);
     SDL_RenderClear(r);
-
     const SDL_FRect full{0, 0, static_cast<float>(sim::kStageWidth), 360};
     SDL_RenderTexture(r, stages_[stage_].background->handle.get(), nullptr, &full);
 
-    // The fighter acting last is drawn on top, so attacks read clearly.
-    const bool p1Front = match_.fighters[0].move >= 0 && match_.fighters[1].move < 0;
-    for (int n = 0; n < 2; ++n) {
-        const int i = p1Front ? 1 - n : n;
-        drawFighter(r, match_.fighters[static_cast<std::size_t>(i)], fighters_[static_cast<std::size_t>(i)]);
-    }
-    drawEffect(context);
-    drawHud(r);
-}
-
-void FightScene::drawFighter(SDL_Renderer* r, const sim::Fighter& f, const FighterView& view) const {
-    const int index = &f == &match_.fighters[0] ? 0 : 1;
-    const SpriteFrame& frame = view.atlas->frame(poseFor(f, match_.tick, match_.outcome, index));
-    const float scale = view.heightPixels / view.atlas->cellHeight();
-    const float x = static_cast<float>(f.x) / sim::kFixed;
-    const float y = static_cast<float>(sim::kFloorY) - static_cast<float>(f.y) / sim::kFixed;
-
-    if (f.y == 0) { // contact shadow
-        for (int row = -3; row <= 3; ++row) {
-            const float w = static_cast<float>(38 - std::abs(row) * 5);
-            fill(r, {x - w / 2, static_cast<float>(sim::kFloorY + row), w, 1}, {5, 15, 25, 100});
-        }
-    }
-    const float pivotX = f.facing < 0 ? frame.source.w - frame.pivotX : frame.pivotX;
-    const SDL_FRect dst{x - scale * pivotX, y - scale * frame.pivotY, scale * frame.source.w, scale * frame.source.h};
-    SDL_RenderTextureRotated(r, view.atlas->texture().handle.get(), &frame.source, &dst, 0, nullptr,
-                             f.facing < 0 ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
-}
-
-void FightScene::drawEffect(const RenderContext& context) const {
-    if (match_.effectTicks <= 0) return;
-    const SpriteFrame& frame = effects_->frame(static_cast<int>(match_.effect));
-    const float size = match_.effect == sim::Effect::Breakaway ? 72.0f : 44.0f;
-    const float x = static_cast<float>(match_.effectX) / sim::kFixed;
-    const float y = static_cast<float>(sim::kFloorY) - static_cast<float>(match_.effectY) / sim::kFixed;
-    const SDL_FRect dst{x - size / 2, y - size / 2, size, size};
-
-    SDL_Texture* texture = effects_->texture().handle.get();
-    SDL_SetTextureAlphaModFloat(texture, std::min(1.0f, static_cast<float>(match_.effectTicks) / 6.0f));
-    // On HDR output the spark core exceeds SDR white; on SDR this is a no-op.
-    SDL_SetRenderColorScale(context.renderer, context.highlightBoost);
-    SDL_RenderTexture(context.renderer, texture, &frame.source, &dst);
-    SDL_SetRenderColorScale(context.renderer, 1.0f);
-    SDL_SetTextureAlphaModFloat(texture, 1.0f);
-}
-
-void FightScene::drawHud(SDL_Renderer* r) const {
+    const auto& round = match_->round;
+    std::array<FighterPose, 2> poses;
     for (std::size_t i = 0; i < 2; ++i) {
-        const auto& layout = hud_.at(i == 0 ? "p1" : "p2");
-        const auto& f = match_.fighters[i];
-
-        const SDL_FRect portrait = rectFrom(layout.at("portrait"));
-        fill(r, portrait, kBrass);
-        fill(r, {portrait.x + 2, portrait.y + 2, portrait.w - 4, portrait.h - 4}, i == 0 ? Rgba{21, 56, 68, 255} : Rgba{85, 43, 38, 255});
-
-        const SDL_FRect bar = rectFrom(layout.at("health"));
-        fill(r, bar, kBrass);
-        fill(r, {bar.x + 2, bar.y + 2, bar.w - 4, bar.h - 4}, kDamage);
-        const float health = (bar.w - 4) * static_cast<float>(f.hp) / 100.0f;
-        fill(r, {i == 0 ? bar.x + 2 : bar.x + bar.w - 2 - health, bar.y + 2, health, bar.h - 4}, kCream);
-        const float nameX = i == 0 ? bar.x : bar.x + bar.w - 8.0f * static_cast<float>(fighters_[i].displayName.size());
-        text(r, nameX, bar.y + bar.h + 4, fighters_[i].displayName.c_str());
-
-        const SDL_FRect meter = rectFrom(layout.at("meter"));
-        fill(r, meter, kBrass);
-        fill(r, {meter.x + 1, meter.y + 1, meter.w - 2, meter.h - 2}, kInk);
-        fill(r, {meter.x + 1, meter.y + 1, (meter.w - 2) * static_cast<float>(f.meter) / sim::kMeterMax, meter.h - 2},
-             f.meter >= sim::kBreakCost ? kTeal : Rgba{23, 107, 118, 255});
-        text(r, meter.x, meter.y + meter.h + 2, meterName_.c_str());
+        const auto& f = round.fighters[i];
+        const auto& other = round.fighters[1 - i];
+        if (!views_[1 - i]->heldPose(other, f, poses[i])) poses[i] = views_[i]->pose(f);
+        const float ground = static_cast<float>(sim::kFloorY);
+        drawShadow(r, poses[i].x, ground, ground - poses[i].y);
     }
 
-    const SDL_FRect timer = rectFrom(hud_.at("timer"));
-    fill(r, timer, kBrass);
-    fill(r, {timer.x + 2, timer.y + 2, timer.w - 4, timer.h - 4}, kInk);
-    char clock[16];
-    std::snprintf(clock, sizeof clock, "%02d", std::max(0, (match_.remaining + sim::kTickRate - 1) / sim::kTickRate));
-    text(r, timer.x + timer.w / 2 - 8, timer.y + 8, clock);
-
-    if (match_.outcome != sim::Outcome::Running) {
-        const char* banner = match_.outcome == sim::Outcome::Draw ? "DRAW" : "K.O.";
-        text(r, 320 - 16, 150, banner, kCoral);
+    // The fighter acting (attacking or throwing) is drawn in front.
+    const auto acting = [&](const sim::Fighter& f) { return f.move >= 0 || f.throwTicks > 0; };
+    const bool p2Front = acting(round.fighters[1]) && !acting(round.fighters[0]);
+    for (int n = 0; n < 2; ++n) {
+        const std::size_t i = p2Front ? static_cast<std::size_t>(n) : static_cast<std::size_t>(1 - n);
+        views_[i]->sheet().draw(r, poses[i].frame, poses[i].x, poses[i].y, poses[i].flip);
     }
+
+    effects_->draw(context, clock_);
+    overlay_->draw(r, round, views());
+    hud_->draw(r, *match_, views(), stages_[stage_].name + " - " + controlName());
+}
+
+const char* FightScene::controlName() const {
+    switch (control_) {
+    case Control::VsCpu: return "VS CPU";
+    case Control::TwoPlayers: return "2P";
+    case Control::Demo: return "CPU VS CPU";
+    }
+    return "";
 }
 
 std::string FightScene::status() const {
-    char line[256];
-    std::snprintf(line, sizeof line, "%s | %s | tick %d | Tab: CPU/2P  F2: stage  F5: reset",
-                  stages_[stage_].name.c_str(), cpu_ ? "vs CPU" : "2P local", match_.tick);
+    char line[160];
+    std::snprintf(line, sizeof line, "%s | %s | round %d | Tab mode  F2 stage  F3 boxes  F5 restart",
+                  stages_[stage_].name.c_str(), controlName(), match_->roundNumber);
     return line;
 }
 

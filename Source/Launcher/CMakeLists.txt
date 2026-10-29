@@ -16,3 +16,5 @@ if(APPLE)
     set_target_properties(IronRingPlayer PROPERTIES
         INSTALL_RPATH "@executable_path")
 endif()
+ir_add_version_resource(IronRingPlayer "${IR_PRODUCT_DISPLAY_NAME}" "${IR_PRODUCT_NAME}.exe" VFT_APP
+                        "${CMAKE_CURRENT_SOURCE_DIR}/Resources/IronRing.ico")

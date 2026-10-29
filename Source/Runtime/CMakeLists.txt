@@ -4,21 +4,26 @@ add_library(IronRingEngine SHARED
     Public/IronRing/Player.h
     Assets/AssetLibrary.h       Assets/AssetLibrary.cpp
     Audio/AudioSystem.h         Audio/AudioSystem.cpp
+    Game/Effects.h              Game/Effects.cpp
+    Game/FighterView.h          Game/FighterView.cpp
     Game/FightScene.h           Game/FightScene.cpp
+    Game/Hud.h                  Game/Hud.cpp
     Game/InputMapper.h          Game/InputMapper.cpp
     Game/Scene.h
-    Game/SpriteAtlas.h          Game/SpriteAtlas.cpp
+    Game/TrainingOverlay.h      Game/TrainingOverlay.cpp
     Platform/Display.h          Platform/Display.cpp
     Platform/PlayerLog.h        Platform/PlayerLog.cpp
     Platform/SdlHandles.h
     Player/Application.h        Player/Application.cpp
-    Player/PlayerMain.cpp)
+    Player/PlayerMain.cpp
+    Render/BitmapFont.h         Render/BitmapFont.cpp
+    Render/SpriteSheet.h        Render/SpriteSheet.cpp)
 
 target_include_directories(IronRingEngine
     PUBLIC  "${CMAKE_CURRENT_SOURCE_DIR}/Public"
     PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")
 target_link_libraries(IronRingEngine PRIVATE
-    IronRingCore IronRingSimulation IronRingVfs
+    IronRingContent IronRingCore IronRingSimulation IronRingVfs
     SDL3::SDL3-static SDL3_mixer::SDL3_mixer-static)
 target_compile_definitions(IronRingEngine PRIVATE
     IR_ENGINE_BUILD
@@ -36,3 +41,5 @@ ir_place_in_player(IronRingEngine)
 set_target_properties(IronRingEngine PROPERTIES
     OUTPUT_NAME "${IR_PLAYER_LIBRARY_NAME}"
     PREFIX "")                      # UnityPlayer.so, not libUnityPlayer.so
+ir_add_version_resource(IronRingEngine "${IR_PRODUCT_DISPLAY_NAME} player engine" "${IR_PLAYER_LIBRARY_NAME}.dll"
+                        VFT_DLL "")

@@ -26,6 +26,8 @@ struct PlayerSettings {
     std::string renderDriver; // empty = let SDL choose
 
     bool batchMode = false;   // -batchmode: offscreen video, fixed frame count, then quit
+    bool demo = false;        // -demo: CPU vs CPU
+    bool training = false;    // -training: hitbox / frame-advantage overlay on
     int batchFrames = 180;
     std::filesystem::path screenshotPath;
     std::filesystem::path logFile;

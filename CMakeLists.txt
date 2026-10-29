@@ -23,6 +23,10 @@ option(IR_BUILD_TESTS          "Build unit tests"                  ON)
 option(IR_BUILD_PLAYER         "Build the SDL3 player (engine + launcher + data)" ON)
 option(IR_WARNINGS_AS_ERRORS   "Treat project warnings as errors"  OFF)
 
+if(WIN32)
+    enable_language(RC) # version resources and the application icon
+endif()
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -39,6 +43,7 @@ include(PlayerLayout)
 add_subdirectory(Source/Core)
 add_subdirectory(Source/Vfs)
 add_subdirectory(Source/Simulation)
+add_subdirectory(Source/Content)
 
 # Host tool that bakes Assets/ and ProjectSettings/ into <name>_Data archives.
 add_subdirectory(Source/Tools/AssetPacker)

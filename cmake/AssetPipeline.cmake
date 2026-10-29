@@ -49,5 +49,13 @@ configure_file("${PROJECT_SOURCE_DIR}/cmake/templates/boot.config.in" "${_genera
 file(GENERATE OUTPUT "${IR_DATA_OUTPUT_DIR}/app.info"    INPUT "${_generated}/app.info")
 file(GENERATE OUTPUT "${IR_DATA_OUTPUT_DIR}/boot.config" INPUT "${_generated}/boot.config")
 
-add_custom_target(PlayerData ALL DEPENDS ${_outputs})
+# Window icon where a Unity player keeps it: <name>_Data/Resources/<engine>.png.
+set(_icon_output "${IR_DATA_OUTPUT_DIR}/Resources/${IR_PLAYER_LIBRARY_NAME}.png")
+add_custom_command(
+    OUTPUT  "${_icon_output}"
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${PROJECT_SOURCE_DIR}/Assets/Resources/UI/icon.png" "${_icon_output}"
+    DEPENDS "${PROJECT_SOURCE_DIR}/Assets/Resources/UI/icon.png"
+    VERBATIM)
+
+add_custom_target(PlayerData ALL DEPENDS ${_outputs} "${_icon_output}")
 add_dependencies(IronRingPlayer PlayerData)

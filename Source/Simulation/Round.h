@@ -109,6 +109,7 @@ private:
     void setEffect(Effect e, int x, int y, int ticks, StepEvents& events);
 };
 
-[[nodiscard]] Input cpuInput(const Round& round); // drives fighters[1]
+// Deterministic CPU opponent for fighters[side]; a pure function of the round state.
+[[nodiscard]] Input cpuInput(const Round& round, int side = 1);
 
 } // namespace iron::sim
