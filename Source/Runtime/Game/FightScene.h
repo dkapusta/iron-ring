@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Audio/AudioSystem.h"
 #include "Game/Effects.h"
 #include "Game/FighterView.h"
 #include "Game/Hud.h"
@@ -17,7 +18,7 @@
 namespace iron {
 
 class AssetLibrary;
-class AudioSystem;
+
 
 enum class Control { VsCpu, TwoPlayers, Demo };
 
@@ -46,6 +47,7 @@ private:
     };
 
     void loadStages(AssetLibrary& assets, const std::string& stagesPath, const std::string& startStage);
+    void loadMusic(AssetLibrary& assets, const std::string& musicPath);
     void newMatch();
     [[nodiscard]] const char* controlName() const;
     void playEvents(const sim::MatchStep& step);
@@ -64,6 +66,7 @@ private:
     std::size_t stage_ = 0;
     Control control_ = Control::VsCpu;
     int clock_ = 0; // presentation clock: stops during hitstop
+    AudioSystem::Music music_;
 };
 
 } // namespace iron

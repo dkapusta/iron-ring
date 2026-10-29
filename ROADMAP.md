@@ -41,7 +41,8 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 - ⬜ Animator pass on the generated frames in training mode (punch extension on Bram's LP/HP, walk-cycle smoothness, held-pose contact)
 - ⬜ Training mode, rest: input display, dummy settings (block all / stand / crouch / jump), position reset
 - ⬜ Per-frame hurt boxes for moves that change the silhouette (sweeps, uppercut)
-- ⬜ Audio: mix groups (SFX / voice / music), music streaming from `.resource`, hit-confirm layering; throw, tech and KO sounds
+- ✅ **Audio**: NES-style effects and the "Iron Ring" fight theme generated from a 2A03 model; music streamed and looping past its intro; SFX/music mix groups with volume settings; a soft limiter; round-call, tech, slam, K.O. and victory cues ([ADR-0013](docs/adr/0013-nes-style-generated-audio.md))
+- ⬜ Audio, rest: voice group (announcer), per-stage music, hit-confirm layering
 - ⬜ Linux `.desktop` file and icon
 
 ## M2 — Complete local play
@@ -92,9 +93,10 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 | 2026-10-29 | License | zlib, matching SDL ([LICENSE](LICENSE), [docs/licensing.md](docs/licensing.md)) |
 | 2026-10-29 | Desperation moves | None. Heat pays only for the Breakaway |
 | 2026-10-29 | Art | Procedural interim art now; final art made elsewhere against the [asset spec](docs/art/asset-spec.md) and imported ([ADR-0011](docs/adr/0011-procedural-interim-art.md)) |
+| 2026-10-30 | Sound | Kit placeholders replaced by generated NES-style effects and theme ([ADR-0013](docs/adr/0013-nes-style-generated-audio.md)) |
 | 2026-10-30 | Final art | Art Pack v1 adopted; frames re-registered at one scale, 48 colours per fighter ([ADR-0012](docs/adr/0012-adopting-external-art.md)) |
 
 ## Open questions for the project owner
 
-1. **Final art production**: which generator(s) and who does the pixel cleanup pass. The [workflow](docs/art/generation-prompts.md) assumes a tool that accepts a pose or structure reference (img2img or ControlNet-style).
-2. **Sound**: keep the kit's placeholder sound effects for M1, or replace them alongside the final art?
+1. **Animator pass**: who reviews the generated frames in training mode (Bram's LP/HP extension, walk smoothness, held-pose contact)?
+2. **Music**: one theme for every stage, or a theme per venue (M3)? An announcer voice for "ROUND / FIGHT / K.O."?

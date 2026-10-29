@@ -24,6 +24,8 @@ struct PlayerSettings {
     HdrMode hdr = HdrMode::Auto;
     float hdrMaxBoost = 2.0f; // highlight multiplier ceiling, in SDR-white units
     std::string renderDriver; // empty = let SDL choose
+    float musicVolume = 1.0f; // 0..1, music mix group
+    float sfxVolume = 1.0f;   // 0..1, sound-effect mix group
 
     bool batchMode = false;   // -batchmode: offscreen video, fixed frame count, then quit
     bool demo = false;        // -demo: CPU vs CPU

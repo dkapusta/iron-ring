@@ -16,3 +16,4 @@ One file per decision, numbered, never renumbered. Supersede rather than rewrite
 | [0010](0010-fighter-content-format.md) | Fighters are data: one definition file per fighter, with an animation timing contract | Accepted |
 | [0011](0011-procedural-interim-art.md) | Procedural interim art, replaceable through a written spec and an importer | Accepted; fighters and stages replaced per [0012](0012-adopting-external-art.md) |
 | [0012](0012-adopting-external-art.md) | Adopt Art Pack v1, re-registered at one scale per fighter, with sources in ArtSource/ | Accepted |
+| [0013](0013-nes-style-generated-audio.md) | Generate all audio from an NES sound-chip model; music as looping Vorbis | Accepted |

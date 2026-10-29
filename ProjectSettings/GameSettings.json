@@ -21,8 +21,14 @@
     "breakaway": "Resources/Audio/breakaway.wav",
     "guard": "Resources/Audio/guard.wav",
     "heavy_hit": "Resources/Audio/heavy_hit.wav",
+    "ko": "Resources/Audio/ko.wav",
     "light_hit": "Resources/Audio/light_hit.wav",
     "menu_confirm": "Resources/Audio/menu_confirm.wav",
-    "round_bell": "Resources/Audio/round_bell.wav"
-  }
+    "round_bell": "Resources/Audio/round_bell.wav",
+    "round_call": "Resources/Audio/round_call.wav",
+    "slam": "Resources/Audio/slam.wav",
+    "tech": "Resources/Audio/tech.wav",
+    "victory": "Resources/Audio/victory.wav"
+  },
+  "music": "Resources/Audio/music.json"
 }

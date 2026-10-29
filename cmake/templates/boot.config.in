@@ -5,3 +5,5 @@ vsync=1
 hdr=auto
 hdr-max-boost=2.0
 render-driver=
+music-volume=1.0
+sfx-volume=1.0

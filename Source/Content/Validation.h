@@ -32,6 +32,9 @@ inline constexpr std::array<std::string_view, 2> kSharedFrames{"held_0", "held_1
 // Effect frames the runtime spawns from simulation events.
 inline constexpr std::array<std::string_view, 6> kEffects{"light_hit", "heavy_hit", "guard", "breakaway", "tech",
                                                           "slam"};
+// Sound ids the game plays (Game/FightScene.cpp); each must be in GameSettings.json -> sounds.
+inline constexpr std::array<std::string_view, 10> kSounds{"light_hit", "heavy_hit", "guard", "breakaway", "tech",
+                                                          "slam",      "round_call", "round_bell", "ko", "victory"};
 
 [[nodiscard]] std::vector<std::string> validateFighter(const FighterDefinition& fighter, const AtlasDefinition& atlas,
                                                        std::pair<int, int> imageSize);

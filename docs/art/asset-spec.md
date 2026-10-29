@@ -175,11 +175,7 @@ The three venues: **Pier 9** (closed cargo pier, crane legs, freighter floodligh
 
 ## 6. Audio
 
-`Assets/Resources/Audio/*.wav`, wired in `ProjectSettings/GameSettings.json → sounds`.
-
-- WAV, PCM 16-bit, **48 kHz, mono**. Short (under 1 s), trimmed with no leading silence (they fire on the impact tick), peaks around −3 dBFS.
-- Required: `light_hit`, `heavy_hit`, `guard`, `breakaway`, `round_bell`, `menu_confirm`. Throw slams use `heavy_hit`; throw techs use `guard` (separate `throw`, `tech`, `ko` sounds are planned).
-- Texture: leather and tape on skin, chain rattle for the Breakaway, a cracked boxing bell for rounds. No voices yet.
+All sound is generated from an NES sound-chip model by `Tools/Audio/generate_audio.py`; the ids, formats, levels and how to change them are in [docs/audio.md](../audio.md). Replacement audio must keep the ids in `ProjectSettings/GameSettings.json → sounds` (AssetPacker checks the required ones), be 44.1 kHz mono 16-bit WAV for effects (no leading silence: they fire on the impact tick) and OGG for music with its loop point in `music.json`.
 
 ## 7. Naming and layout
 
@@ -214,5 +210,5 @@ The three venues: **Pier 9** (closed cargo pier, crane legs, freighter floodligh
 - [ ] Hard edges, 1 px coloured outline, one limited palette per fighter (≤ 48 colours), no semi-transparent pixels.
 - [ ] Facing right; reads clearly in silhouette at 1× scale against all three stages.
 - [ ] Stages are 640 × 360, ground at y 316, calm HUD bands, chain ring present, crowd behind the barrier.
-- [ ] Effects and fonts follow §4–5; sounds are 48 kHz mono 16-bit WAV.
+- [ ] Effects and fonts follow §4–5; sounds follow [docs/audio.md](../audio.md).
 - [ ] Nothing copied from Fatal Fury 2, the concept kit or other existing games; no logos or real brands.

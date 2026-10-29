@@ -16,7 +16,7 @@ The concept book adds the pitch ("the fight comes first", readable silhouettes, 
 
 ## What was imported
 
-> **Update (M1):** all kit images in `Assets/` were replaced by Iron Ring's procedural art, and `moves.json` by per-fighter definitions ([ADR-0010](../adr/0010-fighter-content-format.md), [ADR-0011](../adr/0011-procedural-interim-art.md)). Only the kit's sound effects remain in `Assets/`. The table records the initial import.
+> **Update (M1):** all kit images in `Assets/` were replaced by Iron Ring's procedural art, and `moves.json` by per-fighter definitions ([ADR-0010](../adr/0010-fighter-content-format.md), [ADR-0011](../adr/0011-procedural-interim-art.md)). The kit's sound effects were replaced by generated NES-style audio ([ADR-0013](../adr/0013-nes-style-generated-audio.md)), so no kit content remains in `Assets/`. The table records the initial import.
 
 | Kit path | Repository path | Notes |
 | --- | --- | --- |
