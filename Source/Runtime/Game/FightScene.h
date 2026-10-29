@@ -3,7 +3,7 @@
 #include "Game/InputMapper.h"
 #include "Game/Scene.h"
 #include "Game/SpriteAtlas.h"
-#include "Simulation/Combat.h"
+#include "Simulation/Round.h"
 
 #include <array>
 #include <memory>
@@ -45,7 +45,7 @@ private:
 
     AudioSystem& audio_;
     InputMapper input_;
-    sim::Match match_;
+    sim::Round match_;
     std::array<FighterView, 2> fighters_;
     std::vector<StageView> stages_;
     std::unique_ptr<SpriteAtlas> effects_;
