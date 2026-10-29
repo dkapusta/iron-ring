@@ -25,29 +25,54 @@ struct Box {
     [[nodiscard]] constexpr bool empty() const { return w <= 0 || h <= 0; }
 };
 
-// Attack slots. Index into FighterSpec::moves and Fighter::move.
-enum Slot : int { LightPunchSlot = 0, HeavyPunchSlot, LightKickSlot, HeavyKickSlot, kAttackSlots };
+// Move slots. Index into FighterSpec::moves and Fighter::move.
+enum Slot : int {
+    LightPunchSlot = 0, HeavyPunchSlot, LightKickSlot, HeavyKickSlot,
+    ThrowSlot,   // LP + LK together, close to a grounded, free opponent
+    SpecialSlot, // motion input + button (see MoveSpec::motion)
+    kSlotCount,
+};
+
+enum class MoveKind : std::int32_t { Strike = 0, Throw = 1 };
+
+inline constexpr int kMaxMotionLength = 6;
 
 struct MoveSpec {
+    bool enabled = true;
+    MoveKind kind = MoveKind::Strike;
     int startup = 1, active = 1, recovery = 1;
-    Box hitbox;
+    Box hitbox;                           // strike box, or grab box for throws
     int damage = 0;
     int hitstun = 0, blockstun = 7;
     int knockback = 0, blockPush = 3;     // pixels the defender slides
     int hitstopOnHit = 5, hitstopOnBlock = 3;
     bool low = false;                     // must be blocked crouching
     bool heavy = false;                   // presentation: heavy hit effect
+    bool knockdown = false;               // a clean hit knocks the opponent down
+    int advance = 0;                      // 1/kFixed px per tick forward during startup + active
+
+    // Throws (kind == Throw): the victim is held for throwDuration ticks, then
+    // takes damage, is knocked down and lands throwDistance px in front.
+    int throwDuration = 40, throwDistance = 50;
+    bool techable = true;                 // LP + LK within the tech window escapes
+
+    // Special input: numpad directions relative to facing (6 = forward,
+    // 2 = down, 3 = down-forward, ...), then any of motionButtons.
+    std::array<std::uint8_t, kMaxMotionLength> motion{};
+    int motionLength = 0;
+    std::uint16_t motionButtons = 0;
 
     [[nodiscard]] constexpr int duration() const { return startup + active + recovery; }
 };
 
 struct FighterSpec {
-    std::array<MoveSpec, kAttackSlots> moves{};
+    std::array<MoveSpec, kSlotCount> moves{};
     int walkForward = 420, walkBack = 420;  // 1/kFixed px per tick
     int jumpVelocity = 1480, gravity = 70;  // 1/kFixed px per tick (squared)
     Box standHurt{-18, 0, 36, 100};
     Box crouchHurt{-18, 0, 36, 64};
     int pushWidth = 36;
+    int knockdownTicks = 54;                // on the floor (invulnerable) incl. getting up
 };
 
 // The concept kit prototype's two archetypes, kept bit-exact for regression

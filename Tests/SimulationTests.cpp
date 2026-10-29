@@ -1,5 +1,6 @@
 // Combat invariants ported from the Brass Current kit prototype, plus a golden
-// checksum that pins the port to the original behaviour bit-for-bit.
+// checksum that pins simulation behaviour for the kit specs.
+#include "Simulation/Match.h"
 #include "Simulation/Round.h"
 
 #include <doctest/doctest.h>
@@ -123,10 +124,14 @@ TEST_CASE("identical input histories produce identical checksums every tick") {
     });
 }
 
-TEST_CASE("port matches the kit prototype bit-for-bit (golden checksum)") {
+// History of this constant (update it only for intended gameplay changes):
+//   17886306297783925268  kit prototype, reproduced bit-for-bit by the port
+//    8522570831175173500  knockdown (air hits, KO), throw/special state in the
+//                         checksum, effects placed at the hitbox centre
+TEST_CASE("simulation behaviour is pinned (golden checksum)") {
     Round m;
     randomHistory(4000, [&](const std::array<Input, 2>& in) { (void)m.step(in); });
-    CHECK(m.checksum() == 17886306297783925268ULL);
+    CHECK(m.checksum() == 8522570831175173500ULL);
 }
 
 TEST_CASE("a copied match is a snapshot that reproduces subsequent state") {

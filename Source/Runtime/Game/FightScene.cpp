@@ -45,6 +45,8 @@ const char* soundFor(sim::Effect effect) {
     case sim::Effect::HeavyHit:     return "heavy_hit";
     case sim::Effect::Guard:        return "guard";
     case sim::Effect::Breakaway: return "breakaway";
+    case sim::Effect::ThrowTech:    return "guard";
+    case sim::Effect::Slam:         return "heavy_hit";
     }
     return "";
 }

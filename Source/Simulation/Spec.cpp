@@ -20,6 +20,13 @@ MoveSpec kitMove(int startup, int active, int recovery, int reach, int damage, i
     return m;
 }
 
+// The kit had no throws or specials.
+MoveSpec disabled() {
+    MoveSpec m;
+    m.enabled = false;
+    return m;
+}
+
 FighterSpec makeBoxer() {
     FighterSpec s;
     s.moves = {
@@ -27,6 +34,8 @@ FighterSpec makeBoxer() {
         kitMove(8, 3, 20, 62, 12, 23, 10, false),
         kitMove(7, 4, 15, 72, 9, 18, 8, false),
         kitMove(12, 5, 23, 80, 14, 26, 14, true),
+        disabled(),
+        disabled(),
     };
     s.walkForward = s.walkBack = 420;
     return s;
@@ -40,6 +49,8 @@ FighterSpec makeGrappler() {
         kitMove(10, 3, 23, 66, 16, 23, 10, false),
         kitMove(7, 4, 15, 76, 9, 18, 8, false),
         kitMove(14, 5, 26, 84, 18, 26, 14, true),
+        disabled(),
+        disabled(),
     };
     s.walkForward = s.walkBack = 340;
     return s;

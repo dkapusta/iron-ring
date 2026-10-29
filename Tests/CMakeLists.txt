@@ -1,5 +1,6 @@
 add_executable(IronRingTests
     main.cpp
+    GameplayTests.cpp
     PlayerSettingsTests.cpp
     SimulationTests.cpp
     VfsTests.cpp)

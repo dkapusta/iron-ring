@@ -21,8 +21,17 @@ enum Button : std::uint16_t {
 using Input = std::uint16_t;
 inline constexpr Input kInputMask = 511;
 
+inline constexpr int kTechWindow = 10;     // ticks after a throw connects in which LP + LK escapes
+inline constexpr int kMotionStepWindow = 12; // max ticks between two directions of a motion
+inline constexpr int kMotionReadyWindow = 8; // ticks to press the button after the motion
+
 enum class Outcome : std::int32_t { Running = 0, Player1 = 1, Player2 = 2, Draw = 3 };
-enum class Effect : std::int32_t { LightHit = 0, HeavyHit = 1, Guard = 2, Breakaway = 3 };
+enum class Effect : std::int32_t { LightHit = 0, HeavyHit = 1, Guard = 2, Breakaway = 3, ThrowTech = 4, Slam = 5 };
+
+// Numpad notation relative to facing: 1 down-back ... 5 neutral ... 6 forward, 9 up-forward.
+[[nodiscard]] int numpadDirection(Input input, int facing);
+// Inverse, for the CPU and tests: the input bits for a numpad direction.
+[[nodiscard]] Input inputForDirection(int numpad, int facing);
 
 struct Fighter {
     int x = 0, y = 0, vy = 0, facing = 1, hp = 100, meter = 0;
@@ -30,6 +39,16 @@ struct Fighter {
     int side = 0; // 0 = player 1, 1 = player 2; indexes the round's specs
     Input previous = 0;
     bool connected = false, crouching = false, guarding = false, blockstun = false;
+
+    int knockdown = 0;   // ticks left on the floor; invulnerable
+    int throwTicks = 0;  // > 0 while performing a throw
+    int throwSlot = -1;  // which move is being performed as a throw
+    int heldTicks = 0;   // > 0 while being thrown
+    int techTicks = 0;   // remaining tech window while held
+    int motionStep = 0, motionTimer = 0, motionReady = 0;
+
+    // Free to act, block and be thrown.
+    [[nodiscard]] bool busy() const { return knockdown > 0 || throwTicks > 0 || heldTicks > 0; }
 };
 
 // Presentation events emitted by one step. Transient: never part of the
@@ -78,6 +97,16 @@ struct Round {
     [[nodiscard]] const Box& hurtbox(const Fighter& f) const {
         return f.crouching ? spec(f).crouchHurt : spec(f).standHurt;
     }
+    // Strikes connect only with fighters that are neither down nor in a throw.
+    [[nodiscard]] static bool hittable(const Fighter& f) { return !f.busy(); }
+
+private:
+    void readInputs(const std::array<Input, 2>& inputs, std::array<Input, 2>& pressed, std::array<bool, 2>& techs);
+    void updateFighter(std::size_t i, Input in, Input pressed, StepEvents& events);
+    void resolveThrows(const std::array<bool, 2>& techs, StepEvents& events);
+    void resolveContacts(StepEvents& events);
+    void separate();
+    void setEffect(Effect e, int x, int y, int ticks, StepEvents& events);
 };
 
 [[nodiscard]] Input cpuInput(const Round& round); // drives fighters[1]
