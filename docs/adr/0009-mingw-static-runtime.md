@@ -1,37 +1,57 @@
-# ADR-0009: Link the MinGW runtime statically
+# ADR-0009: MinGW runtime — static when possible, self-contained always
 
-- **Status:** Accepted
+- **Status:** Accepted (revised 2026-10-29)
 - **Date:** 2026-10-28
 
 ## Context
 
-The owner develops in CLion on Windows with its MinGW-w64 toolchain. Binaries built by MinGW GCC depend by default on three runtime DLLs — `libgcc_s_seh-1.dll`, `libstdc++-6.dll`, `libwinpthread-1.dll` — which are not on `PATH` outside the toolchain's shell. Running the player, the tests or AssetPacker from the build folder therefore failed until the DLLs were copied by hand. The same problem would hit anyone receiving a MinGW-built player folder.
+The owner develops in CLion on Windows with its bundled MinGW-w64 toolchain. MinGW GCC binaries depend by default on `libgcc_s_seh-1.dll`, `libstdc++-6.dll` and `libwinpthread-1.dll`, which are not on `PATH` outside the toolchain's shell, so the player, tests and AssetPacker failed to start from the build folder.
+
+**First attempt** (this ADR's original version): link everything with `-static -static-libgcc -static-libstdc++`. It worked in CI (MSYS2 UCRT64, GCC 15) and in a Linux cross build, but **failed to link with CLion 2026.2.1's bundled GCC 15.2**:
+
+```text
+libpthread.a(libwinpthread_la-thread.o): undefined reference to `__intrinsic_setjmpex'
+libmsvcrt.a(...snprintf_alias.o): undefined reference to `__ms_vsnprintf'
+```
+
+Investigation: that toolchain links against **msvcrt**, but its static `libpthread.a` references `__intrinsic_setjmpex`, which exists only in the **UCRT** import libraries. The static winpthread was evidently built for a different C runtime than the toolchain uses; the second error is a knock-on effect of pulling in that object. Public GCC 15.2/16.1 msvcrt builds from the same family (niXman mingw-builds `15.2.0-rt_v13-rev0/rev1`, `16.1.0-rt_v14-rev0`) don't have this reference, so it's specific to the bundled toolchain and can't be fixed from the project side. Its import library (dynamic winpthread) is fine.
 
 ## Decision
 
-When `MINGW` is true and `IR_MINGW_STATIC_RUNTIME` is `ON` (default), `cmake/CompilerOptions.cmake` adds
+`cmake/MinGWRuntime.cmake` chooses how the MinGW runtime is linked, via the cache variable `IR_MINGW_RUNTIME`:
 
-```cmake
-add_link_options(-static -static-libgcc -static-libstdc++)
-```
+| Mode | Link flags | Runtime DLLs copied next to executables |
+| --- | --- | --- |
+| `STATIC` | `-static -static-libgcc -static-libstdc++` | none |
+| `STATIC_LIBSTDCXX` | `-static-libgcc -static-libstdc++` | `libwinpthread-1.dll` |
+| `SHARED` | — | `libgcc_s_seh-1.dll`, `libstdc++-6.dll`, `libwinpthread-1.dll` |
+| **`AUTO`** (default) | first of the above that **links a probe program** at configure time | as chosen |
 
-before dependencies are declared, so every executable and DLL in the tree — launcher, `UnityPlayer.dll`, `AssetPacker.exe`, `IronRingTests.exe`, and SDL's own link steps — embeds libgcc, libstdc++ and winpthread. `-static` is what pulls in `libwinpthread.a`; the two explicit flags document intent and cover toolchains where `-static` alone behaves differently.
+- The probe uses `std::thread`, `std::mutex`, `snprintf` and `std::filesystem` — exactly what broke in the wild.
+- When `AUTO` falls back, CMake prints a warning naming the reason and the chosen mode.
+- DLLs are located with `<compiler> -print-file-name=<dll>`, falling back to the compiler's directory (where Windows toolchains keep them), and copied by a `POST_BUILD` step on every executable (`ir_configure_target` → `ir_copy_mingw_runtime`). The engine DLL lives next to the launcher and uses the same copy.
+- The link options are set with `add_link_options()` before dependencies are declared, so they apply to every target.
 
-Because the launcher and `UnityPlayer.dll` now each carry a private copy of the C++ runtime, the boundary between them stays **C-only**: `PlayerMain`/`UnityMain` take and return plain C types, and the engine catches every exception before returning (`guardedRun` in `PlayerMain.cpp`). The launcher contains no C++ library code. This rule already existed for the Unity-style layout; it is now load-bearing.
+Because the launcher and `UnityPlayer.dll` may each carry a private copy of the C++ runtime (in `STATIC` mode), the boundary between them stays **C-only**: `PlayerMain`/`UnityMain` take and return plain C types, and the engine catches every exception before returning (`guardedRun` in `PlayerMain.cpp`).
 
-Verified by cross-compiling with MinGW-w64 GCC 13 (posix threads) and inspecting imports: the player, engine, tests and packer import only Windows system DLLs (`KERNEL32`, `USER32`, `GDI32`, `msvcrt`/UCRT, …). CI builds and runs the MinGW configuration on a Windows runner.
+## Verification
+
+- Linux cross build (MinGW-w64 GCC 13) with a stub `libpthread.a` that mimics CLion's: forced `STATIC` fails to link; `AUTO` warns, picks `STATIC_LIBSTDCXX`, builds, and copies `libwinpthread-1.dll` into `Player/`, `Tests/` and `Tools/`. Under Wine the tests (21/21), AssetPacker and the batch-mode player run. Removing the copied DLL makes the test executable fail to load, which proves the copy is what makes it work.
+- The same cross build with the normal toolchain: `AUTO` picks `STATIC`; the binaries import only Windows system DLLs.
+- CI: the MSYS2 UCRT64 job requires `STATIC` and checks that no binary imports a MinGW runtime DLL. A second job uses a niXman GCC 15.2 msvcrt toolchain (the closest public relative of CLion's). Both run the tests and the player from PowerShell with no MinGW folder on `PATH`.
 
 ## Consequences
 
-- Build-folder binaries run directly from CLion, Explorer or a plain `cmd.exe`; distribution needs no extra DLLs.
-- Binaries grow by roughly 1–2 MB each. Irrelevant for this project.
-- Two copies of libstdc++ (exe and DLL) mean no `std::` objects, allocations or exceptions may cross the boundary. Enforced by the narrow `Player.h` API; called out in AGENTS.md.
-- Licensing: static libgcc/libstdc++ is permitted for any program by the GCC Runtime Library Exception. winpthreads is MIT-style licensed, so its copyright notice must accompany MinGW-built releases — add it to the third-party notices with SDL's (M5).
-- MSVC is unaffected: it uses the system UCRT and the VC++ redistributable `vcruntime140.dll`, which ships with Windows 10/11 in practice; a static-CRT option for MSVC can be added later if needed.
-- Opt out with `-DIR_MINGW_STATIC_RUNTIME=OFF` (e.g. to use a sanitizer runtime).
+- Build-folder binaries run directly from CLion, Explorer or `cmd.exe` on every MinGW toolchain we know of. Toolchains with healthy static libraries (MSYS2 UCRT64, mingw-builds, Ubuntu's cross compiler) produce fully self-contained binaries.
+- With CLion's bundled toolchain the player folder contains `libwinpthread-1.dll`. That's fine for development. For distribution, prefer an MSVC or MSYS2 UCRT64 build, or ship the DLL; it is MIT-licensed.
+- `STATIC` binaries grow by roughly 1–2 MB each. That doesn't matter here.
+- Licensing: static libgcc/libstdc++ is permitted by the GCC Runtime Library Exception. winpthreads' MIT-style notice is listed in `THIRD_PARTY_NOTICES.md`.
+- MSVC is unaffected: it uses the system UCRT plus `vcruntime140.dll`.
+- The copy runs when an executable is (re)linked; deleting a copied DLL by hand needs a relink (or a clean build) to restore it.
 
 ## Alternatives considered
 
-- **Copy the three DLLs next to the binaries after build** (`$<TARGET_RUNTIME_DLLS>` cannot see them; a custom copy step from the compiler's `bin/`): works, but spreads toolchain files through the player folder and breaks if the compiler path changes.
-- **Add the MinGW `bin` folder to PATH in CLion run configurations**: per-machine setup, and doesn't help testers.
-- **Static libstdc++ only, dynamic libgcc**: still needs `libgcc_s_seh-1.dll` and `libwinpthread-1.dll`.
+- **Always static**: breaks on CLion's bundled toolchain (the original version of this ADR).
+- **Link `-lucrt` to satisfy `__intrinsic_setjmpex`**: mixes two C runtimes in one process; undefined behaviour waiting to happen.
+- **Add the MinGW `bin` folder to PATH in CLion run configurations**: per-machine setup that doesn't help double-clicking or testers.
+- **Ask everyone to use MSYS2**: still documented as the best-quality option, but the default CLion setup must just work.

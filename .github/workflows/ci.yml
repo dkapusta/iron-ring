@@ -153,3 +153,48 @@ jobs:
           path: |
             smoke-windows-mingw.png
             Build/release/Player/Release/
+
+  # Closest public relative of CLion's bundled MinGW (GCC 15.2, msvcrt,
+  # posix threads, SEH). Exercises IR_MINGW_RUNTIME=AUTO outside MSYS2.
+  windows-mingw-msvcrt:
+    name: Windows (MinGW GCC 15.2 msvcrt)
+    runs-on: windows-latest
+    env:
+      MINGW_URL: https://github.com/niXman/mingw-builds-binaries/releases/download/15.2.0-rt_v13-rev1/x86_64-15.2.0-release-posix-seh-msvcrt-rt_v13-rev1.7z
+      MINGW_BIN: C:/mingw-msvcrt/mingw64/bin
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install toolchain
+        shell: pwsh
+        run: |
+          Invoke-WebRequest $env:MINGW_URL -OutFile mingw.7z
+          7z x mingw.7z -oC:\mingw-msvcrt | Out-Null
+          if ($LASTEXITCODE -ne 0) { throw "extract failed" }
+          python -m pip install --quiet ninja
+
+      - name: Configure and build
+        shell: pwsh
+        run: |
+          $env:PATH = "$env:MINGW_BIN;$env:PATH"
+          cmake --preset release -DIR_WARNINGS_AS_ERRORS=ON `
+                -DCMAKE_C_COMPILER="$env:MINGW_BIN/gcc.exe" -DCMAKE_CXX_COMPILER="$env:MINGW_BIN/g++.exe"
+          if ($LASTEXITCODE -ne 0) { throw "configure failed" }
+          cmake --build --preset release
+          if ($LASTEXITCODE -ne 0) { throw "build failed" }
+          Get-ChildItem Build/release/Player/Release, Build/release/Tests, Build/release/Tools/Release -Filter lib*.dll |
+            ForEach-Object { "copied runtime DLL: $($_.FullName)" }
+
+      # PATH no longer contains the toolchain: binaries must be self-contained.
+      - name: Test (toolchain not on PATH)
+        shell: pwsh
+        run: |
+          Build/release/Tests/IronRingTests.exe
+          if ($LASTEXITCODE -ne 0) { throw "tests failed" }
+
+      - name: Smoke run (toolchain not on PATH)
+        shell: pwsh
+        run: |
+          $p = Start-Process -FilePath Build/release/Player/Release/IronRing.exe -Wait -PassThru -NoNewWindow `
+               -ArgumentList "$env:SMOKE_ARGS -screenshot smoke-windows-mingw-msvcrt.png".Split(' ')
+          if ($p.ExitCode -ne 0) { throw "IronRing.exe exited with $($p.ExitCode)" }

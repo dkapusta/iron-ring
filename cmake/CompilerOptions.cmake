@@ -7,15 +7,10 @@ if(MSVC)
     # which ships with Windows (UCRT) — nothing extra to copy next to the exe.
 endif()
 
-# MinGW-w64: link libgcc, libstdc++ and winpthread statically into every
-# executable and DLL, so binaries run straight from the build folder without
-# libgcc_s_seh-1.dll / libstdc++-6.dll / libwinpthread-1.dll on PATH.
-# Declared before Dependencies.cmake so SDL and friends inherit it too.
-# See docs/adr/0009-mingw-static-runtime.md.
-option(IR_MINGW_STATIC_RUNTIME "MinGW: link the GCC runtime statically" ON)
-if(MINGW AND IR_MINGW_STATIC_RUNTIME)
-    add_link_options(-static -static-libgcc -static-libstdc++)
-endif()
+# MinGW-w64 runtime: static where the toolchain allows it, otherwise the
+# needed runtime DLLs are copied next to executables. Must run before
+# Dependencies.cmake so add_link_options() also reaches SDL and friends.
+include(MinGWRuntime)
 
 function(ir_configure_target target)
     if(MSVC)
@@ -35,4 +30,8 @@ function(ir_configure_target target)
     set_target_properties(${target} PROPERTIES
         CXX_VISIBILITY_PRESET hidden
         VISIBILITY_INLINES_HIDDEN ON)
+    get_target_property(_type ${target} TYPE)
+    if(_type STREQUAL "EXECUTABLE")
+        ir_copy_mingw_runtime(${target})
+    endif()
 endfunction()
