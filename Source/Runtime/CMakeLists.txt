@@ -11,6 +11,7 @@ add_library(IronRingEngine SHARED
     Game/InputMapper.h          Game/InputMapper.cpp
     Game/Scene.h
     Game/TrainingOverlay.h      Game/TrainingOverlay.cpp
+    Game/InputDisplay.h         Game/InputDisplay.cpp
     Platform/Display.h          Platform/Display.cpp
     Platform/PlayerLog.h        Platform/PlayerLog.cpp
     Platform/SdlHandles.h

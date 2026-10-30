@@ -19,6 +19,7 @@ inline constexpr int kTickRate = 60;
 inline constexpr int kRoundSeconds = 99;
 inline constexpr int kBreakCost = 50;     // Breakaway cost, in Heat meter units
 inline constexpr int kMeterMax = 100;
+inline constexpr int kMaxHealth = 100;
 
 struct Box {
     int x = 0, y = 0, w = 0, h = 0;

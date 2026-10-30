@@ -1,6 +1,7 @@
 // Throws, throw tech, specials, knockdown and best-of-3 flow.
 #include "Simulation/Match.h"
 #include "Simulation/Round.h"
+#include "Simulation/Training.h"
 
 #include <doctest/doctest.h>
 
@@ -264,4 +265,67 @@ TEST_CASE("matches with throws and specials stay deterministic") {
         (void)snapshot.step(in);
     }
     CHECK(a.checksum() == snapshot.checksum());
+}
+
+TEST_CASE("training rules") {
+    SUBCASE("the clock stops and nobody is knocked out") {
+        auto r = closeRound();
+        r.training = true;
+        r.fighters[1].hp = 3;
+        const int clock = r.remaining;
+        (void)r.step({HeavyPunch, 0});
+        run(r, 30);
+        CHECK(r.remaining == clock);
+        CHECK(r.fighters[1].hp >= 1);
+        CHECK(r.outcome == Outcome::Running);
+    }
+    SUBCASE("health and Heat refill after a second of recovery") {
+        auto r = closeRound();
+        r.training = true;
+        r.fighters[1].hp = 40;
+        r.fighters[0].meter = 10;
+        run(r, kTrainingRefillTicks + 1);
+        CHECK(r.fighters[1].hp == kMaxHealth);
+        CHECK(r.fighters[0].meter == kMeterMax);
+    }
+    SUBCASE("reset keeps the rules; the checksum only changes under them") {
+        Round a, b;
+        b.training = true;
+        b.reset();
+        CHECK(b.training);
+        CHECK(a.checksum() != b.checksum());
+        b.training = false;
+        CHECK(a.checksum() == b.checksum());
+    }
+}
+
+TEST_CASE("training dummy") {
+    // A low sweep from player 1, against each guard mode.
+    FighterSpec sweeper = rusher();
+    sweeper.moves[HeavyKickSlot].low = true;
+    const auto sweepHits = [&](Dummy mode) {
+        Round r(sweeper, grabberSpec());
+        r.fighters[0].x = 280 * kFixed;
+        r.fighters[1].x = 316 * kFixed;
+        r.training = true;
+        bool attacked = false;
+        for (int t = 0; t < 40; ++t) {
+            const Input p1 = (!attacked && t == 10) ? Input(HeavyKick) : Input(0);
+            attacked = attacked || t == 10;
+            (void)r.step({p1, dummyInput(r, 1, mode)});
+        }
+        return r.fighters[1].hp < kMaxHealth;
+    };
+    CHECK(sweepHits(Dummy::Stand));
+    CHECK(sweepHits(Dummy::Guard));       // standing guard loses to lows
+    CHECK_FALSE(sweepHits(Dummy::GuardAll));
+
+    CHECK(nextDummy(Dummy::Cpu) == Dummy::Stand);
+    CHECK(dummyName(Dummy::GuardAll) == "GUARD ALL");
+    CHECK(parseDummy("guard-all") == Dummy::GuardAll);
+    CHECK(parseDummy("CPU") == Dummy::Cpu);
+    CHECK_FALSE(parseDummy("sleep").has_value());
+    Round r(rusherSpec(), grabberSpec());
+    CHECK(dummyInput(r, 1, Dummy::Crouch) == Down);
+    CHECK(dummyInput(r, 1, Dummy::Cpu) == cpuInput(r, 1));
 }

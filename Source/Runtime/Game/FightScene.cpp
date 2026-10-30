@@ -41,7 +41,10 @@ FightScene::FightScene(AssetLibrary& assets, AudioSystem& audio, FightOptions op
     hud_ = std::make_unique<Hud>(assets.json("Resources/UI/hud_layout.json"), *small_, *large_,
                                  settings.value("meterName", "METER"));
     overlay_ = std::make_unique<TrainingOverlay>(*small_);
-    if (options.training) overlay_->toggle();
+    inputDisplay_ = std::make_unique<InputDisplay>(*small_);
+    training_ = options.training;
+    dummy_ = options.dummy;
+    if (training_) overlay_->toggle();
 
     for (const auto& [id, path] : settings.at("sounds").items()) audio_.load(id, assets.bytes(path.get<std::string>()));
     if (settings.contains("voice"))
@@ -89,7 +92,9 @@ void FightScene::playStageMusic() {
 
 void FightScene::newMatch() {
     match_ = std::make_unique<sim::Match>(views_[0]->definition().spec, views_[1]->definition().spec);
+    match_->round.training = training_;
     effects_->clear();
+    inputDisplay_->clear();
     cues_.clear();
     playStageMusic();
 }
@@ -109,6 +114,15 @@ void FightScene::handleEvent(const SDL_Event& event) {
         break;
     case SDL_SCANCODE_F3: overlay_->toggle(); break;
     case SDL_SCANCODE_F5: newMatch(); break;
+    case SDL_SCANCODE_F4: // training: back to the starting positions, full health
+        if (training_) {
+            match_->round.reset();
+            effects_->clear();
+        }
+        break;
+    case SDL_SCANCODE_F6:
+        if (training_) dummy_ = sim::nextDummy(dummy_);
+        break;
     default: break;
     }
 }
@@ -171,8 +185,10 @@ void FightScene::playCues() {
 void FightScene::fixedUpdate() {
     const auto& round = match_->round;
     const bool demo = control_ == Control::Demo;
-    const std::array<sim::Input, 2> inputs{demo ? sim::cpuInput(round, 0) : input_.sample(0),
-                                           control_ == Control::TwoPlayers ? input_.sample(1) : sim::cpuInput(round, 1)};
+    const sim::Input p2 = control_ == Control::TwoPlayers ? input_.sample(1)
+                        : training_                       ? sim::dummyInput(round, 1, dummy_)
+                                                          : sim::cpuInput(round, 1);
+    const std::array<sim::Input, 2> inputs{demo ? sim::cpuInput(round, 0) : input_.sample(0), p2};
     input_.endTick();
 
     const auto step = match_->step(inputs);
@@ -184,6 +200,7 @@ void FightScene::fixedUpdate() {
     }
 
     const bool fighting = match_->phase == sim::Phase::Fight;
+    if (fighting && training_) inputDisplay_->record(match_->round, inputs);
     if (!fighting || match_->round.hitstop == 0) ++clock_;
     if (fighting && (step.round.count > 0 || match_->round.hitstop == 0))
         overlay_->observe(match_->round, step.round.count > 0);
@@ -234,13 +251,15 @@ void FightScene::render(const RenderContext& context) {
 
     effects_->draw(context, clock_);
     overlay_->draw(r, round, views());
+    if (training_) inputDisplay_->draw(r);
     hud_->draw(r, *match_, views(), stages_[stage_].name + " - " + controlName());
 }
 
-const char* FightScene::controlName() const {
+std::string FightScene::controlName() const {
+    if (training_ && control_ == Control::VsCpu) return "TRAINING - DUMMY " + std::string(sim::dummyName(dummy_));
     switch (control_) {
     case Control::VsCpu: return "VS CPU";
-    case Control::TwoPlayers: return "2P";
+    case Control::TwoPlayers: return training_ ? "TRAINING - 2P" : "2P";
     case Control::Demo: return "CPU VS CPU";
     }
     return "";
@@ -248,8 +267,9 @@ const char* FightScene::controlName() const {
 
 std::string FightScene::status() const {
     char line[160];
-    std::snprintf(line, sizeof line, "%s | %s | round %d | Tab mode  F2 stage  F3 boxes  F5 restart",
-                  stages_[stage_].name.c_str(), controlName(), match_->roundNumber);
+    std::snprintf(line, sizeof line, "%s | %s | round %d | Tab mode  F2 stage  F3 boxes  F5 restart%s",
+                  stages_[stage_].name.c_str(), controlName().c_str(), match_->roundNumber,
+                  training_ ? "  F4 reset  F6 dummy" : "");
     return line;
 }
 

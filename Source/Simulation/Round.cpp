@@ -121,6 +121,18 @@ void Round::setEffect(Effect e, int x, int y, int ticks, StepEvents& events) {
     events.push(e, x, y);
 }
 
+void Round::applyTrainingRules() {
+    for (auto& f : fighters) {
+        if (f.hp <= 0) f.hp = 1; // no K.O. in training
+        const bool recovering = f.stun > 0 || f.knockdown > 0 || f.heldTicks > 0;
+        f.recoverTicks = recovering ? 0 : f.recoverTicks + 1;
+        if (f.recoverTicks >= kTrainingRefillTicks) {
+            f.hp = kMaxHealth;
+            f.meter = kMeterMax;
+        }
+    }
+}
+
 StepEvents Round::step(const std::array<Input, 2>& inputs) {
     StepEvents events;
     if (outcome != Outcome::Running) return events;
@@ -134,12 +146,16 @@ StepEvents Round::step(const std::array<Input, 2>& inputs) {
         --hitstop;
         return events;
     }
-    --remaining;
+    if (!training) --remaining;
 
     for (std::size_t i = 0; i < 2; ++i) updateFighter(i, inputs[i], pressed[i], events);
     resolveThrows(techs, events);
     resolveContacts(events);
     separate();
+    if (training) {
+        applyTrainingRules();
+        return events;
+    }
 
     const auto& a = fighters[0];
     const auto& b = fighters[1];
@@ -435,7 +451,9 @@ std::uint64_t Round::checksum() const {
         add(f.connected); add(f.crouching); add(f.guarding); add(f.blockstun);
         add(f.knockdown); add(f.throwTicks); add(f.throwSlot); add(f.heldTicks); add(f.techTicks);
         add(f.motionStep); add(f.motionTimer); add(f.motionReady);
+        if (training) add(f.recoverTicks); // only under training rules, so match checksums stay put
     }
+    if (training) add(1);
     return h;
 }
 

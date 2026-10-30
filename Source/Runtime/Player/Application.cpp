@@ -49,6 +49,10 @@ Application::Application(const PlayerSettings& settings, const ProductInfo& info
     options.control = settings_.demo ? Control::Demo : Control::VsCpu;
     options.training = settings_.training;
     options.stage = settings_.stage;
+    if (!settings_.dummy.empty()) {
+        if (const auto dummy = sim::parseDummy(settings_.dummy)) options.dummy = *dummy;
+        else SDL_Log("Unknown -dummy '%s'; using STAND", settings_.dummy.c_str());
+    }
     scene_ = std::make_unique<FightScene>(*assets_, *audio_, options);
 }
 
