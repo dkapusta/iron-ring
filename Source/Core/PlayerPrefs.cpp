@@ -31,6 +31,7 @@ std::string settingText(const PlayerSettings& s, std::string_view key) {
     if (key == "sfx-volume") return number(s.sfxVolume);
     if (key == "voice-volume") return number(s.voiceVolume);
     if (key == "screen-effects") return s.reducedEffects ? "reduced" : "full";
+    if (key == "cpu-level") return s.cpuDifficulty == 0 ? "easy" : s.cpuDifficulty == 2 ? "hard" : "normal";
     return {};
 }
 

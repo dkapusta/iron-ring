@@ -21,6 +21,17 @@ GameData::GameData(AssetLibrary& assets, AudioSystem& audio)
     logo_ = &assets.texture(ui.at("logo").get<std::string>());
     backdrop_ = &assets.texture(ui.at("backdrop").get<std::string>());
     menuTheme_ = ui.value("music", std::string{});
+    if (settings_.contains("arcade")) {
+        const auto path = settings_.at("arcade").get<std::string>();
+        arcade_ = content::parseArcade(assets.json(path), path);
+    }
+}
+
+std::vector<std::string> GameData::playableIds() const {
+    std::vector<std::string> ids;
+    for (const auto& e : roster_)
+        if (e.playable()) ids.push_back(e.id);
+    return ids;
 }
 
 void GameData::loadMusic(AssetLibrary& assets) {

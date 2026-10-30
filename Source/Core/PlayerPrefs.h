@@ -35,7 +35,7 @@ public:
     // Settings stored here, by boot.config key: the ones the Options screen edits.
     static constexpr std::string_view kSettingKeys[]{"window-mode", "presentation", "vsync", "hdr",
                                                      "music-volume", "sfx-volume", "voice-volume",
-                                                     "screen-effects"};
+                                                     "screen-effects", "cpu-level"};
     // Applies the settings keys to `settings` (other keys are left alone).
     std::vector<std::string> applyTo(PlayerSettings& settings) const;
     // Stores the current value of every settings key.

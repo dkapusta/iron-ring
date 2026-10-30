@@ -83,6 +83,13 @@ bool applySetting(PlayerSettings& s, std::string_view key, std::string_view valu
         (key == "music-volume" ? s.musicVolume : key == "sfx-volume" ? s.sfxVolume : s.voiceVolume) = *v;
         return true;
     }
+    if (key == "cpu-level") {
+        if (value == "easy") s.cpuDifficulty = 0;
+        else if (value == "normal") s.cpuDifficulty = 1;
+        else if (value == "hard") s.cpuDifficulty = 2;
+        else return false;
+        return true;
+    }
     if (key == "screen-effects") {
         if (value == "full") s.reducedEffects = false;
         else if (value == "reduced") s.reducedEffects = true;
@@ -138,6 +145,8 @@ std::vector<std::string> applyCommandLine(PlayerSettings& settings, std::span<co
             settings.demo = true;
         } else if (arg == "-training") {
             settings.training = true;
+        } else if (arg == "-autoplay") {
+            settings.autoplay = true;
         } else if (arg == "-stage" || arg == "-dummy" || arg == "-scene" || arg == "-keys") {
             const auto v = next(i);
             ok = v && !v->empty();
@@ -175,7 +184,7 @@ std::vector<std::string> applyCommandLine(PlayerSettings& settings, std::span<co
             }
         } else if (arg == "-hdr" || arg == "-vsync" || arg == "-presentation" || arg == "-render-driver" ||
                    arg == "-music-volume" || arg == "-sfx-volume" || arg == "-voice-volume" ||
-                   arg == "-screen-effects") {
+                   arg == "-screen-effects" || arg == "-cpu-level") {
             const auto v = next(i);
             ok = v && applySetting(settings, arg.substr(1), *v);
         } else {

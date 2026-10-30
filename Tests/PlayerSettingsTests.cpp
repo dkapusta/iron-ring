@@ -62,6 +62,14 @@ TEST_CASE("malformed command-line values are reported, not applied") {
     CHECK(s.hdr == HdrMode::Auto);
 }
 
+TEST_CASE("CPU difficulty setting") {
+    PlayerSettings s;
+    CHECK(s.cpuDifficulty == 1);
+    CHECK(applyCommandLine(s, std::vector<std::string>{"-cpu-level", "hard"}).empty());
+    CHECK(s.cpuDifficulty == 2);
+    CHECK(applyCommandLine(s, std::vector<std::string>{"-cpu-level", "brutal"}).size() == 1);
+}
+
 TEST_CASE("screen effects setting") {
     PlayerSettings s;
     CHECK_FALSE(s.reducedEffects);
@@ -72,8 +80,9 @@ TEST_CASE("screen effects setting") {
 
 TEST_CASE("front-end test flags") {
     PlayerSettings s;
-    const std::vector<std::string> args{"-scene", "options", "-keys", "10:Return,30:Down"};
+    const std::vector<std::string> args{"-scene", "options", "-keys", "10:Return,30:Down", "-autoplay"};
     CHECK(applyCommandLine(s, args).empty());
+    CHECK(s.autoplay);
     CHECK(s.scene == "options");
     CHECK(s.keys == "10:Return,30:Down");
     CHECK(applyCommandLine(s, std::vector<std::string>{"-keys"}).size() == 1);

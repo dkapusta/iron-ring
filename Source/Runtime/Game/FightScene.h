@@ -11,10 +11,13 @@
 #include "Game/TrainingOverlay.h"
 #include "Core/Camera.h"
 #include "Render/BitmapFont.h"
+#include "Simulation/Cpu.h"
 #include "Simulation/Match.h"
 #include "Simulation/Training.h"
 
 #include <array>
+#include <functional>
+#include <optional>
 #include <memory>
 #include <string>
 #include <vector>
@@ -32,6 +35,10 @@ struct FightSetup {
     std::string stage;              // stage id; empty = GameSettings startStage
     bool attract = false;           // the title screen's demo: any button returns
     bool fromSelect = false;        // the character select is beneath (pause offers it)
+    int cpuLevel = 2;               // 0 ROOKIE .. 4 CHAMPION, for every CPU-controlled side
+    // Arcade: called once with the match's winner when it is decided; the
+    // fight then leaves the stack by itself instead of offering a rematch.
+    std::function<void(sim::Outcome)> onFinished;
 };
 
 // Versus screen: a best-of-3 sim::Match between two fighters on one of the
@@ -89,6 +96,8 @@ private:
     std::unique_ptr<InputDisplay> inputDisplay_;
     std::unique_ptr<StageView> stageView_;
     Camera camera_;
+    std::array<std::optional<sim::CpuPlayer>, 2> cpu_; // per side, for CPU-controlled sides
+    unsigned matches_ = 0;                             // seeds the CPUs: each rematch plays differently
     float shakeAmplitude_ = 0;
     int shakeTicks_ = 0, shakeTotal_ = 0, flashTicks_ = 0;
     bool training_ = false;

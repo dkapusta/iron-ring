@@ -93,6 +93,14 @@ float FightScene::shakeOffset() const {
 
 void FightScene::newMatch() {
     match_ = std::make_unique<sim::Match>(views_[0]->definition().spec, views_[1]->definition().spec);
+    // Fresh CPUs for both sides (used when a side is CPU-controlled), seeded per match:
+    // deterministic, but a rematch isn't a replay.
+    ++matches_;
+    for (std::size_t side = 0; side < 2; ++side) {
+        const bool autoplayer = side == 0 && services_.settings.autoplay && control_ != Control::Demo;
+        cpu_[side].emplace(autoplayer ? sim::kCpuLevels - 1 : setup_.cpuLevel,
+                           0x1F2E3D4Cu ^ (matches_ * 2654435761u) ^ static_cast<unsigned>(side * 40503u));
+    }
     match_->round.training = training_;
     match_->round.stageWidth = services_.data.stages()[stage_].definition.width;
     match_->round.reset(); // start positions depend on the width
@@ -247,16 +255,22 @@ void FightScene::fixedUpdate() {
     const auto& round = match_->round;
     const bool demo = control_ == Control::Demo;
     auto& controls = services_.controls;
+    const auto cpu = [&](int side) { return cpu_[static_cast<std::size_t>(side)]->think(round, side); };
+    const bool dummyCpu = training_ && dummy_ == sim::Dummy::Cpu;
     const sim::Input p2 = control_ == Control::TwoPlayers ? controls.sample(1)
-                        : training_                       ? sim::dummyInput(round, 1, dummy_)
-                                                          : sim::cpuInput(round, 1);
-    const std::array<sim::Input, 2> inputs{demo ? sim::cpuInput(round, 0) : controls.sample(0), p2};
+                        : training_ && !dummyCpu         ? sim::dummyInput(round, 1, dummy_)
+                                                          : cpu(1);
+    const bool autoplay = services_.settings.autoplay && control_ != Control::TwoPlayers;
+    const std::array<sim::Input, 2> inputs{demo || autoplay ? cpu(0) : controls.sample(0), p2};
 
     const auto step = match_->step(inputs);
     playEvents(step);
     playCues();
     if (step.flow == sim::FlowEvent::Finished) {
-        if (setup_.attract) services_.scenes.pop();
+        if (setup_.onFinished) {
+            setup_.onFinished(match_->winner);
+            services_.scenes.pop();
+        } else if (setup_.attract) services_.scenes.pop();
         else openMenu(true); // rematch, character select or title
         return;
     }
@@ -337,7 +351,7 @@ void FightScene::render(const RenderContext& context) {
 std::string FightScene::controlName() const {
     if (training_ && control_ == Control::VsCpu) return "TRAINING - DUMMY " + std::string(sim::dummyName(dummy_));
     switch (control_) {
-    case Control::VsCpu: return "VS CPU";
+    case Control::VsCpu: return "VS CPU - " + std::string(sim::cpuLevelName(setup_.cpuLevel));
     case Control::TwoPlayers: return training_ ? "TRAINING - 2P" : "2P";
     case Control::Demo: return "CPU VS CPU";
     }

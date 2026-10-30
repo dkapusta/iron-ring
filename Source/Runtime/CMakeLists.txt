@@ -4,6 +4,7 @@ add_library(IronRingEngine SHARED
     Public/IronRing/Player.h
     Assets/AssetLibrary.h       Assets/AssetLibrary.cpp
     Audio/AudioSystem.h         Audio/AudioSystem.cpp
+    Game/ArcadeScene.h          Game/ArcadeScene.cpp
     Game/CharacterSelectScene.h Game/CharacterSelectScene.cpp
     Game/Controls.h             Game/Controls.cpp
     Game/ControlsScene.h        Game/ControlsScene.cpp
