@@ -58,9 +58,9 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 
 - ✅ Title (with an attract demo), character select (the full roster, unbuilt fighters locked), stage select, options, pause and post-match menus, on a scene stack with fades ([ADR-0015](docs/adr/0015-front-end-scene-stack.md)); a front-end theme and menu sounds
 - ✅ Gamepads via SDL_Gamepad: two pads, one layout from `InputManager.json`
-- ⬜ Remapping UI; per-device profiles
+- ✅ Remapping (Options → Controls): keys per player, pad buttons per device, saved to `prefs.cfg`; a move list in the pause menu; [docs/controls.md](docs/controls.md) ([ADR-0016](docs/adr/0016-remapping-and-renderer-recreation.md))
 - ✅ Persistent settings: `prefs.cfg` in the user folder, between `boot.config` and the command line
-- ⬜ Renderer recreation when HDR state or display changes (the HDR option applies on the next launch until then); fullscreen, scaling and vsync already change live
+- ✅ Renderer recreation when the HDR option, the display's HDR state or the display changes; fullscreen, scaling and vsync change live
 - ⬜ Stage layers and parallax; animated crowds; camera follow and zoom limits
 - ⬜ Hitstop/shake/flash tuning pass; HDR-aware VFX (float textures for sparks); hit-confirm audio layering (needs counter hits and combo counts in the simulation)
 - ⬜ **Vertical slice**: the complete local loop for Dee vs Bram at release quality; final art takes over from placeholder art where the slice needs it (see *How art is made*)

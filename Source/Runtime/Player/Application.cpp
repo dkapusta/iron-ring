@@ -54,12 +54,13 @@ Application::Application(const PlayerSettings& settings, PlayerPrefs prefs, cons
     const auto filter = parseScaleMode(gameSettings.value("textureFilter", "linear"));
     assets_ = std::make_unique<AssetLibrary>(vfs_, display_->renderer(), filter);
     controls_ = std::make_unique<Controls>(assets_->json("ProjectSettings/InputManager.json"));
+    controls_->loadBindings(prefs_); // remapped keys and per-pad layouts
     data_ = std::make_unique<GameData>(*assets_, *audio_);
     logicalWidth_ = logical[0];
     logicalHeight_ = logical[1];
     services_ = std::make_unique<Services>(Services{*assets_, *audio_, *display_, *controls_, settings_, prefs_, *data_,
                                                     scenes_, static_cast<float>(logical[0]),
-                                                    static_cast<float>(logical[1])});
+                                                    static_cast<float>(logical[1]), [this] { resetRenderer(); }});
     openFirstScene();
 
     // "30:Return,45:Down": a tap of each key at that frame.
@@ -92,6 +93,12 @@ void Application::playKeyScript(int frame) {
         e.key.windowID = SDL_GetWindowID(display_->window());
         SDL_PushEvent(&e);
     }
+}
+
+void Application::resetRenderer() {
+    assets_->releaseTextures(); // they belong to the old renderer
+    display_->recreateRenderer(settings_);
+    assets_->recreateTextures(display_->renderer());
 }
 
 void Application::openFirstScene() {
@@ -208,7 +215,9 @@ void Application::handleEvent(const SDL_Event& event) {
         running_ = false;
         return;
     case SDL_EVENT_WINDOW_HDR_STATE_CHANGED:
-        display_->onHdrStateChanged();
+    case SDL_EVENT_WINDOW_DISPLAY_CHANGED:
+        // HDR switched on in the system, or the window moved to an HDR display.
+        if (display_->onHdrStateChanged(settings_.hdr)) resetRenderer();
         return;
     case SDL_EVENT_KEY_DOWN:
         if (event.key.repeat) break;

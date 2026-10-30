@@ -53,6 +53,10 @@ public:
     [[nodiscard]] const FightSetup& setup() const { return setup_; }
     [[nodiscard]] sim::Dummy dummy() const { return dummy_; }
     void setDummy(sim::Dummy dummy) { dummy_ = dummy; }
+    // For the move list.
+    [[nodiscard]] const FighterView& view(int side) const { return *views_[static_cast<std::size_t>(side)]; }
+    [[nodiscard]] int facing(int side) const { return match_->round.fighters[static_cast<std::size_t>(side)].facing; }
+    [[nodiscard]] bool human(int side) const; // a player (not the CPU or the dummy) controls this side
 
 private:
     void openMenu(bool postMatch);

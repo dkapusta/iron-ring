@@ -30,7 +30,13 @@ public:
     // up to min(headroom, hdr-max-boost) on HDR displays.
     [[nodiscard]] float highlightBoost() const;
 
-    void onHdrStateChanged();
+    // The window's display changed HDR state (or the window moved to another
+    // display). True when the renderer should be recreated to follow it: the
+    // display turned HDR on, hdr=auto, and output is still SDR.
+    [[nodiscard]] bool onHdrStateChanged(HdrMode mode);
+    // A new renderer for the same window with the current settings (HDR mode,
+    // vsync, scaling). Every texture must be released first.
+    void recreateRenderer(const PlayerSettings& settings);
     void toggleFullscreen();
     // Live changes from the Options screen. HDR needs a new renderer: next launch.
     void setFullscreen(bool fullscreen);

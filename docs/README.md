@@ -14,4 +14,5 @@
 | [research/brass-current-kit.md](research/brass-current-kit.md) | you need the history of the concept kit and what came from it |
 | [concept/](concept/README.md) | you need the visual reference |
 | [install.md](install.md) | you install the game or package it |
+| [controls.md](controls.md) | you want the keys, pad layout and every move of both fighters, for either side |
 | [licensing.md](licensing.md) | the zlib licence decision and its scope |

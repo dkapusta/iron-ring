@@ -22,7 +22,7 @@ SDL3 applies logical presentation by scaling draw coordinates, not via an interm
 
 With scRGB output SDL multiplies the SDR white point into the colour scale automatically, so regular sRGB art looks identical to SDR. We spend the extra range only on **highlights**: impact sparks are drawn with `SDL_SetRenderColorScale(min(headroom, hdr-max-boost))`, default boost ceiling 2.0. On SDR the boost is 1.0 and nothing changes.
 
-`SDL_EVENT_WINDOW_HDR_STATE_CHANGED` refreshes headroom/white level. If the display turns HDR on while the renderer is sRGB, we log that a restart is needed; renderer recreation is M2.
+`SDL_EVENT_WINDOW_HDR_STATE_CHANGED` refreshes headroom/white level. If the display turns HDR on while the renderer is sRGB (and `hdr=auto`), or the HDR option changes, the renderer is recreated in place ([ADR-0016](0016-remapping-and-renderer-recreation.md)); turning HDR off needs nothing, SDL maps scRGB to SDR.
 
 ## Consequences
 

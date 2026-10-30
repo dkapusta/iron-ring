@@ -1,5 +1,6 @@
 #include "Game/OptionsScene.h"
 
+#include "Game/ControlsScene.h"
 #include "Game/MenuView.h"
 #include "Render/Ui.h"
 
@@ -22,7 +23,8 @@ OptionsScene::OptionsScene(Services& services) : services_(services) {
     scaling.note = scaling.choice == 0 ? "WHOLE-PIXEL STEPS, BORDERS AROUND" : "AS LARGE AS FITS";
     menu_.add(MenuItem::setting("vsync", "VSYNC", {"OFF", "ON"}, s.vsync ? 1 : 0));
     auto& hdr = menu_.add(MenuItem::setting("hdr", "HDR", {"AUTO", "ON", "OFF"}, static_cast<int>(s.hdr)));
-    hdr.note = "APPLIES AFTER A RESTART";
+    hdr.note = "BRIGHTER HIGHLIGHTS ON HDR DISPLAYS";
+    menu_.add(MenuItem::action("controls", "CONTROLS"));
     menu_.add(MenuItem::action("back", "BACK"));
 }
 
@@ -46,6 +48,7 @@ void OptionsScene::apply(const MenuItem& item) {
         services_.display.setVsync(s.vsync);
     } else if (item.id == "hdr") {
         s.hdr = static_cast<HdrMode>(item.choice);
+        services_.resetRenderer(); // scRGB or sRGB output: a renderer of its own
     }
 }
 
@@ -63,6 +66,7 @@ void OptionsScene::handleMenu(const MenuEvent& event) {
     case MenuResult::Changed: apply(menu_.focused()); break;
     case MenuResult::Chosen:
         if (menu_.focused().id == "back") close();
+        else if (menu_.focused().id == "controls") services_.scenes.push(std::make_unique<ControlsScene>(services_));
         break;
     case MenuResult::Back: close(); break;
     default: break;
@@ -75,7 +79,7 @@ void OptionsScene::render(const RenderContext& context) {
     const SDL_FRect all{0, 0, services_.width, services_.height};
     SDL_RenderTexture(r, data.backdrop().handle.get(), nullptr, &all);
     data.large().draw(r, "OPTIONS", 320, 34, ui::kWhite, Align::Centre);
-    const SDL_FRect panel{170, 82, 300, 140}; // eight lines; the focused note goes below it
+    const SDL_FRect panel{170, 82, 300, 156}; // nine lines; the focused note goes below it
     ui::frame(r, panel);
     ui::fill(r, panel.x, panel.y, panel.w, panel.h, ui::kNight);
     MenuStyle style;

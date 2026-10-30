@@ -36,6 +36,11 @@ void outline(SDL_Renderer* r, const SDL_FRect& box, SDL_Color c, float thickness
 // Darkens the whole logical screen (behind overlays).
 void dim(SDL_Renderer* r, float width, float height, Uint8 alpha);
 
+// The font's arrow glyph for a screen direction in numpad notation (1..9, not 5).
+[[nodiscard]] constexpr char arrow(int numpad) { return static_cast<char>(0x10 + numpad); }
+// A motion ("236") as arrows for a fighter facing right (facing > 0) or left (mirrored).
+[[nodiscard]] std::string motionArrows(std::string_view numpad, int facing);
+
 // Splits text into lines of at most `maxWidth` pixels, breaking at spaces.
 [[nodiscard]] std::vector<std::string> wrap(const BitmapFont& font, std::string_view text, int maxWidth);
 // Uppercase copy for the bitmap fonts (uppercase only; ';' and '&' become ',' and '+').

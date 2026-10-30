@@ -90,3 +90,71 @@ TEST_CASE("player prefs round-trip and sit between boot.config and the command l
     CHECK_FALSE(reloaded.get("vsync").has_value());
     std::filesystem::remove_all(folder);
 }
+
+#include "Core/InputBindings.h"
+
+namespace {
+
+InputBindings defaults() {
+    std::array<ActionKeys, 2> keys{};
+    keys[0] = {{{"A"}, {"D"}, {"W"}, {"S"}, {"F"}, {"G"}, {"H"}, {"J"}, {"Space"}}};
+    keys[1] = {{{"Left"}, {"Right"}, {"Up"}, {"Down"}, {"Keypad 1"}, {"Keypad 2"}, {"Keypad 3"}, {"Keypad 0"},
+                {"Right Shift"}}};
+    ActionKeys pad{{{}, {}, {}, {}, {"x"}, {"y"}, {"a"}, {"b"}, {"rightshoulder", "righttrigger"}}};
+    return {keys, pad};
+}
+
+} // namespace
+
+TEST_CASE("key bindings: one key means one thing") {
+    auto b = defaults();
+    const int lp = actionIndex("lightPunch");
+    REQUIRE(lp == 4);
+    // Player 2 moves light punch to J, which player 1 used for heavy kick.
+    const auto taken = b.bindKey(1, lp, "J");
+    REQUIRE(taken.size() == 1);
+    CHECK(taken[0] == "p1.heavyKick");
+    CHECK(b.keys(1)[4] == std::vector<std::string>{"J"});
+    CHECK(b.keys(0)[7].empty());
+    CHECK(b.bindKey(0, 0, "A").empty()); // rebinding the same key is no conflict
+    b.resetKeys(0);
+    CHECK(b.keys(0)[7] == std::vector<std::string>{"J"}); // player 1's defaults are back
+}
+
+TEST_CASE("pad layouts are per device and fall back to the default") {
+    auto b = defaults();
+    b.bindPad("0300abcd", actionIndex("guard"), "leftshoulder");
+    b.bindPad("0300abcd", actionIndex("lightPunch"), "a"); // takes "a" off light kick on that pad
+    CHECK(b.pad("0300abcd")[8] == std::vector<std::string>{"leftshoulder"});
+    CHECK(b.pad("0300abcd")[4] == std::vector<std::string>{"a"});
+    CHECK(b.pad("0300abcd")[6].empty());
+    CHECK(b.pad("other")[8].size() == 2); // another pad keeps the default
+    b.resetPad("0300abcd");
+    CHECK(b.pad("0300abcd")[4] == std::vector<std::string>{"x"});
+}
+
+TEST_CASE("bindings round-trip through prefs, storing only changes") {
+    auto b = defaults();
+    (void)b.bindKey(1, actionIndex("lightPunch"), "J"); // also unbinds player 1's heavy kick
+    b.bindPad("0300abcd", actionIndex("guard"), "leftshoulder");
+    PlayerPrefs prefs;
+    prefs.set("p1.key.left", "stale"); // replaced on store
+    prefs.set("music-volume", "0.50");
+    b.store(prefs);
+    CHECK(prefs.get("p2.key.lightPunch") == "J");
+    CHECK(prefs.get("p1.key.heavyKick") == "|"); // unbound on purpose
+    CHECK_FALSE(prefs.get("p1.key.left").has_value());
+    CHECK(prefs.get("pad.0300abcd.guard") == "leftshoulder");
+    CHECK_FALSE(prefs.get("pad.0300abcd.lightPunch").has_value());
+    CHECK(prefs.get("music-volume") == "0.50");
+
+    auto c = defaults();
+    c.load(prefs);
+    CHECK(c.keys(1)[4] == std::vector<std::string>{"J"});
+    CHECK(c.keys(0)[7].empty());
+    CHECK(c.keys(0)[0] == std::vector<std::string>{"A"});
+    CHECK(c.pad("0300abcd")[8] == std::vector<std::string>{"leftshoulder"});
+    prefs.set("pad.0300abcd.left", "x"); // directions on pads aren't rebindable: ignored
+    c.load(prefs);
+    CHECK(c.pad("0300abcd")[0].empty());
+}

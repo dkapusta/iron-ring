@@ -30,6 +30,17 @@ void dim(SDL_Renderer* r, float width, float height, Uint8 alpha) {
     fill(r, 0, 0, width, height, {kInk.r, kInk.g, kInk.b, alpha});
 }
 
+std::string motionArrows(std::string_view numpad, int facing) {
+    std::string out;
+    for (const char c : numpad) {
+        if (c < '1' || c > '9' || c == '5') continue;
+        int n = c - '0';
+        if (facing < 0) n += n % 3 == 1 ? 2 : n % 3 == 0 ? -2 : 0; // mirror: 1<->3, 4<->6, 7<->9
+        out += arrow(n);
+    }
+    return out;
+}
+
 std::vector<std::string> wrap(const BitmapFont& font, std::string_view text, int maxWidth) {
     std::vector<std::string> lines;
     std::string line;

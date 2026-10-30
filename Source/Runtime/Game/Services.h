@@ -9,6 +9,8 @@
 #include "Game/SceneStack.h"
 #include "Platform/Display.h"
 
+#include <functional>
+
 namespace iron {
 
 // What every scene can reach. Owned by the Application; scenes keep a reference.
@@ -22,6 +24,8 @@ struct Services {
     GameData& data;
     SceneStack& scenes;
     float width = 640, height = 360; // logical resolution
+    // A new renderer for the current settings (the HDR option); textures reload.
+    std::function<void()> resetRenderer;
 };
 
 } // namespace iron

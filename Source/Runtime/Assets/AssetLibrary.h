@@ -26,7 +26,15 @@ public:
     [[nodiscard]] vfs::Bytes bytes(std::string_view path) const { return vfs_.read(path); }
     const Texture& texture(std::string_view path);
 
+    // Renderer recreation (HDR on/off): textures belong to a renderer, so they
+    // are released before it goes and decoded again for the new one. Texture
+    // objects keep their addresses, so fonts and sprite sheets stay valid.
+    void releaseTextures();
+    void recreateTextures(SDL_Renderer* renderer);
+
 private:
+    TextureHandle decode(const std::string& path, float& width, float& height) const;
+
     const vfs::VirtualFileSystem& vfs_;
     SDL_Renderer* renderer_;
     SDL_ScaleMode filter_;

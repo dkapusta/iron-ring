@@ -30,9 +30,9 @@ Static libraries without SDL (`Core`, `Vfs`, `Simulation`, `Content`) carry ever
 | --- | --- |
 | `Player/PlayerMain.cpp` | exported entry points; resolve data folder; `boot.config` + command line → `PlayerSettings`; `app.info`; `Player.log`; fatal-error dialog |
 | `Player/Application` | composition root; mounts archives; owns Display, Audio, AssetLibrary, Controls, GameData and the scene stack; fixed-step loop; global keys; `-keys` scripts; screenshots |
-| `Platform/Display` | fullscreen window at desktop resolution; renderer with sRGB or scRGB output; HDR state; logical presentation |
+| `Platform/Display` | fullscreen window at desktop resolution; renderer with sRGB or scRGB output, recreated on HDR changes; HDR state; logical presentation, vsync |
 | `Platform/PlayerLog` | mirrors SDL logging into `Player.log` |
-| `Assets/AssetLibrary` | virtual path → JSON / decoded texture (cached) |
+| `Assets/AssetLibrary` | virtual path → JSON / decoded texture (cached; released and decoded again when the renderer is recreated) |
 | `Audio/AudioSystem` | SDL3_mixer mixer; mix groups (sfx pool, announcer, music) with live levels; silent fallback |
 | `Game/Scene`, `Game/SceneStack` | scene interface (`handleEvent`, `handleMenu`, `fixedUpdate`, `render`, `onEnter`, `opaque`); the stack applies push/pop/replace between calls, with fades ([ADR-0015](adr/0015-front-end-scene-stack.md)) |
 | `Game/Services`, `Game/GameData` | what scenes share: assets, audio, display, controls, settings, prefs; fonts, sounds, themes, stages and the roster, loaded once |
@@ -44,7 +44,8 @@ Static libraries without SDL (`Core`, `Vfs`, `Simulation`, `Content`) carry ever
 | `Game/Hud` | health, Heat, timer, portraits, win markers, round banners, from `hud_layout.json` |
 | `Game/TrainingOverlay` | F3: hit/hurt boxes (per move phase), move frame data, frame advantage |
 | `Game/InputDisplay` | training: both players' recent inputs (ticks, numpad direction, buttons) |
-| `Game/Controls` | keyboard and gamepads → simulation input bits (edge latch between ticks) and menu actions |
+| `Game/Controls` | keyboard and gamepads → simulation input bits (edge latch between ticks) and menu actions; bindings from `Core/InputBindings` (per player, per pad device) |
+| `Game/ControlsScene`, `Game/MoveListScene` | Options → Controls remapping; the pause menu's move list |
 | `Render/SpriteSheet`, `Render/BitmapFont`, `Render/Ui` | atlas frames drawn at their pivots (flippable); monospaced bitmap text; palette colours, frames, word wrap |
 
 ## Startup sequence

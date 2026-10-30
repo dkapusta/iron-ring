@@ -183,7 +183,7 @@ The three venues: **Pier 9** (closed cargo pier, crane legs, freighter floodligh
 | --- | --- | --- |
 | Small font | `Resources/UI/font_small.png/.json` | Monospaced 5 × 7 glyphs in 6 × 8 cells, 16 per row, white on transparent (tinted at runtime). |
 | Large font | `Resources/UI/font_large.png/.json` | 17 × 23 glyphs in 18 × 24 cells, same layout; brass gradient fill, dark outline, drawn untinted. Banners and the timer. |
-| Font charset | both | `␠ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?:-+/'"%()#=<>*` in that order. Uppercase only. |
+| Font charset | both | `␠ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?:-+/'"%()#=<>*` in that order, then eight direction arrows at the control codes 0x11–0x19 (0x10 + the numpad digit: 0x11 ↙, 0x12 ↓, 0x13 ↘, 0x14 ←, 0x16 →, 0x17 ↖, 0x18 ↑, 0x19 ↗) for move lists. Uppercase only. |
 | HUD layout | `Resources/UI/hud_layout.json` | Rects/points on the 640 × 360 canvas; edit to move elements, no art change. |
 | Icon | `Resources/UI/icon.png` | 256 × 256 RGBA: a chain ring around the letters IR, designed on a 32 × 32 grid so it reads at 16 × 16. Also the Windows `.ico` (`Source/Launcher/Resources/IronRing.ico`, 16–256 px). |
 | Portraits | per fighter | 32 × 32, see §2. Also drawn at 1.5× (48 × 48) in the character-select grid, so keep the outline clean. |
