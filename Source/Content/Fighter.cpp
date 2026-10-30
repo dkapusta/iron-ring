@@ -59,7 +59,7 @@ sim::MoveSpec parseMove(const json& j, std::string_view path, const std::string&
             const std::string name(phases[p]);
             if (!hurt.contains(name)) continue;
             const auto& boxes = hurt.at(name);
-            if (!boxes.is_array() || boxes.empty() || boxes.size() > sim::kMaxHurtBoxes)
+            if (!boxes.is_array() || boxes.empty() || boxes.size() > static_cast<std::size_t>(sim::kMaxHurtBoxes))
                 fail(path, "moves." + key + ".hurt." + name + ": 1 or 2 boxes");
             for (std::size_t b = 0; b < boxes.size(); ++b)
                 m.hurt[p][b] = parseBox(boxes[b], path, "moves." + key + ".hurt." + name);

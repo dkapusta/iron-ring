@@ -28,7 +28,7 @@ std::string describe(int direction, sim::Input buttons) {
 void InputDisplay::record(const sim::Round& round, const std::array<sim::Input, 2>& inputs) {
     for (std::size_t side = 0; side < 2; ++side) {
         const int direction = sim::numpadDirection(inputs[side], round.fighters[side].facing);
-        const sim::Input buttons = inputs[side] & kButtons;
+        const auto buttons = static_cast<sim::Input>(inputs[side] & kButtons);
         auto& rows = history_[side];
         if (!rows.empty() && rows.front().direction == direction && rows.front().buttons == buttons) {
             if (rows.front().ticks < 99) ++rows.front().ticks;
