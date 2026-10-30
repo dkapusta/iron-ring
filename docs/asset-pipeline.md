@@ -55,6 +55,7 @@ The loose folder is mounted last, so its files override the packed ones. `Projec
 - **Data:** JSON, deflated.
 - **Sprite atlases:** JSON next to the PNG with `image` and `frames[]` (`name`, `source_rect` `[x,y,w,h]`, `pivot_pixels`, optional `partner`). Full art contract: [docs/art/asset-spec.md](art/asset-spec.md).
 - **Fighters:** `<id>.fighter.json`, listed in `ProjectSettings/GameSettings.json → fighters` ([ADR-0010](adr/0010-fighter-content-format.md)). The character select shows every fighter in `GameSettings.json → roster` (`Data/roster.json`), in its order; those without a definition are locked slots.
+- **Arcade ladder:** `GameSettings.json → arcade` (`Data/arcade.json`): bouts of stage, opponent (`rival`, `mirror` or a fighter id), CPU level and `final`; AssetPacker checks stages and opponents.
 - **Front end:** `GameSettings.json → ui` names the title logo, the menu backdrop and the menu theme (an id in `music.json`).
 
 ## Validation

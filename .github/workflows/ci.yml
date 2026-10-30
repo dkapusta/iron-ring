@@ -77,9 +77,16 @@ jobs:
         # Title -> Versus CPU -> both picks -> next stage -> fight -> pause, by scripted key taps.
         run: >
           Build/release/Player/Release/IronRing.x86_64 -batchmode -screen-fullscreen 0
-          -screen-width 1280 -screen-height 720 -frames 440
-          -keys "10:Return,30:Return,60:Return,80:Return,160:Right,175:Return,420:Escape"
+          -screen-width 1280 -screen-height 720 -frames 450
+          -keys "10:Return,20:Down,30:Return,60:Return,80:Return,160:Right,175:Return,430:Escape"
           -screenshot frontend-linux-${{ matrix.compiler }}.png
+
+      - name: Soak run (arcade ladder)
+        # A CHAMPION CPU plays player 1 through the whole ladder; the last frame is the ending.
+        run: >
+          Build/release/Player/Release/IronRing.x86_64 -batchmode -autoplay -screen-fullscreen 0
+          -screen-width 640 -screen-height 360 -frames 13000 -keys "10:Return,30:Return,60:Return"
+          -screenshot arcade-linux-${{ matrix.compiler }}.png
 
       - uses: actions/upload-artifact@v7
         with:
@@ -87,6 +94,7 @@ jobs:
           path: |
             smoke-linux-${{ matrix.compiler }}.png
             frontend-linux-${{ matrix.compiler }}.png
+            arcade-linux-${{ matrix.compiler }}.png
 
   windows-msvc:
     name: Windows (MSVC)
