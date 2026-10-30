@@ -11,6 +11,7 @@ pip install -r Tools/Art/requirements.txt        # pinned Pillow, numpy, scipy (
 | `generate.py` | Draws the interim procedural art: palette, fighters, stages, effects, fonts, icon. Deterministic. |
 | `import_art.py` | Brings in art made elsewhere: `refs` exports pose references, `fighter` imports frames into an atlas, `image` fits a stage or portrait. |
 | `selftest.py` | Checks that procedural assets match `generate.py`, external atlases match their `ArtSource/` frames, and export→import round-trips losslessly. Runs in CI. |
+| `review_frames.py` | Measures frames against the animation rules (asset spec §2.6) and writes review sheets with boxes. Findings are notes, not errors. |
 | `adopt_art_pack.py` | One-off: re-registers Art Pack v1's raw sprites into `ArtSource/` at one scale per fighter ([ADR-0012](../../docs/adr/0012-adopting-external-art.md)). |
 
 The contract every asset follows (sizes, frame names, pivots, timing, layout) is [docs/art/asset-spec.md](../../docs/art/asset-spec.md). Prompts for image generators are in [docs/art/generation-prompts.md](../../docs/art/generation-prompts.md). Background: [ADR-0011](../../docs/adr/0011-procedural-interim-art.md).

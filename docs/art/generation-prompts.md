@@ -12,13 +12,17 @@ Prompts for producing Iron Ring art with an outside image generator. Every resul
 
 2. Make one **character sheet** first (front, side, back, plus a close-up of the face) from the character prompt below. Pick the best result; it is the identity reference for every frame.
 3. For each frame, generate with the frame's reference as the **pose/structure input** (img2img at about 0.45–0.6 strength, or a pose or line-art control) and the character sheet as the **identity/style input**. Keep the canvas 1024 × 1024 and don't let the generator move or rescale the figure.
+   - **One generation per frame.** Multi-pose boards tend to collapse distinct key poses into one generic stance (Art Pack v1: reach, grip and hold came out the same). Generate each frame on its own, with that frame's prompt fragment below.
+   - **Never fit a frame to a bounding box.** All frames of a fighter share one scale; the importer derives it once (`--height` on `idle_0`, or `--scale`).
+   - **Prompt for the extreme of the pose**, not "in the style of the reference": "arm fully extended", "fist past the centre line". Generators soften key poses unless told otherwise.
 4. Clean up by hand where needed: hands, feet on the baseline, the outline. Then import, using the command `refs` printed:
 
    ```sh
    python3 Tools/Art/import_art.py fighter dee path/to/dee_frames --origin 512 928 --scale 0.25 --manifest build/refs/dee/manifest.json
    ```
 
-5. Build, run `IronRing -training`, press F3 and check hitboxes. Fix the art or the boxes in `dee.fighter.json`.
+5. Run `python3 Tools/Art/review_frames.py --sheets build/review` and go through its findings and sheets against [asset-spec §2.6](asset-spec.md#26-animation-rules).
+6. Build, run `IronRing -training -stage <id>`, press F3 and check hitboxes. Fix the art or the boxes in `dee.fighter.json`.
 
 If the generator can't follow a pose reference, generate larger poses freely, align them yourself on a shared canvas (feet on one baseline, same scale), and pass `--origin`/`--height` instead.
 
@@ -26,11 +30,11 @@ If the generator can't follow a pose reference, generate larger poses freely, al
 
 Append this to every sprite prompt:
 
-> 16-bit arcade fighting game sprite, early-1990s style, hand-placed pixel art at low resolution, limited palette, 1-pixel dark coloured outline around the silhouette, 4-tone cel shading with ordered dithering, warm key light from the upper left, cool teal rim light from the right, full body, character facing right, side-on three-quarter view, feet on a flat ground line, flat pure green (#00FF00) background, no shadow on the ground, no text, no border, no anti-aliasing
+> 16-bit arcade fighting game sprite, early-1990s style, hand-placed pixel art at low resolution, limited palette, 1-pixel dark coloured outline around the silhouette (no light or coloured rim on the outer edge), 4-tone cel shading with ordered dithering, warm key light from the upper left, subtle cool fill light from the right kept inside the outline, full body, character facing right, side-on three-quarter view, feet on a flat ground line, flat pure green (#00FF00) background, no shadow on the ground, no text, no border, no anti-aliasing
 
 Negative prompt (where supported):
 
-> blurry, soft gradients, painterly, 3D render, photo, anti-aliased edges, background scenery, multiple characters, cropped feet, extra limbs, text, watermark, logo, frame, gore, blood
+> blurry, soft gradients, painterly, 3D render, photo, anti-aliased edges, glowing rim light on the silhouette, halo, background scenery, multiple characters, cropped feet, extra limbs, text, watermark, logo, frame, gore, blood
 
 ## Characters
 
@@ -54,25 +58,27 @@ Prefix each with the character prompt, append the style block. `(ref)` means: us
 
 | Frame | Prompt fragment |
 | --- | --- |
-| `idle_0…3` | fighting stance, breathing, slight bob (ref) |
-| `walk_0…5` | stepping forward in guard, one phase of a walk cycle (ref) |
+| `idle_0…3` | fighting stance, breathing: shoulders and head 0 / 1 / 2 / 1 px lower, feet planted, head steady (ref) |
+| `walk_0…5` | stepping forward in guard: contact (feet apart, body low) / passing (feet together, body high) / contact / passing; torso upright and centred, never leaning back (ref) |
 | `crouch` | crouched low in guard, knees deep, back foot on toes (ref) |
 | `guard` / `guard_crouch` | blocking: forearms up in front of the face, chin tucked, braced (ref) |
 | `jump_rise` / `jump_apex` / `jump_fall` | jumping: knees tucked up / peak of the jump / legs reaching down to land (ref) |
-| `lp_0…2` | quick jab: chamber / lead arm fully extended at head height / retract (ref) |
-| `hp_0…3` | heavy straight punch: wind-up / rear arm fully extended, body turned in / over-extended follow-through / recovering (ref) |
-| `lk_0…2` | front kick: knee chambered / leg extended at waist height / retract (ref) |
-| `hk_0…3` | low leg sweep: dropping down / front leg sweeping along the ground / sweep finishing / rising from the crouch (ref) |
-| `throw_0` / `throw_1` | reaching both hands forward to grab / gripping the opponent's collar and arm (ref) |
-| `throw_hold_0` / `_1` | holding an (invisible) opponent: hoisting / tossing over the shoulder; hands where the opponent's body will be (ref) |
-| `hit_0` / `hit_1` | hit reaction: head snapped back, body recoiling / staggering back (ref) |
-| `hit_crouch` | hit while crouching, flinching (ref) |
+| `lp_0…2` | quick jab: lead fist pulled back 2–3 px, shoulder dipped / lead arm fully extended at head height, shoulder forward / retract to guard (ref) |
+| `hp_0…3` | heavy punch: wind-up, rear shoulder back / punching arm fully extended, torso turned in, rear heel up / fist carried past the centre line, follow-through / arm returning to guard (ref) |
+| `lk_0…2` | front kick: knee chambered / leg extended at waist height, foot flexed / retract (ref) |
+| `hk_0…3` | low leg sweep: dropping down / front leg sweeping along the ground at full length / sweep finishing behind / rising from the crouch (ref) |
+| `throw_0` / `throw_1` | open hands reaching forward at chest height, weight forward / hands closed on the opponent's collar and upper arm, elbows bent, pulling in — clearly a different pose (ref) |
+| `throw_hold_0` / `_1` | clinch: opponent pulled chest to chest, knees bent to lift, rear foot braced / tossing over the shoulder, body leaning back; hands where the opponent's body will be (ref) |
+| `hit_0` / `hit_1` | snap: head thrown back, shoulders up, arms pulled in / stagger: weight on the rear foot, arms dropping, never reaching forward (ref) |
+| `hit_crouch` | hit while crouching: flinch, head back, arms in, shoulders hunched (ref) |
 | `held_0` / `held_1` | being grabbed, off-balance, arms flailing / lifted off the ground, body tilted (ref) |
 | `down_0…3` | knocked down: falling backwards / lying on the back, head to the left / sitting up / getting up on one knee (ref) |
-| `win_0` / `win_1` | victory pose, two frames of a small loop (Dee: lead fist raised overhead, then a shout; Bram: double-biceps flex, then a shout) (ref) |
-| Dee `special_0…3` | rushing uppercut: dip low / driving upwards / full uppercut with the fist high above the head, rising onto the toes / landing (ref) |
-| Bram `special_0`, `_1` | lunging forward with both arms wide / clamping both hands shut (ref) |
-| Bram `hoist_0…2` | lifting an (invisible) opponent from the waist / pressing them overhead at full arm's length / slamming them down in front (ref) |
+| `win_0` / `win_1` | victory pose, two clearly different frames (Dee: lead fist raised overhead / fist higher, head thrown back, shouting; Bram: double-biceps flex / chin up, shouting, fists higher) (ref) |
+| Dee `special_0…3` | rushing uppercut: dip low / driving upwards and forwards / uppercut angled 20–30° forward, fist above head height in front of the face, rising onto the toes / landing (ref) |
+| Bram `special_0`, `_1` | low lunge with both arms spread wide, a bear-hug reach / arms closed around the opponent's waist, clamped (ref) |
+| Bram `lp_*` (Palm Shove) | both palms pushed out at full arm length at chest height, heels of the hands forward, shoulders forward (ref) |
+| Bram `hp_*` (Anchor Hook) | lead arm bent 90° sweeping across in a hook, torso turning into it, rear heel lifting / fist past the centre line (ref) |
+| Bram `hoist_0…2` | lifting an (invisible) opponent from the waist / pressing them overhead at full arm's length, thick arms locked / slamming them down in front (ref) |
 
 ## Portraits (32 × 32)
 

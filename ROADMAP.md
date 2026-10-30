@@ -38,7 +38,8 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 - ✅ CPU vs CPU demo mode (`-demo`, Tab); CI smoke run uses it
 - ✅ Windows icon and version resources; window icon on both platforms
 - ✅ **Final art** for Dee, Bram, their portraits and all three stages (Art Pack v1, re-registered at one scale per fighter; sources in `ArtSource/`, [ADR-0012](docs/adr/0012-adopting-external-art.md))
-- ⬜ Animator pass on the generated frames in training mode (punch extension on Bram's LP/HP, walk-cycle smoothness, held-pose contact)
+- ✅ Frame review of Art Pack v1 with correction notes ([frame-review.md](docs/art/frame-review.md)), animation rules in the asset spec (§2.6) and `Tools/Art/review_frames.py`
+- ⬜ Art Pack v2: the P1/P2 corrections from the frame review (Bram's punches and grabs, Dee's uppercut and throw, idle and walk loops, outline pass)
 - ⬜ Training mode, rest: input display, dummy settings (block all / stand / crouch / jump), position reset
 - ⬜ Per-frame hurt boxes for moves that change the silhouette (sweeps, uppercut)
 - ✅ **Audio**: NES-style effects and the "Iron Ring" fight theme generated from a 2A03 model; music streamed and looping past its intro; SFX/music mix groups with volume settings; a soft limiter; round-call, tech, slam, K.O. and victory cues ([ADR-0013](docs/adr/0013-nes-style-generated-audio.md))
@@ -98,5 +99,4 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 
 ## Open questions for the project owner
 
-1. **Animator pass**: who reviews the generated frames in training mode (Bram's LP/HP extension, walk smoothness, held-pose contact)?
 2. **Music**: one theme for every stage, or a theme per venue (M3)? An announcer voice for "ROUND / FIGHT / K.O."?
