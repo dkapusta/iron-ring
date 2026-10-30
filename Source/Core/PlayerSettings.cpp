@@ -134,10 +134,10 @@ std::vector<std::string> applyCommandLine(PlayerSettings& settings, std::span<co
             settings.demo = true;
         } else if (arg == "-training") {
             settings.training = true;
-        } else if (arg == "-stage") {
+        } else if (arg == "-stage" || arg == "-dummy") {
             const auto v = next(i);
             ok = v && !v->empty();
-            if (ok) settings.stage = std::string(*v);
+            if (ok) (arg == "-stage" ? settings.stage : settings.dummy) = std::string(*v);
         } else if (arg == "-screen-fullscreen") {
             const auto v = next(i);
             const auto b = v ? toBool(*v) : std::nullopt;

@@ -18,6 +18,8 @@ set(IR_PRODUCT_NAME         "IronRing"     CACHE STRING "File stem of the player
 set(IR_PRODUCT_DISPLAY_NAME "Iron Ring"    CACHE STRING "Human-readable product name (window title, app.info)")
 set(IR_COMPANY_NAME         "dkapusta"     CACHE STRING "Company name (app.info, user data folder)")
 set(IR_PLAYER_LIBRARY_NAME  "UnityPlayer"  CACHE STRING "File stem of the engine shared library")
+set(IR_APP_ID "io.github.${IR_COMPANY_NAME}.${IR_PRODUCT_NAME}" CACHE STRING
+    "Reverse-DNS application id: Wayland app_id / X11 WM_CLASS and the Linux .desktop file name")
 
 option(IR_BUILD_TESTS          "Build unit tests"                  ON)
 option(IR_BUILD_PLAYER         "Build the SDL3 player (engine + launcher + data)" ON)
@@ -52,6 +54,7 @@ if(IR_BUILD_PLAYER)
     add_subdirectory(Source/Runtime)
     add_subdirectory(Source/Launcher)
     include(AssetPipeline)
+    include(Install)
 endif()
 
 if(IR_BUILD_TESTS)

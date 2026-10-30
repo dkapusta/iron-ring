@@ -21,6 +21,7 @@ The kit hard-coded two fighters in C++ (`kitBoxer()`, `kitGrappler()`), and fram
 - New fighters need no C++: a definition, an atlas and a portrait.
 - Content errors surface in the build (and in `ContentTests`), not at runtime.
 - The simulation stays deterministic and testable without assets; tests also run the shipped data through a full match.
+- *Update (M1):* moves may override the hurtbox per phase (startup, active, recovery; up to two boxes), for sweeps, uppercuts and hittable extended limbs. Phases, not frames: a phase spans several animation frames, so recovery boxes cover the body only.
 - Specials are limited to what `MoveSpec` can express (motion + button, strike or command throw). Projectiles, multi-hit moves and cancels will need schema and simulation changes — deliberately deferred.
 - No desperation/super moves (owner decision, 2026-10-29): Heat only pays for the Breakaway.
 

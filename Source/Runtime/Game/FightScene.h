@@ -4,11 +4,13 @@
 #include "Game/Effects.h"
 #include "Game/FighterView.h"
 #include "Game/Hud.h"
+#include "Game/InputDisplay.h"
 #include "Game/InputMapper.h"
 #include "Game/Scene.h"
 #include "Game/TrainingOverlay.h"
 #include "Render/BitmapFont.h"
 #include "Simulation/Match.h"
+#include "Simulation/Training.h"
 
 #include <array>
 #include <memory>
@@ -25,8 +27,9 @@ enum class Control { VsCpu, TwoPlayers, Demo };
 
 struct FightOptions {
     Control control = Control::VsCpu;
-    bool training = false;
+    bool training = false; // training mode: training rules, the overlay, a dummy opponent
     std::string stage; // stage id; empty = GameSettings startStage
+    sim::Dummy dummy = sim::Dummy::Stand;
 };
 
 // Versus screen: a best-of-3 sim::Match between the two fighters listed in
@@ -56,7 +59,7 @@ private:
     // Delayed audio, so the announcer doesn't talk over an impact or a jingle.
     void cue(bool voice, std::string id, int delayTicks);
     void playCues();
-    [[nodiscard]] const char* controlName() const;
+    [[nodiscard]] std::string controlName() const;
     void playEvents(const sim::MatchStep& step);
     void drawShadow(SDL_Renderer* r, float x, float groundY, float height) const;
     [[nodiscard]] std::array<const FighterView*, 2> views() const { return {views_[0].get(), views_[1].get()}; }
@@ -70,6 +73,9 @@ private:
     std::unique_ptr<Hud> hud_;
     std::unique_ptr<Effects> effects_;
     std::unique_ptr<TrainingOverlay> overlay_;
+    std::unique_ptr<InputDisplay> inputDisplay_;
+    bool training_ = false;
+    sim::Dummy dummy_ = sim::Dummy::Stand;
     std::size_t stage_ = 0;
     Control control_ = Control::VsCpu;
     int clock_ = 0; // presentation clock: stops during hitstop

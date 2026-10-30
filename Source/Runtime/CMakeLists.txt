@@ -11,6 +11,7 @@ add_library(IronRingEngine SHARED
     Game/InputMapper.h          Game/InputMapper.cpp
     Game/Scene.h
     Game/TrainingOverlay.h      Game/TrainingOverlay.cpp
+    Game/InputDisplay.h         Game/InputDisplay.cpp
     Platform/Display.h          Platform/Display.cpp
     Platform/PlayerLog.h        Platform/PlayerLog.cpp
     Platform/SdlHandles.h
@@ -31,7 +32,8 @@ target_compile_definitions(IronRingEngine PRIVATE
     IR_COMPANY_NAME="${IR_COMPANY_NAME}"
     IR_PRODUCT_DISPLAY_NAME="${IR_PRODUCT_DISPLAY_NAME}"
     IR_DATA_DIR_NAME="${IR_DATA_DIR_NAME}"
-    IR_PLAYER_LIBRARY_NAME="${IR_PLAYER_LIBRARY_NAME}")
+    IR_PLAYER_LIBRARY_NAME="${IR_PLAYER_LIBRARY_NAME}"
+    IR_APP_ID="${IR_APP_ID}")
 if(WIN32)
     target_link_libraries(IronRingEngine PRIVATE shell32)
 endif()

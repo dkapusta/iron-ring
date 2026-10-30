@@ -13,4 +13,5 @@
 | [research/fatal-fury-2.md](research/fatal-fury-2.md) | discussing genre references and what not to copy |
 | [research/brass-current-kit.md](research/brass-current-kit.md) | you need the history of the concept kit and what came from it |
 | [concept/](concept/README.md) | you need the visual reference |
+| [install.md](install.md) | you install the game or package it |
 | [licensing.md](licensing.md) | the zlib licence decision and its scope |

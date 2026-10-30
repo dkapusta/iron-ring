@@ -4,6 +4,15 @@ The guiding rule comes from the concept kit and still holds: **polish one matchu
 
 Milestones are ordered; items inside a milestone are roughly ordered. ✅ done · 🔜 next · ⬜ planned.
 
+## How art is made
+
+1. **Placeholder art and guidelines (here).** New content first ships with placeholder art from `Tools/Art/` and a written contract: the [asset spec](docs/art/asset-spec.md), [prompts](docs/art/generation-prompts.md) and pose references.
+2. **Final art (elsewhere).** The project owner generates the final art outside this repository against that contract.
+3. **Review and corrections (here).** The art is imported and reviewed in training mode and with `Tools/Art/review_frames.py`, and correction notes are written ([example](docs/art/frame-review.md)).
+4. **Polish.** A corrected pack is generated and imported, followed by a final pass.
+
+Final art replaces placeholder art only when a **vertical slice** needs it. That's the end of M2: the complete local loop for one matchup at release quality. Until then, new fighters and venues ship with placeholder art. Art Pack v1 (Dee, Bram, three venues) is already in; its corrections (Art Pack v2) are scheduled for M3.
+
 ## M0 — Foundation ✅
 
 - ✅ CMake ≥ 3.25 project, presets (Ninja debug/release, VS 2022, core-only), FetchContent with pinned tags
@@ -18,7 +27,7 @@ Milestones are ordered; items inside a milestone are roughly ordered. ✅ done �
 - ✅ 21 unit tests (simulation, archives, settings) + packer smoke test
 - ✅ README, AGENTS, ADRs 0001–0008, architecture and pipeline notes, research notes
 
-## M1 — First playable matchup: Dee vs Bram 🔜
+## M1 — First playable matchup: Dee vs Bram ✅
 
 Goal: two characters that feel good in local play on one stage. Target platforms: **Windows and Linux** (macOS later).
 
@@ -39,27 +48,28 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 - ✅ Windows icon and version resources; window icon on both platforms
 - ✅ **Final art** for Dee, Bram, their portraits and all three stages (Art Pack v1, re-registered at one scale per fighter; sources in `ArtSource/`, [ADR-0012](docs/adr/0012-adopting-external-art.md))
 - ✅ Frame review of Art Pack v1 with correction notes ([frame-review.md](docs/art/frame-review.md)), animation rules in the asset spec (§2.6) and `Tools/Art/review_frames.py`
-- ⬜ Art Pack v2: the P1/P2 corrections from the frame review (Bram's punches and grabs, Dee's uppercut and throw, idle and walk loops, outline pass)
-- ⬜ Training mode, rest: input display, dummy settings (block all / stand / crouch / jump), position reset
-- ⬜ Per-frame hurt boxes for moves that change the silhouette (sweeps, uppercut)
+- ✅ Training mode: training rules in the simulation (clock stops, no K.O., health and Heat refill), a deterministic dummy (stand, crouch, jump, guard, guard all, CPU; F6, `-dummy`), input display, position reset (F4)
+- ✅ Per-phase hurtboxes for moves that change the silhouette: sweeps duck, extended limbs can be hit, Dee's uppercut dips then rises
 - ✅ **Audio**: NES-style effects and the "Iron Ring" fight theme generated from a 2A03 model; music streamed and looping past its intro; SFX/music mix groups with volume settings; a soft limiter; round-call, tech, slam, K.O. and victory cues ([ADR-0013](docs/adr/0013-nes-style-generated-audio.md))
 - ✅ A theme per venue ("Iron Ring", "Curfew Market", "Crown at Dawn") and the ring announcer through the DMC channel, with a voice mix group ([ADR-0014](docs/adr/0014-venue-themes-and-announcer.md))
-- ⬜ Audio, rest: hit-confirm layering; a recorded or neural announcer voice to replace eSpeak as the source (the DMC stage stays)
-- ⬜ Linux `.desktop` file and icon
+- ✅ `cmake --install`: the player folder, plus a Linux desktop entry and hicolor icon; the app id is passed to SDL so the window matches the entry ([docs/install.md](docs/install.md))
 
-## M2 — Complete local play
+## M2 — Complete local play 🔜
 
 - ⬜ Title, character select, stage select, options scenes (scene stack)
 - ⬜ Gamepads via SDL_Gamepad; remapping UI; per-device profiles
 - ⬜ Persistent settings (a `PlayerPrefs`-style store in the user folder)
 - ⬜ Renderer recreation when HDR state or display changes; options for HDR on/off, presentation mode, vsync
 - ⬜ Stage layers and parallax; animated crowds; camera follow and zoom limits
-- ⬜ Hitstop/shake/flash tuning pass; HDR-aware VFX (float textures for sparks)
+- ⬜ Hitstop/shake/flash tuning pass; HDR-aware VFX (float textures for sparks); hit-confirm audio layering (needs counter hits and combo counts in the simulation)
+- ⬜ **Vertical slice**: the complete local loop for Dee vs Bram at release quality; final art takes over from placeholder art where the slice needs it (see *How art is made*)
 - ⬜ Arcade ladder with CPU difficulty levels
 
 ## M3 — Roster and world
 
-- ⬜ Sable, Idris, Greta, Jun (identities in `setting.md`; a fighter file, atlas and portrait each — no code)
+- ⬜ Art Pack v2 for Dee and Bram: the P1/P2 corrections from the [frame review](docs/art/frame-review.md) (Bram's punches and grabs, Dee's uppercut and throw, idle and walk loops, outline pass), then a polish pass
+
+- ⬜ Sable, Idris, Greta, Jun (identities in `setting.md`; a fighter file, atlas and portrait each — no code), with placeholder art first
 - ⬜ Final art for Lantern Row and The Crown; new venues (dry dock, foundry, ship's hold, the Broker's club)
 - ⬜ The Broker (boss), story intros/endings, win quotes
 - ⬜ Asset streaming: per-stage `sharedassetsN.assets` + `levelN` loaded on demand
@@ -97,9 +107,10 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 | 2026-10-29 | Art | Procedural interim art now; final art made elsewhere against the [asset spec](docs/art/asset-spec.md) and imported ([ADR-0011](docs/adr/0011-procedural-interim-art.md)) |
 | 2026-10-30 | Sound | Kit placeholders replaced by generated NES-style effects and theme ([ADR-0013](docs/adr/0013-nes-style-generated-audio.md)) |
 | 2026-10-30 | Music and voice | One theme per venue; an announcer ([ADR-0014](docs/adr/0014-venue-themes-and-announcer.md)) |
+| 2026-10-30 | Art process | Placeholder art and guidelines here, final art made by the owner elsewhere, review and corrections here, then polish; final art replaces placeholders at the vertical slice; Art Pack v2 in M3 |
+| 2026-10-30 | Announcer | Keep the eSpeak NG source for now |
 | 2026-10-30 | Final art | Art Pack v1 adopted; frames re-registered at one scale, 48 colours per fighter ([ADR-0012](docs/adr/0012-adopting-external-art.md)) |
 
 ## Open questions for the project owner
 
-1. **Art Pack v2**: who produces the corrections in the [frame review](docs/art/frame-review.md), and should the same generator be used, now with one generation per frame?
-2. **Announcer source**: keep eSpeak NG through the DMC, or record a voice (the pipeline takes any WAV as the source)?
+None at the moment.

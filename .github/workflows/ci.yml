@@ -94,7 +94,15 @@ jobs:
         run: cmake --preset release -DIR_WARNINGS_AS_ERRORS=ON
 
       - name: Build
-        run: cmake --build --preset release
+        shell: pwsh
+        run: |
+          # Compiler diagnostics become annotations, readable without the raw log.
+          cmake --build --preset release 2>&1 | Tee-Object -FilePath build.log
+          if ($LASTEXITCODE -ne 0) {
+            Select-String -Path build.log -Pattern ': (fatal )?error [A-Z]*\d+' |
+              Select-Object -First 20 | ForEach-Object { "::error::$($_.Line.Trim())" }
+            exit 1
+          }
 
       - name: Test
         run: ctest --preset release

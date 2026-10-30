@@ -121,6 +121,33 @@ void Round::setEffect(Effect e, int x, int y, int ticks, StepEvents& events) {
     events.push(e, x, y);
 }
 
+HurtSet Round::hurtboxes(const Fighter& f) const {
+    if (f.move >= 0) {
+        const MoveSpec& m = currentMove(f);
+        const HurtSet& set = m.hurt[static_cast<std::size_t>(m.phaseAt(f.age))];
+        if (!set[0].empty() || !set[1].empty()) return set;
+    }
+    return {f.crouching ? spec(f).crouchHurt : spec(f).standHurt, Box{}};
+}
+
+bool Round::touches(const WorldBox& box, const Fighter& f) const {
+    for (const Box& hurt : hurtboxes(f))
+        if (!hurt.empty() && box.overlaps(place(hurt, f))) return true;
+    return false;
+}
+
+void Round::applyTrainingRules() {
+    for (auto& f : fighters) {
+        if (f.hp <= 0) f.hp = 1; // no K.O. in training
+        const bool recovering = f.stun > 0 || f.knockdown > 0 || f.heldTicks > 0;
+        f.recoverTicks = recovering ? 0 : f.recoverTicks + 1;
+        if (f.recoverTicks >= kTrainingRefillTicks) {
+            f.hp = kMaxHealth;
+            f.meter = kMeterMax;
+        }
+    }
+}
+
 StepEvents Round::step(const std::array<Input, 2>& inputs) {
     StepEvents events;
     if (outcome != Outcome::Running) return events;
@@ -134,12 +161,16 @@ StepEvents Round::step(const std::array<Input, 2>& inputs) {
         --hitstop;
         return events;
     }
-    --remaining;
+    if (!training) --remaining;
 
     for (std::size_t i = 0; i < 2; ++i) updateFighter(i, inputs[i], pressed[i], events);
     resolveThrows(techs, events);
     resolveContacts(events);
     separate();
+    if (training) {
+        applyTrainingRules();
+        return events;
+    }
 
     const auto& a = fighters[0];
     const auto& b = fighters[1];
@@ -319,12 +350,12 @@ void Round::resolveContacts(StepEvents& events) {
 
         if (m.kind == MoveKind::Throw) {
             const bool throwable = d.y == 0 && !d.busy() && d.stun == 0;
-            if (!throwable || !place(m.hitbox, a).overlaps(place(hurtbox(d), d))) continue;
+            if (!throwable || !touches(place(m.hitbox, a), d)) continue;
             a.connected = true;
             grabs[i] = true;
             continue;
         }
-        if (!hittable(d) || !place(m.hitbox, a).overlaps(place(hurtbox(d), d))) continue;
+        if (!hittable(d) || !touches(place(m.hitbox, a), d)) continue;
         a.connected = true;
         const bool blocked = d.guarding && (!m.low || d.crouching);
         contacts[i] = {true, blocked, &m, a.facing};
@@ -435,7 +466,9 @@ std::uint64_t Round::checksum() const {
         add(f.connected); add(f.crouching); add(f.guarding); add(f.blockstun);
         add(f.knockdown); add(f.throwTicks); add(f.throwSlot); add(f.heldTicks); add(f.techTicks);
         add(f.motionStep); add(f.motionTimer); add(f.motionReady);
+        if (training) add(f.recoverTicks); // only under training rules, so match checksums stay put
     }
+    if (training) add(1);
     return h;
 }
 
@@ -469,7 +502,7 @@ Input cpuInput(const Round& r, int side) {
     const MoveSpec& grab = s.moves[ThrowSlot];
     const bool throwable = !other.busy() && other.stun == 0 && other.y == 0 && self.y == 0;
     if (grab.enabled && throwable && tick % 7 == 0 &&
-        place(grab.hitbox, self).overlaps(place(r.hurtbox(other), other)))
+        r.touches(place(grab.hitbox, self), other))
         return LightPunch | LightKick;
 
     Input result = 0;

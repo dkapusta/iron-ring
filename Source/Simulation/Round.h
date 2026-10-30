@@ -24,6 +24,7 @@ inline constexpr Input kInputMask = 511;
 inline constexpr int kTechWindow = 10;     // ticks after a throw connects in which LP + LK escapes
 inline constexpr int kMotionStepWindow = 12; // max ticks between two directions of a motion
 inline constexpr int kMotionReadyWindow = 8; // ticks to press the button after the motion
+inline constexpr int kTrainingRefillTicks = 60; // training: idle ticks before health and Heat refill
 
 enum class Outcome : std::int32_t { Running = 0, Player1 = 1, Player2 = 2, Draw = 3 };
 enum class Effect : std::int32_t { LightHit = 0, HeavyHit = 1, Guard = 2, Breakaway = 3, ThrowTech = 4, Slam = 5 };
@@ -34,7 +35,7 @@ enum class Effect : std::int32_t { LightHit = 0, HeavyHit = 1, Guard = 2, Breaka
 [[nodiscard]] Input inputForDirection(int numpad, int facing);
 
 struct Fighter {
-    int x = 0, y = 0, vy = 0, facing = 1, hp = 100, meter = 0;
+    int x = 0, y = 0, vy = 0, facing = 1, hp = kMaxHealth, meter = 0;
     int move = -1, age = 0, stun = 0, buffered = -1, bufferTicks = 0, breakTicks = 0;
     int side = 0; // 0 = player 1, 1 = player 2; indexes the round's specs
     Input previous = 0;
@@ -46,6 +47,7 @@ struct Fighter {
     int heldTicks = 0;   // > 0 while being thrown
     int techTicks = 0;   // remaining tech window while held
     int motionStep = 0, motionTimer = 0, motionReady = 0;
+    int recoverTicks = 0; // training: ticks since the fighter was last hit or held
 
     // Free to act, block and be thrown.
     [[nodiscard]] bool busy() const { return knockdown > 0 || throwTicks > 0 || heldTicks > 0; }
@@ -83,6 +85,10 @@ struct Round {
     Outcome outcome = Outcome::Running;
     int effectTicks = 0, effectX = 0, effectY = 0;
     Effect effect = Effect::LightHit;
+    // Training rules: the clock stops, nobody can be K.O.'d, the round never
+    // ends, and a fighter's health and Heat refill once they have recovered
+    // for kTrainingRefillTicks. A rule, not state: reset() keeps it.
+    bool training = false;
 
     Round(); // kit boxer vs kit grappler
     Round(const FighterSpec& p1, const FighterSpec& p2);
@@ -94,9 +100,10 @@ struct Round {
     [[nodiscard]] const MoveSpec& currentMove(const Fighter& f) const {
         return spec(f).moves[static_cast<std::size_t>(f.move)];
     }
-    [[nodiscard]] const Box& hurtbox(const Fighter& f) const {
-        return f.crouching ? spec(f).crouchHurt : spec(f).standHurt;
-    }
+    // The boxes the fighter can be hit or grabbed on right now: the move's
+    // phase-specific set if it has one, otherwise the stand/crouch box.
+    [[nodiscard]] HurtSet hurtboxes(const Fighter& f) const;
+    [[nodiscard]] bool touches(const WorldBox& box, const Fighter& f) const;
     // Strikes connect only with fighters that are neither down nor in a throw.
     [[nodiscard]] static bool hittable(const Fighter& f) { return !f.busy(); }
 
@@ -107,6 +114,7 @@ private:
     void resolveContacts(StepEvents& events);
     void separate();
     void setEffect(Effect e, int x, int y, int ticks, StepEvents& events);
+    void applyTrainingRules();
 };
 
 // Deterministic CPU opponent for fighters[side]; a pure function of the round state.

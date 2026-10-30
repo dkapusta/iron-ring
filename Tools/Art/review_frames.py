@@ -4,8 +4,9 @@
     python3 Tools/Art/review_frames.py                    # both fighters, report only
     python3 Tools/Art/review_frames.py --sheets build/review   # also per-animation sheets
 
-Sheets show every animation on the ground line with the hurtbox (cyan), the
-active hitboxes (red) and throw partner points (yellow), at 3x. The report
+Sheets show every animation on the ground line with its hurtboxes (cyan; a
+move's per-phase boxes where it defines them), the active hitboxes (red) and
+throw partner points (yellow), at 3x. The report
 lists measurable problems; it complements, not replaces, an animator's eye.
 Exit code is always 0: findings are notes for the next art pass, not build errors.
 """
@@ -80,6 +81,23 @@ def active_frames(definition: dict) -> dict[str, list[tuple[str, list[int]]]]:
         for name, ticks, *_ in definition["animations"][move["animation"]]["frames"]:
             if t < move["startup"] + move["active"] and t + ticks > move["startup"]:
                 out.setdefault(name, []).append((key, move["hitbox"]))
+            t += ticks
+    return out
+
+
+def phase_hurtboxes(definition: dict) -> dict[tuple[str, int], list[list[int]]]:
+    """(animation, frame index) -> the move's hurtboxes for the phase that frame is shown in."""
+    out: dict[tuple[str, int], list[list[int]]] = {}
+    for move in definition["moves"].values():
+        hurt = move.get("hurt")
+        if not hurt:
+            continue
+        t = 0
+        for index, (_, ticks, *_) in enumerate(definition["animations"][move["animation"]]["frames"]):
+            phase = ("startup" if t < move["startup"] else
+                     "active" if t < move["startup"] + move["active"] else "recovery")
+            if phase in hurt:
+                out[(move["animation"], index)] = hurt[phase]
             t += ticks
     return out
 
@@ -160,6 +178,7 @@ def sheets(fighter: str, target: Path, zoom: int = 3) -> None:
     d, frames = load(fighter)
     hits = active_frames(d)
     rows = [(name, [f[0] for f in anim["frames"]]) for name, anim in d["animations"].items()]
+    phase_hurt = phase_hurtboxes(d)
     cw, ch, ox, oy = 180, 200, 60, 180
     target.mkdir(parents=True, exist_ok=True)
     for page in range(0, len(rows), 7):
@@ -168,12 +187,15 @@ def sheets(fighter: str, target: Path, zoom: int = 3) -> None:
         sheet = Image.new("RGBA", (cw * width * zoom, ch * len(part) * zoom), (34, 38, 58, 255))
         for r, (anim, names) in enumerate(part):
             for c, name in enumerate(names):
+                hurt_boxes = phase_hurt.get((anim, c))
                 f = frames[name]
                 tile = Image.new("RGBA", (cw, ch), (34, 38, 58, 255))
                 draw = ImageDraw.Draw(tile)
                 draw.line([(0, oy), (cw, oy)], fill=(90, 100, 130, 255))
-                hb = d["body"]["crouchHurt" if "crouch" in name else "standHurt"]
-                draw.rectangle([ox + hb[0], oy - hb[1] - hb[3], ox + hb[0] + hb[2], oy - hb[1]], outline=(60, 200, 200))
+                default = d["body"]["crouchHurt" if "crouch" in name else "standHurt"]
+                for hb in hurt_boxes or [default]:
+                    draw.rectangle([ox + hb[0], oy - hb[1] - hb[3], ox + hb[0] + hb[2], oy - hb[1]],
+                                   outline=(60, 200, 200))
                 tile.alpha_composite(Image.fromarray(f.rgba), (ox - f.px, oy - f.py))
                 for _, (bx, by, bw, bh) in hits.get(name, []):
                     draw.rectangle([ox + bx, oy - by - bh, ox + bx + bw, oy - by], outline=(240, 70, 60))

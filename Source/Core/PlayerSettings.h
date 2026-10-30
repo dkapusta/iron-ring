@@ -32,6 +32,7 @@ struct PlayerSettings {
     bool demo = false;        // -demo: CPU vs CPU
     bool training = false;    // -training: hitbox / frame-advantage overlay on
     std::string stage;        // -stage <id>: start stage (default: GameSettings startStage)
+    std::string dummy;        // -dummy <mode>: training dummy (stand, crouch, jump, guard, guard-all, cpu)
     int batchFrames = 180;
     std::filesystem::path screenshotPath;
     std::filesystem::path logFile;

@@ -67,7 +67,9 @@ void TrainingOverlay::draw(SDL_Renderer* r, const sim::Round& round,
     for (std::size_t i = 0; i < 2; ++i) {
         const auto& f = round.fighters[i];
         const auto& spec = round.spec(f);
-        if (!f.busy()) outline(r, sim::place(round.hurtbox(f), f), kHurt, false);
+        if (!f.busy())
+            for (const auto& box : round.hurtboxes(f))
+                if (!box.empty()) outline(r, sim::place(box, f), kHurt, false);
         const sim::Box push{-spec.pushWidth / 2, 0, spec.pushWidth, 4};
         outline(r, sim::place(push, f), kPush, false);
         if (f.move >= 0) {
