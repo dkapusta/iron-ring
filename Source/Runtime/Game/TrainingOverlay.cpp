@@ -13,9 +13,9 @@ constexpr Colour kHit{239, 106, 69};
 constexpr Colour kGrab{242, 176, 78};
 constexpr Colour kPush{207, 196, 168};
 
-void outline(SDL_Renderer* r, const sim::WorldBox& b, Colour c, bool filled) {
-    const float x0 = static_cast<float>(b.x0) / sim::kFixed;
-    const float x1 = static_cast<float>(b.x1) / sim::kFixed;
+void outline(SDL_Renderer* r, const sim::WorldBox& b, Colour c, bool filled, float cameraX) {
+    const float x0 = static_cast<float>(b.x0) / sim::kFixed - cameraX;
+    const float x1 = static_cast<float>(b.x1) / sim::kFixed - cameraX;
     const float y0 = static_cast<float>(sim::kFloorY) - static_cast<float>(b.y1) / sim::kFixed;
     const float y1 = static_cast<float>(sim::kFloorY) - static_cast<float>(b.y0) / sim::kFixed;
     const SDL_FRect rect{x0, y0, x1 - x0, y1 - y0};
@@ -61,7 +61,7 @@ void TrainingOverlay::observe(const sim::Round& round, bool contactThisTick) {
 }
 
 void TrainingOverlay::draw(SDL_Renderer* r, const sim::Round& round,
-                           const std::array<const FighterView*, 2>& views) const {
+                           const std::array<const FighterView*, 2>& views, float cameraX) const {
     if (!visible_) return;
     SDL_SetRenderDrawBlendMode(r, SDL_BLENDMODE_BLEND);
     for (std::size_t i = 0; i < 2; ++i) {
@@ -69,14 +69,14 @@ void TrainingOverlay::draw(SDL_Renderer* r, const sim::Round& round,
         const auto& spec = round.spec(f);
         if (!f.busy())
             for (const auto& box : round.hurtboxes(f))
-                if (!box.empty()) outline(r, sim::place(box, f), kHurt, false);
+                if (!box.empty()) outline(r, sim::place(box, f), kHurt, false, cameraX);
         const sim::Box push{-spec.pushWidth / 2, 0, spec.pushWidth, 4};
-        outline(r, sim::place(push, f), kPush, false);
+        outline(r, sim::place(push, f), kPush, false, cameraX);
         if (f.move >= 0) {
             const auto& m = round.currentMove(f);
             const bool active = f.age >= m.startup && f.age < m.startup + m.active;
             const Colour c = m.kind == sim::MoveKind::Throw ? kGrab : kHit;
-            if (active) outline(r, sim::place(m.hitbox, f), c, true);
+            if (active) outline(r, sim::place(m.hitbox, f), c, true, cameraX);
         }
 
         // Move name and frame data in the corner of each side.

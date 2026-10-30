@@ -7,7 +7,9 @@
 #include "Game/InputDisplay.h"
 #include "Game/Scene.h"
 #include "Game/Services.h"
+#include "Game/StageView.h"
 #include "Game/TrainingOverlay.h"
+#include "Core/Camera.h"
 #include "Render/BitmapFont.h"
 #include "Simulation/Match.h"
 #include "Simulation/Training.h"
@@ -60,6 +62,8 @@ public:
 
 private:
     void openMenu(bool postMatch);
+    void setStage(std::size_t index);
+    void followCamera(bool snap);
     void playStageMusic();
     static constexpr bool kVoice = true, kSound = false;
     // Delayed audio, so the announcer doesn't talk over an impact or a jingle.
@@ -79,6 +83,8 @@ private:
     std::unique_ptr<Effects> effects_;
     std::unique_ptr<TrainingOverlay> overlay_;
     std::unique_ptr<InputDisplay> inputDisplay_;
+    std::unique_ptr<StageView> stageView_;
+    Camera camera_;
     bool training_ = false;
     sim::Dummy dummy_ = sim::Dummy::Stand;
     std::size_t stage_ = 0;

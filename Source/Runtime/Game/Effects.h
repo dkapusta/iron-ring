@@ -17,7 +17,7 @@ public:
 
     void spawn(const sim::StepEvents::Event& event, int clock);
     void update(int clock);
-    void draw(const RenderContext& context, int clock) const;
+    void draw(const RenderContext& context, int clock, float cameraX) const; // cameraX: world px at the left edge
     void clear() { active_.clear(); }
 
 private:

@@ -39,7 +39,7 @@ FightScene::FightScene(Services& services, FightSetup setup)
             throw std::runtime_error("fighter '" + setup_.fighters[i] + "' is not playable");
         views_[i] = std::make_unique<FighterView>(services_.assets, entry->definition);
     }
-    stage_ = data.stageIndex(setup_.stage);
+    setStage(data.stageIndex(setup_.stage));
     effects_ = std::make_unique<Effects>(services_.assets, settings.at("effects").get<std::string>());
     hud_ = std::make_unique<Hud>(services_.assets.json("Resources/UI/hud_layout.json"), data.small(), data.large(),
                                  settings.value("meterName", "METER"));
@@ -59,9 +59,26 @@ void FightScene::onEnter() {
 
 void FightScene::playStageMusic() { services_.data.playTheme(audio_, services_.data.stages()[stage_].music); }
 
+void FightScene::setStage(std::size_t index) {
+    stage_ = index;
+    stageView_ = std::make_unique<StageView>(services_.data.stages()[stage_]);
+}
+
+void FightScene::followCamera(bool snap) {
+    const auto& f = match_->round.fighters;
+    const float a = static_cast<float>(f[0].x) / sim::kFixed, b = static_cast<float>(f[1].x) / sim::kFixed;
+    const auto width = static_cast<float>(match_->round.stageWidth);
+    if (snap) camera_.snap(a, b, width, services_.width);
+    else camera_.follow(a, b, width, services_.width);
+}
+
 void FightScene::newMatch() {
     match_ = std::make_unique<sim::Match>(views_[0]->definition().spec, views_[1]->definition().spec);
     match_->round.training = training_;
+    match_->round.stageWidth = services_.data.stages()[stage_].definition.width;
+    match_->round.reset(); // start positions depend on the width
+    followCamera(true);
+    stageView_->calm();
     effects_->clear();
     inputDisplay_->clear();
     cues_.clear();
@@ -76,6 +93,7 @@ bool FightScene::human(int side) const {
 void FightScene::resetPositions() {
     match_->round.reset();
     effects_->clear();
+    followCamera(true);
 }
 
 void FightScene::openMenu(bool postMatch) {
@@ -106,7 +124,8 @@ void FightScene::handleEvent(const SDL_Event& event) {
                  : control_ == Control::TwoPlayers ? Control::Demo : Control::VsCpu;
         break;
     case SDL_SCANCODE_F2:
-        stage_ = (stage_ + 1) % services_.data.stages().size();
+        setStage((stage_ + 1) % services_.data.stages().size());
+        newMatch(); // a stage of another width needs new start positions
         playStageMusic();
         break;
     case SDL_SCANCODE_F3: overlay_->toggle(); break;
@@ -122,6 +141,7 @@ void FightScene::handleEvent(const SDL_Event& event) {
 }
 
 void FightScene::playEvents(const sim::MatchStep& step) {
+    stageView_->onEvents(step.round);
     for (int i = 0; i < step.round.count; ++i) {
         const auto& e = step.round.items[static_cast<std::size_t>(i)];
         effects_->spawn(e, clock_);
@@ -133,6 +153,7 @@ void FightScene::playEvents(const sim::MatchStep& step) {
         cue(kVoice, sim::isFinalRound(*match_) ? "final_round" : "round_" + std::to_string(match_->roundNumber), 0);
         break;
     case sim::FlowEvent::Fight:
+        stageView_->excite(0.3f);
         audio_.play("round_bell");
         cue(kVoice, "fight", 0);
         break;
@@ -140,6 +161,7 @@ void FightScene::playEvents(const sim::MatchStep& step) {
         const auto& f = match_->round.fighters;
         const bool ko = f[0].hp == 0 || f[1].hp == 0;
         audio_.play(ko ? "ko" : "round_bell");
+        stageView_->excite(ko ? 1.0f : 0.4f);
         // Let the impact land before the call.
         cue(kVoice, !ko ? "time_over" : f[0].hp == 0 && f[1].hp == 0 ? "double_ko" : "ko", ko ? 24 : 6);
         break;
@@ -200,6 +222,8 @@ void FightScene::fixedUpdate() {
     if (fighting && (step.round.count > 0 || match_->round.hitstop == 0))
         overlay_->observe(match_->round, step.round.count > 0);
     for (int side = 0; side < 2; ++side) views_[static_cast<std::size_t>(side)]->update(*match_, side, clock_);
+    followCamera(false);
+    stageView_->update();
     effects_->update(clock_);
     hud_->update(*match_);
 }
@@ -223,8 +247,8 @@ void FightScene::render(const RenderContext& context) {
     SDL_SetRenderDrawBlendMode(r, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor(r, 0, 0, 0, 255);
     SDL_RenderClear(r);
-    const SDL_FRect full{0, 0, static_cast<float>(sim::kStageWidth), 360};
-    SDL_RenderTexture(r, services_.data.stages()[stage_].image->handle.get(), nullptr, &full);
+    const float cx = camera_.offset();
+    stageView_->drawBack(r, cx);
 
     const auto& round = match_->round;
     std::array<FighterPose, 2> poses;
@@ -233,6 +257,7 @@ void FightScene::render(const RenderContext& context) {
         const auto& other = round.fighters[1 - i];
         if (!views_[1 - i]->heldPose(other, f, poses[i])) poses[i] = views_[i]->pose(f);
         const float ground = static_cast<float>(sim::kFloorY);
+        poses[i].x -= cx;
         drawShadow(r, poses[i].x, ground, ground - poses[i].y);
     }
 
@@ -244,8 +269,9 @@ void FightScene::render(const RenderContext& context) {
         views_[i]->sheet().draw(r, poses[i].frame, poses[i].x, poses[i].y, poses[i].flip);
     }
 
-    effects_->draw(context, clock_);
-    overlay_->draw(r, round, views());
+    stageView_->drawFront(r, cx);
+    effects_->draw(context, clock_, cx);
+    overlay_->draw(r, round, views(), cx);
     if (training_) inputDisplay_->draw(r);
     const bool blink = (clock_ / 30) % 2 == 0;
     const std::string line = setup_.attract ? (blink ? "PRESS START" : "")

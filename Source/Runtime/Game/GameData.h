@@ -2,6 +2,7 @@
 
 #include "Assets/AssetLibrary.h"
 #include "Audio/AudioSystem.h"
+#include "Content/Stage.h"
 #include "Render/BitmapFont.h"
 
 #include <nlohmann/json.hpp>
@@ -21,7 +22,9 @@ struct StageInfo {
     std::string description;
     std::string music;      // theme id in music.json; empty = no music
     std::string musicTitle; // the theme's title, for the stage select
-    const Texture* image = nullptr;
+    const Texture* image = nullptr; // the flat stage, or a layered stage's preview
+    content::StageDefinition definition; // world width and layers
+    std::vector<const Texture*> layers;  // one per definition.layers entry
 };
 
 // One slot on the character select: every fighter in Data/roster.json, in
