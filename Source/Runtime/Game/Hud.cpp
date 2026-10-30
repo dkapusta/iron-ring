@@ -115,10 +115,8 @@ void Hud::drawBanner(SDL_Renderer* r, const sim::Match& match,
     std::string text;
     switch (match.phase) {
     case sim::Phase::Intro: {
-        const bool finalRound = match.roundNumber == sim::kMaxRounds ||
-                           (match.wins[0] == sim::kRoundsToWin - 1 && match.wins[1] == sim::kRoundsToWin - 1);
         if (match.phaseTicks < sim::kFightCallTick)
-            text = finalRound ? "FINAL ROUND" : "ROUND " + std::to_string(match.roundNumber);
+            text = sim::isFinalRound(match) ? "FINAL ROUND" : "ROUND " + std::to_string(match.roundNumber);
         else
             text = "FIGHT!";
         break;

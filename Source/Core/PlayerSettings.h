@@ -26,6 +26,7 @@ struct PlayerSettings {
     std::string renderDriver; // empty = let SDL choose
     float musicVolume = 1.0f; // 0..1, music mix group
     float sfxVolume = 1.0f;   // 0..1, sound-effect mix group
+    float voiceVolume = 1.0f; // 0..1, announcer mix group
 
     bool batchMode = false;   // -batchmode: offscreen video, fixed frame count, then quit
     bool demo = false;        // -demo: CPU vs CPU

@@ -56,7 +56,7 @@ The launcher ↔ engine API (`Public/IronRing/Player.h`) is **C only**: plain C 
   - **External** (fighters, portraits, stages): edit the sources in `ArtSource/` and repack with `Tools/Art/import_art.py` ([ArtSource/README.md](ArtSource/README.md)). Never edit an atlas directly.
   - **Procedural** (palette, effects, fonts, icon): change `Tools/Art/ironart/`, run `python3 Tools/Art/generate.py`, commit code and assets together.
   - `python3 Tools/Art/selftest.py` (CI job *Art and audio tools*) fails when either kind drifts from its source.
-- Audio is generated: change `Tools/Audio/chiptune/` and run `python3 Tools/Audio/generate_audio.py`; never edit the WAV/OGG files ([docs/audio.md](docs/audio.md)). `--check` runs in CI. A sound id the game plays must also be in `GameSettings.json → sounds` and `content::kSounds`.
+- Audio is generated: change `Tools/Audio/chiptune/` and run `python3 Tools/Audio/generate_audio.py`; never edit the WAV/OGG files ([docs/audio.md](docs/audio.md)). `--check` runs in CI. A sound id the game plays must also be in `GameSettings.json → sounds` and `content::kSounds`; announcer lines in `→ voice` and `content::kVoiceLines`; a stage's theme in `stages.json → music`.
 - Fighter gameplay data lives in `<id>.fighter.json` ([ADR-0010](docs/adr/0010-fighter-content-format.md)). Animation lengths must match frame data; AssetPacker fails the build when they don't. Retime the animation in the same change as the move.
 - Check art changes in the game: `-training` (or F3) shows hit/hurt boxes against the sprites.
 

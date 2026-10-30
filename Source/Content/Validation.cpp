@@ -2,7 +2,10 @@
 
 #include "Content/Paths.h"
 
+#include <optional>
 #include <set>
+#include <utility>
+#include <vector>
 
 namespace iron::content {
 namespace {
@@ -130,8 +133,12 @@ ValidationReport validateProject(const FileReader& read) {
 
         // Stages.
         const auto stagesPath = settings->at("stages").get<std::string>();
+        std::optional<std::vector<std::pair<std::string, std::string>>> stageMusic;
         if (const auto stages = readJson(read, stagesPath, report)) {
+            stageMusic.emplace();
             for (const auto& stage : stages->at("stages")) {
+                if (stage.contains("music"))
+                    stageMusic->emplace_back(stage.at("id").get<std::string>(), stage.at("music").get<std::string>());
                 const auto image = stage.at("image").get<std::string>();
                 if (const auto size = readPng(read, image, report); size && *size != std::pair{640, 360})
                     report.warnings.push_back(image + ": stages are expected to be 640x360");
@@ -159,16 +166,32 @@ ValidationReport validateProject(const FileReader& read) {
                 (void)readPng(read, siblingPath(fontPath, json->at("image").get<std::string>()), report);
         }
         for (const auto& [id, path] : settings->at("sounds").items()) requireFile(read, path.get<std::string>(), report);
+        if (settings->contains("voice")) {
+            const auto& voice = settings->at("voice");
+            for (const auto& [id, path] : voice.items()) requireFile(read, path.get<std::string>(), report);
+            for (const auto id : kVoiceLines)
+                if (!voice.contains(id))
+                    report.errors.push_back("GameSettings.json: voice: missing '" + std::string(id) + "'");
+            for (const auto& [fighter, _] : fighters)
+                if (!voice.contains(fighter.id + "_wins"))
+                    report.warnings.push_back("GameSettings.json: voice: no '" + fighter.id + "_wins' line");
+        }
         for (const auto id : kSounds)
             if (!settings->at("sounds").contains(id))
                 report.errors.push_back("GameSettings.json: sounds: missing '" + std::string(id) + "'");
         if (settings->contains("music")) {
             const auto musicPath = settings->at("music").get<std::string>();
             if (const auto music = readJson(read, musicPath, report)) {
-                const auto& theme = music->at("theme");
-                requireFile(read, siblingPath(musicPath, theme.at("file").get<std::string>()), report);
-                if (theme.value("loopStartFrame", std::int64_t{0}) >= theme.value("lengthFrames", std::int64_t{0}))
-                    report.errors.push_back(musicPath + ": loopStartFrame must be inside the track");
+                for (const auto& [id, theme] : music->at("themes").items()) {
+                    requireFile(read, siblingPath(musicPath, theme.at("file").get<std::string>()), report);
+                    if (theme.value("loopStartFrame", std::int64_t{0}) >= theme.value("lengthFrames", std::int64_t{0}))
+                        report.errors.push_back(musicPath + ": " + id + ": loopStartFrame must be inside the track");
+                }
+                if (stageMusic) {
+                    for (const auto& [stage, theme] : *stageMusic)
+                        if (!music->at("themes").contains(theme))
+                            report.errors.push_back(stagesPath + ": " + stage + ": unknown music '" + theme + "'");
+                }
             }
         }
     } catch (const nlohmann::json::exception& e) {

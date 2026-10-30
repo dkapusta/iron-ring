@@ -32,9 +32,15 @@ inline constexpr std::array<std::string_view, 2> kSharedFrames{"held_0", "held_1
 // Effect frames the runtime spawns from simulation events.
 inline constexpr std::array<std::string_view, 6> kEffects{"light_hit", "heavy_hit", "guard", "breakaway", "tech",
                                                           "slam"};
+// Announcer lines the game plays (Game/FightScene.cpp), besides "<fighter id>_wins";
+// each must be in GameSettings.json -> voice. Rounds above kMaxRounds - 1 are always final.
+inline constexpr std::array<std::string_view, 10> kVoiceLines{"round_1", "round_2",   "round_3", "round_4",
+                                                              "final_round", "fight", "ko",      "double_ko",
+                                                              "time_over",  "draw"};
+
 // Sound ids the game plays (Game/FightScene.cpp); each must be in GameSettings.json -> sounds.
-inline constexpr std::array<std::string_view, 10> kSounds{"light_hit", "heavy_hit", "guard", "breakaway", "tech",
-                                                          "slam",      "round_call", "round_bell", "ko", "victory"};
+inline constexpr std::array<std::string_view, 9> kSounds{"light_hit", "heavy_hit",  "guard", "breakaway", "tech",
+                                                         "slam",      "round_bell", "ko",    "victory"};
 
 [[nodiscard]] std::vector<std::string> validateFighter(const FighterDefinition& fighter, const AtlasDefinition& atlas,
                                                        std::pair<int, int> imageSize);

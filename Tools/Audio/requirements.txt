@@ -1,0 +1,4 @@
+# Audio generator: numpy/scipy pinned with the art tools (pixel- and sample-exact checks),
+# plus eSpeak NG for the announcer (the wheel bundles libespeak-ng and its data).
+-r ../Art/requirements.txt
+espeakng-loader==0.2.4

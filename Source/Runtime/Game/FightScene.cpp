@@ -44,6 +44,9 @@ FightScene::FightScene(AssetLibrary& assets, AudioSystem& audio, FightOptions op
     if (options.training) overlay_->toggle();
 
     for (const auto& [id, path] : settings.at("sounds").items()) audio_.load(id, assets.bytes(path.get<std::string>()));
+    if (settings.contains("voice"))
+        for (const auto& [id, path] : settings.at("voice").items())
+            audio_.loadVoice(id, assets.bytes(path.get<std::string>()));
     if (settings.contains("music")) loadMusic(assets, settings.at("music").get<std::string>());
     newMatch();
 }
@@ -52,7 +55,8 @@ void FightScene::loadStages(AssetLibrary& assets, const std::string& stagesPath,
     const auto catalog = assets.json(stagesPath); // keep alive: range-for over a temporary's member dangles
     for (const auto& s : catalog.at("stages")) {
         if (s.at("id").get<std::string>() == startStage) stage_ = stages_.size();
-        stages_.push_back({s.at("name").get<std::string>(), &assets.texture(s.at("image").get<std::string>())});
+        stages_.push_back({s.at("name").get<std::string>(), &assets.texture(s.at("image").get<std::string>()),
+                           s.value("music", std::string{})});
     }
     if (stages_.empty()) throw std::runtime_error(stagesPath + ": no stages");
     const bool found = std::any_of(catalog.at("stages").begin(), catalog.at("stages").end(),
@@ -63,18 +67,31 @@ void FightScene::loadStages(AssetLibrary& assets, const std::string& stagesPath,
 }
 
 void FightScene::loadMusic(AssetLibrary& assets, const std::string& musicPath) {
-    const auto catalog = assets.json(musicPath);
-    const auto& theme = catalog.at("theme");
+    const auto catalog = assets.json(musicPath); // keep alive: iterated below
     const auto folder = musicPath.substr(0, musicPath.find_last_of('/') + 1);
-    music_.encoded = assets.bytes(folder + theme.at("file").get<std::string>());
-    music_.loopStartFrame = theme.value("loopStartFrame", std::int64_t{0});
-    music_.gain = theme.value("gain", 1.0f);
+    for (const auto& [id, theme] : catalog.at("themes").items()) {
+        AudioSystem::Music music;
+        music.encoded = assets.bytes(folder + theme.at("file").get<std::string>());
+        music.loopStartFrame = theme.value("loopStartFrame", std::int64_t{0});
+        music.gain = theme.value("gain", 1.0f);
+        themes_.emplace(id, std::move(music));
+    }
+}
+
+void FightScene::playStageMusic() {
+    const auto it = themes_.find(stages_[stage_].music);
+    if (it == themes_.end()) {
+        audio_.stopMusic(300);
+        return;
+    }
+    audio_.playMusic(it->second); // a copy: the encoded bytes stay with themes_
 }
 
 void FightScene::newMatch() {
     match_ = std::make_unique<sim::Match>(views_[0]->definition().spec, views_[1]->definition().spec);
     effects_->clear();
-    if (!music_.encoded.empty()) audio_.playMusic(music_);
+    cues_.clear();
+    playStageMusic();
 }
 
 void FightScene::handleEvent(const SDL_Event& event) {
@@ -86,7 +103,10 @@ void FightScene::handleEvent(const SDL_Event& event) {
         control_ = control_ == Control::VsCpu ? Control::TwoPlayers
                  : control_ == Control::TwoPlayers ? Control::Demo : Control::VsCpu;
         break;
-    case SDL_SCANCODE_F2: stage_ = (stage_ + 1) % stages_.size(); break;
+    case SDL_SCANCODE_F2:
+        stage_ = (stage_ + 1) % stages_.size();
+        playStageMusic();
+        break;
     case SDL_SCANCODE_F3: overlay_->toggle(); break;
     case SDL_SCANCODE_F5: newMatch(); break;
     default: break;
@@ -100,18 +120,51 @@ void FightScene::playEvents(const sim::MatchStep& step) {
         audio_.play(soundFor(e.effect));
     }
     switch (step.flow) {
-    case sim::FlowEvent::RoundCall: audio_.play("round_call"); break;
-    case sim::FlowEvent::Fight: audio_.play("round_bell"); break;
+    case sim::FlowEvent::RoundCall:
+        // The announcer calls the round (it replaced a fanfare: the line needs the whole second before FIGHT!).
+        cue(kVoice, sim::isFinalRound(*match_) ? "final_round" : "round_" + std::to_string(match_->roundNumber), 0);
+        break;
+    case sim::FlowEvent::Fight:
+        audio_.play("round_bell");
+        cue(kVoice, "fight", 0);
+        break;
     case sim::FlowEvent::RoundEnd: {
         const auto& f = match_->round.fighters;
-        audio_.play(f[0].hp == 0 || f[1].hp == 0 ? "ko" : "round_bell");
+        const bool ko = f[0].hp == 0 || f[1].hp == 0;
+        audio_.play(ko ? "ko" : "round_bell");
+        // Let the impact land before the call.
+        cue(kVoice, !ko ? "time_over" : f[0].hp == 0 && f[1].hp == 0 ? "double_ko" : "ko", ko ? 24 : 6);
         break;
     }
     case sim::FlowEvent::MatchEnd:
         audio_.stopMusic(800);
-        audio_.play(match_->winner == sim::Outcome::Draw ? "round_bell" : "victory");
+        if (match_->winner == sim::Outcome::Draw) {
+            audio_.play("round_bell");
+            cue(kVoice, "draw", 0);
+        } else {
+            const auto& winner = views_[match_->winner == sim::Outcome::Player1 ? 0 : 1]->definition();
+            cue(kVoice, winner.id + "_wins", 0);
+            cue(kSound, "victory", 96); // the jingle after the call
+        }
         break;
     default: break;
+    }
+}
+
+void FightScene::cue(bool voice, std::string id, int delayTicks) {
+    cues_.push_back({voice, std::move(id), audioTick_ + delayTicks});
+}
+
+void FightScene::playCues() {
+    ++audioTick_;
+    for (auto it = cues_.begin(); it != cues_.end();) {
+        if (it->tick > audioTick_) {
+            ++it;
+            continue;
+        }
+        if (it->voice) audio_.playVoice(it->id);
+        else audio_.play(it->id);
+        it = cues_.erase(it);
     }
 }
 
@@ -124,6 +177,7 @@ void FightScene::fixedUpdate() {
 
     const auto step = match_->step(inputs);
     playEvents(step);
+    playCues();
     if (step.flow == sim::FlowEvent::Finished) {
         newMatch();
         return;

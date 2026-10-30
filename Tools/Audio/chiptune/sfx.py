@@ -9,8 +9,8 @@ from __future__ import annotations
 import numpy as np
 
 from .apu import Channels, pulse_period, triangle_period
-from .song import Drum, Instrument, Score
-from .theme import KIT
+from .song import Instrument, Score
+from .instruments import KIT
 
 
 def _env(start: int, end: int, frames: int) -> np.ndarray:
@@ -110,22 +110,6 @@ def round_bell() -> Channels:
     return ch
 
 
-def round_call() -> Channels:
-    """Short brass-like call under the "ROUND n" banner."""
-    ch = Channels(48)
-    lead = [(0, 587.3, 5), (5, 880.0, 5), (10, 1174.7, 30)]
-    for at, f, n in lead:
-        vib = f * (1 + 0.006 * np.sin(np.arange(n) / 1.6) * (np.arange(n) > 8))
-        pulse(ch, 0, at, vib, np.concatenate([_env(14, 11, min(n, 6)), _env(11, 0, max(n - 6, 0))])[:n], duty=2)
-        pulse(ch, 1, at + 1, vib / 1.4983, np.concatenate([_env(8, 6, min(n, 6)), _env(6, 0, max(n - 6, 0))])[:n],
-              duty=1)
-    triangle(ch, 0, np.full(9, 146.8))
-    triangle(ch, 10, np.full(28, 73.4))
-    noise(ch, 0, KIT_FRAMES("s")[0], KIT_FRAMES("s")[1])
-    noise(ch, 10, KIT_FRAMES("c")[0], KIT_FRAMES("c")[1])
-    return ch
-
-
 def menu_confirm() -> Channels:
     ch = Channels(12)
     pulse(ch, 0, 0, [1046.5] * 3 + [1568.0] * 7, [12, 11, 10, 12, 10, 8, 6, 4, 2, 1], duty=1)
@@ -162,11 +146,6 @@ def victory() -> Channels:
     return s.render_channels(extra_frames=24)
 
 
-def KIT_FRAMES(name: str) -> tuple[list[int], list[int]]:  # noqa: N802 - mirrors the kit's names
-    drum: Drum = KIT[name]
-    return [p for p, _, _ in drum.frames], [v for _, v, _ in drum.frames]
-
-
 EFFECTS = {
     "light_hit": light_hit,
     "heavy_hit": heavy_hit,
@@ -175,7 +154,6 @@ EFFECTS = {
     "tech": tech,
     "slam": slam,
     "round_bell": round_bell,
-    "round_call": round_call,
     "menu_confirm": menu_confirm,
     "ko": ko,
     "victory": victory,

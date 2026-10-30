@@ -12,6 +12,12 @@ Iron Ring itself is licensed under the [zlib License](LICENSE). It builds on the
 | nlohmann/json | 3.12.0 | MIT | player, AssetPacker | https://github.com/nlohmann/json |
 | doctest | 2.5.3 | MIT | unit tests only (not shipped) | https://github.com/doctest/doctest |
 
+**Tools whose output ships** (not linked or distributed with the game):
+
+| Component | Version | Licence | Used for |
+| --- | --- | --- | --- |
+| eSpeak NG (via the `espeakng-loader` wheel) | 1.52 / wheel 0.2.4 | GPL-3.0-or-later | synthesising the announcer lines in `Tools/Audio/chiptune/voice.py`; only the rendered WAVs (`Assets/Resources/Audio/Voice/`) ship. Program output is not covered by the GPL ([ADR-0014](docs/adr/0014-venue-themes-and-announcer.md)). |
+
 **Toolchain runtimes** (only in Windows builds made with MinGW-w64, see [ADR-0009](docs/adr/0009-mingw-static-runtime.md)):
 
 | Component | Licence | Notes |

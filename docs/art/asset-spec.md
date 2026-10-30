@@ -134,6 +134,21 @@ Units: lengths in logical pixels, speeds in 1/256 px per tick, times in ticks. B
 
 Full rationale: [ADR-0010](../adr/0010-fighter-content-format.md).
 
+### 2.6 Animation rules
+
+Learned from the first external pack ([frame review](frame-review.md)). `python3 Tools/Art/review_frames.py` measures the starred rules (★) and prints findings; run it before delivering frames.
+
+- ★ **Idle breathes.** Head and shoulders travel 0, 1, 2, 1 px down across `idle_0`–`idle_3`; the feet don't move; the head stays within ±1 px horizontally.
+- ★ **Loops don't rock.** In idle and walk, the body centre moves at most 3 px between consecutive frames. Walking is legs and arms; the torso rides along the centre line.
+- **Walk has contact and passing poses.** `walk_0`/`walk_3` contact (feet apart, body 1–2 px lower), `walk_1`/`walk_4` passing (feet together, 1 px higher), the others in between. The planted foot stays put on the ground; the rear foot pushes off.
+- ★ **Key poses differ.** Consecutive distinct frames of a move change at least 12 % of the silhouette. A reach, a grip and a hold are three different drawings: the grab must be visible (hands closed on the opponent, elbows bent, weight shifted).
+- ★ **Strikes go through the box.** On active frames the striking hand or foot reaches at least 6 px into the hitbox, along the direction of the move: a jab or shove at full arm length, a hook that sweeps across, an uppercut angled forward into its box, not straight up.
+- **Follow-through and recovery are poses**, not the idle stance: the body carries past the hit, then returns to guard.
+- **Reactions read as reactions.** Hit frames pull the head and arms in or back; nothing reaches forward (that reads as an attack or a grab). `hit_0` is the snap, `hit_1` the stagger.
+- **Two-frame loops** (`win`, `hit`) change visibly between frames (★ 12 %+).
+- ★ **Crouch height** may exceed the crouch hurtbox by at most 4 px (hair, skull).
+- ★ **Outline.** Silhouette-edge pixels are the darkest tone of the material they bound. No light or cyan rim on the edge (at most 4 % light, 5 % cyan on fighters without teal costume); rim light, if any, sits one pixel inside.
+
 ## 3. Stages
 
 `Assets/Stages/<Name>/<id>.png`, listed in `Assets/Data/stages.json` (`id`, `name`, `image`).
@@ -175,7 +190,7 @@ The three venues: **Pier 9** (closed cargo pier, crane legs, freighter floodligh
 
 ## 6. Audio
 
-All sound is generated from an NES sound-chip model by `Tools/Audio/generate_audio.py`; the ids, formats, levels and how to change them are in [docs/audio.md](../audio.md). Replacement audio must keep the ids in `ProjectSettings/GameSettings.json → sounds` (AssetPacker checks the required ones), be 44.1 kHz mono 16-bit WAV for effects (no leading silence: they fire on the impact tick) and OGG for music with its loop point in `music.json`.
+All sound is generated from an NES sound-chip model by `Tools/Audio/generate_audio.py`; the ids, formats, levels and how to change them are in [docs/audio.md](../audio.md). Replacement audio must keep the ids in `ProjectSettings/GameSettings.json → sounds` (AssetPacker checks the required ones), be 44.1 kHz mono 16-bit WAV for effects (no leading silence: they fire on the impact tick) and OGG for music with its loop point in `music.json` (one theme per stage), and announcer lines in `Resources/Audio/Voice/`.
 
 ## 7. Naming and layout
 
@@ -206,6 +221,7 @@ All sound is generated from an NES sound-chip model by `Tools/Audio/generate_aud
 - [ ] Idle height within 120–136 px; the character doesn't change size or slide between frames.
 - [ ] No frame reaches more than 3 px below the ground (importer/generator warning is clean).
 - [ ] Attack limbs inside the hitbox on active frames; body roughly fills the hurtboxes (F3 overlay).
+- [ ] `Tools/Art/review_frames.py` reports no findings, or each remaining one is accepted in the [frame review](frame-review.md).
 - [ ] Throw holds: opponent's `held_*` frame lines up with the thrower's hands (play a throw in training mode).
 - [ ] Hard edges, 1 px coloured outline, one limited palette per fighter (≤ 48 colours), no semi-transparent pixels.
 - [ ] Facing right; reads clearly in silhouette at 1× scale against all three stages.
