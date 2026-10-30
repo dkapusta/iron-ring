@@ -20,6 +20,8 @@
   },
   "sounds": {
     "breakaway": "Resources/Audio/breakaway.wav",
+    "combo": "Resources/Audio/combo.wav",
+    "counter": "Resources/Audio/counter.wav",
     "guard": "Resources/Audio/guard.wav",
     "heavy_hit": "Resources/Audio/heavy_hit.wav",
     "ko": "Resources/Audio/ko.wav",

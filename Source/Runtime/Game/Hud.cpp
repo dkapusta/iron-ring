@@ -18,8 +18,46 @@ SDL_FRect rectOf(const nlohmann::json& a) {
 Hud::Hud(nlohmann::json layout, const BitmapFont& small, const BitmapFont& large, std::string meterName)
     : layout_(std::move(layout)), small_(small), large_(large), meterName_(std::move(meterName)) {}
 
+void Hud::onHit(int attacker, int combo, bool counter) {
+    if (attacker < 0) return;
+    auto& c = callouts_[static_cast<std::size_t>(attacker)];
+    if (combo >= 2) {
+        c.combo = combo;
+        c.comboTicks = 70;
+    }
+    if (counter) {
+        c.text = "COUNTER";
+        c.textTicks = 50;
+    }
+}
+
+void Hud::onBreakaway(int side) {
+    if (side < 0) return;
+    auto& c = callouts_[static_cast<std::size_t>(side)];
+    c.text = "BREAKAWAY";
+    c.textTicks = 50;
+}
+
+void Hud::clearCallouts() { callouts_ = {}; }
+
+void Hud::drawCallouts(SDL_Renderer* r, int side) const {
+    const auto& c = callouts_[static_cast<std::size_t>(side)];
+    const bool right = side == 1;
+    const float x = right ? 628.0f : 12.0f;
+    const Align align = right ? Align::Right : Align::Left;
+    if (c.comboTicks > 0) {
+        large_.draw(r, std::to_string(c.combo) + " HITS", x, 48, kWhite, align);
+    }
+    if (c.textTicks > 0 && (c.textTicks > 30 || (blink_ / 4) % 2 == 0))
+        small_.draw(r, c.text, x, 76, c.text == "COUNTER" ? kCoralLight : kTealLight, align, true);
+}
+
 void Hud::update(const sim::Match& match) {
     ++blink_;
+    for (auto& c : callouts_) {
+        if (c.comboTicks > 0) --c.comboTicks;
+        if (c.textTicks > 0) --c.textTicks;
+    }
     for (std::size_t i = 0; i < 2; ++i) {
         const auto hp = static_cast<float>(match.round.fighters[i].hp);
         // The damage bar waits a moment, then drains to the real value.
@@ -119,7 +157,10 @@ void Hud::drawBanner(SDL_Renderer* r, const sim::Match& match,
 
 void Hud::draw(SDL_Renderer* r, const sim::Match& match, const std::array<const FighterView*, 2>& fighters,
                const std::string& status) const {
-    for (int side = 0; side < 2; ++side) drawPlayer(r, match, *fighters[static_cast<std::size_t>(side)], side);
+    for (int side = 0; side < 2; ++side) {
+        drawPlayer(r, match, *fighters[static_cast<std::size_t>(side)], side);
+        drawCallouts(r, side);
+    }
 
     const SDL_FRect t = rectOf(layout_.at("timer"));
     frame(r, t);

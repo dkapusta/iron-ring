@@ -30,6 +30,7 @@ std::string settingText(const PlayerSettings& s, std::string_view key) {
     if (key == "music-volume") return number(s.musicVolume);
     if (key == "sfx-volume") return number(s.sfxVolume);
     if (key == "voice-volume") return number(s.voiceVolume);
+    if (key == "screen-effects") return s.reducedEffects ? "reduced" : "full";
     return {};
 }
 

@@ -44,7 +44,7 @@ void InputDisplay::clear() {
 }
 
 void InputDisplay::draw(SDL_Renderer* r) const {
-    constexpr float top = 72, lineHeight = 9;
+    constexpr float top = 96, lineHeight = 9; // below the combo counter and callouts
     constexpr SDL_Color newest{241, 234, 216, 255}, older{138, 147, 168, 255};
     for (std::size_t side = 0; side < 2; ++side) {
         float y = top;

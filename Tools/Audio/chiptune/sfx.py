@@ -116,6 +116,22 @@ def menu_confirm() -> Channels:
     return ch
 
 
+def counter() -> Channels:
+    """Counter hit sting, layered over the hit: a bright two-step clang that rises."""
+    ch = Channels(18)
+    pulse(ch, 0, 0, [1318.5] * 4 + [1975.5] * 10, [14, 12, 10, 13, 12, 10, 9, 8, 6, 5, 4, 3, 2, 1], duty=0)
+    pulse(ch, 1, 1, [2637.0] * 3 + [3951.0] * 8, [8, 6, 4, 8, 7, 5, 4, 3, 2, 1, 1], duty=1)
+    noise(ch, 0, [2, 2, 3, 3], [10, 7, 4, 2], short=True)
+    return ch
+
+
+def combo() -> Channels:
+    """Combo blip, layered over each hit after the first; played higher with every hit."""
+    ch = Channels(7)
+    pulse(ch, 0, 0, [880.0, 880.0, 1174.7, 1174.7, 1174.7, 1174.7], [10, 9, 9, 7, 4, 2], duty=1)
+    return ch
+
+
 def menu_move() -> Channels:
     """Cursor step: a short, quiet blip that won't tire over many presses."""
     ch = Channels(5)
@@ -168,6 +184,8 @@ EFFECTS = {
     "tech": tech,
     "slam": slam,
     "round_bell": round_bell,
+    "counter": counter,
+    "combo": combo,
     "menu_confirm": menu_confirm,
     "menu_move": menu_move,
     "menu_back": menu_back,

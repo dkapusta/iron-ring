@@ -83,6 +83,12 @@ bool applySetting(PlayerSettings& s, std::string_view key, std::string_view valu
         (key == "music-volume" ? s.musicVolume : key == "sfx-volume" ? s.sfxVolume : s.voiceVolume) = *v;
         return true;
     }
+    if (key == "screen-effects") {
+        if (value == "full") s.reducedEffects = false;
+        else if (value == "reduced") s.reducedEffects = true;
+        else return false;
+        return true;
+    }
     if (key == "render-driver") {
         s.renderDriver = std::string(value);
         return true;
@@ -168,7 +174,8 @@ std::vector<std::string> applyCommandLine(PlayerSettings& settings, std::span<co
                 else settings.assetsFolder = p;
             }
         } else if (arg == "-hdr" || arg == "-vsync" || arg == "-presentation" || arg == "-render-driver" ||
-                   arg == "-music-volume" || arg == "-sfx-volume" || arg == "-voice-volume") {
+                   arg == "-music-volume" || arg == "-sfx-volume" || arg == "-voice-volume" ||
+                   arg == "-screen-effects") {
             const auto v = next(i);
             ok = v && applySetting(settings, arg.substr(1), *v);
         } else {

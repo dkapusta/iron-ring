@@ -63,33 +63,47 @@ Application::Application(const PlayerSettings& settings, PlayerPrefs prefs, cons
                                                     static_cast<float>(logical[1]), [this] { resetRenderer(); }});
     openFirstScene();
 
-    // "30:Return,45:Down": a tap of each key at that frame.
+    // "30:Return,45:Down": a one-frame tap at that frame; "30-90:D": held from
+    // frame 30 to 90; "40:S+D": keys together.
     std::string_view script = settings_.keys;
     while (!script.empty()) {
         const auto comma = script.find(',');
         const auto item = script.substr(0, comma);
         script = comma == std::string_view::npos ? std::string_view{} : script.substr(comma + 1);
         const auto colon = item.find(':');
-        const std::string name(item.substr(colon == std::string_view::npos ? item.size() : colon + 1));
-        const SDL_Scancode key = SDL_GetScancodeFromName(name.c_str());
-        int frame = 0;
+        const std::string frames(item.substr(0, colon));
+        std::string_view keys = colon == std::string_view::npos ? std::string_view{} : item.substr(colon + 1);
+        int first = -1, last = -1;
         try {
-            frame = std::stoi(std::string(item.substr(0, colon)));
+            const auto dash = frames.find('-');
+            first = std::stoi(frames.substr(0, dash));
+            last = dash == std::string::npos ? first : std::stoi(frames.substr(dash + 1));
         } catch (...) {
-            frame = -1;
+            first = -1;
         }
-        if (frame < 0 || key == SDL_SCANCODE_UNKNOWN) SDL_Log("-keys: ignored '%.*s'", static_cast<int>(item.size()), item.data());
-        else keyScript_.push_back({frame, key});
+        bool ok = first >= 0 && last >= first && !keys.empty();
+        std::vector<SDL_Scancode> codes;
+        while (ok && !keys.empty()) {
+            const auto plus = keys.find('+', 1); // "Keypad +" style names aren't needed here
+            const std::string name(keys.substr(0, plus));
+            keys = plus == std::string_view::npos ? std::string_view{} : keys.substr(plus + 1);
+            const SDL_Scancode code = SDL_GetScancodeFromName(name.c_str());
+            ok = code != SDL_SCANCODE_UNKNOWN;
+            codes.push_back(code);
+        }
+        if (!ok) SDL_Log("-keys: ignored '%.*s'", static_cast<int>(item.size()), item.data());
+        else
+            for (const auto code : codes) keyScript_.push_back({first, last, code});
     }
 }
 
 void Application::playKeyScript(int frame) {
     for (const auto& k : keyScript_) {
-        if (k.frame != frame && k.frame + 1 != frame) continue;
+        if (k.first != frame && k.last + 1 != frame) continue;
         SDL_Event e{};
-        e.type = k.frame == frame ? SDL_EVENT_KEY_DOWN : SDL_EVENT_KEY_UP;
+        e.type = k.first == frame ? SDL_EVENT_KEY_DOWN : SDL_EVENT_KEY_UP;
         e.key.scancode = k.key;
-        e.key.down = k.frame == frame;
+        e.key.down = k.first == frame;
         e.key.windowID = SDL_GetWindowID(display_->window());
         SDL_PushEvent(&e);
     }

@@ -94,7 +94,7 @@ void AudioSystem::playVoice(std::string_view id) {
     MIX_PlayTrack(voiceTrack_, 0);
 }
 
-void AudioSystem::play(std::string_view id) {
+void AudioSystem::play(std::string_view id, float pitch) {
     if (!mixer_ || sfxVolume_ <= 0.0f) return;
     const auto it = sounds_.find(std::string(id));
     if (it == sounds_.end()) return;
@@ -109,6 +109,7 @@ void AudioSystem::play(std::string_view id) {
     if (!track) return;
     MIX_SetTrackAudio(track, it->second);
     MIX_SetTrackGain(track, sfxVolume_);
+    MIX_SetTrackFrequencyRatio(track, pitch);
     MIX_PlayTrack(track, 0);
 }
 
