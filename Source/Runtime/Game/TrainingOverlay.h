@@ -21,7 +21,9 @@ public:
 
     // Call once per simulated tick (not during hitstop), after Round::step.
     void observe(const sim::Round& round, bool contactThisTick);
-    void draw(SDL_Renderer* r, const sim::Round& round, const std::array<const FighterView*, 2>& views) const;
+    // cameraX: world pixels at the screen's left edge.
+    void draw(SDL_Renderer* r, const sim::Round& round, const std::array<const FighterView*, 2>& views,
+              float cameraX) const;
 
 private:
     const BitmapFont& font_;

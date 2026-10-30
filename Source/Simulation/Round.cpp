@@ -21,8 +21,8 @@ int attackSlotFrom(Input pressed) {
     return -1;
 }
 
-void clampToStage(Fighter& f) {
-    f.x = std::clamp(f.x, kStageMinX * kFixed, kStageMaxX * kFixed);
+void clampToStage(Fighter& f, int stageWidth) {
+    f.x = std::clamp(f.x, kStageMargin * kFixed, (stageWidth - kStageMargin) * kFixed);
 }
 
 int addMeter(int meter, int amount) { return std::min(kMeterMax, meter + amount); }
@@ -99,8 +99,8 @@ Round::Round(const FighterSpec& p1, const FighterSpec& p2) : specs{&p1, &p2} { r
 
 void Round::reset() {
     fighters = {Fighter{}, Fighter{}};
-    fighters[0].x = 230 * kFixed;
-    fighters[1].x = 410 * kFixed;
+    fighters[0].x = (stageWidth / 2 - kStartOffset) * kFixed;
+    fighters[1].x = (stageWidth / 2 + kStartOffset) * kFixed;
     fighters[1].facing = -1;
     fighters[1].side = 1;
     tick = 0;
@@ -229,7 +229,7 @@ void Round::updateFighter(std::size_t i, Input in, Input pressed, StepEvents& ev
                 f.vy = 0;
             }
         }
-        clampToStage(f);
+        clampToStage(f, stageWidth);
     };
 
     if (f.throwTicks > 0 || f.heldTicks > 0) return; // resolveThrows drives both fighters
@@ -265,7 +265,7 @@ void Round::updateFighter(std::size_t i, Input in, Input pressed, StepEvents& ev
         f.breakTicks = 0;
         if (!other.busy()) {
             other.x += f.facing * kBreakPush * kFixed;
-            clampToStage(other);
+            clampToStage(other, stageWidth);
         }
         hitstop = 6;
         setEffect(Effect::Breakaway, f.x, f.y + 55 * kFixed, 12, events);
@@ -309,8 +309,8 @@ void Round::resolveThrows(const std::array<bool, 2>& techs, StepEvents& events) 
             d.techTicks = 0;
             a.x -= a.facing * kTechSeparation * kFixed;
             d.x += a.facing * kTechSeparation * kFixed;
-            clampToStage(a);
-            clampToStage(d);
+            clampToStage(a, stageWidth);
+            clampToStage(d, stageWidth);
             setEffect(Effect::ThrowTech, (a.x + d.x) / 2, 70 * kFixed, 10, events);
             continue;
         }
@@ -318,7 +318,7 @@ void Round::resolveThrows(const std::array<bool, 2>& techs, StepEvents& events) 
         if (d.techTicks > 0) --d.techTicks;
         d.x = a.x + a.facing * kHoldOffset * kFixed;
         d.facing = -a.facing;
-        clampToStage(d);
+        clampToStage(d, stageWidth);
         d.heldTicks = --a.throwTicks;
         if (a.throwTicks > 0) continue;
 
@@ -327,7 +327,7 @@ void Round::resolveThrows(const std::array<bool, 2>& techs, StepEvents& events) 
         d.techTicks = 0;
         d.knockdown = spec(d).knockdownTicks;
         d.x = a.x + a.facing * m.throwDistance * kFixed;
-        clampToStage(d);
+        clampToStage(d, stageWidth);
         a.meter = addMeter(a.meter, 12);
         d.meter = addMeter(d.meter, 6);
         a.throwSlot = -1;
@@ -434,8 +434,15 @@ void Round::separate() {
         a.x -= dir * (push / 2);
         b.x += dir * (push - push / 2);
     }
-    clampToStage(a);
-    clampToStage(b);
+    // Wider stages: the camera shows 640 px, so the fighters may not drift
+    // further apart than that (on a 640 px stage the walls already ensure it).
+    if (const int excess = std::abs(a.x - b.x) - kMaxSeparation * kFixed; excess > 0) {
+        const int dir = b.x >= a.x ? 1 : -1;
+        a.x += dir * (excess / 2);
+        b.x -= dir * (excess - excess / 2);
+    }
+    clampToStage(a, stageWidth);
+    clampToStage(b, stageWidth);
 }
 
 std::uint64_t Round::checksum() const {
@@ -469,6 +476,7 @@ std::uint64_t Round::checksum() const {
         if (training) add(f.recoverTicks); // only under training rules, so match checksums stay put
     }
     if (training) add(1);
+    if (stageWidth != kStageWidth) add(stageWidth); // only wide stages: older checksums stay put
     return h;
 }
 

@@ -35,12 +35,12 @@ void Effects::update(int clock) {
     std::erase_if(active_, [&](const Active& a) { return clock - a.start >= a.frames * kTicksPerFrame; });
 }
 
-void Effects::draw(const RenderContext& context, int clock) const {
+void Effects::draw(const RenderContext& context, int clock, float cameraX) const {
     // On HDR output effect highlights go above SDR white; on SDR this is a no-op.
     SDL_SetRenderColorScale(context.renderer, context.highlightBoost);
     for (const auto& a : active_) {
         const int frame = std::clamp((clock - a.start) / kTicksPerFrame, 0, a.frames - 1);
-        sheet_.draw(context.renderer, a.name + "_" + std::to_string(frame), a.x, a.y, false);
+        sheet_.draw(context.renderer, a.name + "_" + std::to_string(frame), a.x - cameraX, a.y, false);
     }
     SDL_SetRenderColorScale(context.renderer, 1.0f);
 }

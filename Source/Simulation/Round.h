@@ -89,6 +89,7 @@ struct Round {
     // ends, and a fighter's health and Heat refill once they have recovered
     // for kTrainingRefillTicks. A rule, not state: reset() keeps it.
     bool training = false;
+    int stageWidth = kStageWidth; // logical px; wider stages scroll (kept by reset())
 
     Round(); // kit boxer vs kit grappler
     Round(const FighterSpec& p1, const FighterSpec& p2);

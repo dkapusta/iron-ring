@@ -61,7 +61,7 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 - ✅ Remapping (Options → Controls): keys per player, pad buttons per device, saved to `prefs.cfg`; a move list in the pause menu; [docs/controls.md](docs/controls.md) ([ADR-0016](docs/adr/0016-remapping-and-renderer-recreation.md))
 - ✅ Persistent settings: `prefs.cfg` in the user folder, between `boot.config` and the command line
 - ✅ Renderer recreation when the HDR option, the display's HDR state or the display changes; fullscreen, scaling and vsync change live
-- ⬜ Stage layers and parallax; animated crowds; camera follow and zoom limits
+- ✅ Stage layers and parallax; animated crowds that react to the fight; camera follow (no zoom: pixel art) on stages wider than the screen; **The Foundry**, the first layered venue, with placeholder art and its own theme ([ADR-0017](docs/adr/0017-layered-stages-and-camera.md))
 - ⬜ Hitstop/shake/flash tuning pass; HDR-aware VFX (float textures for sparks); hit-confirm audio layering (needs counter hits and combo counts in the simulation)
 - ⬜ **Vertical slice**: the complete local loop for Dee vs Bram at release quality; final art takes over from placeholder art where the slice needs it (see *How art is made*)
 - ⬜ Arcade ladder with CPU difficulty levels
@@ -71,7 +71,7 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 - ⬜ Art Pack v2 for Dee and Bram: the P1/P2 corrections from the [frame review](docs/art/frame-review.md) (Bram's punches and grabs, Dee's uppercut and throw, idle and walk loops, outline pass), then a polish pass
 
 - ⬜ Sable, Idris, Greta, Jun (identities in `setting.md`; a fighter file, atlas and portrait each — no code), with placeholder art first
-- ⬜ Final art for Lantern Row and The Crown; new venues (dry dock, foundry, ship's hold, the Broker's club)
+- ⬜ Final art for Lantern Row and The Crown, and for The Foundry (placeholder in M2); layered versions of the Art Pack v1 venues; new venues (dry dock, ship's hold, the Broker's club)
 - ⬜ The Broker (boss), story intros/endings, win quotes
 - ⬜ Asset streaming: per-stage `sharedassetsN.assets` + `levelN` loaded on demand
 
@@ -115,4 +115,4 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 
 ## Open questions for the project owner
 
-None at the moment.
+- **Heat's role.** Heat fills fast and its only use, the Breakaway, rarely helps (every attack is already minus on block). Options and a recommendation: [docs/design/heat.md](docs/design/heat.md).

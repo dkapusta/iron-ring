@@ -22,10 +22,10 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
-from ironart import effects, fighters, font, icon, palette, stages, ui  # noqa: E402
+from ironart import effects, fighters, font, foundry, icon, palette, stages, ui  # noqa: E402
 
 ROOT = HERE.parent.parent
-PARTS = ("palette", "fighters", "stages", "effects", "font", "ui", "icon")
+PARTS = ("palette", "fighters", "stages", "foundry", "effects", "font", "ui", "icon")
 REPLACED = ("fighters", "stages")  # externally authored in Assets/
 
 
@@ -80,6 +80,8 @@ def main() -> int:
         fighters.generate(args.assets)
     if "stages" in parts:
         stages.generate(args.assets)
+    if "foundry" in parts:
+        foundry.generate(args.assets)
     if "effects" in parts:
         effects.generate(args.assets)
     if "font" in parts:

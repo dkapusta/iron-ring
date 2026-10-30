@@ -20,6 +20,7 @@ add_library(IronRingEngine SHARED
     Game/SceneStack.h           Game/SceneStack.cpp
     Game/Services.h
     Game/StageSelectScene.h     Game/StageSelectScene.cpp
+    Game/StageView.h            Game/StageView.cpp
     Game/TitleScene.h           Game/TitleScene.cpp
     Game/TrainingOverlay.h      Game/TrainingOverlay.cpp
     Game/InputDisplay.h         Game/InputDisplay.cpp

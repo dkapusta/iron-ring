@@ -38,6 +38,7 @@ Each stage names its theme in `Assets/Data/stages.json → music`. The theme sta
 | --- | --- | --- | --- |
 | Pier 9 | **"Iron Ring"** (`theme_pier_nine.ogg`) | D minor, 150 BPM | Driving: intro hook, A/B/A′, breakdown. Lead on pulse 1, arpeggiated chords or an echo on pulse 2, octave bass, straight drums. |
 | Lantern Row | **"Curfew Market"** (`theme_lantern_row.ogg`) | A harmonic minor, ~129 BPM shuffle | Sneaky: lantern-chime intro, off-beat chord stabs, shuffled root-fifth bass, ticks on the off-beats. |
+| The Foundry | **"Slag and Sparks"** (`theme_foundry.ogg`) | G minor, ~129 BPM | Mechanical: a drop-hammer ostinato on pulse 2, a lead rising in fourths, octave-pounding triangle, the metallic tick as an anvil on the off-beats. |
 | The Crown | **"Crown at Dawn"** (`theme_the_crown.ogg`) | E minor, 180 BPM | The final bout: power-chord hits, galloping bass, shimmering arpeggios, the lead doubled a fifth below, a climbing finale. |
 
 `music.json` lists the themes by id with their loop point, level and a hash of the rendered PCM.

@@ -1,4 +1,5 @@
 add_library(IronRingCore STATIC
+    Camera.h
     InputBindings.h InputBindings.cpp
     Menu.h          Menu.cpp
     PlayerPrefs.h   PlayerPrefs.cpp

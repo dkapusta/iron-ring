@@ -44,12 +44,14 @@ void GameData::loadStages(AssetLibrary& assets) {
     const auto start = settings_.value("startStage", std::string{});
     for (const auto& s : catalog.at("stages")) {
         StageInfo stage;
-        stage.id = s.at("id").get<std::string>();
-        stage.name = s.at("name").get<std::string>();
-        stage.description = s.value("description", std::string{});
-        stage.music = s.value("music", std::string{});
+        stage.definition = content::parseStage(s, path);
+        stage.id = stage.definition.id;
+        stage.name = stage.definition.name;
+        stage.description = stage.definition.description;
+        stage.music = stage.definition.music;
         if (const auto it = themeTitles_.find(stage.music); it != themeTitles_.end()) stage.musicTitle = it->second;
-        stage.image = &assets.texture(s.at("image").get<std::string>());
+        stage.image = &assets.texture(stage.definition.image);
+        for (const auto& layer : stage.definition.layers) stage.layers.push_back(&assets.texture(layer.image));
         if (stage.id == start) startStage_ = stages_.size();
         stages_.push_back(std::move(stage));
     }

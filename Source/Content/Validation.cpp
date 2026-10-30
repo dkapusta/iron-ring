@@ -1,6 +1,7 @@
 #include "Content/Validation.h"
 
 #include "Content/Paths.h"
+#include "Content/Stage.h"
 
 #include <algorithm>
 #include <optional>
@@ -137,12 +138,27 @@ ValidationReport validateProject(const FileReader& read) {
         std::optional<std::vector<std::pair<std::string, std::string>>> stageMusic;
         if (const auto stages = readJson(read, stagesPath, report)) {
             stageMusic.emplace();
-            for (const auto& stage : stages->at("stages")) {
-                if (stage.contains("music"))
-                    stageMusic->emplace_back(stage.at("id").get<std::string>(), stage.at("music").get<std::string>());
-                const auto image = stage.at("image").get<std::string>();
-                if (const auto size = readPng(read, image, report); size && *size != std::pair{640, 360})
-                    report.warnings.push_back(image + ": stages are expected to be 640x360");
+            for (const auto& entry : stages->at("stages")) {
+                const auto stage = parseStage(entry, stagesPath);
+                if (!stage.music.empty()) stageMusic->emplace_back(stage.id, stage.music);
+                if (const auto size = readPng(read, stage.image, report); size && *size != std::pair{640, 360})
+                    report.warnings.push_back(stage.image + ": stages (and layered stages' previews) are expected to be 640x360");
+                if (stage.width > 640 && !stage.layered())
+                    report.errors.push_back(stagesPath + ": " + stage.id + ": a stage wider than 640 needs layers");
+                for (const auto& layer : stage.layers) {
+                    const auto size = readPng(read, layer.image, report);
+                    if (!size) continue;
+                    const auto [w, h] = *size;
+                    if (h % layer.frames != 0)
+                        report.errors.push_back(layer.image + ": height " + std::to_string(h) + " is not " +
+                                                std::to_string(layer.frames) + " equal frames");
+                    // A drifting layer repeats; any other must cover the whole camera travel.
+                    if (layer.drift == 0.0f && w < stage.requiredWidth(layer))
+                        report.errors.push_back(layer.image + ": " + std::to_string(w) + " px wide, needs " +
+                                                std::to_string(stage.requiredWidth(layer)) + " for parallax " +
+                                                std::to_string(layer.parallax).substr(0, 4) + " on a " +
+                                                std::to_string(stage.width) + " px stage");
+                }
             }
         }
 

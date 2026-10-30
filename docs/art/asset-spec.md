@@ -153,7 +153,7 @@ Learned from the first external pack ([frame review](frame-review.md)). `python3
 
 `Assets/Stages/<Name>/<id>.png`, listed in `Assets/Data/stages.json` (`id`, `name`, `image`).
 
-- **Exactly 640 × 360** px, RGB, one flattened layer for now (parallax layers are planned for M3).
+- **Exactly 640 × 360** px, RGB: the flat stage, or the preview of a layered one (§3.1).
 - **Ground line y = 316**: fighters' feet stand here. The fight floor is the band roughly y 296–340.
 - **Playable width x 30–610**: fighters never go outside it; keep the edges for framing (crane legs, pillars, rope posts).
 - **HUD bands**: top **y 0–52** (health bars, portraits, timer) and bottom **y 330–360** (Heat meters, status text) must be calm and dark-ish: no bright lights, no busy detail, no text.
@@ -162,7 +162,47 @@ Learned from the first external pack ([frame review](frame-review.md)). `python3
 - Spectators stand **behind** a barrier (rail, rope, crates) whose top is below y ≈ 250, so they never overlap the fighters' heads. Silhouettes and rim light, few details, no faces.
 - Night palette (`night_*`, `steel_*`) with sodium practical lights; The Crown uses the dawn variant (warm sky, long shadows).
 
-The three venues: **Pier 9** (closed cargo pier, crane legs, freighter floodlights, dockers behind the rail), **Lantern Row** (night market after curfew, shutters, half-lit lanterns, old station clock), **The Crown** (derelict hotel roof terrace at dawn, water tower, a CROWN HOTEL bulb sign with dead bulbs, below the HUD band). Details in [setting.md](../design/setting.md#venues).
+### 3.1 Layered stages
+
+A stage can be wider than the screen and drawn as layers that scroll at different rates (parallax). `stages.json` gives the world `width` (640–2048; the foundry uses 800) and a list of `layers`, back to front. The camera shows 640 px, follows the fighters' midpoint, stops at the stage ends and never zooms. The fighters can never be more than 580 px apart, so both always fit on screen.
+
+| Field | Meaning |
+| --- | --- |
+| `image` | the layer PNG, RGBA (transparent where layers behind show through) |
+| `parallax` | how far the layer moves per pixel of camera movement: 0 = fixed to the screen (sky), 1 = with the floor, more than 1 = foreground passing faster |
+| `x`, `y` | top-left position at camera 0 |
+| `drift` | px per second of automatic scroll (steam, water, clouds); the layer then repeats horizontally, so its edges must tile |
+| `frames`, `frameTicks` | animation: frames stacked vertically in one image, ticks per frame |
+| `crowd` | a crowd layer: the first half of its frames is the crowd at rest, the second half cheering. It bobs faster as hits, throws and K.O.s excite it and switches to cheering when excitement runs high, then calms down over a second or two |
+| `front` | drawn over the fighters; keep it to the stage ends and out of the HUD bands' centre |
+
+**Width rule.** A layer that doesn't drift must be at least `640 + ceil((width − 640) × parallax) − x` px wide, or its edge would come into view. AssetPacker checks this and fails the build with the size it needs. For an 800 px stage:
+
+| Parallax | Width needed |
+| --- | --- |
+| 0.25 | 680 |
+| 0.55 | 728 |
+| 0.8 | 768 |
+| 1.0 | 800 |
+| 1.25 | 840 (plus any negative `x`) |
+
+**The same layout rules apply on screen.** At every camera position:
+- the feet stand on y 316;
+- the chain ring sits on the floor layer, centred on the world centre;
+- the HUD bands stay calm;
+- spectators stay behind the barrier.
+
+The `image` field is a 640 × 360 preview, the layers composed at the centre; it is used on the stage select and the title.
+
+Suggested stack, back to front:
+1. back wall or sky (0.2–0.3);
+2. structures (0.5–0.6);
+3. optional drifting haze;
+4. crowd and barrier (0.8; 8 frames, about 84 px tall);
+5. floor (1.0, from about y 262);
+6. optional foreground frame (1.2–1.3, `front`).
+
+The three venues: **Pier 9** (closed cargo pier, crane legs, freighter floodlights, dockers behind the rail), **Lantern Row** (night market after curfew, shutters, half-lit lanterns, old station clock), **The Foundry** (the shut-down Voll Works: cold furnaces, a hanging ladle, the night shift behind a steel rail; the first layered venue, placeholder art), **The Crown** (derelict hotel roof terrace at dawn, water tower, a CROWN HOTEL bulb sign with dead bulbs, below the HUD band). Details in [setting.md](../design/setting.md#venues).
 
 ## 4. Effects
 

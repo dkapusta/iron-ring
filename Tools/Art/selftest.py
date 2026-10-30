@@ -26,7 +26,7 @@ from PIL import Image
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
-from ironart import effects, fighters, font, palette, stages, ui  # noqa: E402
+from ironart import effects, fighters, font, foundry, palette, stages, ui  # noqa: E402
 from ironart.characters import CHARACTERS  # noqa: E402
 from ironart.importer import (REFERENCE_ORIGIN, FighterImport, export_references,  # noqa: E402
                               import_fighter)
@@ -58,6 +58,7 @@ def check_generated(work: Path) -> list[str]:
     effects.generate(work)
     font.generate(work)
     ui.generate(work)
+    foundry.generate(work)
     errors = []
     for produced in sorted(work.rglob("*")):
         if produced.is_dir():

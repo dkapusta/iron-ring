@@ -28,6 +28,15 @@
       "gain": 0.5,
       "pcmSha256": "446ffa9109b66f2f32809a864bf311c0e5c6ec1432b95299cc49ff78d424241e"
     },
+    "foundry": {
+      "title": "Slag and Sparks",
+      "file": "theme_foundry.ogg",
+      "sampleRate": 44100,
+      "loopStartFrame": 164640,
+      "lengthFrames": 1481760,
+      "gain": 0.5,
+      "pcmSha256": "62ceae54917a3511da56b401b29576d13a2620847c37eb342ba00e7eb9bc81c8"
+    },
     "menu": {
       "title": "Invitation Only",
       "file": "theme_menu.ogg",

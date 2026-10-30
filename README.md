@@ -15,6 +15,10 @@ An early-90s style arcade fighting game about the **Iron Ring** — an illegal, 
 
 *The front end (M2): title menu, character select (the unbuilt fighters are locked), stage select and the pause menu. Logo and menu backdrop are generated placeholders ([asset spec §5](docs/art/asset-spec.md#5-ui)).*
 
+![The Foundry: a layered stage, scrolled to its right end](docs/images/m2-foundry.png)
+
+*The Foundry, the first layered stage (placeholder art): six layers over an 800 px world, a camera that follows the fight, a crowd that cheers a K.O. ([ADR-0017](docs/adr/0017-layered-stages-and-camera.md)).*
+
 ## Highlights
 
 - **Fullscreen at native desktop resolution**, borderless, high-DPI aware. The game draws into a 640×360 logical canvas that is integer-scaled (or letterboxed) to the display.
@@ -125,7 +129,7 @@ Unity-compatible names where they exist:
 | `-demo` | Skip the menus: a CPU vs CPU match (with `-training` or `-stage`, also straight into a fight) |
 | `-training` | Training mode: the clock stops, nobody is K.O.'d, health and Heat refill after a second; player 2 is a dummy; the overlay and an input display are on |
 | `-dummy <mode>` | Training dummy: `stand`, `crouch`, `jump`, `guard`, `guard-all` (crouches against lows), `cpu` |
-| `-stage <id>` | Straight into a fight on a stage: `pier_nine`, `lantern_row`, `the_crown` |
+| `-stage <id>` | Straight into a fight on a stage: `pier_nine`, `lantern_row`, `foundry`, `the_crown` |
 | `-scene <name>` | Open `title`, `select`, `stage` or `options` (screenshots, testing) |
 | `-keys "<frame>:<key>,..."` | Batch tests: tap keys (SDL key names) at the given frames, e.g. `"10:Return,30:Down"` |
 | `-music-volume 0..1`, `-sfx-volume 0..1`, `-voice-volume 0..1` | Mix-group volumes (also in `boot.config` and Options) |
