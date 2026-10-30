@@ -1,0 +1,914 @@
+[
+  {
+    "id": "dee_walk_0",
+    "who": "dee",
+    "frame": "walk_0",
+    "wrist": {
+      "near": [
+        18.883116461770157,
+        95.45828698618607
+      ],
+      "far": [
+        14.883116461770157,
+        100.85828698618607
+      ]
+    },
+    "pelvis": [
+      -1,
+      60
+    ],
+    "head": [
+      7.8917349928867235,
+      116.14020527942762
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Dee Marlowe, a lean athletic adult Black woman, cropped dark curls, silver stud, teal sleeveless athletic top, charcoal track pants with a single chalk stripe, white fabric hand wraps to forearms (bare wrapped knuckles, no gloves), black boxing boots. WALK CYCLE phase 0 of 6. Guard hands stay up. Torso and head remain EXACTLY over the same x centre as approved idle, within 1 logical pixel. CONTACT pose: feet clearly apart, heel contacts the floor, body 2px lower, rear foot pushing off. Match guide's exact foot placements. No side-to-side torso lean or zoom. "
+  },
+  {
+    "id": "dee_walk_1",
+    "who": "dee",
+    "frame": "walk_1",
+    "wrist": {
+      "near": [
+        18.883116461770157,
+        99.95828698618607
+      ],
+      "far": [
+        14.883116461770157,
+        104.75828698618606
+      ]
+    },
+    "pelvis": [
+      -1,
+      63
+    ],
+    "head": [
+      7.8917349928867235,
+      119.14020527942762
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Dee Marlowe, a lean athletic adult Black woman, cropped dark curls, silver stud, teal sleeveless athletic top, charcoal track pants with a single chalk stripe, white fabric hand wraps to forearms (bare wrapped knuckles, no gloves), black boxing boots. WALK CYCLE phase 1 of 6. Guard hands stay up. Torso and head remain EXACTLY over the same x centre as approved idle, within 1 logical pixel. PASSING pose: feet CLOSE TOGETHER as one leg passes the other, the moving foot LIFTED about 8px, torso 1px higher than normal. Match guide's exact foot placements. No side-to-side torso lean or zoom. "
+  },
+  {
+    "id": "dee_walk_2",
+    "who": "dee",
+    "frame": "walk_2",
+    "wrist": {
+      "near": [
+        18.883116461770157,
+        98.45828698618607
+      ],
+      "far": [
+        14.883116461770157,
+        103.45828698618607
+      ]
+    },
+    "pelvis": [
+      -1,
+      62
+    ],
+    "head": [
+      7.8917349928867235,
+      118.14020527942762
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Dee Marlowe, a lean athletic adult Black woman, cropped dark curls, silver stud, teal sleeveless athletic top, charcoal track pants with a single chalk stripe, white fabric hand wraps to forearms (bare wrapped knuckles, no gloves), black boxing boots. WALK CYCLE phase 2 of 6. Guard hands stay up. Torso and head remain EXACTLY over the same x centre as approved idle, within 1 logical pixel. IN-BETWEEN step: weight transferring, one foot grounded and one mid-swing, legs follow the distinct guide. Match guide's exact foot placements. No side-to-side torso lean or zoom. "
+  },
+  {
+    "id": "dee_walk_3",
+    "who": "dee",
+    "frame": "walk_3",
+    "wrist": {
+      "near": [
+        18.883116461770157,
+        95.45828698618607
+      ],
+      "far": [
+        14.883116461770157,
+        100.85828698618607
+      ]
+    },
+    "pelvis": [
+      -1,
+      60
+    ],
+    "head": [
+      7.8917349928867235,
+      116.14020527942762
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Dee Marlowe, a lean athletic adult Black woman, cropped dark curls, silver stud, teal sleeveless athletic top, charcoal track pants with a single chalk stripe, white fabric hand wraps to forearms (bare wrapped knuckles, no gloves), black boxing boots. WALK CYCLE phase 3 of 6. Guard hands stay up. Torso and head remain EXACTLY over the same x centre as approved idle, within 1 logical pixel. CONTACT pose: feet clearly apart, heel contacts the floor, body 2px lower, rear foot pushing off. Match guide's exact foot placements. No side-to-side torso lean or zoom. "
+  },
+  {
+    "id": "dee_walk_4",
+    "who": "dee",
+    "frame": "walk_4",
+    "wrist": {
+      "near": [
+        18.883116461770157,
+        99.95828698618607
+      ],
+      "far": [
+        14.883116461770157,
+        104.75828698618606
+      ]
+    },
+    "pelvis": [
+      -1,
+      63
+    ],
+    "head": [
+      7.8917349928867235,
+      119.14020527942762
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Dee Marlowe, a lean athletic adult Black woman, cropped dark curls, silver stud, teal sleeveless athletic top, charcoal track pants with a single chalk stripe, white fabric hand wraps to forearms (bare wrapped knuckles, no gloves), black boxing boots. WALK CYCLE phase 4 of 6. Guard hands stay up. Torso and head remain EXACTLY over the same x centre as approved idle, within 1 logical pixel. PASSING pose: feet CLOSE TOGETHER as one leg passes the other, the moving foot LIFTED about 8px, torso 1px higher than normal. Match guide's exact foot placements. No side-to-side torso lean or zoom. "
+  },
+  {
+    "id": "dee_walk_5",
+    "who": "dee",
+    "frame": "walk_5",
+    "wrist": {
+      "near": [
+        18.883116461770157,
+        98.45828698618607
+      ],
+      "far": [
+        14.883116461770157,
+        103.45828698618607
+      ]
+    },
+    "pelvis": [
+      -1,
+      62
+    ],
+    "head": [
+      7.8917349928867235,
+      118.14020527942762
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Dee Marlowe, a lean athletic adult Black woman, cropped dark curls, silver stud, teal sleeveless athletic top, charcoal track pants with a single chalk stripe, white fabric hand wraps to forearms (bare wrapped knuckles, no gloves), black boxing boots. WALK CYCLE phase 5 of 6. Guard hands stay up. Torso and head remain EXACTLY over the same x centre as approved idle, within 1 logical pixel. IN-BETWEEN step: weight transferring, one foot grounded and one mid-swing, legs follow the distinct guide. Match guide's exact foot placements. No side-to-side torso lean or zoom. "
+  },
+  {
+    "id": "dee_throw_0",
+    "who": "dee",
+    "frame": "throw_0",
+    "wrist": {
+      "near": [
+        43,
+        99
+      ],
+      "far": [
+        35,
+        109
+      ]
+    },
+    "pelvis": [
+      4,
+      62
+    ],
+    "head": [
+      25.29263876976044,
+      114.7011302935762
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Dee Marlowe, a lean athletic adult Black woman, cropped dark curls, silver stud, teal sleeveless athletic top, charcoal track pants with a single chalk stripe, white fabric hand wraps to forearms (bare wrapped knuckles, no gloves), black boxing boots. THROW REACH key pose: BOTH arms extended forward at chest height, two OPEN hands with fingers spread, shoulders reaching, chin tucked. Reach clearly beyond guard. No opponent."
+  },
+  {
+    "id": "dee_throw_1",
+    "who": "dee",
+    "frame": "throw_1",
+    "wrist": {
+      "near": [
+        33,
+        102
+      ],
+      "far": [
+        29,
+        90
+      ]
+    },
+    "pelvis": [
+      6,
+      62
+    ],
+    "head": [
+      31.804820005195836,
+      112.64481083486683
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Dee Marlowe, a lean athletic adult Black woman, cropped dark curls, silver stud, teal sleeveless athletic top, charcoal track pants with a single chalk stripe, white fabric hand wraps to forearms (bare wrapped knuckles, no gloves), black boxing boots. THROW GRIP key pose: both hands CLOSED, lead hand gripping an invisible collar and rear hand gripping an invisible upper arm, elbows bent and pulled outward, weight strongly forward on lead foot. Clearly different from open-arm reach. No opponent."
+  },
+  {
+    "id": "dee_throw_hold_0",
+    "who": "dee",
+    "frame": "throw_hold_0",
+    "wrist": {
+      "near": [
+        22,
+        94
+      ],
+      "far": [
+        14,
+        81
+      ]
+    },
+    "pelvis": [
+      1,
+      57
+    ],
+    "head": [
+      12.81770050608144,
+      112.59790962570952
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Dee Marlowe, a lean athletic adult Black woman, cropped dark curls, silver stud, teal sleeveless athletic top, charcoal track pants with a single chalk stripe, white fabric hand wraps to forearms (bare wrapped knuckles, no gloves), black boxing boots. CLINCH HOLD key pose: opponent pulled CLOSE chest to chest, hands close near own chest, one forearm across invisible opponent's upper back, the other below an arm, rear foot planted and braced behind. Knees slightly bent. A pulling-in clinch, not a forward reach. No opponent."
+  },
+  {
+    "id": "dee_hit_0",
+    "who": "dee",
+    "frame": "hit_0",
+    "wrist": {
+      "near": [
+        -7.64456340638538,
+        72.69301195614383
+      ],
+      "far": [
+        -23.64456340638538,
+        74.69301195614383
+      ]
+    },
+    "pelvis": [
+      -3,
+      62
+    ],
+    "head": [
+      -25.77729670371604,
+      113.9770142363132
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Dee Marlowe, a lean athletic adult Black woman, cropped dark curls, silver stud, teal sleeveless athletic top, charcoal track pants with a single chalk stripe, white fabric hand wraps to forearms (bare wrapped knuckles, no gloves), black boxing boots. HIT SNAP reaction: head sharply snapped backward left, shoulders up, upper back recoils, forearms pulled inward, torso jolts. No reaching, no attack, no opponent, no blood."
+  },
+  {
+    "id": "dee_hit_1",
+    "who": "dee",
+    "frame": "hit_1",
+    "wrist": {
+      "near": [
+        -2,
+        66
+      ],
+      "far": [
+        -11,
+        61
+      ]
+    },
+    "pelvis": [
+      -9,
+      62
+    ],
+    "head": [
+      -37.41565219322088,
+      111.06268900135531
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Dee Marlowe, a lean athletic adult Black woman, cropped dark curls, silver stud, teal sleeveless athletic top, charcoal track pants with a single chalk stripe, white fabric hand wraps to forearms (bare wrapped knuckles, no gloves), black boxing boots. HIT STAGGER reaction: body stumbling back onto rear foot to left, shoulders dropping, both arms lowering loosely, chin up, pained expression. Distinct from hit_0's shoulders-up snap. No reaching, no blood."
+  },
+  {
+    "id": "dee_lp_0",
+    "who": "dee",
+    "frame": "lp_0",
+    "wrist": {
+      "near": [
+        15,
+        101
+      ],
+      "far": [
+        17.89784639113006,
+        102.87228285055035
+      ]
+    },
+    "pelvis": [
+      -1,
+      62
+    ],
+    "head": [
+      11.786217928905286,
+      117.38319448239278
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Dee Marlowe, a lean athletic adult Black woman, cropped dark curls, silver stud, teal sleeveless athletic top, charcoal track pants with a single chalk stripe, white fabric hand wraps to forearms (bare wrapped knuckles, no gloves), black boxing boots. LIGHT JAB CHAMBER: lead wrapped fist pulled back 3 logical pixels from normal guard, lead shoulder dipped 1px, other fist tight by cheek, compact preparation. Preserve the exact lower body and scale from the approved idle."
+  },
+  {
+    "id": "dee_win_1",
+    "who": "dee",
+    "frame": "win_1",
+    "wrist": {
+      "near": [
+        11.920467631036773,
+        153.6746403087868
+      ],
+      "far": [
+        2,
+        92
+      ]
+    },
+    "pelvis": [
+      -1,
+      66
+    ],
+    "head": [
+      -2.442933025916946,
+      122.75174643543325
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Dee Marlowe, a lean athletic adult Black woman, cropped dark curls, silver stud, teal sleeveless athletic top, charcoal track pants with a single chalk stripe, white fabric hand wraps to forearms (bare wrapped knuckles, no gloves), black boxing boots. VICTORY SHOUT: lead fist raised higher overhead than win_0, head thrown back with mouth OPEN, other arm rising chest-high. Distinct loud celebration while keeping both feet planted."
+  },
+  {
+    "id": "dee_champion_0",
+    "who": "dee",
+    "frame": "champion_0",
+    "wrist": {
+      "near": [
+        10,
+        81
+      ],
+      "far": [
+        -6,
+        79
+      ]
+    },
+    "pelvis": [
+      -1,
+      64
+    ],
+    "head": [
+      0.9836873925701551,
+      120.8053746077654
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Dee Marlowe, a lean athletic adult Black woman, cropped dark curls, silver stud, teal sleeveless athletic top, charcoal track pants with a single chalk stripe, white fabric hand wraps to forearms (bare wrapped knuckles, no gloves), black boxing boots. CHAIN VICTORY intro 0: slightly turned toward viewer, catching breath. Dee holds both wrapped fists at WAIST height with head down. Bram's both fists at belt and chest out, looking to crowd. Hands CLOSED as if holding a chain. Do NOT draw the chain yet; it will be pixel-authored into this sprite."
+  },
+  {
+    "id": "dee_champion_1",
+    "who": "dee",
+    "frame": "champion_1",
+    "wrist": {
+      "near": [
+        18,
+        117
+      ],
+      "far": [
+        -12,
+        115
+      ]
+    },
+    "pelvis": [
+      -1,
+      65
+    ],
+    "head": [
+      -2.9836873925701553,
+      121.8053746077654
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Dee Marlowe, a lean athletic adult Black woman, cropped dark curls, silver stud, teal sleeveless athletic top, charcoal track pants with a single chalk stripe, white fabric hand wraps to forearms (bare wrapped knuckles, no gloves), black boxing boots. CHAIN VICTORY intro 1: lifting both fists past the FACE, elbows coming UP and OUT. Bram pulls an imagined chain off his shoulder, arms rising wide. Hands CLOSED. Do NOT draw the chain yet; leave room between hands for a draped steel chain."
+  },
+  {
+    "id": "dee_champion_2",
+    "who": "dee",
+    "frame": "champion_2",
+    "wrist": {
+      "near": [
+        26.062288955096143,
+        145.46745923969948
+      ],
+      "far": [
+        -32.730593539981214,
+        145.96940360274888
+      ]
+    },
+    "pelvis": [
+      -1,
+      66
+    ],
+    "head": [
+      -4.964957967616082,
+      122.7015406167684
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Dee Marlowe, a lean athletic adult Black woman, cropped dark curls, silver stud, teal sleeveless athletic top, charcoal track pants with a single chalk stripe, white fabric hand wraps to forearms (bare wrapped knuckles, no gloves), black boxing boots. CHAIN VICTORY climax 2: both clenched fists HIGH and WIDE overhead, 60\u201365 logical pixels apart, arms open in a V, mouth clearly OPEN in a triumphant shout/roar, chest lifted, up on the balls of feet. Same anatomical scale as approved identity. Do NOT draw chain yet."
+  },
+  {
+    "id": "dee_champion_3",
+    "who": "dee",
+    "frame": "champion_3",
+    "wrist": {
+      "near": [
+        26.062288955096143,
+        145.46745923969948
+      ],
+      "far": [
+        -32.730593539981214,
+        145.96940360274888
+      ]
+    },
+    "pelvis": [
+      -1,
+      66
+    ],
+    "head": [
+      -4.964957967616082,
+      122.7015406167684
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Dee Marlowe, a lean athletic adult Black woman, cropped dark curls, silver stud, teal sleeveless athletic top, charcoal track pants with a single chalk stripe, white fabric hand wraps to forearms (bare wrapped knuckles, no gloves), black boxing boots. CHAIN VICTORY hold 3: both clenched fists HIGH and WIDE overhead, same hand and foot positions as guide, mouth CLOSED, proud quiet breath, chest up. Arms maintain a 60\u201365 logical pixel span for a taut chain. Do NOT draw chain yet."
+  },
+  {
+    "id": "bram_walk_0",
+    "who": "bram",
+    "frame": "walk_0",
+    "wrist": {
+      "near": [
+        32.37032909318438,
+        93.60389913497184
+      ],
+      "far": [
+        26.37032909318438,
+        101.00389913497185
+      ]
+    },
+    "pelvis": [
+      -1,
+      65
+    ],
+    "head": [
+      13.312099343676344,
+      122.40269516648796
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. WALK CYCLE phase 0 of 6. Guard hands stay up. Torso and head remain EXACTLY over the same x centre as approved idle, within 1 logical pixel. CONTACT pose: feet clearly apart, heel contacts the floor, body 2px lower, rear foot pushing off. Match guide's exact foot placements. No side-to-side torso lean or zoom. A heavy deliberate planted walk with thick thighs."
+  },
+  {
+    "id": "bram_walk_1",
+    "who": "bram",
+    "frame": "walk_1",
+    "wrist": {
+      "near": [
+        32.37032909318438,
+        98.10389913497184
+      ],
+      "far": [
+        26.37032909318438,
+        104.90389913497184
+      ]
+    },
+    "pelvis": [
+      -1,
+      68
+    ],
+    "head": [
+      13.312099343676344,
+      125.40269516648796
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. WALK CYCLE phase 1 of 6. Guard hands stay up. Torso and head remain EXACTLY over the same x centre as approved idle, within 1 logical pixel. PASSING pose: feet CLOSE TOGETHER as one leg passes the other, the moving foot LIFTED about 8px, torso 1px higher than normal. Match guide's exact foot placements. No side-to-side torso lean or zoom. A heavy deliberate planted walk with thick thighs."
+  },
+  {
+    "id": "bram_walk_2",
+    "who": "bram",
+    "frame": "walk_2",
+    "wrist": {
+      "near": [
+        32.37032909318438,
+        96.60389913497184
+      ],
+      "far": [
+        26.37032909318438,
+        103.60389913497184
+      ]
+    },
+    "pelvis": [
+      -1,
+      67
+    ],
+    "head": [
+      13.312099343676344,
+      124.40269516648796
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. WALK CYCLE phase 2 of 6. Guard hands stay up. Torso and head remain EXACTLY over the same x centre as approved idle, within 1 logical pixel. IN-BETWEEN step: weight transferring, one foot grounded and one mid-swing, legs follow the distinct guide. Match guide's exact foot placements. No side-to-side torso lean or zoom. A heavy deliberate planted walk with thick thighs."
+  },
+  {
+    "id": "bram_walk_3",
+    "who": "bram",
+    "frame": "walk_3",
+    "wrist": {
+      "near": [
+        32.37032909318438,
+        93.60389913497184
+      ],
+      "far": [
+        26.37032909318438,
+        101.00389913497185
+      ]
+    },
+    "pelvis": [
+      -1,
+      65
+    ],
+    "head": [
+      13.312099343676344,
+      122.40269516648796
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. WALK CYCLE phase 3 of 6. Guard hands stay up. Torso and head remain EXACTLY over the same x centre as approved idle, within 1 logical pixel. CONTACT pose: feet clearly apart, heel contacts the floor, body 2px lower, rear foot pushing off. Match guide's exact foot placements. No side-to-side torso lean or zoom. A heavy deliberate planted walk with thick thighs."
+  },
+  {
+    "id": "bram_walk_4",
+    "who": "bram",
+    "frame": "walk_4",
+    "wrist": {
+      "near": [
+        32.37032909318438,
+        98.10389913497184
+      ],
+      "far": [
+        26.37032909318438,
+        104.90389913497184
+      ]
+    },
+    "pelvis": [
+      -1,
+      68
+    ],
+    "head": [
+      13.312099343676344,
+      125.40269516648796
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. WALK CYCLE phase 4 of 6. Guard hands stay up. Torso and head remain EXACTLY over the same x centre as approved idle, within 1 logical pixel. PASSING pose: feet CLOSE TOGETHER as one leg passes the other, the moving foot LIFTED about 8px, torso 1px higher than normal. Match guide's exact foot placements. No side-to-side torso lean or zoom. A heavy deliberate planted walk with thick thighs."
+  },
+  {
+    "id": "bram_walk_5",
+    "who": "bram",
+    "frame": "walk_5",
+    "wrist": {
+      "near": [
+        32.37032909318438,
+        96.60389913497184
+      ],
+      "far": [
+        26.37032909318438,
+        103.60389913497184
+      ]
+    },
+    "pelvis": [
+      -1,
+      67
+    ],
+    "head": [
+      13.312099343676344,
+      124.40269516648796
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. WALK CYCLE phase 5 of 6. Guard hands stay up. Torso and head remain EXACTLY over the same x centre as approved idle, within 1 logical pixel. IN-BETWEEN step: weight transferring, one foot grounded and one mid-swing, legs follow the distinct guide. Match guide's exact foot placements. No side-to-side torso lean or zoom. A heavy deliberate planted walk with thick thighs."
+  },
+  {
+    "id": "bram_hp_1",
+    "who": "bram",
+    "frame": "hp_1",
+    "wrist": {
+      "near": [
+        61,
+        100
+      ],
+      "far": [
+        19,
+        108
+      ]
+    },
+    "pelvis": [
+      8,
+      67
+    ],
+    "head": [
+      36.6813371337733,
+      118.74250187436665
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. ANCHOR HOOK IMPACT: a real horizontal hook, lead arm BENT roughly 90 degrees at elbow and sweeps across in front of the torso; clenched fist reaches x+60..65 logical pixels at y+100. Torso rotates into the blow, rear heel lifts. Rear fist by jaw. Do not draw a straight punch and do not keep striking hand at chest."
+  },
+  {
+    "id": "bram_hp_2",
+    "who": "bram",
+    "frame": "hp_2",
+    "wrist": {
+      "near": [
+        43,
+        111
+      ],
+      "far": [
+        24,
+        101
+      ]
+    },
+    "pelvis": [
+      10,
+      67
+    ],
+    "head": [
+      43.7120414312302,
+      115.58800349289302
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. HOOK FOLLOW-THROUGH: the clenched fist has carried ACROSS and past the body centre line, upper torso twisted strongly, shoulder turning through the hit, rear heel still lifted. Not an idle stance and not another straight punch. Match the pose guide."
+  },
+  {
+    "id": "bram_hp_3",
+    "who": "bram",
+    "frame": "hp_3",
+    "wrist": {
+      "near": [
+        28,
+        98
+      ],
+      "far": [
+        18,
+        104
+      ]
+    },
+    "pelvis": [
+      3,
+      67
+    ],
+    "head": [
+      21.649760529511937,
+      123.13768243013811
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. HOOK RECOVERY: striking arm drawing back toward guard, elbow down, torso UNWINDING from the hook, weight settling forward. Distinct transitional pose, not a duplicate idle and not another hit."
+  },
+  {
+    "id": "bram_throw_0",
+    "who": "bram",
+    "frame": "throw_0",
+    "wrist": {
+      "near": [
+        48,
+        91
+      ],
+      "far": [
+        29,
+        115
+      ]
+    },
+    "pelvis": [
+      6,
+      67
+    ],
+    "head": [
+      33.7739376544133,
+      119.23517959353413
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. PIER TOSS REACH: forward LUNGE, TWO huge open hands WIDE APART around an invisible opponent, one high by shoulder and one lower at upper arm, fingers spread, rear leg pushing. Wide bear-clamp reach. No opponent."
+  },
+  {
+    "id": "bram_throw_1",
+    "who": "bram",
+    "frame": "throw_1",
+    "wrist": {
+      "near": [
+        37,
+        102
+      ],
+      "far": [
+        31,
+        92
+      ]
+    },
+    "pelvis": [
+      5,
+      67
+    ],
+    "head": [
+      25.233911679146562,
+      122.59221544569434
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. PIER TOSS GRIP: huge CLOSED hands clamped on an invisible opponent's shoulders, elbows visibly bent, hands closer to own body than throw_0. Heavy torso pressing forward. Must be visibly different from the wide open reach. No opponent."
+  },
+  {
+    "id": "bram_throw_hold_0",
+    "who": "bram",
+    "frame": "throw_hold_0",
+    "wrist": {
+      "near": [
+        29,
+        94
+      ],
+      "far": [
+        24,
+        80
+      ]
+    },
+    "pelvis": [
+      -1,
+      59
+    ],
+    "head": [
+      8.254662951780059,
+      117.43164222960834
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. PIER TOSS LIFT: knees bent deeply, heavy hips low, both forearms pulling the invisible opponent up to CHEST height, rear foot firmly braced, thick biceps flexed, hands at about x+25 and y+90. Not another reach. No visible opponent."
+  },
+  {
+    "id": "bram_special_0",
+    "who": "bram",
+    "frame": "special_0",
+    "wrist": {
+      "near": [
+        54,
+        75
+      ],
+      "far": [
+        35,
+        102
+      ]
+    },
+    "pelvis": [
+      9,
+      51
+    ],
+    "head": [
+      42.932781974527884,
+      99.46103494013674
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. DOCK HOIST REACH: LOW forward lunge, torso low with knees deeply bent, TWO arms spread WIDE around an invisible opponent's waist in a bear-hug reach, OPEN hands. Wide shoulder separation and aggressive forward lean. No opponent."
+  },
+  {
+    "id": "bram_special_1",
+    "who": "bram",
+    "frame": "special_1",
+    "wrist": {
+      "near": [
+        34,
+        65
+      ],
+      "far": [
+        25,
+        77
+      ]
+    },
+    "pelvis": [
+      8,
+      51
+    ],
+    "head": [
+      37.58,
+      102.23406288788739
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. DOCK HOIST CLAMP: very low stance, BOTH arms CLOSED around an invisible waist, bent elbows pulled toward belly and inward, huge hands clenched, heavy back rounded. Must visibly differ from the wide reach. No opponent."
+  },
+  {
+    "id": "bram_hit_crouch",
+    "who": "bram",
+    "frame": "hit_crouch",
+    "wrist": {
+      "near": [
+        4,
+        61
+      ],
+      "far": [
+        -6,
+        70
+      ]
+    },
+    "pelvis": [
+      -3,
+      36.19
+    ],
+    "head": [
+      -10.259588542805304,
+      94.73502603507542
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. CROUCH HIT FLINCH: stay low, head snapped backward LEFT, shoulders hunched UP, both arms pulled IN against chest, hands closed near ribs. Hurt expression. Nothing reaching forward; must read as being hit rather than a grab. No blood."
+  },
+  {
+    "id": "bram_win_1",
+    "who": "bram",
+    "frame": "win_1",
+    "wrist": {
+      "near": [
+        22,
+        157
+      ],
+      "far": [
+        -16,
+        159
+      ]
+    },
+    "pelvis": [
+      -1,
+      69
+    ],
+    "head": [
+      -4.420984471569023,
+      127.99336157795832
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. VICTORY ROAR: double-biceps fists HIGHER, chin UP and mouth clearly wide OPEN, chest thrown out, roaring with triumph, distinct from neutral flex. Both feet planted."
+  },
+  {
+    "id": "bram_hoist_1",
+    "who": "bram",
+    "frame": "hoist_1",
+    "wrist": {
+      "near": [
+        10.000000000000002,
+        170
+      ],
+      "far": [
+        2,
+        168
+      ]
+    },
+    "pelvis": [
+      0,
+      79
+    ],
+    "head": [
+      -6.183903886914379,
+      137.83591532998705
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. DOCK HOIST OVERHEAD HOLD: huge thick upper arms and forearms, hands overhead supporting an invisible opponent. Keep the guide's wrist positions and body scale but emphasize Bram's POWER and arm MASS, not long thin sticks. No opponent."
+  },
+  {
+    "id": "bram_champion_0",
+    "who": "bram",
+    "frame": "champion_0",
+    "wrist": {
+      "near": [
+        10,
+        92
+      ],
+      "far": [
+        -6,
+        90
+      ]
+    },
+    "pelvis": [
+      -1,
+      69
+    ],
+    "head": [
+      1.0646542249199573,
+      128.1239613264497
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. CHAIN VICTORY intro 0: slightly turned toward viewer, catching breath. Dee holds both wrapped fists at WAIST height with head down. Bram's both fists at belt and chest out, looking to crowd. Hands CLOSED as if holding a chain. Do NOT draw the chain yet; it will be pixel-authored into this sprite."
+  },
+  {
+    "id": "bram_champion_1",
+    "who": "bram",
+    "frame": "champion_1",
+    "wrist": {
+      "near": [
+        18,
+        128
+      ],
+      "far": [
+        -12,
+        126
+      ]
+    },
+    "pelvis": [
+      -1,
+      70
+    ],
+    "head": [
+      -3.0646542249199573,
+      129.1239613264497
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. CHAIN VICTORY intro 1: lifting both fists past the FACE, elbows coming UP and OUT. Bram pulls an imagined chain off his shoulder, arms rising wide. Hands CLOSED. Do NOT draw the chain yet; leave room between hands for a draped steel chain."
+  },
+  {
+    "id": "bram_champion_2",
+    "who": "bram",
+    "frame": "champion_2",
+    "wrist": {
+      "near": [
+        27.721445734026116,
+        155.88551036221173
+      ],
+      "far": [
+        -34.27855426597389,
+        155.88551036221173
+      ]
+    },
+    "pelvis": [
+      -1,
+      71
+    ],
+    "head": [
+      -5.126792986702453,
+      130.0158892133712
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. CHAIN VICTORY climax 2: both clenched fists HIGH and WIDE overhead, 60\u201365 logical pixels apart, arms open in a V, mouth clearly OPEN in a triumphant shout/roar, chest lifted, up on the balls of feet. Same anatomical scale as approved identity. Do NOT draw chain yet."
+  },
+  {
+    "id": "bram_champion_3",
+    "who": "bram",
+    "frame": "champion_3",
+    "wrist": {
+      "near": [
+        27.721445734026116,
+        155.88551036221173
+      ],
+      "far": [
+        -34.27855426597389,
+        155.88551036221173
+      ]
+    },
+    "pelvis": [
+      -1,
+      71
+    ],
+    "head": [
+      -5.126792986702453,
+      130.0158892133712
+    ],
+    "prompt": "Use case: precise-object-edit / style-transfer. Asset type: ONE registered production pixel-art fighting-game sprite, not a sheet. Image 1 is the exact pose and canvas-registration guide. Image 2 is the approved character identity, anatomy, costume, pixel texture AND ABSOLUTE BODY SCALE on the same 1024x1024 canvas. Repaint image 1 in image 2's established art style. Keep all transparent padding and exact framing. DO NOT zoom, crop, center, fit or enlarge the figure to fill the canvas. The sprite is small in the LOWER HALF of this square canvas. Ground origin is precisely (512,928); feet at y928. Image 2's standing head/feet distance must stay unchanged in all poses (Dee 520 source pixels, Bram 536), with the pose's natural crouching/extension only. Preserve the specific wrist and ankle positions from the pose guide; make arm reach explicit. Single full body facing RIGHT, side-on three-quarter. Authentic early-1990s pixel clusters, approximately 130 logical pixels tall, 4 tones per material, dark colored 1 logical pixel silhouette outline. NO light/cyan rim on outer edge, all cool fill inside outline, no blur, no gradients, no rendering, no cast shadow, no scenery, no effects, no labels, no text. Real transparent background, erase the green guide background entirely. Do not redraw the image as a larger model-sheet figure.Bram Hollis, huge heavy-set white dockworker forties, shaved bald head, full dark brown beard and broken nose; charcoal T shirt, rust-orange work overalls folded DOWN at waist, straps hanging at hips, brown wrist straps, heavy black work boots. Broad chest and thick muscular forearms. CHAIN VICTORY hold 3: both clenched fists HIGH and WIDE overhead, same hand and foot positions as guide, mouth CLOSED, proud quiet breath, chest up. Arms maintain a 60\u201365 logical pixel span for a taut chain. Do NOT draw chain yet."
+  }
+]

@@ -1,0 +1,37 @@
+{
+  "dee": {
+    "frames": 55,
+    "palette_colours_including_portrait": 47,
+    "origin": [
+      128,
+      232
+    ],
+    "idle_heights": [
+      130,
+      129,
+      128,
+      129
+    ]
+  },
+  "bram": {
+    "frames": 56,
+    "palette_colours_including_portrait": 48,
+    "origin": [
+      128,
+      232
+    ],
+    "idle_heights": [
+      134,
+      133,
+      132,
+      133
+    ]
+  },
+  "passed_checks": 927,
+  "errors": [],
+  "repository_import_roundtrip": true,
+  "native_review": {
+    "dee": [],
+    "bram": []
+  }
+}

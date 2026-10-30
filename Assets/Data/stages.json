@@ -1,5 +1,5 @@
 {
-  "$comment": "Iron Ring venues (docs/design/setting.md). A stage is one 640x360 image, or layers over a wider world with a 640x360 preview in 'image' (docs/art/asset-spec.md \u00a73). Feet on y = 316.",
+  "$comment": "Iron Ring venues (docs/design/setting.md). Each venue is layers over an 800 px world, with a 640x360 preview in 'image' (docs/art/asset-spec.md \u00a73). Feet on y = 316. Art: Iron Ring Art Pack v2.",
   "stages": [
     {
       "id": "pier_nine",
@@ -11,8 +11,44 @@
       ],
       "floor_y_logical": 316,
       "description": "Closed cargo pier after the night shift; a chalk ring between crane legs, dockers betting behind the rail.",
-      "parallax_status": "Single flattened layer (Art Pack v1); layers planned for the next stage art pass (asset-spec \u00a73.1)",
-      "music": "pier_nine"
+      "parallax_status": "Layered production art, Art Pack v2, 800 px world",
+      "music": "pier_nine",
+      "width": 800,
+      "layers": [
+        {
+          "image": "Stages/PierNine/pier_nine_sky.png",
+          "parallax": 0.2
+        },
+        {
+          "image": "Stages/PierNine/pier_nine_harbour.png",
+          "parallax": 0.2,
+          "frames": 3,
+          "frameTicks": 24
+        },
+        {
+          "image": "Stages/PierNine/pier_nine_ship.png",
+          "parallax": 0.5
+        },
+        {
+          "image": "Stages/PierNine/pier_nine_crowd.png",
+          "parallax": 0.8,
+          "y": 186,
+          "frames": 8,
+          "frameTicks": 14,
+          "crowd": true
+        },
+        {
+          "image": "Stages/PierNine/pier_nine_floor.png",
+          "parallax": 1.0,
+          "y": 250
+        },
+        {
+          "image": "Stages/PierNine/pier_nine_front.png",
+          "parallax": 1.25,
+          "x": -10,
+          "front": true
+        }
+      ]
     },
     {
       "id": "lantern_row",
@@ -24,8 +60,44 @@
       ],
       "floor_y_logical": 316,
       "description": "Night market after curfew; stalls shuttered, the ring roped off under the old station clock.",
-      "parallax_status": "Single flattened layer (Art Pack v1); layers planned for the next stage art pass (asset-spec \u00a73.1)",
-      "music": "lantern_row"
+      "parallax_status": "Layered production art, Art Pack v2, 800 px world",
+      "music": "lantern_row",
+      "width": 800,
+      "layers": [
+        {
+          "image": "Stages/LanternRow/lantern_row_facade.png",
+          "parallax": 0.3
+        },
+        {
+          "image": "Stages/LanternRow/lantern_row_lanterns.png",
+          "parallax": 0.45,
+          "frames": 3,
+          "frameTicks": 24
+        },
+        {
+          "image": "Stages/LanternRow/lantern_row_stalls.png",
+          "parallax": 0.6
+        },
+        {
+          "image": "Stages/LanternRow/lantern_row_crowd.png",
+          "parallax": 0.8,
+          "y": 186,
+          "frames": 8,
+          "frameTicks": 14,
+          "crowd": true
+        },
+        {
+          "image": "Stages/LanternRow/lantern_row_floor.png",
+          "parallax": 1.0,
+          "y": 270
+        },
+        {
+          "image": "Stages/LanternRow/lantern_row_front.png",
+          "parallax": 1.25,
+          "x": -10,
+          "front": true
+        }
+      ]
     },
     {
       "id": "foundry",
@@ -37,7 +109,7 @@
       ],
       "floor_y_logical": 316,
       "description": "The shut-down Voll Works; the ring laid between cold furnaces, the night shift's last crew behind the rail.",
-      "parallax_status": "Layered, 800 px wide (placeholder art from Tools/Art/generate.py foundry)",
+      "parallax_status": "Layered production art, Art Pack v2, 800 px world",
       "music": "foundry",
       "width": 800,
       "layers": [
@@ -85,8 +157,49 @@
       ],
       "floor_y_logical": 316,
       "description": "Rooftop terrace of the derelict Crown Hotel at first light; the final bout of the Iron Ring.",
-      "parallax_status": "Single flattened layer (Art Pack v1); layers planned for the next stage art pass (asset-spec \u00a73.1)",
-      "music": "the_crown"
+      "parallax_status": "Layered production art, Art Pack v2, 800 px world",
+      "music": "the_crown",
+      "width": 800,
+      "layers": [
+        {
+          "image": "Stages/TheCrown/the_crown_sky.png",
+          "parallax": 0
+        },
+        {
+          "image": "Stages/TheCrown/the_crown_clouds.png",
+          "parallax": 0.1,
+          "drift": 3
+        },
+        {
+          "image": "Stages/TheCrown/the_crown_city.png",
+          "parallax": 0.25
+        },
+        {
+          "image": "Stages/TheCrown/the_crown_sign.png",
+          "parallax": 0.5,
+          "frames": 2,
+          "frameTicks": 24
+        },
+        {
+          "image": "Stages/TheCrown/the_crown_crowd.png",
+          "parallax": 0.8,
+          "y": 174,
+          "frames": 8,
+          "frameTicks": 14,
+          "crowd": true
+        },
+        {
+          "image": "Stages/TheCrown/the_crown_floor.png",
+          "parallax": 1.0,
+          "y": 252
+        },
+        {
+          "image": "Stages/TheCrown/the_crown_front.png",
+          "parallax": 1.25,
+          "x": -10,
+          "front": true
+        }
+      ]
     }
   ]
 }

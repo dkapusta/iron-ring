@@ -5,6 +5,7 @@
   "displayName": "DEE MARLOWE",
   "atlas": "dee_atlas.json",
   "portrait": "dee_portrait.png",
+  "selectPortrait": "dee_select.png",
   "physics": {"walkForward": 420, "walkBack": 340, "jumpVelocity": 1900, "gravity": 70},
   "body": {"standHurt": [-16, 0, 32, 124], "crouchHurt": [-18, 0, 38, 92], "pushWidth": 34, "knockdownTicks": 54},
   "moves": {
@@ -41,7 +42,7 @@
     "knockdown": {"frames": [["down_0", 8], ["down_1", 30], ["down_2", 10], ["down_3", 6]]},
     "ko": {"frames": [["down_0", 8], ["down_1", 1]]},
     "win": {"loop": true, "frames": [["win_0", 20], ["win_1", 20]]},
-    "champion_intro": {"frames": [["win_0", 20], ["win_1", 16], ["win_0", 14]]},
-    "champion": {"loop": true, "frames": [["win_0", 18], ["win_1", 18], ["win_0", 18]]}
+    "champion_intro": {"frames": [["champion_0", 20], ["champion_1", 16], ["champion_2", 14]]},
+    "champion": {"loop": true, "frames": [["champion_3", 18], ["champion_4", 18], ["champion_5", 18]]}
   }
 }

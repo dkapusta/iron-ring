@@ -11,7 +11,7 @@ Milestones are ordered; items inside a milestone are roughly ordered. ✅ done �
 3. **Review and corrections (here).** The art is imported and reviewed in training mode and with `Tools/Art/review_frames.py`, and correction notes are written ([example](docs/art/frame-review.md)).
 4. **Polish.** A corrected pack is generated and imported, followed by a final pass.
 
-Final art replaces placeholder art only when a **vertical slice** needs it. That's the end of M2: the complete local loop for one matchup at release quality. Until then, new fighters and venues ship with placeholder art. Art Pack v1 (Dee, Bram, three venues) is already in; Art Pack v2 (its corrections, plus the slice's remaining art) is briefed for the M2 vertical slice.
+Final art replaces placeholder art only when a **vertical slice** needs it. That's the end of M2: the complete local loop for one matchup at release quality. Until then, new fighters and venues ship with placeholder art. Art Pack v1 (Dee, Bram, three venues) and Art Pack v2 (its corrections, plus the slice's remaining art: champion poses, select portraits, every venue layered, the final Foundry, title logo and menu backdrop) are in.
 
 ## M0 — Foundation ✅
 
@@ -61,19 +61,20 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 - ✅ Remapping (Options → Controls): keys per player, pad buttons per device, saved to `prefs.cfg`; a move list in the pause menu; [docs/controls.md](docs/controls.md) ([ADR-0016](docs/adr/0016-remapping-and-renderer-recreation.md))
 - ✅ Persistent settings: `prefs.cfg` in the user folder, between `boot.config` and the command line
 - ✅ Renderer recreation when the HDR option, the display's HDR state or the display changes; fullscreen, scaling and vsync change live
-- ✅ Stage layers and parallax; animated crowds that react to the fight; camera follow (no zoom: pixel art) on stages wider than the screen; **The Foundry**, the first layered venue, with placeholder art and its own theme ([ADR-0017](docs/adr/0017-layered-stages-and-camera.md))
+- ✅ Stage layers and parallax; animated crowds that react to the fight; camera follow (no zoom: pixel art) on stages wider than the screen; **The Foundry**, the first layered venue, with its own theme ([ADR-0017](docs/adr/0017-layered-stages-and-camera.md))
 - ✅ Hit feel: counter hits, combo counts with damage scaling, special cancels; shake and flash (with a reduced option); HDR spark glow; layered hit audio (counter sting, rising combo blip); HUD callouts. Heat reworked (A + B + C of [docs/design/heat.md](docs/design/heat.md)): the Breakaway is a guard cancel that staggers, light attacks pressure on block, Heat lasts the match ([ADR-0018](docs/adr/0018-hit-feel-and-heat.md))
 - ✅ Arcade ladder (`Data/arcade.json`: four bouts to the final at The Crown, continues, an ending) against a new CPU with five levels and a difficulty option; `-autoplay` soak test in CI ([ADR-0019](docs/adr/0019-cpu-levels-and-arcade.md))
 - ⬜ **Vertical slice**: the complete local loop for Dee vs Bram at release quality; final art takes over from placeholder art where the slice needs it (see *How art is made*)
   - ✅ Art brief for Art Pack v2: [docs/art/vertical-slice-art-brief.md](docs/art/vertical-slice-art-brief.md) (frame corrections, the champion pose, select portraits, ending pictures, The Foundry, layered Pier 9 / Lantern Row / The Crown, title logo, menu backdrop)
-  - ✅ Engine ready for it: champion animations (placeholders from the win frames), optional select portraits and ending pictures, procedural pose references for new frames (`import_art.py refs`)
-  - ⬜ Art Pack v2 delivered (owner), imported, reviewed, corrected; then the polish pass
+  - ✅ Engine ready for it: champion animations, optional select portraits and ending pictures, procedural pose references for new frames (`import_art.py refs`)
+  - ✅ Art Pack v2 delivered, reviewed and imported: corrected frames and six champion frames per fighter, select portraits, four layered venues on an 800 px world, title logo and menu backdrop; animated champion endings ([ADR-0020](docs/adr/0020-adopting-art-pack-v2.md))
+  - ⬜ Polish pass: a full playthrough at release quality (both fighters, every venue, the arcade loop), fixing what it turns up
 
 ## M3 — Roster and world
 
 
 - ⬜ Sable, Idris, Greta, Jun (identities in `setting.md`; a fighter file, atlas and portrait each — no code), with placeholder art first
-- ⬜ Final art for Lantern Row and The Crown, and for The Foundry (placeholder in M2); layered versions of the Art Pack v1 venues; new venues (dry dock, ship's hold, the Broker's club)
+- ⬜ New venues (dry dock, ship's hold, the Broker's club), layered like the M2 four
 - ⬜ The Broker (boss), story intros/endings, win quotes
 - ⬜ Asset streaming: per-stage `sharedassetsN.assets` + `levelN` loaded on demand
 
@@ -116,6 +117,7 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 | 2026-10-30 | Front end | Scene stack; options saved to `prefs.cfg`; Escape pauses instead of quitting; the Arcade entry stays disabled until the ladder lands ([ADR-0015](docs/adr/0015-front-end-scene-stack.md)) |
 | 2026-10-30 | Heat | A + B + C: Breakaway as a guard cancel, light-attack pressure on block, Heat carries across rounds ([docs/design/heat.md](docs/design/heat.md)) |
 | 2026-10-30 | Final art | Art Pack v1 adopted; frames re-registered at one scale, 48 colours per fighter ([ADR-0012](docs/adr/0012-adopting-external-art.md)) |
+| 2026-10-31 | Art Pack v2 | Adopted as delivered; the arcade ending animates the champion, the still ending pictures are kept as key art ([ADR-0020](docs/adr/0020-adopting-art-pack-v2.md)) |
 
 ## Open questions for the project owner
 

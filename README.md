@@ -7,17 +7,17 @@ An early-90s style arcade fighting game about the **Iron Ring** — an illegal, 
 
 ![Bram Hollis slams Dee Marlowe to the deck at Pier 9](docs/images/demo-capture.png)
 
-*Above: a real frame captured with `-batchmode -demo -frames 520 -screenshot` at 1920 × 1080: Bram Hollis slams Dee Marlowe to the deck at Pier 9. Fighters and stages are from Iron Ring Art Pack v1 ([ADR-0012](docs/adr/0012-adopting-external-art.md)); the music (a theme per venue), sound effects and announcer are generated on a model of the NES sound chip ([docs/audio.md](docs/audio.md)).*
+*Above: a real frame captured with `-batchmode -demo -frames 520 -screenshot` at 1920 × 1080: Bram Hollis slams Dee Marlowe to the deck at Pier 9. Fighters and stages are from Iron Ring Art Packs v1 and v2 ([ADR-0012](docs/adr/0012-adopting-external-art.md), [ADR-0020](docs/adr/0020-adopting-art-pack-v2.md)); the music (a theme per venue), sound effects and announcer are generated on a model of the NES sound chip ([docs/audio.md](docs/audio.md)).*
 
-> **Status: M2 — Complete local play, in progress.** M1 delivered Dee vs Bram with data-driven fighters, throws, specials, knockdowns, best-of-3 rounds, a pixel-art HUD, a training mode, venue themes and an announcer. M2 so far: the front end (title with an attract demo, character and stage select, options, pause and rematch menus), saved options, gamepads and remapping, layered scrolling stages with a reacting crowd, the hit-feel pass (counter hits, combos and cancels, a Breakaway that guard-cancels, Heat that lasts the match), and the arcade ladder against a CPU with five levels. See [ROADMAP.md](ROADMAP.md).
+> **Status: M2 — Complete local play, in progress.** M1 delivered Dee vs Bram with data-driven fighters, throws, specials, knockdowns, best-of-3 rounds, a pixel-art HUD, a training mode, venue themes and an announcer. M2 so far: the front end (title with an attract demo, character and stage select, options, pause and rematch menus), saved options, gamepads and remapping, layered scrolling stages with a reacting crowd, the hit-feel pass (counter hits, combos and cancels, a Breakaway that guard-cancels, Heat that lasts the match), the arcade ladder against a CPU with five levels, and Art Pack v2 (every venue layered, champion endings). See [ROADMAP.md](ROADMAP.md).
 
 ![The title menu, character select, stage select and pause menu](docs/images/m2-front-end.png)
 
-*The front end (M2): title menu, character select (the unbuilt fighters are locked), stage select and the pause menu. Logo and menu backdrop are generated placeholders ([asset spec §5](docs/art/asset-spec.md#5-ui)).*
+*The front end (M2): title menu, character select (the unbuilt fighters are locked), stage select and the pause menu. Logo, menu backdrop and select portraits from Art Pack v2 ([asset spec §5](docs/art/asset-spec.md#5-ui)).*
 
-![The Foundry: a layered stage, scrolled to its right end](docs/images/m2-foundry.png)
+![The four venues: Pier 9, Lantern Row, The Foundry and The Crown](docs/images/m2-venues.png)
 
-*The Foundry, the first layered stage (placeholder art): six layers over an 800 px world, a camera that follows the fight, a crowd that cheers a K.O. ([ADR-0017](docs/adr/0017-layered-stages-and-camera.md)).*
+*The four venues, Pier 9, Lantern Row, The Foundry and The Crown: six or seven layers each over an 800 px world, a camera that follows the fight, a crowd that cheers a K.O. ([ADR-0017](docs/adr/0017-layered-stages-and-camera.md)).*
 
 ## Highlights
 

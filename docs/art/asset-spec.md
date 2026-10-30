@@ -168,7 +168,7 @@ Learned from the first external pack ([frame review](frame-review.md)). `python3
 
 ### 3.1 Layered stages
 
-A stage can be wider than the screen and drawn as layers that scroll at different rates (parallax). `stages.json` gives the world `width` (640–2048; the foundry uses 800) and a list of `layers`, back to front. The camera shows 640 px, follows the fighters' midpoint, stops at the stage ends and never zooms. The fighters can never be more than 580 px apart, so both always fit on screen.
+A stage can be wider than the screen and drawn as layers that scroll at different rates (parallax). `stages.json` gives the world `width` (640–2048; all four venues use 800) and a list of `layers`, back to front. The camera shows 640 px, follows the fighters' midpoint, stops at the stage ends and never zooms. The fighters can never be more than 580 px apart, so both always fit on screen.
 
 | Field | Meaning |
 | --- | --- |
@@ -206,7 +206,7 @@ Suggested stack, back to front:
 5. floor (1.0, from about y 262);
 6. optional foreground frame (1.2–1.3, `front`).
 
-The three venues: **Pier 9** (closed cargo pier, crane legs, freighter floodlights, dockers behind the rail), **Lantern Row** (night market after curfew, shutters, half-lit lanterns, old station clock), **The Foundry** (the shut-down Voll Works: cold furnaces, a hanging ladle, the night shift behind a steel rail; the first layered venue, placeholder art), **The Crown** (derelict hotel roof terrace at dawn, water tower, a CROWN HOTEL bulb sign with dead bulbs, below the HUD band). Details in [setting.md](../design/setting.md#venues).
+The three venues: **Pier 9** (closed cargo pier, crane legs, freighter floodlights, dockers behind the rail), **Lantern Row** (night market after curfew, shutters, half-lit lanterns, old station clock), **The Foundry** (the shut-down Voll Works: cold furnaces, a hanging ladle, the night shift behind a steel rail; the first layered venue), **The Crown** (derelict hotel roof terrace at dawn, water tower, a CROWN HOTEL bulb sign with dead bulbs, below the HUD band). Details in [setting.md](../design/setting.md#venues).
 
 ## 4. Effects
 

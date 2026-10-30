@@ -1,0 +1,28 @@
+[
+  {
+    "id": "dee_select",
+    "refs": [
+      "Source/References/Project/Assets/Fighters/Dee/dee_portrait.png",
+      "Source/References/dee_identity_registered.png"
+    ],
+    "transparent": false,
+    "prompt": "Create a single 48x48 native-pixel character-select portrait for Iron Ring, an early-1990s arcade fighter. The tiny first image is the existing HUD likeness; second is the approved full-body identity. Keep that exact character identity. Dee is a lean athletic Black woman with cropped dark curls, silver stud earring, teal sleeveless athletic top, determined calm face. Head and shoulders turned three-quarter facing RIGHT. Strong expressive face, true chunky 48px pixel clusters and limited four-tone shading per material, one logical pixel darkest-material outline. Warm upper-left light, cool fill only inside outline. Square dark night navy #141a30 backdrop, sparse dithered warm light near top. Bottom 2 logical rows solid teal stripe. No frame, text, effects or props. Not photo, not painterly. Fill the square with head/shoulders; no body or padded sprite canvas. Preserve facial read at exactly48x48."
+  },
+  {
+    "id": "bram_select",
+    "refs": [
+      "Source/References/Project/Assets/Fighters/Bram/bram_portrait.png",
+      "Source/References/bram_identity_registered.png"
+    ],
+    "transparent": false,
+    "prompt": "Create a single 48x48 native-pixel character-select portrait for Iron Ring, an early-1990s arcade fighter. The tiny first image is the existing HUD likeness; second is the approved full-body identity. Keep that exact character identity. Bram is a huge heavy-set white dockworker in his forties with bald head, heavy brow, broken nose, full dark brown beard and charcoal T-shirt. Head and shoulders turned three-quarter facing RIGHT. Strong expressive face, true chunky 48px pixel clusters and limited four-tone shading per material, one logical pixel darkest-material outline. Warm upper-left light, cool fill only inside outline. Square dark night navy #141a30 backdrop, sparse dithered warm light near top. Bottom 2 logical rows solid rust orange stripe. No frame, text, effects or props. Not photo, not painterly. Fill the square with head/shoulders; no body or padded sprite canvas. Preserve facial read at exactly48x48."
+  },
+  {
+    "id": "menu_backdrop",
+    "refs": [
+      "Source/References/Project/Assets/Resources/UI/menu_backdrop.png"
+    ],
+    "transparent": false,
+    "prompt": "Create the final production replacement for this exact menu backdrop layout for Iron Ring, early-1990s pixel-art fight club. Target640x360 pixel art, same fullcanvas. Dark empty steel-and-worn-tile fight floor at night seen front-on. TWO cold dithered floodlight beams from above outsideframe at x150 and490; beams restrained towardedges. Lowerthird empty flattenedellipse steelchain floorring centered320,300 radius282,24. A few crowded dark head-and-shoulder silhouettes along bottomedgey339..360 only. Thin aged brass horizontalrules fromx24to616 exactlyy60andy336. Centerbandy60..336 DARK, quiet and EVEN so white menu text andfighterportraitsremainreadable. Finewornfloortexture limited tobottomy285..330, minimaltextureincenter. Palette navy#07090f,#0c1020,#141a30,#1f2742,steel#2b3550,#3d4a66, restrainedteal#0d2f36 andbrass#9c4f1e. Hardpixelclusters,Bayerdither,noantialias,nostronggradient,notext,noglowbloom,nolensflare,nopeopleinthemiddle,noUI,nopanel. Attractiveauthenticpixelartwithsubtledepthandquietspace."
+  }
+]
