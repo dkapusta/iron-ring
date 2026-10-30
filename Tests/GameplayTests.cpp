@@ -362,3 +362,21 @@ TEST_CASE("per-phase hurtboxes") {
     f.age = 0;             // startup: default box only
     CHECK_FALSE(r.touches(reach, f));
 }
+
+TEST_CASE("wide stages: start in the middle, walls at the ends, never further apart than a screen") {
+    Round r(rusherSpec(), grabberSpec());
+    r.stageWidth = 800;
+    r.reset();
+    CHECK(r.fighters[0].x == (400 - kStartOffset) * kFixed);
+    CHECK(r.fighters[1].x == (400 + kStartOffset) * kFixed);
+    // Both walk away from each other for long enough to cross any 640 px stage.
+    for (int t = 0; t < 600; ++t) (void)r.step({Left, Right});
+    CHECK(r.fighters[0].x >= kStageMargin * kFixed);
+    CHECK(r.fighters[1].x <= (800 - kStageMargin) * kFixed);
+    CHECK(r.fighters[1].x - r.fighters[0].x <= kMaxSeparation * kFixed);
+    CHECK(r.fighters[1].x - r.fighters[0].x > (kMaxSeparation - 2) * kFixed); // they did walk out to the limit
+    // The default stage behaves as before (the golden checksum test pins the rest).
+    Round flat(rusherSpec(), grabberSpec());
+    CHECK(flat.fighters[0].x == 230 * kFixed);
+    CHECK(flat.fighters[1].x == 410 * kFixed);
+}

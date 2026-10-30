@@ -11,10 +11,13 @@
 namespace iron::sim {
 
 inline constexpr int kFixed = 256;        // sub-pixel units per logical pixel
-inline constexpr int kStageWidth = 640;   // logical pixels
+inline constexpr int kStageWidth = 640;   // logical pixels: the screen, and the default stage width
 inline constexpr int kFloorY = 316;       // foot baseline, logical pixels from the top of the screen
-inline constexpr int kStageMinX = 30;
-inline constexpr int kStageMaxX = 610;
+inline constexpr int kStageMargin = 30;   // fighters stay this far from a stage's ends
+inline constexpr int kStageMinX = kStageMargin;
+inline constexpr int kStageMaxX = kStageWidth - kStageMargin;
+inline constexpr int kMaxSeparation = kStageWidth - 2 * kStageMargin; // both fighters always fit on screen
+inline constexpr int kStartOffset = 90;   // round start: this far either side of the stage centre
 inline constexpr int kTickRate = 60;
 inline constexpr int kRoundSeconds = 99;
 inline constexpr int kBreakCost = 50;     // Breakaway cost, in Heat meter units
