@@ -33,6 +33,8 @@ struct PlayerSettings {
     bool training = false;    // -training: hitbox / frame-advantage overlay on
     std::string stage;        // -stage <id>: start stage (default: GameSettings startStage)
     std::string dummy;        // -dummy <mode>: training dummy (stand, crouch, jump, guard, guard-all, cpu)
+    std::string scene;        // -scene <name>: open title, select, stage or options (screenshots, testing)
+    std::string keys;         // -keys "30:Return,45:Down": key taps at given frames (batch testing)
     int batchFrames = 180;
     std::filesystem::path screenshotPath;
     std::filesystem::path logFile;
@@ -43,6 +45,10 @@ struct PlayerSettings {
 // Parsed "key=value" lines; '#' starts a comment. Later keys override earlier ones.
 using KeyValueMap = std::map<std::string, std::string, std::less<>>;
 [[nodiscard]] KeyValueMap parseKeyValueText(std::string_view text);
+
+// Applies one setting shared by boot.config, prefs and the command line
+// (boot.config key names). False when the key is unknown or the value malformed.
+bool applySetting(PlayerSettings& settings, std::string_view key, std::string_view value);
 
 // Both functions return human-readable warnings for unknown or malformed entries.
 std::vector<std::string> applyBootConfig(PlayerSettings& settings, const KeyValueMap& values);

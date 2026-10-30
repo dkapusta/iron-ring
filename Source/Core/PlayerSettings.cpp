@@ -46,9 +46,9 @@ std::optional<HdrMode> toHdrMode(std::string_view s) {
     return std::nullopt;
 }
 
-// Applies one setting shared by boot.config and the command line.
-// Returns false when the key is unknown or the value is malformed.
-bool applyValue(PlayerSettings& s, std::string_view key, std::string_view value) {
+} // namespace
+
+bool applySetting(PlayerSettings& s, std::string_view key, std::string_view value) {
     if (key == "window-mode") {
         if (value == "fullscreen") s.windowMode = WindowMode::Fullscreen;
         else if (value == "windowed") s.windowMode = WindowMode::Windowed;
@@ -90,8 +90,6 @@ bool applyValue(PlayerSettings& s, std::string_view key, std::string_view value)
     return false;
 }
 
-} // namespace
-
 KeyValueMap parseKeyValueText(std::string_view text) {
     KeyValueMap result;
     while (!text.empty()) {
@@ -113,7 +111,7 @@ std::vector<std::string> applyBootConfig(PlayerSettings& settings, const KeyValu
     std::vector<std::string> warnings;
     for (const auto& [key, value] : values) {
         if (key == "player-version") continue; // informational
-        if (!applyValue(settings, key, value)) warnings.push_back("boot.config: ignored '" + key + "=" + value + "'");
+        if (!applySetting(settings, key, value)) warnings.push_back("boot.config: ignored '" + key + "=" + value + "'");
     }
     return warnings;
 }
@@ -134,10 +132,16 @@ std::vector<std::string> applyCommandLine(PlayerSettings& settings, std::span<co
             settings.demo = true;
         } else if (arg == "-training") {
             settings.training = true;
-        } else if (arg == "-stage" || arg == "-dummy") {
+        } else if (arg == "-stage" || arg == "-dummy" || arg == "-scene" || arg == "-keys") {
             const auto v = next(i);
             ok = v && !v->empty();
-            if (ok) (arg == "-stage" ? settings.stage : settings.dummy) = std::string(*v);
+            if (ok) {
+                auto& target = arg == "-stage"   ? settings.stage
+                             : arg == "-dummy"   ? settings.dummy
+                             : arg == "-scene"   ? settings.scene
+                                                 : settings.keys;
+                target = std::string(*v);
+            }
         } else if (arg == "-screen-fullscreen") {
             const auto v = next(i);
             const auto b = v ? toBool(*v) : std::nullopt;
@@ -166,7 +170,7 @@ std::vector<std::string> applyCommandLine(PlayerSettings& settings, std::span<co
         } else if (arg == "-hdr" || arg == "-vsync" || arg == "-presentation" || arg == "-render-driver" ||
                    arg == "-music-volume" || arg == "-sfx-volume" || arg == "-voice-volume") {
             const auto v = next(i);
-            ok = v && applyValue(settings, arg.substr(1), *v);
+            ok = v && applySetting(settings, arg.substr(1), *v);
         } else {
             ok = false;
         }

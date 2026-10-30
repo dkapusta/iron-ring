@@ -61,3 +61,12 @@ TEST_CASE("malformed command-line values are reported, not applied") {
     CHECK(s.windowWidth == 1280);
     CHECK(s.hdr == HdrMode::Auto);
 }
+
+TEST_CASE("front-end test flags") {
+    PlayerSettings s;
+    const std::vector<std::string> args{"-scene", "options", "-keys", "10:Return,30:Down"};
+    CHECK(applyCommandLine(s, args).empty());
+    CHECK(s.scene == "options");
+    CHECK(s.keys == "10:Return,30:Down");
+    CHECK(applyCommandLine(s, std::vector<std::string>{"-keys"}).size() == 1);
+}
