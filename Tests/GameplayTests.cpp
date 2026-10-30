@@ -6,6 +6,7 @@
 #include <doctest/doctest.h>
 
 #include <initializer_list>
+#include <string>
 
 using namespace iron::sim;
 
@@ -321,7 +322,7 @@ TEST_CASE("training dummy") {
     CHECK_FALSE(sweepHits(Dummy::GuardAll));
 
     CHECK(nextDummy(Dummy::Cpu) == Dummy::Stand);
-    CHECK(dummyName(Dummy::GuardAll) == "GUARD ALL");
+    CHECK(std::string(dummyName(Dummy::GuardAll)) == "GUARD ALL");  // doctest prints std::string, not string_view
     CHECK(parseDummy("guard-all") == Dummy::GuardAll);
     CHECK(parseDummy("CPU") == Dummy::Cpu);
     CHECK_FALSE(parseDummy("sleep").has_value());
