@@ -13,6 +13,7 @@
   ],
   "roster": "Data/roster.json",
   "stages": "Data/stages.json",
+  "arcade": "Data/arcade.json",
   "effects": "Resources/FX/effects_atlas.json",
   "fonts": {
     "small": "Resources/UI/font_small.json",

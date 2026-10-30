@@ -215,3 +215,42 @@ TEST_CASE("layered stages: parsing and the layer width rule") {
     bad["width"] = 500;
     CHECK_THROWS_AS((void)iron::content::parseStage(bad, "stages.json"), iron::content::ContentError);
 }
+
+#include "Content/Arcade.h"
+
+TEST_CASE("arcade ladder: opponents, levels and the run's steps") {
+    const auto ladder = iron::content::parseArcade(nlohmann::json::parse(R"({"bouts": [
+        {"stage": "pier_nine", "opponent": "rival", "level": 1},
+        {"stage": "lantern_row", "opponent": "mirror", "level": 1},
+        {"stage": "the_crown", "opponent": "bram", "level": 4, "final": true}]})"),
+                                                  "arcade.json");
+    REQUIRE(ladder.bouts.size() == 3);
+    const std::vector<std::string> playable{"dee", "bram"};
+    CHECK(iron::content::arcadeOpponent(ladder.bouts[0], "dee", playable) == "bram");
+    CHECK(iron::content::arcadeOpponent(ladder.bouts[0], "bram", playable) == "dee");
+    CHECK(iron::content::arcadeOpponent(ladder.bouts[1], "dee", playable) == "dee");
+    CHECK(iron::content::arcadeOpponent(ladder.bouts[2], "dee", playable) == "bram");
+    CHECK(iron::content::arcadeLevel(ladder.bouts[0], 0) == 0); // EASY: one lower
+    CHECK(iron::content::arcadeLevel(ladder.bouts[0], 2) == 2); // HARD: one higher
+    CHECK(iron::content::arcadeLevel(ladder.bouts[2], 2) == 4); // capped at CHAMPION
+
+    using Step = iron::content::ArcadeRun::Step;
+    iron::content::ArcadeRun run;
+    run.startFight();
+    run.finished(false, 3);
+    CHECK(run.step == Step::Continue);
+    run.continueRun();
+    CHECK(run.step == Step::Versus);
+    CHECK(run.bout == 0); // the same bout again
+    CHECK(run.continuesUsed == 1);
+    run.finished(true, 3);
+    run.finished(true, 3);
+    CHECK(run.bout == 2);
+    run.finished(true, 3);
+    CHECK(run.step == Step::Ending);
+    run.giveUp();
+    CHECK(run.step == Step::GameOver);
+
+    CHECK_THROWS_AS((void)iron::content::parseArcade(nlohmann::json::parse(R"({"bouts": []})"), "a.json"),
+                    iron::content::ContentError);
+}

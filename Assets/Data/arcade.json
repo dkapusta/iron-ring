@@ -1,0 +1,9 @@
+{
+  "$comment": "The arcade ladder (Source/Content/Arcade.h). opponent: rival | mirror | a fighter id. level: CPU level at NORMAL difficulty, 0 ROOKIE .. 4 CHAMPION; EASY plays one lower, HARD one higher.",
+  "bouts": [
+    { "stage": "pier_nine", "opponent": "rival", "level": 1 },
+    { "stage": "lantern_row", "opponent": "mirror", "level": 1 },
+    { "stage": "foundry", "opponent": "rival", "level": 2 },
+    { "stage": "the_crown", "opponent": "rival", "level": 3, "final": true }
+  ]
+}
