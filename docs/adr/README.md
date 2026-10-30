@@ -21,3 +21,4 @@ One file per decision, numbered, never renumbered. Supersede rather than rewrite
 | [0015](0015-front-end-scene-stack.md) | Build the front end on a scene stack, with saved options in prefs.cfg | Accepted |
 | [0016](0016-remapping-and-renderer-recreation.md) | Remap controls per player and per pad; recreate the renderer for HDR | Accepted |
 | [0017](0017-layered-stages-and-camera.md) | Layered stages wider than the screen, a follow camera, no zoom | Accepted |
+| [0018](0018-hit-feel-and-heat.md) | Counter hits, combos and cancels; the Breakaway as a guard cancel; Heat for the match | Accepted |

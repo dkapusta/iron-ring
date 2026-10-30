@@ -24,6 +24,8 @@ Encoding the music needs `ffmpeg` with libvorbis; `--check` does not.
 | `round_bell` | "FIGHT!", time over, a drawn match | boxing bell, struck twice |
 | `ko` | a round ends by K.O. | impact, then a long falling tone over a rumble |
 | `victory` | the match is won | 3-second jingle, the theme's D minor resolving to D major |
+| `counter` | a counter hit, over the hit sound | bright two-step clang, rising |
+| `combo` | each combo hit after the first, over the hit sound | short blip, played 12 % higher per hit (up to 1.7×) |
 | `menu_move` | a menu cursor or setting moves | very short, quiet high blip |
 | `menu_confirm` | a menu choice, a fighter picked, the pause menu opens | two-note rising blip |
 | `menu_back` | backing out, or a locked fighter | the confirm's notes, falling |

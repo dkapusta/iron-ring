@@ -14,8 +14,8 @@ The **Iron Ring** is an illegal, invitation-only fighting tournament run by a pr
 
 | Term | Meaning | In code / data |
 | --- | --- | --- |
-| **Heat** | 0–100 meter built by hitting, getting hit and blocking — the crowd's attention | `Fighter::meter`, HUD label `meterName` |
-| **Breakaway** | Guard + heavy punch + heavy kick for 50 Heat: a non-damaging shove that cancels blockstun. The only thing Heat pays for | `Effect::Breakaway`, `sim::kBreakCost` |
+| **Heat** | 0–100 meter built by hitting, getting hit and blocking — the crowd's attention; it lasts the whole match | `Fighter::meter`, HUD label `meterName` |
+| **Breakaway** | Guard + heavy punch + heavy kick for 50 Heat while blocking: a guard cancel that staggers the attacker, no damage ([heat.md](heat.md)). The only thing Heat pays for | `Effect::Breakaway`, `sim::kBreakCost` |
 | **Desperation moves** | None, by decision (2026-10-29). Low health gives no super; comebacks come from Heat and reads | — |
 | **The Broker** | Unseen promoter; final-boss candidate | — |
 
