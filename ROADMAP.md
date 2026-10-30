@@ -27,7 +27,7 @@ Final art replaces placeholder art only when a **vertical slice** needs it. That
 - ✅ 21 unit tests (simulation, archives, settings) + packer smoke test
 - ✅ README, AGENTS, ADRs 0001–0008, architecture and pipeline notes, research notes
 
-## M1 — First playable matchup: Dee vs Bram 🔜
+## M1 — First playable matchup: Dee vs Bram ✅
 
 Goal: two characters that feel good in local play on one stage. Target platforms: **Windows and Linux** (macOS later).
 
@@ -48,13 +48,13 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 - ✅ Windows icon and version resources; window icon on both platforms
 - ✅ **Final art** for Dee, Bram, their portraits and all three stages (Art Pack v1, re-registered at one scale per fighter; sources in `ArtSource/`, [ADR-0012](docs/adr/0012-adopting-external-art.md))
 - ✅ Frame review of Art Pack v1 with correction notes ([frame-review.md](docs/art/frame-review.md)), animation rules in the asset spec (§2.6) and `Tools/Art/review_frames.py`
-- ⬜ Training mode, rest: input display, dummy settings (block all / stand / crouch / jump), position reset
-- ⬜ Per-frame hurt boxes for moves that change the silhouette (sweeps, uppercut)
+- ✅ Training mode: training rules in the simulation (clock stops, no K.O., health and Heat refill), a deterministic dummy (stand, crouch, jump, guard, guard all, CPU; F6, `-dummy`), input display, position reset (F4)
+- ✅ Per-phase hurtboxes for moves that change the silhouette: sweeps duck, extended limbs can be hit, Dee's uppercut dips then rises
 - ✅ **Audio**: NES-style effects and the "Iron Ring" fight theme generated from a 2A03 model; music streamed and looping past its intro; SFX/music mix groups with volume settings; a soft limiter; round-call, tech, slam, K.O. and victory cues ([ADR-0013](docs/adr/0013-nes-style-generated-audio.md))
 - ✅ A theme per venue ("Iron Ring", "Curfew Market", "Crown at Dawn") and the ring announcer through the DMC channel, with a voice mix group ([ADR-0014](docs/adr/0014-venue-themes-and-announcer.md))
 - ✅ `cmake --install`: the player folder, plus a Linux desktop entry and hicolor icon; the app id is passed to SDL so the window matches the entry ([docs/install.md](docs/install.md))
 
-## M2 — Complete local play
+## M2 — Complete local play 🔜
 
 - ⬜ Title, character select, stage select, options scenes (scene stack)
 - ⬜ Gamepads via SDL_Gamepad; remapping UI; per-device profiles

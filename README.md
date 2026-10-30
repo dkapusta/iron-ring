@@ -9,7 +9,7 @@ An early-90s style arcade fighting game about the **Iron Ring** — an illegal, 
 
 *Above: a real frame captured with `-batchmode -demo -screenshot`: Bram Hollis's Dock Hoist slams Dee Marlowe at Pier 9. Fighters and stages are from Iron Ring Art Pack v1 ([ADR-0012](docs/adr/0012-adopting-external-art.md)); the music (a theme per venue), sound effects and announcer are generated on a model of the NES sound chip ([docs/audio.md](docs/audio.md)).*
 
-> **Status: M1 — First playable matchup, in progress.** Dee vs Bram, data-driven fighters, throws, specials, knockdowns, best-of-3 rounds, a pixel-art HUD and a training overlay. See [ROADMAP.md](ROADMAP.md).
+> **Status: M1 — First playable matchup, complete.** Dee vs Bram, data-driven fighters with per-phase hurtboxes, throws, specials, knockdowns, best-of-3 rounds, a pixel-art HUD, a training mode, venue themes and an announcer. Next: M2, complete local play. See [ROADMAP.md](ROADMAP.md).
 
 ## Highlights
 
@@ -92,7 +92,7 @@ Moves, written for a fighter facing right (numpad notation: 6 = forward, 2 = dow
 | **Dee Marlowe** | Stiff Jab | Cross Counter | Shin Kick | Leg Sweep (low, knockdown) | Clinch Toss | **Rush Uppercut** — 236 + P (↓↘→ + punch) |
 | **Bram Hollis** | Palm Shove | Anchor Hook | Boot Kick | Hull Breaker (low, knockdown) | Pier Toss | **Dock Hoist** — 63214 + P (→↘↓↙← + punch), command throw, can't be teched |
 
-Tab: vs CPU → 2 players → CPU vs CPU · F2: next stage · F3: training overlay (boxes, frame data, frame advantage) · F5: new match · F1: debug overlay · F11 or Alt+Enter: fullscreen · F12: screenshot · Esc: quit. Bindings live in [`ProjectSettings/InputManager.json`](ProjectSettings/InputManager.json); fighter data in `Assets/Fighters/<Name>/<id>.fighter.json`.
+Tab: vs CPU → 2 players → CPU vs CPU · F2: next stage · F3: training overlay (boxes, frame data, frame advantage) · F5: new match · F4: reset positions (training) · F6: next dummy behaviour (training) · F1: debug overlay · F11 or Alt+Enter: fullscreen · F12: screenshot · Esc: quit. Bindings live in [`ProjectSettings/InputManager.json`](ProjectSettings/InputManager.json); fighter data in `Assets/Fighters/<Name>/<id>.fighter.json`.
 
 ### Command line
 
@@ -107,7 +107,8 @@ Unity-compatible names where they exist:
 | `-frames N` | Frames to run in batch mode (default 180) |
 | `-screenshot <path>` | Save the final batch-mode frame as PNG |
 | `-demo` | Start in CPU vs CPU mode |
-| `-training` | Start with the training overlay on |
+| `-training` | Training mode: the clock stops, nobody is K.O.'d, health and Heat refill after a second; player 2 is a dummy; the overlay and an input display are on |
+| `-dummy <mode>` | Training dummy: `stand`, `crouch`, `jump`, `guard`, `guard-all` (crouches against lows), `cpu` |
 | `-stage <id>` | Start on a stage: `pier_nine`, `lantern_row`, `the_crown` |
 | `-music-volume 0..1`, `-sfx-volume 0..1`, `-voice-volume 0..1` | Mix-group volumes (also in `boot.config`) |
 | `-hdr auto\|on\|off`, `-vsync 0\|1`, `-presentation integer\|letterbox`, `-render-driver <name>` | Override `boot.config` |

@@ -22,7 +22,7 @@ flowchart LR
     AP --> VFS
 ```
 
-Static libraries without SDL (`Core`, `Vfs`, `Simulation`, `Content`) carry everything that can be unit-tested; `Content` turns JSON into the simulation's plain `FighterSpec` and checks the timing contract ([ADR-0010](adr/0010-fighter-content-format.md)), so the simulation never sees JSON; the engine module adds the platform. The launcher knows only `Public/IronRing/Player.h`.
+Static libraries without SDL (`Core`, `Vfs`, `Simulation`, `Content`) carry everything that can be unit-tested (the simulation also holds the training rules and the deterministic training dummy, `Simulation/Training`); `Content` turns JSON into the simulation's plain `FighterSpec` and checks the timing contract ([ADR-0010](adr/0010-fighter-content-format.md)), so the simulation never sees JSON; the engine module adds the platform. The launcher knows only `Public/IronRing/Player.h`.
 
 ## Engine internals (`Source/Runtime`)
 
@@ -39,7 +39,8 @@ Static libraries without SDL (`Core`, `Vfs`, `Simulation`, `Content`) carry ever
 | `Game/FighterView` | simulation state → animation frame (and the held opponent's pose during throws) |
 | `Game/Effects` | short sprite effects spawned from `StepEvents`, HDR-boosted |
 | `Game/Hud` | health, Heat, timer, portraits, win markers, round banners, from `hud_layout.json` |
-| `Game/TrainingOverlay` | F3: hit/hurt boxes, move frame data, frame advantage |
+| `Game/TrainingOverlay` | F3: hit/hurt boxes (per move phase), move frame data, frame advantage |
+| `Game/InputDisplay` | training: both players' recent inputs (ticks, numpad direction, buttons) |
 | `Game/InputMapper` | keyboard → simulation input bits, edge latch between ticks |
 | `Render/SpriteSheet`, `Render/BitmapFont` | atlas frames drawn at their pivots (flippable); monospaced bitmap text |
 
