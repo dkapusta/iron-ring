@@ -2,6 +2,7 @@
 
 #include "Assets/AssetLibrary.h"
 #include "Audio/AudioSystem.h"
+#include "Content/Arcade.h"
 #include "Content/Stage.h"
 #include "Render/BitmapFont.h"
 
@@ -9,6 +10,7 @@
 
 #include <array>
 #include <memory>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <unordered_map>
@@ -56,6 +58,8 @@ public:
     [[nodiscard]] const RosterEntry* fighter(std::string_view id) const;
     // The first two playable fighters (the default pairing).
     [[nodiscard]] std::array<std::string, 2> defaultPair() const;
+    [[nodiscard]] const content::ArcadeLadder* arcade() const { return arcade_ ? &*arcade_ : nullptr; }
+    [[nodiscard]] std::vector<std::string> playableIds() const;
     [[nodiscard]] const Texture& logo() const { return *logo_; }
     [[nodiscard]] const Texture& backdrop() const { return *backdrop_; }
 
@@ -76,6 +80,7 @@ private:
     std::unordered_map<std::string, AudioSystem::Music> themes_;
     std::unordered_map<std::string, std::string> themeTitles_;
     std::string menuTheme_;
+    std::optional<content::ArcadeLadder> arcade_;
     const Texture* logo_ = nullptr;
     const Texture* backdrop_ = nullptr;
 };

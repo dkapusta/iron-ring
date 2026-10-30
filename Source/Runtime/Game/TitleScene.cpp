@@ -11,7 +11,7 @@
 namespace iron {
 
 TitleScene::TitleScene(Services& services) : services_(services) {
-    menu_.add(MenuItem::action("arcade", "ARCADE - SOON", false));
+    menu_.add(MenuItem::action("arcade", "ARCADE", services_.data.arcade() != nullptr));
     menu_.add(MenuItem::action("versus", "VERSUS CPU"));
     menu_.add(MenuItem::action("2p", "2 PLAYERS"));
     menu_.add(MenuItem::action("training", "TRAINING"));
@@ -46,7 +46,8 @@ void TitleScene::startAttract() {
 
 void TitleScene::choose(const std::string& id) {
     auto& scenes = services_.scenes;
-    if (id == "versus") scenes.push(std::make_unique<CharacterSelectScene>(services_, SelectMode::VsCpu));
+    if (id == "arcade") scenes.push(std::make_unique<CharacterSelectScene>(services_, SelectMode::Arcade));
+    else if (id == "versus") scenes.push(std::make_unique<CharacterSelectScene>(services_, SelectMode::VsCpu));
     else if (id == "2p") scenes.push(std::make_unique<CharacterSelectScene>(services_, SelectMode::TwoPlayers));
     else if (id == "training") scenes.push(std::make_unique<CharacterSelectScene>(services_, SelectMode::Training));
     else if (id == "options") scenes.push(std::make_unique<OptionsScene>(services_));

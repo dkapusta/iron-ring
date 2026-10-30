@@ -1,5 +1,6 @@
 # Content formats and validation: no SDL, shared by the runtime, AssetPacker and tests.
 add_library(IronRingContent STATIC
+    Arcade.h     Arcade.cpp
     Atlas.h      Atlas.cpp
     Fighter.h    Fighter.cpp
     Paths.h      Paths.cpp

@@ -22,7 +22,7 @@ flowchart LR
     AP --> VFS
 ```
 
-Static libraries without SDL (`Core`, `Vfs`, `Simulation`, `Content`) carry everything that can be unit-tested (the simulation also holds the training rules and the deterministic training dummy, `Simulation/Training`); `Content` turns JSON into the simulation's plain `FighterSpec` and checks the timing contract ([ADR-0010](adr/0010-fighter-content-format.md)), so the simulation never sees JSON; the engine module adds the platform. The launcher knows only `Public/IronRing/Player.h`.
+Static libraries without SDL (`Core`, `Vfs`, `Simulation`, `Content`) carry everything that can be unit-tested (the simulation also holds the training rules and the deterministic training dummy, `Simulation/Training`, and the CPU opponent with its five levels, `Simulation/Cpu`); `Content` turns JSON into the simulation's plain `FighterSpec` and checks the timing contract ([ADR-0010](adr/0010-fighter-content-format.md)), so the simulation never sees JSON; the engine module adds the platform. The launcher knows only `Public/IronRing/Player.h`.
 
 ## Engine internals (`Source/Runtime`)
 
@@ -38,6 +38,7 @@ Static libraries without SDL (`Core`, `Vfs`, `Simulation`, `Content`) carry ever
 | `Game/Services`, `Game/GameData` | what scenes share: assets, audio, display, controls, settings, prefs; fonts, sounds, themes, stages and the roster, loaded once |
 | `Game/TitleScene`, `CharacterSelectScene`, `StageSelectScene`, `OptionsScene`, `FightMenuScene` | the front end: title + attract demo, roster grid, venue picker, options (live, saved to `prefs.cfg`), pause / post-match menu |
 | `Game/MenuView` | shared menu behaviour and drawing over `Core/Menu` |
+| `Game/ArcadeScene` | an arcade run: versus card, the fight, continue countdown, game over, ending (`content::ArcadeRun`) |
 | `Game/FightScene` | versus screen for a `FightSetup`; the `Camera` (`Core/Camera.h`) follows the fighters on wide stages (fighters, stage, control, training); `Match` + views + effects + HUD + overlay; events → sounds |
 | `Game/FighterView` | simulation state → animation frame (and the held opponent's pose during throws) |
 | `Game/StageView` | a flat stage, or layers with parallax, drift and animation for a camera position; the crowd's excitement (raised by hits, throws, K.O.s) |

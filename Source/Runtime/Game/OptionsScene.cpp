@@ -24,6 +24,8 @@ OptionsScene::OptionsScene(Services& services) : services_(services) {
     menu_.add(MenuItem::setting("vsync", "VSYNC", {"OFF", "ON"}, s.vsync ? 1 : 0));
     auto& hdr = menu_.add(MenuItem::setting("hdr", "HDR", {"AUTO", "ON", "OFF"}, static_cast<int>(s.hdr)));
     hdr.note = "BRIGHTER HIGHLIGHTS ON HDR DISPLAYS";
+    menu_.add(MenuItem::setting("cpu", "CPU LEVEL", {"EASY", "NORMAL", "HARD"}, s.cpuDifficulty)).note =
+        "VERSUS CPU, AND THE ARCADE LADDER";
     auto& fx = menu_.add(MenuItem::setting("fx", "SCREEN EFFECTS", {"FULL", "REDUCED"}, s.reducedEffects ? 1 : 0));
     fx.note = "REDUCED: GENTLE SHAKE, NO FLASHES";
     menu_.add(MenuItem::action("controls", "CONTROLS"));
@@ -48,6 +50,8 @@ void OptionsScene::apply(const MenuItem& item) {
     } else if (item.id == "vsync") {
         s.vsync = item.choice == 1;
         services_.display.setVsync(s.vsync);
+    } else if (item.id == "cpu") {
+        s.cpuDifficulty = item.choice;
     } else if (item.id == "fx") {
         s.reducedEffects = item.choice == 1;
     } else if (item.id == "hdr") {
@@ -82,12 +86,12 @@ void OptionsScene::render(const RenderContext& context) {
     const auto& data = services_.data;
     const SDL_FRect all{0, 0, services_.width, services_.height};
     SDL_RenderTexture(r, data.backdrop().handle.get(), nullptr, &all);
-    data.large().draw(r, "OPTIONS", 320, 34, ui::kWhite, Align::Centre);
-    const SDL_FRect panel{170, 78, 300, 172}; // ten lines; the focused note goes below it
+    data.large().draw(r, "OPTIONS", 320, 22, ui::kWhite, Align::Centre);
+    const SDL_FRect panel{170, 70, 300, 188}; // eleven lines; the focused note goes below it
     ui::frame(r, panel);
     ui::fill(r, panel.x, panel.y, panel.w, panel.h, ui::kNight);
     MenuStyle style;
-    style.y = 92;
+    style.y = 84;
     style.width = 250;
     style.spacing = 16;
     style.noteGap = 10;

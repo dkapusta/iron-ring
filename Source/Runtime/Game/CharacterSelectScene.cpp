@@ -1,5 +1,6 @@
 #include "Game/CharacterSelectScene.h"
 
+#include "Game/ArcadeScene.h"
 #include "Game/MenuView.h"
 #include "Game/StageSelectScene.h"
 #include "Render/Ui.h"
@@ -14,6 +15,7 @@ const char* title(SelectMode mode) {
     case SelectMode::VsCpu: return "VERSUS CPU";
     case SelectMode::TwoPlayers: return "2 PLAYERS";
     case SelectMode::Training: return "TRAINING";
+    case SelectMode::Arcade: return "ARCADE";
     }
     return "";
 }
@@ -46,6 +48,7 @@ const FighterView* CharacterSelectScene::view(int index) const {
 
 int CharacterSelectScene::sideFor(const MenuEvent& event) const {
     if (mode_ == SelectMode::TwoPlayers) return event.player;
+    if (mode_ == SelectMode::Arcade) return 0;
     // One player picks both, their own side first, then the opponent; either
     // set of keys (or pad) steers.
     return picked_[0] ? 1 : 0;
@@ -80,7 +83,7 @@ void CharacterSelectScene::handleMenu(const MenuEvent& event) {
         services_.scenes.pop();
         return;
     }
-    if (picked_[static_cast<std::size_t>(side)]) return;
+    if (picked_[static_cast<std::size_t>(side)] || ready()) return;
     int& cursor = cursor_[static_cast<std::size_t>(side)];
     const int before = cursor;
     switch (event.action) {
@@ -96,16 +99,44 @@ void CharacterSelectScene::handleMenu(const MenuEvent& event) {
 
 void CharacterSelectScene::fixedUpdate() {
     ++clock_;
-    if (!picked_[0] || !picked_[1]) return;
+    if (!ready()) return;
     if (++ready_ < kReadyTicks) return;
     ready_ = kReadyTicks;
+    if (mode_ == SelectMode::Arcade) {
+        const auto& player = services_.data.roster()[static_cast<std::size_t>(cursor_[0])].id;
+        services_.scenes.replaceTop(std::make_unique<ArcadeScene>(services_, player));
+        return;
+    }
     FightSetup setup;
     setup.control = mode_ == SelectMode::TwoPlayers ? Control::TwoPlayers : Control::VsCpu;
     setup.training = mode_ == SelectMode::Training;
     setup.fromSelect = true;
+    setup.cpuLevel = services_.settings.cpuDifficulty + 1; // EASY BRAWLER, NORMAL CONTENDER, HARD VETERAN
     for (std::size_t side = 0; side < 2; ++side)
         setup.fighters[side] = services_.data.roster()[static_cast<std::size_t>(cursor_[side])].id;
     services_.scenes.push(std::make_unique<StageSelectScene>(services_, std::move(setup)));
+}
+
+void CharacterSelectScene::drawLadder(SDL_Renderer* r) const {
+    // The road to the Crown, for the fighter under the cursor.
+    const auto* ladder = services_.data.arcade();
+    if (!ladder) return;
+    const auto& data = services_.data;
+    const auto& player = data.roster()[static_cast<std::size_t>(cursor_[0])];
+    const float right = services_.width - 12;
+    data.small().draw(r, "THE LADDER", right, 88, ui::kBrassLight, Align::Right, true);
+    float y = 104;
+    for (std::size_t i = 0; i < ladder->bouts.size(); ++i) {
+        const auto& bout = ladder->bouts[i];
+        const auto opponent = content::arcadeOpponent(bout, player.id, data.playableIds());
+        const auto* entry = data.fighter(opponent);
+        const auto& stage = data.stages()[data.stageIndex(bout.stage)];
+        const std::string who = player.playable() && entry ? ui::upper(entry->name) : "?";
+        data.small().draw(r, std::to_string(i + 1) + ". " + ui::upper(stage.name), right, y,
+                          bout.final ? ui::kCoralLight : ui::kChalk, Align::Right, true);
+        data.small().draw(r, "VS " + who, right, y + 9, ui::kFog, Align::Right, true);
+        y += 24;
+    }
 }
 
 SDL_FRect CharacterSelectScene::cellRect(int index) const {
@@ -137,6 +168,7 @@ void CharacterSelectScene::drawGrid(SDL_Renderer* r) const {
     // Cursors: both on one cell take turns blinking.
     for (int side = 0; side < 2; ++side) {
         const auto s = static_cast<std::size_t>(side);
+        if (side == 1 && mode_ == SelectMode::Arcade) continue;
         const bool shared = cursor_[0] == cursor_[1];
         if (shared && !picked_[0] && !picked_[1] && (clock_ / 12) % 2 != side) continue;
         if (picked_[s] && (clock_ - pickedAt_[s]) < 20 && (clock_ / 3) % 2 == 0) continue; // flash on pick
@@ -196,9 +228,10 @@ void CharacterSelectScene::render(const RenderContext& context) {
     data.large().draw(r, "SELECT FIGHTER", services_.width / 2, 14, ui::kWhite, Align::Centre);
     data.small().draw(r, title(mode_), services_.width / 2, 42, ui::kBrassLight, Align::Centre, true);
     drawSide(r, 0);
-    drawSide(r, 1);
+    if (mode_ == SelectMode::Arcade) drawLadder(r);
+    else drawSide(r, 1);
     drawGrid(r);
-    if (picked_[0] && picked_[1]) {
+    if (ready() && mode_ != SelectMode::Arcade) {
         if ((clock_ / 6) % 2 == 0) data.large().draw(r, "VS", services_.width / 2, 110, ui::kBrassLight, Align::Centre);
     } else {
         data.small().draw(r, "PUNCH TO PICK - KICK TO GO BACK", services_.width / 2, 346, ui::kFog, Align::Centre, true);

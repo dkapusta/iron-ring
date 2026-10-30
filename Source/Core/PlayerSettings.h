@@ -28,6 +28,7 @@ struct PlayerSettings {
     float sfxVolume = 1.0f;   // 0..1, sound-effect mix group
     float voiceVolume = 1.0f; // 0..1, announcer mix group
     bool reducedEffects = false; // screen-effects=reduced: gentler shake, no full-screen flashes
+    int cpuDifficulty = 1;       // cpu-level=easy|normal|hard (0..2): Versus CPU, and the arcade ladder's offset
 
     bool batchMode = false;   // -batchmode: offscreen video, fixed frame count, then quit
     bool demo = false;        // -demo: CPU vs CPU
@@ -35,6 +36,7 @@ struct PlayerSettings {
     std::string stage;        // -stage <id>: start stage (default: GameSettings startStage)
     std::string dummy;        // -dummy <mode>: training dummy (stand, crouch, jump, guard, guard-all, cpu)
     std::string scene;        // -scene <name>: open title, select, stage or options (screenshots, testing)
+    bool autoplay = false;    // -autoplay: a CHAMPION CPU plays player 1 (soak tests of the arcade ladder)
     std::string keys;         // -keys "30:Return,45:Down": key taps at given frames (batch testing)
     int batchFrames = 180;
     std::filesystem::path screenshotPath;

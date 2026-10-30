@@ -5,11 +5,11 @@
 
 An early-90s style arcade fighting game about the **Iron Ring** — an illegal, invitation-only fight-club tournament in the dying port city of Grayhaven, 1992. Big pixel-art sprites, four attack buttons, throws and specials, short explosive exchanges, built on a small, testable C++20 / SDL3 codebase. Setting and cast: [docs/design/setting.md](docs/design/setting.md).
 
-![Dee Marlowe's Shin Kick lands on Bram Hollis at Pier 9](docs/images/demo-capture.png)
+![Bram Hollis slams Dee Marlowe to the deck at Pier 9](docs/images/demo-capture.png)
 
-*Above: a real frame captured with `-batchmode -demo -frames 420 -screenshot` at 1920 × 1080: Dee Marlowe's Shin Kick lands on Bram Hollis at Pier 9. Fighters and stages are from Iron Ring Art Pack v1 ([ADR-0012](docs/adr/0012-adopting-external-art.md)); the music (a theme per venue), sound effects and announcer are generated on a model of the NES sound chip ([docs/audio.md](docs/audio.md)).*
+*Above: a real frame captured with `-batchmode -demo -frames 520 -screenshot` at 1920 × 1080: Bram Hollis slams Dee Marlowe to the deck at Pier 9. Fighters and stages are from Iron Ring Art Pack v1 ([ADR-0012](docs/adr/0012-adopting-external-art.md)); the music (a theme per venue), sound effects and announcer are generated on a model of the NES sound chip ([docs/audio.md](docs/audio.md)).*
 
-> **Status: M2 — Complete local play, in progress.** M1 delivered Dee vs Bram with data-driven fighters, throws, specials, knockdowns, best-of-3 rounds, a pixel-art HUD, a training mode, venue themes and an announcer. M2 so far: the front end (title with an attract demo, character and stage select, options, pause and rematch menus), saved options, gamepads and remapping, layered scrolling stages with a reacting crowd, and the hit-feel pass: counter hits, combos and cancels, a Breakaway that guard-cancels, and Heat that lasts the match. See [ROADMAP.md](ROADMAP.md).
+> **Status: M2 — Complete local play, in progress.** M1 delivered Dee vs Bram with data-driven fighters, throws, specials, knockdowns, best-of-3 rounds, a pixel-art HUD, a training mode, venue themes and an announcer. M2 so far: the front end (title with an attract demo, character and stage select, options, pause and rematch menus), saved options, gamepads and remapping, layered scrolling stages with a reacting crowd, the hit-feel pass (counter hits, combos and cancels, a Breakaway that guard-cancels, Heat that lasts the match), and the arcade ladder against a CPU with five levels. See [ROADMAP.md](ROADMAP.md).
 
 ![The title menu, character select, stage select and pause menu](docs/images/m2-front-end.png)
 
@@ -84,7 +84,7 @@ The folder is self-contained and can be zipped and copied as is. `cmake --instal
 
 ### Playing
 
-The game opens on the title screen: press Start (Return, or a pad's Start) for the menu: **Versus CPU**, **2 Players**, **Training**, **Options**. Pick fighters on the character select (locked slots are the fighters still to come), then a venue. Start or Escape pauses a fight (resume, restart, character select, options, quit to title); after a match you get a rematch menu. Left alone, the title runs a CPU-vs-CPU demo, like an arcade cabinet.
+The game opens on the title screen: press Start (Return, or a pad's Start) for the menu: **Arcade** (four bouts, venue by venue, up to the final bout at The Crown, with continues), **Versus CPU**, **2 Players**, **Training**, **Options**. The CPU has five levels, ROOKIE to CHAMPION; *Options → CPU level* (Easy / Normal / Hard) picks the Versus CPU opponent and shifts the arcade ladder. Pick fighters on the character select (locked slots are the fighters still to come), then a venue. Start or Escape pauses a fight (resume, restart, character select, options, quit to title); after a match you get a rematch menu. Left alone, the title runs a CPU-vs-CPU demo, like an arcade cabinet.
 
 ### Controls
 
@@ -133,6 +133,8 @@ Unity-compatible names where they exist:
 | `-scene <name>` | Open `title`, `select`, `stage` or `options` (screenshots, testing) |
 | `-keys "<frame>:<key>,..."` | Batch tests: tap keys (SDL key names) at the given frames, e.g. `"10:Return,30:Down"`; `"30-90:D"` holds a key, `"40:S+D"` presses keys together |
 | `-music-volume 0..1`, `-sfx-volume 0..1`, `-voice-volume 0..1` | Mix-group volumes (also in `boot.config` and Options) |
+| `-cpu-level easy\|normal\|hard` | CPU difficulty (also in Options) |
+| `-autoplay` | A CHAMPION CPU plays player 1 (soak tests: `-batchmode -autoplay` runs the whole arcade ladder) |
 | `-screen-effects full\|reduced` | Reduced: a gentle shake and no full-screen flashes (also in Options) |
 | `-hdr auto\|on\|off`, `-vsync 0\|1`, `-presentation integer\|letterbox`, `-render-driver <name>` | Override `boot.config` |
 | `-data-folder <path>` | Use another `<name>_Data` folder |
@@ -140,7 +142,7 @@ Unity-compatible names where they exist:
 
 Settings come from defaults, then `boot.config`, then `prefs.cfg`, then the command line; batch runs ignore `prefs.cfg`.
 
-Smoke tests used by CI: `IronRing.x86_64 -batchmode -demo -screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -frames 420 -screenshot shot.png`, and the front end driven by key taps: `-batchmode -frames 440 -keys "10:Return,30:Return,60:Return,80:Return,160:Right,175:Return,420:Escape"` (title → Versus CPU → both picks → next stage → fight → pause).
+Smoke tests used by CI: `IronRing.x86_64 -batchmode -demo -screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -frames 420 -screenshot shot.png`, the front end driven by key taps: `-batchmode -frames 450 -keys "10:Return,20:Down,30:Return,60:Return,80:Return,160:Right,175:Return,430:Escape"` (title → Versus CPU → both picks → next stage → fight → pause), and the arcade soak: `-batchmode -autoplay -frames 13000 -keys "10:Return,30:Return,60:Return"` (the whole ladder to the ending).
 
 ## Repository layout
 

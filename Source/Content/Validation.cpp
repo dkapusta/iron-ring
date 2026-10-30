@@ -1,5 +1,6 @@
 #include "Content/Validation.h"
 
+#include "Content/Arcade.h"
 #include "Content/Paths.h"
 #include "Content/Stage.h"
 
@@ -188,6 +189,28 @@ ValidationReport validateProject(const FileReader& read) {
                     report.warnings.push_back("GameSettings.json: ui: the backdrop is expected to be 640x360");
             }
             menuTheme = ui.value("music", std::string{});
+        }
+
+        // Arcade ladder: every bout on a known stage, against a known fighter.
+        if (settings->contains("arcade")) {
+            const auto arcadePath = settings->at("arcade").get<std::string>();
+            if (const auto json = readJson(read, arcadePath, report)) {
+                const auto ladder = parseArcade(*json, arcadePath);
+                std::vector<std::string> stageIds;
+                if (const auto stages = readJson(read, stagesPath, report))
+                    for (const auto& st : stages->at("stages")) stageIds.push_back(st.at("id").get<std::string>());
+                for (std::size_t b = 0; b < ladder.bouts.size(); ++b) {
+                    const auto& bout = ladder.bouts[b];
+                    const auto where = arcadePath + ": bout " + std::to_string(b + 1);
+                    if (std::find(stageIds.begin(), stageIds.end(), bout.stage) == stageIds.end())
+                        report.errors.push_back(where + ": unknown stage '" + bout.stage + "'");
+                    const bool known = bout.opponent == "rival" || bout.opponent == "mirror" ||
+                                       std::any_of(fighters.begin(), fighters.end(),
+                                                   [&](const auto& f) { return f.first.id == bout.opponent; });
+                    if (!known) report.errors.push_back(where + ": unknown opponent '" + bout.opponent + "'");
+                }
+                if (!ladder.bouts.back().final) report.warnings.push_back(arcadePath + ": the last bout isn't marked final");
+            }
         }
 
         // Effects.

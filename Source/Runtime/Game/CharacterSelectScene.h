@@ -10,12 +10,13 @@
 
 namespace iron {
 
-enum class SelectMode { VsCpu, TwoPlayers, Training };
+enum class SelectMode { VsCpu, TwoPlayers, Training, Arcade };
 
 // Character select: the roster grid with every planned fighter (the ones not
 // built yet are locked), a full-size preview of each side's choice, then the
 // stage select. Versus CPU and training: player 1 picks both sides in turn.
-// Two players: each picks their own side at the same time.
+// Two players: each picks their own side at the same time. Arcade: one pick,
+// then the ladder.
 class CharacterSelectScene final : public Scene {
 public:
     CharacterSelectScene(Services& services, SelectMode mode);
@@ -38,6 +39,8 @@ private:
     [[nodiscard]] SDL_FRect cellRect(int index) const;
     void drawGrid(SDL_Renderer* r) const;
     void drawSide(SDL_Renderer* r, int side) const;
+    void drawLadder(SDL_Renderer* r) const;
+    [[nodiscard]] bool ready() const { return picked_[0] && (mode_ == SelectMode::Arcade || picked_[1]); }
     [[nodiscard]] const FighterView* view(int index) const;
 
     Services& services_;
