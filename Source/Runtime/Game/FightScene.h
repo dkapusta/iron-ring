@@ -52,6 +52,10 @@ private:
     void loadMusic(AssetLibrary& assets, const std::string& musicPath);
     void newMatch();
     void playStageMusic();
+    static constexpr bool kVoice = true, kSound = false;
+    // Delayed audio, so the announcer doesn't talk over an impact or a jingle.
+    void cue(bool voice, std::string id, int delayTicks);
+    void playCues();
     [[nodiscard]] const char* controlName() const;
     void playEvents(const sim::MatchStep& step);
     void drawShadow(SDL_Renderer* r, float x, float groundY, float height) const;
@@ -70,6 +74,13 @@ private:
     Control control_ = Control::VsCpu;
     int clock_ = 0; // presentation clock: stops during hitstop
     std::unordered_map<std::string, AudioSystem::Music> themes_; // by theme id
+    struct Cue {
+        bool voice;
+        std::string id;
+        int tick;
+    };
+    std::vector<Cue> cues_;
+    int audioTick_ = 0; // fixed updates, independent of hitstop
 };
 
 } // namespace iron

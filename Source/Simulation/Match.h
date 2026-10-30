@@ -44,4 +44,10 @@ private:
     void enter(Phase next);
 };
 
+// True when this round decides the match whatever happens (both one win away,
+// or the last round allowed). Presentation calls it "FINAL ROUND".
+[[nodiscard]] inline bool isFinalRound(const Match& m) {
+    return m.roundNumber == kMaxRounds || (m.wins[0] == kRoundsToWin - 1 && m.wins[1] == kRoundsToWin - 1);
+}
+
 } // namespace iron::sim

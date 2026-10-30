@@ -30,7 +30,7 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
-from chiptune import apu, sfx  # noqa: E402
+from chiptune import apu, sfx, voice  # noqa: E402
 from chiptune.themes import lantern_row, pier_nine, the_crown  # noqa: E402
 
 ROOT = HERE.parent.parent
@@ -72,6 +72,21 @@ def trim_tail(pcm: np.ndarray, threshold: int = 24) -> np.ndarray:
 def render_effects() -> dict[Path, bytes]:
     return {AUDIO / f"{name}.wav": wav_bytes(trim_tail(pcm16(apu.render(build()))))
             for name, build in sfx.EFFECTS.items()}
+
+
+VOICE_PEAK_DBFS = -3.0
+
+
+def render_voice() -> dict[Path, bytes]:
+    """Announcer lines (eSpeak NG through the DMC model), each normalised to the same peak."""
+    speaker = voice.Speaker()
+    files = {}
+    for name, line in voice.LINES.items():
+        samples = voice.render(speaker, line)
+        gain = 10 ** (VOICE_PEAK_DBFS / 20) / (float(np.max(np.abs(samples))) or 1.0)
+        pcm = np.round(samples * gain * 32767).astype(np.int16)
+        files[AUDIO / "Voice" / f"{name}.wav"] = wav_bytes(trim_tail(pcm))
+    return files
 
 
 def render_music() -> tuple[dict[str, np.ndarray], dict]:
@@ -123,7 +138,7 @@ def main() -> int:
     parser.add_argument("--preview", type=Path, help="also write the themes as WAV here")
     args = parser.parse_args()
 
-    effects = render_effects()
+    effects = render_effects() | render_voice()
     music, meta = render_music()
     meta_path = args.assets / AUDIO / "music.json"
     previous = committed_meta(meta_path)

@@ -25,10 +25,23 @@
     "light_hit": "Resources/Audio/light_hit.wav",
     "menu_confirm": "Resources/Audio/menu_confirm.wav",
     "round_bell": "Resources/Audio/round_bell.wav",
-    "round_call": "Resources/Audio/round_call.wav",
     "slam": "Resources/Audio/slam.wav",
     "tech": "Resources/Audio/tech.wav",
     "victory": "Resources/Audio/victory.wav"
   },
-  "music": "Resources/Audio/music.json"
+  "music": "Resources/Audio/music.json",
+  "voice": {
+    "round_1": "Resources/Audio/Voice/round_1.wav",
+    "round_2": "Resources/Audio/Voice/round_2.wav",
+    "round_3": "Resources/Audio/Voice/round_3.wav",
+    "round_4": "Resources/Audio/Voice/round_4.wav",
+    "final_round": "Resources/Audio/Voice/final_round.wav",
+    "fight": "Resources/Audio/Voice/fight.wav",
+    "ko": "Resources/Audio/Voice/ko.wav",
+    "double_ko": "Resources/Audio/Voice/double_ko.wav",
+    "time_over": "Resources/Audio/Voice/time_over.wav",
+    "draw": "Resources/Audio/Voice/draw.wav",
+    "dee_wins": "Resources/Audio/Voice/dee_wins.wav",
+    "bram_wins": "Resources/Audio/Voice/bram_wins.wav"
+  }
 }

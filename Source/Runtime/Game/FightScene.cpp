@@ -44,6 +44,9 @@ FightScene::FightScene(AssetLibrary& assets, AudioSystem& audio, FightOptions op
     if (options.training) overlay_->toggle();
 
     for (const auto& [id, path] : settings.at("sounds").items()) audio_.load(id, assets.bytes(path.get<std::string>()));
+    if (settings.contains("voice"))
+        for (const auto& [id, path] : settings.at("voice").items())
+            audio_.loadVoice(id, assets.bytes(path.get<std::string>()));
     if (settings.contains("music")) loadMusic(assets, settings.at("music").get<std::string>());
     newMatch();
 }
@@ -87,6 +90,7 @@ void FightScene::playStageMusic() {
 void FightScene::newMatch() {
     match_ = std::make_unique<sim::Match>(views_[0]->definition().spec, views_[1]->definition().spec);
     effects_->clear();
+    cues_.clear();
     playStageMusic();
 }
 
@@ -116,18 +120,51 @@ void FightScene::playEvents(const sim::MatchStep& step) {
         audio_.play(soundFor(e.effect));
     }
     switch (step.flow) {
-    case sim::FlowEvent::RoundCall: audio_.play("round_call"); break;
-    case sim::FlowEvent::Fight: audio_.play("round_bell"); break;
+    case sim::FlowEvent::RoundCall:
+        // The announcer calls the round (it replaced a fanfare: the line needs the whole second before FIGHT!).
+        cue(kVoice, sim::isFinalRound(*match_) ? "final_round" : "round_" + std::to_string(match_->roundNumber), 0);
+        break;
+    case sim::FlowEvent::Fight:
+        audio_.play("round_bell");
+        cue(kVoice, "fight", 0);
+        break;
     case sim::FlowEvent::RoundEnd: {
         const auto& f = match_->round.fighters;
-        audio_.play(f[0].hp == 0 || f[1].hp == 0 ? "ko" : "round_bell");
+        const bool ko = f[0].hp == 0 || f[1].hp == 0;
+        audio_.play(ko ? "ko" : "round_bell");
+        // Let the impact land before the call.
+        cue(kVoice, !ko ? "time_over" : f[0].hp == 0 && f[1].hp == 0 ? "double_ko" : "ko", ko ? 24 : 6);
         break;
     }
     case sim::FlowEvent::MatchEnd:
         audio_.stopMusic(800);
-        audio_.play(match_->winner == sim::Outcome::Draw ? "round_bell" : "victory");
+        if (match_->winner == sim::Outcome::Draw) {
+            audio_.play("round_bell");
+            cue(kVoice, "draw", 0);
+        } else {
+            const auto& winner = views_[match_->winner == sim::Outcome::Player1 ? 0 : 1]->definition();
+            cue(kVoice, winner.id + "_wins", 0);
+            cue(kSound, "victory", 96); // the jingle after the call
+        }
         break;
     default: break;
+    }
+}
+
+void FightScene::cue(bool voice, std::string id, int delayTicks) {
+    cues_.push_back({voice, std::move(id), audioTick_ + delayTicks});
+}
+
+void FightScene::playCues() {
+    ++audioTick_;
+    for (auto it = cues_.begin(); it != cues_.end();) {
+        if (it->tick > audioTick_) {
+            ++it;
+            continue;
+        }
+        if (it->voice) audio_.playVoice(it->id);
+        else audio_.play(it->id);
+        it = cues_.erase(it);
     }
 }
 
@@ -140,6 +177,7 @@ void FightScene::fixedUpdate() {
 
     const auto step = match_->step(inputs);
     playEvents(step);
+    playCues();
     if (step.flow == sim::FlowEvent::Finished) {
         newMatch();
         return;

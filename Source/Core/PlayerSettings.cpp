@@ -77,10 +77,10 @@ bool applyValue(PlayerSettings& s, std::string_view key, std::string_view value)
         s.hdrMaxBoost = *v;
         return true;
     }
-    if (key == "music-volume" || key == "sfx-volume") {
+    if (key == "music-volume" || key == "sfx-volume" || key == "voice-volume") {
         const auto v = toFloat(value);
         if (!v || *v < 0.0f || *v > 1.0f) return false;
-        (key == "music-volume" ? s.musicVolume : s.sfxVolume) = *v;
+        (key == "music-volume" ? s.musicVolume : key == "sfx-volume" ? s.sfxVolume : s.voiceVolume) = *v;
         return true;
     }
     if (key == "render-driver") {
@@ -164,7 +164,7 @@ std::vector<std::string> applyCommandLine(PlayerSettings& settings, std::span<co
                 else settings.assetsFolder = p;
             }
         } else if (arg == "-hdr" || arg == "-vsync" || arg == "-presentation" || arg == "-render-driver" ||
-                   arg == "-music-volume" || arg == "-sfx-volume") {
+                   arg == "-music-volume" || arg == "-sfx-volume" || arg == "-voice-volume") {
             const auto v = next(i);
             ok = v && applyValue(settings, arg.substr(1), *v);
         } else {

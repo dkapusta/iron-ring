@@ -40,7 +40,7 @@ Application::Application(const PlayerSettings& settings, const ProductInfo& info
     SDL_Log("Display: %s", display_->describe().c_str());
     setWindowIcon();
 
-    audio_ = std::make_unique<AudioSystem>(settings_.musicVolume, settings_.sfxVolume);
+    audio_ = std::make_unique<AudioSystem>(settings_.musicVolume, settings_.sfxVolume, settings_.voiceVolume);
 
     // "pixelart" keeps the 640x360 art crisp at any integer or letterbox scale.
     const auto filter = parseScaleMode(gameSettings.value("textureFilter", "linear"));

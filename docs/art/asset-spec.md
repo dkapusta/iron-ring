@@ -190,7 +190,7 @@ The three venues: **Pier 9** (closed cargo pier, crane legs, freighter floodligh
 
 ## 6. Audio
 
-All sound is generated from an NES sound-chip model by `Tools/Audio/generate_audio.py`; the ids, formats, levels and how to change them are in [docs/audio.md](../audio.md). Replacement audio must keep the ids in `ProjectSettings/GameSettings.json → sounds` (AssetPacker checks the required ones), be 44.1 kHz mono 16-bit WAV for effects (no leading silence: they fire on the impact tick) and OGG for music with its loop point in `music.json`.
+All sound is generated from an NES sound-chip model by `Tools/Audio/generate_audio.py`; the ids, formats, levels and how to change them are in [docs/audio.md](../audio.md). Replacement audio must keep the ids in `ProjectSettings/GameSettings.json → sounds` (AssetPacker checks the required ones), be 44.1 kHz mono 16-bit WAV for effects (no leading silence: they fire on the impact tick) and OGG for music with its loop point in `music.json` (one theme per stage), and announcer lines in `Resources/Audio/Voice/`.
 
 ## 7. Naming and layout
 

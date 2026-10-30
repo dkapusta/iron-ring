@@ -32,7 +32,7 @@ TEST_CASE("command line uses Unity-compatible names and overrides boot.config") 
                                         "-screen-height", "900", "-vsync", "0", "-hdr", "on",
                                         "-batchmode", "-frames", "30", "-logFile", "out.log",
                                         "-demo", "-training", "-stage", "the_crown",
-                                        "-music-volume", "0.25", "-sfx-volume", "0"};
+                                        "-music-volume", "0.25", "-sfx-volume", "0", "-voice-volume", "0.5"};
     const auto warnings = applyCommandLine(s, args);
     CHECK(warnings.empty());
     CHECK(s.windowMode == WindowMode::Windowed);
@@ -48,6 +48,7 @@ TEST_CASE("command line uses Unity-compatible names and overrides boot.config") 
     CHECK(s.stage == "the_crown");
     CHECK(s.musicVolume == doctest::Approx(0.25f));
     CHECK(s.sfxVolume == 0.0f);
+    CHECK(s.voiceVolume == doctest::Approx(0.5f));
 }
 
 TEST_CASE("malformed command-line values are reported, not applied") {

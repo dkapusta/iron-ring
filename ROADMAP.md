@@ -43,7 +43,8 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 - ⬜ Training mode, rest: input display, dummy settings (block all / stand / crouch / jump), position reset
 - ⬜ Per-frame hurt boxes for moves that change the silhouette (sweeps, uppercut)
 - ✅ **Audio**: NES-style effects and the "Iron Ring" fight theme generated from a 2A03 model; music streamed and looping past its intro; SFX/music mix groups with volume settings; a soft limiter; round-call, tech, slam, K.O. and victory cues ([ADR-0013](docs/adr/0013-nes-style-generated-audio.md))
-- ⬜ Audio, rest: voice group (announcer), per-stage music, hit-confirm layering
+- ✅ A theme per venue ("Iron Ring", "Curfew Market", "Crown at Dawn") and the ring announcer through the DMC channel, with a voice mix group ([ADR-0014](docs/adr/0014-venue-themes-and-announcer.md))
+- ⬜ Audio, rest: hit-confirm layering; a recorded or neural announcer voice to replace eSpeak as the source (the DMC stage stays)
 - ⬜ Linux `.desktop` file and icon
 
 ## M2 — Complete local play
@@ -95,8 +96,10 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 | 2026-10-29 | Desperation moves | None. Heat pays only for the Breakaway |
 | 2026-10-29 | Art | Procedural interim art now; final art made elsewhere against the [asset spec](docs/art/asset-spec.md) and imported ([ADR-0011](docs/adr/0011-procedural-interim-art.md)) |
 | 2026-10-30 | Sound | Kit placeholders replaced by generated NES-style effects and theme ([ADR-0013](docs/adr/0013-nes-style-generated-audio.md)) |
+| 2026-10-30 | Music and voice | One theme per venue; an announcer ([ADR-0014](docs/adr/0014-venue-themes-and-announcer.md)) |
 | 2026-10-30 | Final art | Art Pack v1 adopted; frames re-registered at one scale, 48 colours per fighter ([ADR-0012](docs/adr/0012-adopting-external-art.md)) |
 
 ## Open questions for the project owner
 
-2. **Music**: one theme for every stage, or a theme per venue (M3)? An announcer voice for "ROUND / FIGHT / K.O."?
+1. **Art Pack v2**: who produces the corrections in the [frame review](docs/art/frame-review.md), and should the same generator be used, now with one generation per frame?
+2. **Announcer source**: keep eSpeak NG through the DMC, or record a voice (the pipeline takes any WAV as the source)?

@@ -166,6 +166,16 @@ ValidationReport validateProject(const FileReader& read) {
                 (void)readPng(read, siblingPath(fontPath, json->at("image").get<std::string>()), report);
         }
         for (const auto& [id, path] : settings->at("sounds").items()) requireFile(read, path.get<std::string>(), report);
+        if (settings->contains("voice")) {
+            const auto& voice = settings->at("voice");
+            for (const auto& [id, path] : voice.items()) requireFile(read, path.get<std::string>(), report);
+            for (const auto id : kVoiceLines)
+                if (!voice.contains(id))
+                    report.errors.push_back("GameSettings.json: voice: missing '" + std::string(id) + "'");
+            for (const auto& [fighter, _] : fighters)
+                if (!voice.contains(fighter.id + "_wins"))
+                    report.warnings.push_back("GameSettings.json: voice: no '" + fighter.id + "_wins' line");
+        }
         for (const auto id : kSounds)
             if (!settings->at("sounds").contains(id))
                 report.errors.push_back("GameSettings.json: sounds: missing '" + std::string(id) + "'");
