@@ -68,6 +68,11 @@ void FightScene::newMatch() {
     if (entered_) playStageMusic(); // a rematch: the theme stopped at the end of the match
 }
 
+bool FightScene::human(int side) const {
+    if (control_ == Control::Demo) return false;
+    return side == 0 || control_ == Control::TwoPlayers;
+}
+
 void FightScene::resetPositions() {
     match_->round.reset();
     effects_->clear();

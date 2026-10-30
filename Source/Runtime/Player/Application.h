@@ -41,6 +41,7 @@ private:
     void setWindowIcon();
     void handleEvent(const SDL_Event& event);
     void openFirstScene();
+    void resetRenderer();
     void playKeyScript(int frame);
     void render(const std::filesystem::path& capturePath);
     void drawOverlay();

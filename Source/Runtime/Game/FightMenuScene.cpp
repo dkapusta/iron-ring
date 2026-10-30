@@ -2,6 +2,7 @@
 
 #include "Game/FightScene.h"
 #include "Game/MenuView.h"
+#include "Game/MoveListScene.h"
 #include "Game/OptionsScene.h"
 #include "Render/Ui.h"
 
@@ -30,6 +31,7 @@ FightMenuScene::FightMenuScene(Services& services, FightScene& fight, bool postM
             menu_.add(MenuItem::setting("dummy", "DUMMY", dummyChoices(), static_cast<int>(fight_.dummy())));
         }
         menu_.add(MenuItem::action("restart", setup.training ? "RESTART" : "RESTART MATCH"));
+        menu_.add(MenuItem::action("moves", "MOVE LIST"));
         menu_.add(MenuItem::action("options", "OPTIONS"));
     }
     if (setup.fromSelect) menu_.add(MenuItem::action("select", "CHARACTER SELECT"));
@@ -59,6 +61,8 @@ void FightMenuScene::choose(const std::string& id) {
     } else if (id == "restart") {
         fight_.newMatch();
         scenes.pop(Transition::Cut);
+    } else if (id == "moves") {
+        scenes.push(std::make_unique<MoveListScene>(services_, fight_), Transition::Cut);
     } else if (id == "options") {
         scenes.push(std::make_unique<OptionsScene>(services_));
     } else if (id == "select") {

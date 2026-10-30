@@ -76,13 +76,21 @@ float Display::highlightBoost() const {
     return std::clamp(hdr_.headroom, 1.0f, maxBoost_);
 }
 
-void Display::onHdrStateChanged() {
+bool Display::onHdrStateChanged(HdrMode mode) {
     const bool wasEnabled = hdr_.enabled;
     readHdrState();
-    if (!hdr_.linearOutput && displayReportsHdr(window_.get()))
-        SDL_Log("HDR: display switched to HDR; restart the player to enable HDR output");
-    else if (wasEnabled != hdr_.enabled)
+    if (wasEnabled != hdr_.enabled)
         SDL_Log("HDR: now %s (headroom %.2f)", hdr_.enabled ? "on" : "off", static_cast<double>(hdr_.headroom));
+    // Turning HDR off needs nothing: SDL maps scRGB output to SDR by itself.
+    return mode == HdrMode::Auto && !hdr_.linearOutput && displayReportsHdr(window_.get());
+}
+
+void Display::recreateRenderer(const PlayerSettings& settings) {
+    renderer_.reset();
+    hdr_ = {};
+    createRenderer(settings);
+    setPresentation(settings.presentation);
+    SDL_Log("Display: new renderer, %s", describe().c_str());
 }
 
 void Display::toggleFullscreen() { setFullscreen(!fullscreen()); }

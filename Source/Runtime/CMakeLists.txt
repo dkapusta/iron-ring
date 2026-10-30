@@ -6,6 +6,7 @@ add_library(IronRingEngine SHARED
     Audio/AudioSystem.h         Audio/AudioSystem.cpp
     Game/CharacterSelectScene.h Game/CharacterSelectScene.cpp
     Game/Controls.h             Game/Controls.cpp
+    Game/ControlsScene.h        Game/ControlsScene.cpp
     Game/Effects.h              Game/Effects.cpp
     Game/FighterView.h          Game/FighterView.cpp
     Game/FightMenuScene.h       Game/FightMenuScene.cpp
@@ -13,6 +14,7 @@ add_library(IronRingEngine SHARED
     Game/GameData.h             Game/GameData.cpp
     Game/Hud.h                  Game/Hud.cpp
     Game/MenuView.h             Game/MenuView.cpp
+    Game/MoveListScene.h        Game/MoveListScene.cpp
     Game/OptionsScene.h         Game/OptionsScene.cpp
     Game/Scene.h
     Game/SceneStack.h           Game/SceneStack.cpp
