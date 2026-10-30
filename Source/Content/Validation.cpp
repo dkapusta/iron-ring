@@ -2,6 +2,7 @@
 
 #include "Content/Paths.h"
 
+#include <algorithm>
 #include <optional>
 #include <set>
 #include <utility>
@@ -145,6 +146,34 @@ ValidationReport validateProject(const FileReader& read) {
             }
         }
 
+        // Front end: the roster file, the title logo, the menu backdrop and theme.
+        if (settings->contains("roster")) {
+            const auto rosterPath = settings->at("roster").get<std::string>();
+            if (const auto roster = readJson(read, rosterPath, report)) {
+                std::vector<std::string> listed;
+                for (const auto& f : roster->at("fighters")) listed.push_back(f.at("id").get<std::string>());
+                for (const auto& [fighter, _] : fighters)
+                    if (std::find(listed.begin(), listed.end(), fighter.id) == listed.end())
+                        report.warnings.push_back(rosterPath + ": '" + fighter.id + "' is not listed (it goes last)");
+            }
+        }
+        std::string menuTheme;
+        if (!settings->contains("ui")) {
+            report.errors.push_back("GameSettings.json: ui (logo, backdrop, music) is required");
+        } else {
+            const auto& ui = settings->at("ui");
+            for (const auto key : {"logo", "backdrop"}) {
+                if (!ui.contains(key)) {
+                    report.errors.push_back(std::string("GameSettings.json: ui: missing '") + key + "'");
+                    continue;
+                }
+                const auto size = readPng(read, ui.at(key).get<std::string>(), report);
+                if (size && std::string_view(key) == "backdrop" && *size != std::pair{640, 360})
+                    report.warnings.push_back("GameSettings.json: ui: the backdrop is expected to be 640x360");
+            }
+            menuTheme = ui.value("music", std::string{});
+        }
+
         // Effects.
         const auto effectsPath = settings->at("effects").get<std::string>();
         if (const auto json = readJson(read, effectsPath, report)) {
@@ -187,6 +216,8 @@ ValidationReport validateProject(const FileReader& read) {
                     if (theme.value("loopStartFrame", std::int64_t{0}) >= theme.value("lengthFrames", std::int64_t{0}))
                         report.errors.push_back(musicPath + ": " + id + ": loopStartFrame must be inside the track");
                 }
+                if (!menuTheme.empty() && !music->at("themes").contains(menuTheme))
+                    report.errors.push_back("GameSettings.json: ui: unknown music '" + menuTheme + "'");
                 if (stageMusic) {
                     for (const auto& [stage, theme] : *stageMusic)
                         if (!music->at("themes").contains(theme))

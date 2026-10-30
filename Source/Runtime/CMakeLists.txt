@@ -4,12 +4,21 @@ add_library(IronRingEngine SHARED
     Public/IronRing/Player.h
     Assets/AssetLibrary.h       Assets/AssetLibrary.cpp
     Audio/AudioSystem.h         Audio/AudioSystem.cpp
+    Game/CharacterSelectScene.h Game/CharacterSelectScene.cpp
+    Game/Controls.h             Game/Controls.cpp
     Game/Effects.h              Game/Effects.cpp
     Game/FighterView.h          Game/FighterView.cpp
+    Game/FightMenuScene.h       Game/FightMenuScene.cpp
     Game/FightScene.h           Game/FightScene.cpp
+    Game/GameData.h             Game/GameData.cpp
     Game/Hud.h                  Game/Hud.cpp
-    Game/InputMapper.h          Game/InputMapper.cpp
+    Game/MenuView.h             Game/MenuView.cpp
+    Game/OptionsScene.h         Game/OptionsScene.cpp
     Game/Scene.h
+    Game/SceneStack.h           Game/SceneStack.cpp
+    Game/Services.h
+    Game/StageSelectScene.h     Game/StageSelectScene.cpp
+    Game/TitleScene.h           Game/TitleScene.cpp
     Game/TrainingOverlay.h      Game/TrainingOverlay.cpp
     Game/InputDisplay.h         Game/InputDisplay.cpp
     Platform/Display.h          Platform/Display.cpp
@@ -18,7 +27,8 @@ add_library(IronRingEngine SHARED
     Player/Application.h        Player/Application.cpp
     Player/PlayerMain.cpp
     Render/BitmapFont.h         Render/BitmapFont.cpp
-    Render/SpriteSheet.h        Render/SpriteSheet.cpp)
+    Render/SpriteSheet.h        Render/SpriteSheet.cpp
+    Render/Ui.h                 Render/Ui.cpp)
 
 target_include_directories(IronRingEngine
     PUBLIC  "${CMAKE_CURRENT_SOURCE_DIR}/Public"

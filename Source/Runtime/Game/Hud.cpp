@@ -1,41 +1,16 @@
 #include "Game/Hud.h"
 
+#include "Render/Ui.h"
+
 #include <algorithm>
 #include <string>
 
 namespace iron {
+using namespace ui;
 namespace {
-
-// Palette entries (Tools/Art/ironart/palette.py).
-constexpr SDL_Color kInk{7, 9, 15, 255};
-constexpr SDL_Color kNight{20, 26, 48, 230};
-constexpr SDL_Color kBrass{217, 130, 43, 255};
-constexpr SDL_Color kBrassLight{242, 176, 78, 255};
-constexpr SDL_Color kChalk{241, 234, 216, 255};
-constexpr SDL_Color kCoral{191, 58, 46, 255};
-constexpr SDL_Color kCoralLight{239, 106, 69, 255};
-constexpr SDL_Color kTeal{63, 196, 184, 255};
-constexpr SDL_Color kTealDark{20, 85, 96, 255};
-constexpr SDL_Color kTealLight{166, 240, 224, 255};
-constexpr SDL_Color kSteel{61, 74, 102, 255};
-
-void fill(SDL_Renderer* r, float x, float y, float w, float h, SDL_Color c) {
-    if (w <= 0 || h <= 0) return;
-    SDL_SetRenderDrawColor(r, c.r, c.g, c.b, c.a);
-    const SDL_FRect rect{x, y, w, h};
-    SDL_RenderFillRect(r, &rect);
-}
 
 SDL_FRect rectOf(const nlohmann::json& a) {
     return {a[0].get<float>(), a[1].get<float>(), a[2].get<float>(), a[3].get<float>()};
-}
-
-// A brass frame with an ink outline: the HUD's one recurring shape.
-void frame(SDL_Renderer* r, const SDL_FRect& box) {
-    fill(r, box.x - 2, box.y - 2, box.w + 4, box.h + 4, kInk);
-    fill(r, box.x - 1, box.y - 1, box.w + 2, box.h + 2, kBrass);
-    fill(r, box.x - 1, box.y - 1, box.w + 2, 1, kBrassLight);
-    fill(r, box.x, box.y, box.w, box.h, kInk);
 }
 
 } // namespace

@@ -56,10 +56,11 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 
 ## M2 — Complete local play 🔜
 
-- ⬜ Title, character select, stage select, options scenes (scene stack)
-- ⬜ Gamepads via SDL_Gamepad; remapping UI; per-device profiles
-- ⬜ Persistent settings (a `PlayerPrefs`-style store in the user folder)
-- ⬜ Renderer recreation when HDR state or display changes; options for HDR on/off, presentation mode, vsync
+- ✅ Title (with an attract demo), character select (the full roster, unbuilt fighters locked), stage select, options, pause and post-match menus, on a scene stack with fades ([ADR-0015](docs/adr/0015-front-end-scene-stack.md)); a front-end theme and menu sounds
+- ✅ Gamepads via SDL_Gamepad: two pads, one layout from `InputManager.json`
+- ⬜ Remapping UI; per-device profiles
+- ✅ Persistent settings: `prefs.cfg` in the user folder, between `boot.config` and the command line
+- ⬜ Renderer recreation when HDR state or display changes (the HDR option applies on the next launch until then); fullscreen, scaling and vsync already change live
 - ⬜ Stage layers and parallax; animated crowds; camera follow and zoom limits
 - ⬜ Hitstop/shake/flash tuning pass; HDR-aware VFX (float textures for sparks); hit-confirm audio layering (needs counter hits and combo counts in the simulation)
 - ⬜ **Vertical slice**: the complete local loop for Dee vs Bram at release quality; final art takes over from placeholder art where the slice needs it (see *How art is made*)
@@ -109,6 +110,7 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 | 2026-10-30 | Music and voice | One theme per venue; an announcer ([ADR-0014](docs/adr/0014-venue-themes-and-announcer.md)) |
 | 2026-10-30 | Art process | Placeholder art and guidelines here, final art made by the owner elsewhere, review and corrections here, then polish; final art replaces placeholders at the vertical slice; Art Pack v2 in M3 |
 | 2026-10-30 | Announcer | Keep the eSpeak NG source for now |
+| 2026-10-30 | Front end | Scene stack; options saved to `prefs.cfg`; Escape pauses instead of quitting; the Arcade entry stays disabled until the ladder lands ([ADR-0015](docs/adr/0015-front-end-scene-stack.md)) |
 | 2026-10-30 | Final art | Art Pack v1 adopted; frames re-registered at one scale, 48 colours per fighter ([ADR-0012](docs/adr/0012-adopting-external-art.md)) |
 
 ## Open questions for the project owner

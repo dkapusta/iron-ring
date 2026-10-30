@@ -2,7 +2,14 @@
 
 #include "Assets/AssetLibrary.h"
 #include "Audio/AudioSystem.h"
+#include "Game/CharacterSelectScene.h"
+#include "Game/Controls.h"
 #include "Game/FightScene.h"
+#include "Game/GameData.h"
+#include "Game/OptionsScene.h"
+#include "Game/Services.h"
+#include "Game/StageSelectScene.h"
+#include "Game/TitleScene.h"
 #include "Vfs/DirectoryMount.h"
 #include "Vfs/ZipMount.h"
 
@@ -24,8 +31,8 @@ bool isArchiveName(const std::filesystem::path& p) {
 
 } // namespace
 
-Application::Application(const PlayerSettings& settings, const ProductInfo& info)
-    : settings_(settings), screenshotFolder_(info.userFolder) {
+Application::Application(const PlayerSettings& settings, PlayerPrefs prefs, const ProductInfo& info)
+    : settings_(settings), prefs_(std::move(prefs)), screenshotFolder_(info.userFolder) {
     if (settings_.batchMode) {
         SDL_SetHint(SDL_HINT_VIDEO_DRIVER, "offscreen");
         SDL_SetHint(SDL_HINT_AUDIO_DRIVER, "dummy");
@@ -46,19 +53,84 @@ Application::Application(const PlayerSettings& settings, const ProductInfo& info
     // "pixelart" keeps the 640x360 art crisp at any integer or letterbox scale.
     const auto filter = parseScaleMode(gameSettings.value("textureFilter", "linear"));
     assets_ = std::make_unique<AssetLibrary>(vfs_, display_->renderer(), filter);
-    FightOptions options;
-    options.control = settings_.demo ? Control::Demo : Control::VsCpu;
-    options.training = settings_.training;
-    options.stage = settings_.stage;
-    if (!settings_.dummy.empty()) {
-        if (const auto dummy = sim::parseDummy(settings_.dummy)) options.dummy = *dummy;
-        else SDL_Log("Unknown -dummy '%s'; using STAND", settings_.dummy.c_str());
+    controls_ = std::make_unique<Controls>(assets_->json("ProjectSettings/InputManager.json"));
+    data_ = std::make_unique<GameData>(*assets_, *audio_);
+    logicalWidth_ = logical[0];
+    logicalHeight_ = logical[1];
+    services_ = std::make_unique<Services>(Services{*assets_, *audio_, *display_, *controls_, settings_, prefs_, *data_,
+                                                    scenes_, static_cast<float>(logical[0]),
+                                                    static_cast<float>(logical[1])});
+    openFirstScene();
+
+    // "30:Return,45:Down": a tap of each key at that frame.
+    std::string_view script = settings_.keys;
+    while (!script.empty()) {
+        const auto comma = script.find(',');
+        const auto item = script.substr(0, comma);
+        script = comma == std::string_view::npos ? std::string_view{} : script.substr(comma + 1);
+        const auto colon = item.find(':');
+        const std::string name(item.substr(colon == std::string_view::npos ? item.size() : colon + 1));
+        const SDL_Scancode key = SDL_GetScancodeFromName(name.c_str());
+        int frame = 0;
+        try {
+            frame = std::stoi(std::string(item.substr(0, colon)));
+        } catch (...) {
+            frame = -1;
+        }
+        if (frame < 0 || key == SDL_SCANCODE_UNKNOWN) SDL_Log("-keys: ignored '%.*s'", static_cast<int>(item.size()), item.data());
+        else keyScript_.push_back({frame, key});
     }
-    scene_ = std::make_unique<FightScene>(*assets_, *audio_, options);
+}
+
+void Application::playKeyScript(int frame) {
+    for (const auto& k : keyScript_) {
+        if (k.frame != frame && k.frame + 1 != frame) continue;
+        SDL_Event e{};
+        e.type = k.frame == frame ? SDL_EVENT_KEY_DOWN : SDL_EVENT_KEY_UP;
+        e.key.scancode = k.key;
+        e.key.down = k.frame == frame;
+        e.key.windowID = SDL_GetWindowID(display_->window());
+        SDL_PushEvent(&e);
+    }
+}
+
+void Application::openFirstScene() {
+    // The title is always at the bottom; -demo, -training and -stage go straight into a fight above it.
+    scenes_.push(std::make_unique<TitleScene>(*services_), Transition::Cut);
+    scenes_.flush(); // applies the push, so the next one lands on top
+    if (settings_.demo || settings_.training || !settings_.stage.empty()) {
+        FightSetup setup;
+        setup.control = settings_.demo ? Control::Demo : Control::VsCpu;
+        setup.training = settings_.training;
+        setup.stage = settings_.stage;
+        if (!settings_.dummy.empty()) {
+            if (const auto dummy = sim::parseDummy(settings_.dummy)) setup.dummy = *dummy;
+            else SDL_Log("Unknown -dummy '%s'; using STAND", settings_.dummy.c_str());
+        }
+        scenes_.push(std::make_unique<FightScene>(*services_, std::move(setup)), Transition::Cut);
+        return;
+    }
+    const auto& scene = settings_.scene;
+    if (scene.empty() || scene == "title") return;
+    if (scene == "select") {
+        scenes_.push(std::make_unique<CharacterSelectScene>(*services_, SelectMode::VsCpu), Transition::Cut);
+    } else if (scene == "stage") {
+        FightSetup setup;
+        setup.fromSelect = true;
+        scenes_.push(std::make_unique<StageSelectScene>(*services_, std::move(setup)), Transition::Cut);
+    } else if (scene == "options") {
+        scenes_.push(std::make_unique<OptionsScene>(*services_), Transition::Cut);
+    } else {
+        SDL_Log("Unknown -scene '%s' (title, select, stage, options)", scene.c_str());
+    }
 }
 
 Application::~Application() {
-    scene_.reset();
+    scenes_.popTo(0, Transition::Cut);
+    scenes_.flush();
+    services_.reset();
+    data_.reset();
+    controls_.reset();
     assets_.reset();
     audio_.reset();
     display_.reset();
@@ -96,6 +168,7 @@ int Application::run() {
     int frame = 0;
 
     while (running_) {
+        playKeyScript(frame);
         SDL_Event event;
         while (SDL_PollEvent(&event)) handleEvent(event);
 
@@ -105,9 +178,11 @@ int Application::run() {
         if (settings_.batchMode) accumulator = kTickNs; // deterministic: one tick per frame
 
         while (accumulator >= kTickNs) {
-            scene_->fixedUpdate();
+            scenes_.fixedUpdate();
+            controls_->endTick();
             accumulator -= kTickNs;
         }
+        if (scenes_.quitting()) running_ = false;
 
         ++frame;
         const bool lastBatchFrame = settings_.batchMode && frame >= settings_.batchFrames;
@@ -137,7 +212,6 @@ void Application::handleEvent(const SDL_Event& event) {
         return;
     case SDL_EVENT_KEY_DOWN:
         if (event.key.repeat) break;
-        if (event.key.scancode == SDL_SCANCODE_ESCAPE) running_ = false;
         if (event.key.scancode == SDL_SCANCODE_F1) overlay_ = !overlay_;
         if (event.key.scancode == SDL_SCANCODE_F12) pendingCapture_ = true;
         if (event.key.scancode == SDL_SCANCODE_F11 ||
@@ -147,12 +221,19 @@ void Application::handleEvent(const SDL_Event& event) {
     default:
         break;
     }
-    scene_->handleEvent(event);
+    scenes_.handleEvent(event);
+    if (const auto menu = controls_->onEvent(event)) {
+        const unsigned before = scenes_.generation();
+        scenes_.handleMenu(*menu);
+        // A press that changed the screen must not also act on the new one (a jab on resume).
+        if (scenes_.generation() != before) controls_->endTick();
+    }
 }
 
 void Application::render(const std::filesystem::path& capturePath) {
     SDL_Renderer* r = display_->renderer();
-    scene_->render({r, display_->highlightBoost()});
+    scenes_.render({r, display_->highlightBoost()}, static_cast<float>(logicalWidth_),
+                   static_cast<float>(logicalHeight_));
     if (overlay_) drawOverlay();
     if (!capturePath.empty()) saveScreenshot(capturePath); // read back before present
     SDL_RenderPresent(r);
@@ -165,7 +246,8 @@ void Application::drawOverlay() {
     const std::string lines[] = {
         std::string("Iron Ring ") + IR_VERSION_STRING + " | " + fps,
         display_->describe(),
-        scene_->status(),
+        scenes_.status(),
+        controls_->describe(),
     };
     float y = 60;
     for (const auto& line : lines) {

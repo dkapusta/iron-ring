@@ -2,10 +2,13 @@
 
 #include "Assets/AssetLibrary.h"
 #include "Audio/AudioSystem.h"
+#include "Game/FightMenuScene.h"
+#include "Render/Ui.h"
 
 #include <algorithm>
 #include <cmath>
 #include <cstdio>
+#include <stdexcept>
 
 namespace iron {
 namespace {
@@ -24,71 +27,37 @@ const char* soundFor(sim::Effect effect) {
 
 } // namespace
 
-FightScene::FightScene(AssetLibrary& assets, AudioSystem& audio, FightOptions options)
-    : audio_(audio), input_(assets.json("ProjectSettings/InputManager.json")), control_(options.control) {
-    const auto settings = assets.json("ProjectSettings/GameSettings.json");
-
-    const auto& roster = settings.at("fighters");
-    if (roster.size() < 2) throw std::runtime_error("GameSettings.json: two fighters are required");
-    for (std::size_t i = 0; i < views_.size(); ++i)
-        views_[i] = std::make_unique<FighterView>(assets, roster.at(i).get<std::string>());
-
-    loadStages(assets, settings.at("stages").get<std::string>(),
-               options.stage.empty() ? settings.value("startStage", "") : options.stage);
-    effects_ = std::make_unique<Effects>(assets, settings.at("effects").get<std::string>());
-    small_ = std::make_unique<BitmapFont>(assets, settings.at("fonts").at("small").get<std::string>());
-    large_ = std::make_unique<BitmapFont>(assets, settings.at("fonts").at("large").get<std::string>());
-    hud_ = std::make_unique<Hud>(assets.json("Resources/UI/hud_layout.json"), *small_, *large_,
+FightScene::FightScene(Services& services, FightSetup setup)
+    : services_(services), audio_(services.audio), setup_(std::move(setup)), control_(setup_.control) {
+    auto& data = services_.data;
+    const auto& settings = data.settings();
+    const auto pair = data.defaultPair();
+    for (std::size_t i = 0; i < views_.size(); ++i) {
+        if (setup_.fighters[i].empty()) setup_.fighters[i] = pair[i];
+        const auto* entry = data.fighter(setup_.fighters[i]);
+        if (!entry || !entry->playable())
+            throw std::runtime_error("fighter '" + setup_.fighters[i] + "' is not playable");
+        views_[i] = std::make_unique<FighterView>(services_.assets, entry->definition);
+    }
+    stage_ = data.stageIndex(setup_.stage);
+    effects_ = std::make_unique<Effects>(services_.assets, settings.at("effects").get<std::string>());
+    hud_ = std::make_unique<Hud>(services_.assets.json("Resources/UI/hud_layout.json"), data.small(), data.large(),
                                  settings.value("meterName", "METER"));
-    overlay_ = std::make_unique<TrainingOverlay>(*small_);
-    inputDisplay_ = std::make_unique<InputDisplay>(*small_);
-    training_ = options.training;
-    dummy_ = options.dummy;
+    overlay_ = std::make_unique<TrainingOverlay>(data.small());
+    inputDisplay_ = std::make_unique<InputDisplay>(data.small());
+    training_ = setup_.training;
+    dummy_ = setup_.dummy;
     if (training_) overlay_->toggle();
-
-    for (const auto& [id, path] : settings.at("sounds").items()) audio_.load(id, assets.bytes(path.get<std::string>()));
-    if (settings.contains("voice"))
-        for (const auto& [id, path] : settings.at("voice").items())
-            audio_.loadVoice(id, assets.bytes(path.get<std::string>()));
-    if (settings.contains("music")) loadMusic(assets, settings.at("music").get<std::string>());
     newMatch();
 }
 
-void FightScene::loadStages(AssetLibrary& assets, const std::string& stagesPath, const std::string& startStage) {
-    const auto catalog = assets.json(stagesPath); // keep alive: range-for over a temporary's member dangles
-    for (const auto& s : catalog.at("stages")) {
-        if (s.at("id").get<std::string>() == startStage) stage_ = stages_.size();
-        stages_.push_back({s.at("name").get<std::string>(), &assets.texture(s.at("image").get<std::string>()),
-                           s.value("music", std::string{})});
-    }
-    if (stages_.empty()) throw std::runtime_error(stagesPath + ": no stages");
-    const bool found = std::any_of(catalog.at("stages").begin(), catalog.at("stages").end(),
-                                   [&](const auto& s) { return s.at("id").template get<std::string>() == startStage; });
-    if (!startStage.empty() && !found)
-        SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "Unknown stage '%s'; starting on %s", startStage.c_str(),
-                    stages_.front().name.c_str());
+void FightScene::onEnter() {
+    if (entered_) return; // back from the pause menu: the music carries on
+    entered_ = true;
+    playStageMusic();
 }
 
-void FightScene::loadMusic(AssetLibrary& assets, const std::string& musicPath) {
-    const auto catalog = assets.json(musicPath); // keep alive: iterated below
-    const auto folder = musicPath.substr(0, musicPath.find_last_of('/') + 1);
-    for (const auto& [id, theme] : catalog.at("themes").items()) {
-        AudioSystem::Music music;
-        music.encoded = assets.bytes(folder + theme.at("file").get<std::string>());
-        music.loopStartFrame = theme.value("loopStartFrame", std::int64_t{0});
-        music.gain = theme.value("gain", 1.0f);
-        themes_.emplace(id, std::move(music));
-    }
-}
-
-void FightScene::playStageMusic() {
-    const auto it = themes_.find(stages_[stage_].music);
-    if (it == themes_.end()) {
-        audio_.stopMusic(300);
-        return;
-    }
-    audio_.playMusic(it->second); // a copy: the encoded bytes stay with themes_
-}
+void FightScene::playStageMusic() { services_.data.playTheme(audio_, services_.data.stages()[stage_].music); }
 
 void FightScene::newMatch() {
     match_ = std::make_unique<sim::Match>(views_[0]->definition().spec, views_[1]->definition().spec);
@@ -96,29 +65,49 @@ void FightScene::newMatch() {
     effects_->clear();
     inputDisplay_->clear();
     cues_.clear();
-    playStageMusic();
+    if (entered_) playStageMusic(); // a rematch: the theme stopped at the end of the match
+}
+
+void FightScene::resetPositions() {
+    match_->round.reset();
+    effects_->clear();
+}
+
+void FightScene::openMenu(bool postMatch) {
+    services_.scenes.push(std::make_unique<FightMenuScene>(services_, *this, postMatch), Transition::Cut);
+}
+
+void FightScene::handleMenu(const MenuEvent& event) {
+    if (setup_.attract) {
+        // The demo: Start or Confirm goes back to the title.
+        if (event.action == MenuAction::Confirm || event.action == MenuAction::Pause) services_.scenes.pop();
+        return;
+    }
+    if (event.action == MenuAction::Pause) {
+        audio_.play("menu_confirm");
+        openMenu(false);
+    }
 }
 
 void FightScene::handleEvent(const SDL_Event& event) {
-    if (event.type != SDL_EVENT_KEY_DOWN) return;
-    input_.onKeyDown(event.key);
-    if (event.key.repeat) return;
+    if (event.type == SDL_EVENT_WINDOW_FOCUS_LOST && !setup_.attract && !services_.settings.batchMode) {
+        openMenu(false); // pause when the player switches away
+        return;
+    }
+    if (event.type != SDL_EVENT_KEY_DOWN || event.key.repeat) return;
     switch (event.key.scancode) {
     case SDL_SCANCODE_TAB:
         control_ = control_ == Control::VsCpu ? Control::TwoPlayers
                  : control_ == Control::TwoPlayers ? Control::Demo : Control::VsCpu;
         break;
     case SDL_SCANCODE_F2:
-        stage_ = (stage_ + 1) % stages_.size();
+        stage_ = (stage_ + 1) % services_.data.stages().size();
         playStageMusic();
         break;
     case SDL_SCANCODE_F3: overlay_->toggle(); break;
     case SDL_SCANCODE_F5: newMatch(); break;
     case SDL_SCANCODE_F4: // training: back to the starting positions, full health
-        if (training_) {
-            match_->round.reset();
-            effects_->clear();
-        }
+        if (training_) resetPositions();
         break;
     case SDL_SCANCODE_F6:
         if (training_) dummy_ = sim::nextDummy(dummy_);
@@ -185,17 +174,18 @@ void FightScene::playCues() {
 void FightScene::fixedUpdate() {
     const auto& round = match_->round;
     const bool demo = control_ == Control::Demo;
-    const sim::Input p2 = control_ == Control::TwoPlayers ? input_.sample(1)
+    auto& controls = services_.controls;
+    const sim::Input p2 = control_ == Control::TwoPlayers ? controls.sample(1)
                         : training_                       ? sim::dummyInput(round, 1, dummy_)
                                                           : sim::cpuInput(round, 1);
-    const std::array<sim::Input, 2> inputs{demo ? sim::cpuInput(round, 0) : input_.sample(0), p2};
-    input_.endTick();
+    const std::array<sim::Input, 2> inputs{demo ? sim::cpuInput(round, 0) : controls.sample(0), p2};
 
     const auto step = match_->step(inputs);
     playEvents(step);
     playCues();
     if (step.flow == sim::FlowEvent::Finished) {
-        newMatch();
+        if (setup_.attract) services_.scenes.pop();
+        else openMenu(true); // rematch, character select or title
         return;
     }
 
@@ -229,7 +219,7 @@ void FightScene::render(const RenderContext& context) {
     SDL_SetRenderDrawColor(r, 0, 0, 0, 255);
     SDL_RenderClear(r);
     const SDL_FRect full{0, 0, static_cast<float>(sim::kStageWidth), 360};
-    SDL_RenderTexture(r, stages_[stage_].background->handle.get(), nullptr, &full);
+    SDL_RenderTexture(r, services_.data.stages()[stage_].image->handle.get(), nullptr, &full);
 
     const auto& round = match_->round;
     std::array<FighterPose, 2> poses;
@@ -252,7 +242,10 @@ void FightScene::render(const RenderContext& context) {
     effects_->draw(context, clock_);
     overlay_->draw(r, round, views());
     if (training_) inputDisplay_->draw(r);
-    hud_->draw(r, *match_, views(), stages_[stage_].name + " - " + controlName());
+    const bool blink = (clock_ / 30) % 2 == 0;
+    const std::string line = setup_.attract ? (blink ? "PRESS START" : "")
+                                            : services_.data.stages()[stage_].name + " - " + controlName();
+    hud_->draw(r, *match_, views(), ui::upper(line));
 }
 
 std::string FightScene::controlName() const {
@@ -268,7 +261,7 @@ std::string FightScene::controlName() const {
 std::string FightScene::status() const {
     char line[160];
     std::snprintf(line, sizeof line, "%s | %s | round %d | Tab mode  F2 stage  F3 boxes  F5 restart%s",
-                  stages_[stage_].name.c_str(), controlName().c_str(), match_->roundNumber,
+                  services_.data.stages()[stage_].name.c_str(), controlName().c_str(), match_->roundNumber,
                   training_ ? "  F4 reset  F6 dummy" : "");
     return line;
 }

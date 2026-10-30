@@ -26,7 +26,7 @@ RendererHandle tryCreateRenderer(SDL_Window* window, const PlayerSettings& setti
 } // namespace
 
 Display::Display(const PlayerSettings& settings, const char* title, int logicalWidth, int logicalHeight)
-    : maxBoost_(settings.hdrMaxBoost) {
+    : maxBoost_(settings.hdrMaxBoost), logicalWidth_(logicalWidth), logicalHeight_(logicalHeight) {
     SDL_WindowFlags flags = SDL_WINDOW_HIGH_PIXEL_DENSITY;
     int width = settings.windowWidth;
     int height = settings.windowHeight;
@@ -47,10 +47,7 @@ Display::Display(const PlayerSettings& settings, const char* title, int logicalW
     sdlCheck(window_ != nullptr, "SDL_CreateWindow");
     createRenderer(settings);
 
-    const auto mode = settings.presentation == Presentation::IntegerScale ? SDL_LOGICAL_PRESENTATION_INTEGER_SCALE
-                                                                           : SDL_LOGICAL_PRESENTATION_LETTERBOX;
-    sdlCheck(SDL_SetRenderLogicalPresentation(renderer_.get(), logicalWidth, logicalHeight, mode),
-             "SDL_SetRenderLogicalPresentation");
+    setPresentation(settings.presentation);
     SDL_HideCursor();
 }
 
@@ -88,9 +85,25 @@ void Display::onHdrStateChanged() {
         SDL_Log("HDR: now %s (headroom %.2f)", hdr_.enabled ? "on" : "off", static_cast<double>(hdr_.headroom));
 }
 
-void Display::toggleFullscreen() {
-    const bool fullscreen = (SDL_GetWindowFlags(window_.get()) & SDL_WINDOW_FULLSCREEN) != 0;
-    SDL_SetWindowFullscreen(window_.get(), !fullscreen);
+void Display::toggleFullscreen() { setFullscreen(!fullscreen()); }
+
+bool Display::fullscreen() const { return (SDL_GetWindowFlags(window_.get()) & SDL_WINDOW_FULLSCREEN) != 0; }
+
+void Display::setFullscreen(bool fullscreen) {
+    if (!SDL_SetWindowFullscreen(window_.get(), fullscreen)) SDL_Log("Display: fullscreen change failed (%s)", SDL_GetError());
+    // A window that started fullscreen has no windowed size of its own yet.
+    if (!fullscreen) SDL_SetWindowResizable(window_.get(), true);
+}
+
+void Display::setPresentation(Presentation presentation) {
+    const auto mode = presentation == Presentation::IntegerScale ? SDL_LOGICAL_PRESENTATION_INTEGER_SCALE
+                                                                  : SDL_LOGICAL_PRESENTATION_LETTERBOX;
+    sdlCheck(SDL_SetRenderLogicalPresentation(renderer_.get(), logicalWidth_, logicalHeight_, mode),
+             "SDL_SetRenderLogicalPresentation");
+}
+
+void Display::setVsync(bool vsync) {
+    if (!SDL_SetRenderVSync(renderer_.get(), vsync ? 1 : 0)) SDL_Log("Display: vsync change failed (%s)", SDL_GetError());
 }
 
 std::string Display::describe() const {

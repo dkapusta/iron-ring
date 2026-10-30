@@ -5,8 +5,8 @@
 #include "Game/FighterView.h"
 #include "Game/Hud.h"
 #include "Game/InputDisplay.h"
-#include "Game/InputMapper.h"
 #include "Game/Scene.h"
+#include "Game/Services.h"
 #include "Game/TrainingOverlay.h"
 #include "Render/BitmapFont.h"
 #include "Simulation/Match.h"
@@ -15,45 +15,47 @@
 #include <array>
 #include <memory>
 #include <string>
-#include <unordered_map>
 #include <vector>
 
 namespace iron {
 
-class AssetLibrary;
-
-
 enum class Control { VsCpu, TwoPlayers, Demo };
 
-struct FightOptions {
+// What the front end chose: who fights where, and how.
+struct FightSetup {
     Control control = Control::VsCpu;
-    bool training = false; // training mode: training rules, the overlay, a dummy opponent
-    std::string stage; // stage id; empty = GameSettings startStage
+    bool training = false;          // training rules, the overlay, a dummy opponent
     sim::Dummy dummy = sim::Dummy::Stand;
+    std::array<std::string, 2> fighters; // roster ids; empty = the default pair
+    std::string stage;              // stage id; empty = GameSettings startStage
+    bool attract = false;           // the title screen's demo: any button returns
+    bool fromSelect = false;        // the character select is beneath (pause offers it)
 };
 
-// Versus screen: a best-of-3 sim::Match between the two fighters listed in
-// ProjectSettings/GameSettings.json, on one of the stages, with HUD, effects
-// and the training overlay. Player vs CPU, two players, or CPU vs CPU.
+// Versus screen: a best-of-3 sim::Match between two fighters on one of the
+// stages, with HUD, effects and the training overlay. Player vs CPU, two
+// players, or CPU vs CPU. Start/Escape pauses; after the match, a menu offers
+// a rematch.
 class FightScene final : public Scene {
 public:
-    FightScene(AssetLibrary& assets, AudioSystem& audio, FightOptions options);
+    FightScene(Services& services, FightSetup setup);
 
     void handleEvent(const SDL_Event& event) override;
+    void handleMenu(const MenuEvent& event) override;
     void fixedUpdate() override;
     void render(const RenderContext& context) override;
     [[nodiscard]] std::string status() const override;
+    void onEnter() override;
+
+    // For the pause and post-match menus.
+    void newMatch();
+    void resetPositions();
+    [[nodiscard]] const FightSetup& setup() const { return setup_; }
+    [[nodiscard]] sim::Dummy dummy() const { return dummy_; }
+    void setDummy(sim::Dummy dummy) { dummy_ = dummy; }
 
 private:
-    struct StageView {
-        std::string name;
-        const Texture* background = nullptr;
-        std::string music; // theme id in music.json; empty = no music
-    };
-
-    void loadStages(AssetLibrary& assets, const std::string& stagesPath, const std::string& startStage);
-    void loadMusic(AssetLibrary& assets, const std::string& musicPath);
-    void newMatch();
+    void openMenu(bool postMatch);
     void playStageMusic();
     static constexpr bool kVoice = true, kSound = false;
     // Delayed audio, so the announcer doesn't talk over an impact or a jingle.
@@ -64,12 +66,11 @@ private:
     void drawShadow(SDL_Renderer* r, float x, float groundY, float height) const;
     [[nodiscard]] std::array<const FighterView*, 2> views() const { return {views_[0].get(), views_[1].get()}; }
 
+    Services& services_;
     AudioSystem& audio_;
-    InputMapper input_;
+    FightSetup setup_;
     std::array<std::unique_ptr<FighterView>, 2> views_;
     std::unique_ptr<sim::Match> match_; // refers to the views' FighterSpecs
-    std::vector<StageView> stages_;
-    std::unique_ptr<BitmapFont> small_, large_;
     std::unique_ptr<Hud> hud_;
     std::unique_ptr<Effects> effects_;
     std::unique_ptr<TrainingOverlay> overlay_;
@@ -79,7 +80,7 @@ private:
     std::size_t stage_ = 0;
     Control control_ = Control::VsCpu;
     int clock_ = 0; // presentation clock: stops during hitstop
-    std::unordered_map<std::string, AudioSystem::Music> themes_; // by theme id
+    bool entered_ = false;
     struct Cue {
         bool voice;
         std::string id;
