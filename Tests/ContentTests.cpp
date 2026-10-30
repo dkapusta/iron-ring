@@ -188,3 +188,30 @@ TEST_CASE("shipped fighters play a deterministic match") {
     CHECK(specials > 0);
     CHECK(throws > 0);
 }
+
+#include "Content/Stage.h"
+
+TEST_CASE("layered stages: parsing and the layer width rule") {
+    const auto yard = nlohmann::json::parse(R"({
+        "id": "yard", "name": "Yard", "image": "Stages/Yard/yard.png", "width": 800,
+        "layers": [
+            {"image": "Stages/Yard/sky.png", "parallax": 0.25},
+            {"image": "Stages/Yard/crowd.png", "parallax": 0.8, "y": 186, "frames": 8, "crowd": true},
+            {"image": "Stages/Yard/front.png", "parallax": 1.25, "x": -10, "front": true}
+        ]})");
+    const auto stage = iron::content::parseStage(yard, "stages.json");
+    REQUIRE(stage.layered());
+    CHECK(stage.width == 800);
+    CHECK(stage.requiredWidth(stage.layers[0]) == 680);
+    CHECK(stage.requiredWidth(stage.layers[1]) == 768);
+    CHECK(stage.requiredWidth(stage.layers[2]) == 850); // 640 + 200, plus the 10 px it starts off screen
+    CHECK(stage.layers[1].crowd);
+    CHECK(stage.layers[2].front);
+
+    auto bad = yard;
+    bad["layers"][1]["frames"] = 3; // a crowd needs rest and cheer halves
+    CHECK_THROWS_AS((void)iron::content::parseStage(bad, "stages.json"), iron::content::ContentError);
+    bad = yard;
+    bad["width"] = 500;
+    CHECK_THROWS_AS((void)iron::content::parseStage(bad, "stages.json"), iron::content::ContentError);
+}

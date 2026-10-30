@@ -158,3 +158,23 @@ TEST_CASE("bindings round-trip through prefs, storing only changes") {
     c.load(prefs);
     CHECK(c.pad("0300abcd")[0].empty());
 }
+
+#include "Core/Camera.h"
+
+TEST_CASE("fight camera follows the midpoint, stays on the stage, keeps both fighters in view") {
+    CHECK(Camera::target(300, 340, 640, 640) == 0.0f);  // a screen-wide stage never scrolls
+    CHECK(Camera::target(500, 600, 800, 640) == 160.0f); // clamped at the right end
+    CHECK(Camera::target(30, 100, 800, 640) == 0.0f);
+    CHECK(Camera::target(380, 460, 800, 640) == 100.0f);
+
+    Camera c;
+    c.snap(300, 400, 800, 640);
+    CHECK(c.x == 30.0f);
+    c.follow(500, 600, 800, 640); // eases towards 160 ...
+    CHECK(c.x > 30.0f);
+    CHECK(c.x < 160.0f);
+    CHECK(c.x >= 600 + Camera::kMargin - 640); // ... but the right fighter is already in view
+    for (int i = 0; i < 120; ++i) c.follow(500, 600, 800, 640);
+    CHECK(c.x == 160.0f);
+    CHECK(c.offset() == 160.0f);
+}
