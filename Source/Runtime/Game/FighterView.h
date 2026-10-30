@@ -27,6 +27,9 @@ public:
     [[nodiscard]] const content::FighterDefinition& definition() const { return def_; }
     [[nodiscard]] const SpriteSheet& sheet() const { return sheet_; }
     [[nodiscard]] const Texture& portrait() const { return *portrait_; }
+    // Optional art (null when the fighter has none): the 48x48 select cell, the ending picture.
+    [[nodiscard]] const Texture* selectPortrait() const { return selectPortrait_; }
+    [[nodiscard]] const Texture* ending() const { return ending_; }
 
     // Once per fixed tick, after the simulation stepped. `clock` stops during hitstop.
     void update(const sim::Match& match, int side, int clock);
@@ -44,6 +47,8 @@ private:
     content::FighterDefinition def_;
     SpriteSheet sheet_;
     const Texture* portrait_ = nullptr;
+    const Texture* selectPortrait_ = nullptr;
+    const Texture* ending_ = nullptr;
 
     std::string animation_ = "idle";
     int animationTick_ = 0;

@@ -124,6 +124,17 @@ ValidationReport validateProject(const FileReader& read) {
                 if (!atlasJson) continue;
                 auto atlas = parseAtlas(*atlasJson, fighter.atlas);
                 (void)readPng(read, fighter.portrait, report);
+                const auto sized = [&](const std::string& image, std::pair<int, int> expected, const char* what) {
+                    if (image.empty()) return;
+                    if (const auto size = readPng(read, image, report); size && *size != expected)
+                        report.errors.push_back(image + ": " + what + " must be " + std::to_string(expected.first) +
+                                                "x" + std::to_string(expected.second));
+                };
+                sized(fighter.selectPortrait, {48, 48}, "a select portrait");
+                sized(fighter.ending, {640, 360}, "an ending picture");
+                // The arcade ending: an intro that plays once, then a loop (optional; else "win").
+                if (fighter.hasAnimation("champion") != fighter.hasAnimation("champion_intro"))
+                    report.errors.push_back(path + ": champion and champion_intro come together");
                 if (const auto size = readPng(read, atlas.image, report)) {
                     for (auto& e : validateFighter(fighter, atlas, *size)) report.errors.push_back(path + ": " + e);
                 }

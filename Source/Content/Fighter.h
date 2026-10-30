@@ -51,6 +51,8 @@ struct FighterDefinition {
     std::string displayName;
     std::string atlas;     // virtual path
     std::string portrait;  // virtual path
+    std::string selectPortrait; // optional, 48x48: the character-select cell (else the portrait, scaled)
+    std::string ending;         // optional, 640x360: the arcade ending's picture (else the final venue)
     sim::FighterSpec spec;
     std::array<MoveInfo, sim::kSlotCount> moves;
     std::map<std::string, Animation, std::less<>> animations;

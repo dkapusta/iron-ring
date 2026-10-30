@@ -14,7 +14,10 @@ constexpr int kWinPoseDelay = 45; // ticks into "round over" before the winner c
 } // namespace
 
 FighterView::FighterView(AssetLibrary& assets, std::string_view definitionPath)
-    : def_(load(assets, definitionPath)), sheet_(assets, def_.atlas), portrait_(&assets.texture(def_.portrait)) {}
+    : def_(load(assets, definitionPath)), sheet_(assets, def_.atlas), portrait_(&assets.texture(def_.portrait)) {
+    if (!def_.selectPortrait.empty()) selectPortrait_ = &assets.texture(def_.selectPortrait);
+    if (!def_.ending.empty()) ending_ = &assets.texture(def_.ending);
+}
 
 void FighterView::play(std::string_view animation, int tick) {
     animation_ = std::string(animation);

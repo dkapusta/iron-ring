@@ -85,7 +85,7 @@ jobs:
         # A CHAMPION CPU plays player 1 through the whole ladder; the last frame is the ending.
         run: >
           Build/release/Player/Release/IronRing.x86_64 -batchmode -autoplay -screen-fullscreen 0
-          -screen-width 640 -screen-height 360 -frames 13000 -keys "10:Return,30:Return,60:Return"
+          -screen-width 640 -screen-height 360 -frames 14000 -keys "10:Return,30:Return,60:Return"
           -screenshot arcade-linux-${{ matrix.compiler }}.png
 
       - uses: actions/upload-artifact@v7

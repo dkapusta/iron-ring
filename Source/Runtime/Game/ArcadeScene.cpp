@@ -102,7 +102,8 @@ void ArcadeScene::fixedUpdate() {
         break;
     case Step::Ending:
         if (ticks_ == 200) services_.data.playTheme(services_.audio, services_.data.menuTheme());
-        if (ticks_ >= kEndingTicks) services_.scenes.popToRoot(); // like a cabinet, back to the title
+        // Like a cabinet, back to the title; soak tests stay on the ending to capture it.
+        if (ticks_ >= kEndingTicks && !services_.settings.autoplay) services_.scenes.popToRoot();
         break;
     case Step::Fight: break;
     }
@@ -113,6 +114,16 @@ void ArcadeScene::drawFighter(SDL_Renderer* r, const FighterView& view, float x,
     const auto& animation = def.animation(won && def.hasAnimation("win") ? "win" : "idle");
     const int tick = won ? std::min(ticks_, animation.totalTicks() - 1) : ticks_;
     view.sheet().draw(r, animation.at(tick).frame, x, 280, flip);
+}
+
+void ArcadeScene::drawChampion(SDL_Renderer* r, const FighterView& view, float x) const {
+    // champion_intro once, then the champion loop; fighters without them use the win pose.
+    const auto& def = view.definition();
+    if (!def.hasAnimation("champion")) return drawFighter(r, view, x, false, true);
+    const auto& intro = def.animation("champion_intro");
+    const bool looping = ticks_ >= intro.totalTicks();
+    const auto& frame = looping ? def.animation("champion").at(ticks_ - intro.totalTicks()) : intro.at(ticks_);
+    view.sheet().draw(r, frame.frame, x, 280, false);
 }
 
 void ArcadeScene::drawVersus(SDL_Renderer* r) const {
@@ -164,9 +175,16 @@ void ArcadeScene::drawEnding(SDL_Renderer* r) const {
     const float w = services_.width;
     const auto& stage = data.stages()[data.stageIndex(bout().stage)];
     const SDL_FRect all{0, 0, w, services_.height};
-    SDL_RenderTexture(r, stage.image->handle.get(), nullptr, &all);
-    ui::dim(r, w, services_.height, 150);
-    drawFighter(r, *views_[0], w / 2, false, true);
+    if (const Texture* picture = views_[0]->ending()) {
+        // The fighter's own ending picture: it is the whole scene.
+        SDL_RenderTexture(r, picture->handle.get(), nullptr, &all);
+        ui::fill(r, 0, 0, w, 96, {7, 9, 15, 150});  // bands for the text
+        ui::fill(r, 0, 292, w, 68, {7, 9, 15, 150});
+    } else {
+        SDL_RenderTexture(r, stage.image->handle.get(), nullptr, &all);
+        ui::dim(r, w, services_.height, 150);
+        drawChampion(r, *views_[0], w / 2);
+    }
     const auto& name = views_[0]->definition().displayName;
     data.large().draw(r, name, w / 2, 40, ui::kWhite, Align::Centre);
     data.large().draw(r, "TAKES THE CROWN", w / 2, 70, ui::kBrassLight, Align::Centre);

@@ -39,6 +39,7 @@ private:
     void drawContinue(SDL_Renderer* r) const;
     void drawEnding(SDL_Renderer* r) const;
     void drawFighter(SDL_Renderer* r, const FighterView& view, float x, bool flip, bool won) const;
+    void drawChampion(SDL_Renderer* r, const FighterView& view, float x) const;
 
     Services& services_;
     const content::ArcadeLadder& ladder_;

@@ -157,8 +157,10 @@ void CharacterSelectScene::drawGrid(SDL_Renderer* r) const {
         const auto* v = view(i);
         if (v) {
             ui::fill(r, cell.x, cell.y, cell.w, cell.h, ui::kNight);
+            // A drawn 48x48 select portrait, or the 32x32 HUD portrait scaled up.
             const SDL_FRect portrait{cell.x + 4, cell.y + 4, 48, 48};
-            SDL_RenderTexture(r, v->portrait().handle.get(), nullptr, &portrait);
+            const Texture& image = v->selectPortrait() ? *v->selectPortrait() : v->portrait();
+            SDL_RenderTexture(r, image.handle.get(), nullptr, &portrait);
         } else {
             ui::fill(r, cell.x, cell.y, cell.w, cell.h, ui::kInk);
             data.large().draw(r, "?", cell.x + cell.w / 2, cell.y + 10, {90, 103, 130, 255}, Align::Centre);
