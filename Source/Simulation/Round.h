@@ -100,9 +100,10 @@ struct Round {
     [[nodiscard]] const MoveSpec& currentMove(const Fighter& f) const {
         return spec(f).moves[static_cast<std::size_t>(f.move)];
     }
-    [[nodiscard]] const Box& hurtbox(const Fighter& f) const {
-        return f.crouching ? spec(f).crouchHurt : spec(f).standHurt;
-    }
+    // The boxes the fighter can be hit or grabbed on right now: the move's
+    // phase-specific set if it has one, otherwise the stand/crouch box.
+    [[nodiscard]] HurtSet hurtboxes(const Fighter& f) const;
+    [[nodiscard]] bool touches(const WorldBox& box, const Fighter& f) const;
     // Strikes connect only with fighters that are neither down nor in a throw.
     [[nodiscard]] static bool hittable(const Fighter& f) { return !f.busy(); }
 

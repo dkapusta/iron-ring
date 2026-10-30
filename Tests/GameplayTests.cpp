@@ -329,3 +329,35 @@ TEST_CASE("training dummy") {
     CHECK(dummyInput(r, 1, Dummy::Crouch) == Down);
     CHECK(dummyInput(r, 1, Dummy::Cpu) == cpuInput(r, 1));
 }
+
+TEST_CASE("per-phase hurtboxes") {
+    // Player 2 starts a long-startup move that ducks low; player 1's jab is high.
+    FighterSpec ducker = grabber();
+    MoveSpec& duck = ducker.moves[HeavyKickSlot];
+    duck.startup = 30;
+    duck.hurt[static_cast<std::size_t>(MovePhase::Startup)] = {Box{-18, 0, 40, 40}, Box{}};
+    const auto jabLands = [](const FighterSpec& p2spec, Input p2) {
+        Round r(rusherSpec(), p2spec);
+        r.fighters[0].x = 280 * kFixed;
+        r.fighters[1].x = 316 * kFixed;
+        (void)r.step({0, p2});                 // player 2 starts the move (or not)
+        (void)r.step({LightPunch, 0});
+        run(r, 10);
+        return r.fighters[1].hp < kMaxHealth;
+    };
+    CHECK(jabLands(ducker, 0));                // standing: the jab hits
+    CHECK_FALSE(jabLands(ducker, HeavyKick));  // ducking under it during startup
+
+    // An extended limb can be hit where the body can't.
+    FighterSpec reacher = grabber();
+    MoveSpec& limb = reacher.moves[LightPunchSlot];
+    limb.hurt[static_cast<std::size_t>(MovePhase::Active)] = {Box{-20, 0, 40, 120}, Box{20, 80, 40, 16}};
+    Round r(rusherSpec(), reacher);
+    Fighter& f = r.fighters[1];
+    f.move = LightPunchSlot;
+    f.age = limb.startup;  // active
+    const WorldBox reach{f.x - 55 * kFixed, 85 * kFixed, f.x - 45 * kFixed, 90 * kFixed};  // in front of p2 (facing left)
+    CHECK(r.touches(reach, f));
+    f.age = 0;             // startup: default box only
+    CHECK_FALSE(r.touches(reach, f));
+}

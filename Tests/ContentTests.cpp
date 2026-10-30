@@ -96,6 +96,23 @@ TEST_CASE("fighter parsing") {
     CHECK_THROWS_AS((void)parseFighter(broken, "x.json"), ContentError);
 }
 
+TEST_CASE("per-phase hurtboxes") {
+    auto j = minimalFighter();
+    j["moves"]["heavyKick"]["hurt"] = json::parse(R"({"startup": [[-18, 0, 40, 90]],
+                                                      "active": [[-18, 0, 38, 80], [20, 0, 60, 14]]})");
+    const auto d = parseFighter(j, "x.json");
+    const auto& hurt = d.spec.moves[sim::HeavyKickSlot].hurt;
+    CHECK(hurt[0][0].h == 90);
+    CHECK(hurt[0][1].empty());
+    CHECK(hurt[1][1].w == 60);
+    CHECK(hurt[2][0].empty()); // recovery falls back to the stand/crouch box
+
+    j["moves"]["heavyKick"]["hurt"] = json::parse(R"({"windup": [[0, 0, 1, 1]]})");
+    CHECK_THROWS_WITH_AS((void)parseFighter(j, "x.json"), doctest::Contains("windup"), ContentError);
+    j["moves"]["heavyKick"]["hurt"] = json::parse(R"({"active": [[0, 0, 1, 1], [0, 0, 1, 1], [0, 0, 1, 1]]})");
+    CHECK_THROWS_AS((void)parseFighter(j, "x.json"), ContentError);
+}
+
 TEST_CASE("animation timing") {
     const auto d = parseFighter(minimalFighter(), "t.json");
     const auto& jab = d.animation("jab");

@@ -36,6 +36,14 @@ enum Slot : int {
 
 enum class MoveKind : std::int32_t { Strike = 0, Throw = 1 };
 
+// Phases of a move, by tick: startup, active (the hitbox is out), recovery.
+enum class MovePhase : std::int32_t { Startup = 0, Active = 1, Recovery = 2 };
+inline constexpr int kPhaseCount = 3;
+inline constexpr int kMaxHurtBoxes = 2;
+// Hurtboxes for one phase: up to kMaxHurtBoxes; an all-empty set means
+// "the fighter's default stand/crouch hurtbox".
+using HurtSet = std::array<Box, kMaxHurtBoxes>;
+
 inline constexpr int kMaxMotionLength = 6;
 
 struct MoveSpec {
@@ -51,6 +59,9 @@ struct MoveSpec {
     bool heavy = false;                   // presentation: heavy hit effect
     bool knockdown = false;               // a clean hit knocks the opponent down
     int advance = 0;                      // 1/kFixed px per tick forward during startup + active
+    // Hurtboxes per phase, for moves that change the silhouette: a sweep
+    // ducks low, an extended limb can be hit (whiff punishes).
+    std::array<HurtSet, kPhaseCount> hurt{};
 
     // Throws (kind == Throw): the victim is held for throwDuration ticks, then
     // takes damage, is knocked down and lands throwDistance px in front.
@@ -64,6 +75,9 @@ struct MoveSpec {
     std::uint16_t motionButtons = 0;
 
     [[nodiscard]] constexpr int duration() const { return startup + active + recovery; }
+    [[nodiscard]] constexpr MovePhase phaseAt(int age) const {
+        return age < startup ? MovePhase::Startup : age < startup + active ? MovePhase::Active : MovePhase::Recovery;
+    }
 };
 
 struct FighterSpec {
