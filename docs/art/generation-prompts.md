@@ -100,6 +100,27 @@ Shared stage block:
 
 Import with `import_art.py image pier.png Assets/Stages/PierNine/pier_nine.png --size 640 360`, then check the layout rules: ground at y 316, calm HUD bands at y 0–52 and 330–360, chain ring present. Generators rarely put the floor in the right place, so expect to compose or paint over parts.
 
+## Layered stages
+
+Spec: [asset-spec.md §3.1](asset-spec.md#31-layered-stages). Placeholder: `python3 Tools/Art/generate.py foundry`. Its six layers show the sizes, positions and transparency the engine expects; draw over them or replace them one at a time.
+
+Generate each layer on its own, as a wide image at the layer's exact width, with the shared stage block plus:
+
+> separate background layer for a side-scrolling fighting game, [what this layer holds], everything else fully transparent, no floor and no sky unless this layer is the floor or the sky, same light direction and palette as the other layers
+
+| Foundry layer | Size | What it holds |
+| --- | --- | --- |
+| `foundry_wall` | 680 × 360, opaque | Back wall of a shut-down foundry hall at night: soot-dark brick, three or four tall arched windows with cold teal light and broken panes, steel girders between them, a painted "VOLL WORKS" sign with two letters gone dark. |
+| `foundry_furnace` | 728 × 360 | Three or four brick furnaces with glowing coral-orange mouths at about y 215, a gantry beam at y 86–93, a steel ladle hanging from it with a still-glowing rim; transparent above and between them. |
+| `foundry_steam` | 640 × 360, tiling | A few sparse dithered puffs of steam between y 110 and 230, tiling left to right; nothing else. |
+| `foundry_crowd` | 768 × 84 per frame, 8 frames | Spectator silhouettes, heads and shoulders, warm rim light from behind, in front of them a steel rail at y 60–63 of the frame. Frames 1–4: standing, small bob. Frames 5–8: cheering, arms up, bigger bob. The same people in the same places in every frame. |
+| `foundry_floor` | 800 × 98 (from y 262) | Riveted steel deck plates, low contrast, slag stains, the welded chain ring centred at x 400, y 64 of the layer (y 326 on screen), about 564 × 48. |
+| `foundry_front` | 850 × 360 (at x −10) | Two dark riveted steel columns at the very ends; everything else transparent. |
+
+The crowd frames are the hard part for generators, because people move between frames. Generate frame 1, then make the others by hand-editing it (raise arms, shift heads by 1–3 px). Review the result in the game with `-stage foundry -demo`; the camera reaches both ends within a match.
+
+**Layered versions of the other venues** follow the same split: Pier 9's harbour and skyline at 0.25, crane legs and the freighter at 0.55, dockers at the rail at 0.8, the planks at 1.0, a crane leg in front at 1.25. They come with the next stage art pass. Until then, the Art Pack v1 images stay as flat stages.
+
 ## Front end: title logo and menu backdrop
 
 Placeholders come from `python3 Tools/Art/generate.py ui`; sizes and layout rules are in [asset-spec.md §5](asset-spec.md#5-ui).

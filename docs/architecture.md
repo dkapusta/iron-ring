@@ -38,8 +38,9 @@ Static libraries without SDL (`Core`, `Vfs`, `Simulation`, `Content`) carry ever
 | `Game/Services`, `Game/GameData` | what scenes share: assets, audio, display, controls, settings, prefs; fonts, sounds, themes, stages and the roster, loaded once |
 | `Game/TitleScene`, `CharacterSelectScene`, `StageSelectScene`, `OptionsScene`, `FightMenuScene` | the front end: title + attract demo, roster grid, venue picker, options (live, saved to `prefs.cfg`), pause / post-match menu |
 | `Game/MenuView` | shared menu behaviour and drawing over `Core/Menu` |
-| `Game/FightScene` | versus screen for a `FightSetup` (fighters, stage, control, training); `Match` + views + effects + HUD + overlay; events → sounds |
+| `Game/FightScene` | versus screen for a `FightSetup`; the `Camera` (`Core/Camera.h`) follows the fighters on wide stages (fighters, stage, control, training); `Match` + views + effects + HUD + overlay; events → sounds |
 | `Game/FighterView` | simulation state → animation frame (and the held opponent's pose during throws) |
+| `Game/StageView` | a flat stage, or layers with parallax, drift and animation for a camera position; the crowd's excitement (raised by hits, throws, K.O.s) |
 | `Game/Effects` | short sprite effects spawned from `StepEvents`, HDR-boosted |
 | `Game/Hud` | health, Heat, timer, portraits, win markers, round banners, from `hud_layout.json` |
 | `Game/TrainingOverlay` | F3: hit/hurt boxes (per move phase), move frame data, frame advantage |

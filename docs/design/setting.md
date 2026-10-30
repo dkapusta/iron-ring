@@ -56,9 +56,10 @@ The colour coding stays with the characters: teal for Dee, rust/coral for Bram.
 | --- | --- | --- |
 | `pier_nine` | **Pier 9** | Closed cargo pier at night; chain ring between crane legs, dockers betting behind the rail, floodlights from a moored freighter. |
 | `lantern_row` | **Lantern Row** | Night market after curfew; shutters down, the ring roped off under the old station clock, lanterns half lit. |
+| `foundry` | **The Foundry** | The shut-down Voll Works, Greta Voll's old plant: the ring laid between cold furnaces under a hanging ladle, the last night shift betting behind the rail. |
 | `the_crown` | **The Crown** | Roof terrace of the derelict Crown Hotel at first light, under the hotel's half-dead bulb sign — the final bout. |
 
-Planned additions (M3): a flooded dry dock, a foundry floor, a ship's hold, the Broker's private club.
+Planned additions (M3): a flooded dry dock, a ship's hold, the Broker's private club. The Foundry is in the game with placeholder art (the first layered venue).
 
 ## Art direction
 
