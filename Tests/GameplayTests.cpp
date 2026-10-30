@@ -454,3 +454,58 @@ TEST_CASE("Heat carries over into the next round, and resets with a new match") 
     Match fresh(rusherSpec(), grabberSpec());
     CHECK(fresh.round.fighters[0].meter == 0);
 }
+
+#include "Simulation/Cpu.h"
+
+namespace {
+
+// A whole match between two CPUs; returns the winner.
+Outcome cpuMatch(int levelP1, int levelP2, std::uint32_t seed, std::uint64_t* checksum = nullptr) {
+    Match m(rusherSpec(), grabberSpec());
+    CpuPlayer p1(levelP1, seed), p2(levelP2, seed * 31 + 7);
+    for (int t = 0; t < 60 * 60 * 8 && !m.finished; ++t) (void)m.step({p1.think(m.round, 0), p2.think(m.round, 1)});
+    if (checksum) *checksum = m.checksum();
+    return m.winner;
+}
+
+} // namespace
+
+TEST_CASE("CPU: deterministic for a seed") {
+    std::uint64_t a = 0, b = 0, c = 0;
+    (void)cpuMatch(2, 2, 11, &a);
+    (void)cpuMatch(2, 2, 11, &b);
+    (void)cpuMatch(2, 2, 12, &c);
+    CHECK(a == b);
+    CHECK(a != c); // another seed plays another match
+}
+
+TEST_CASE("CPU: higher levels beat lower ones") {
+    // Over several seeds and both sides, CHAMPION beats ROOKIE nearly always,
+    // and each level wins most matches against the level two below it.
+    for (int low = 0; low + 2 < kCpuLevels; ++low) {
+        int wins = 0, total = 0;
+        for (std::uint32_t seed = 1; seed <= 6; ++seed) {
+            wins += cpuMatch(low + 2, low, seed) == Outcome::Player1;
+            wins += cpuMatch(low, low + 2, seed) == Outcome::Player2;
+            total += 2;
+        }
+        CAPTURE(low);
+        CHECK(wins * 4 >= total * 3);
+    }
+    CHECK(cpuLevelName(0) == "ROOKIE");
+    CHECK(cpuLevelName(9) == "CHAMPION");
+}
+
+TEST_CASE("CPU: guards an attack it has time to see") {
+    // CHAMPION reacts within 7 ticks, so it sees a slow heavy kick coming and blocks
+    // it most of the time (it rolls for each attack, so not always).
+    int blocked = 0;
+    for (std::uint32_t seed = 1; seed <= 20; ++seed) {
+        auto r = closeRound();
+        CpuPlayer cpu(4, seed);
+        (void)r.step({HeavyKick, cpu.think(r, 1)});
+        for (int t = 0; t < 40; ++t) (void)r.step({0, cpu.think(r, 1)});
+        blocked += r.fighters[1].hp == kMaxHealth;
+    }
+    CHECK(blocked >= 14);
+}

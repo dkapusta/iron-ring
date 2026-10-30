@@ -1,5 +1,6 @@
 add_library(IronRingSimulation STATIC
     Match.h Match.cpp
+    Cpu.h   Cpu.cpp
     Round.h Round.cpp
     Spec.h  Spec.cpp
     Training.h Training.cpp)
