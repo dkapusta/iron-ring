@@ -492,8 +492,8 @@ TEST_CASE("CPU: higher levels beat lower ones") {
         CAPTURE(low);
         CHECK(wins * 4 >= total * 3);
     }
-    CHECK(cpuLevelName(0) == "ROOKIE");
-    CHECK(cpuLevelName(9) == "CHAMPION");
+    CHECK(std::string(cpuLevelName(0)) == "ROOKIE"); // std::string: doctest prints it on every compiler
+    CHECK(std::string(cpuLevelName(9)) == "CHAMPION");
 }
 
 TEST_CASE("CPU: guards an attack it has time to see") {
