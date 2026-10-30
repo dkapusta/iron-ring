@@ -1,5 +1,5 @@
 {
-  "$comment": "Iron Ring venues (docs/design/setting.md). Backdrops are 640x360 logical-pixel images, feet on y = 316 (docs/art/asset-spec.md). Interim art from Tools/Art/generate.py.",
+  "$comment": "Iron Ring venues (docs/design/setting.md). A stage is one 640x360 image, or layers over a wider world with a 640x360 preview in 'image' (docs/art/asset-spec.md \u00a73). Feet on y = 316.",
   "stages": [
     {
       "id": "pier_nine",
@@ -11,7 +11,7 @@
       ],
       "floor_y_logical": 316,
       "description": "Closed cargo pier after the night shift; a chalk ring between crane legs, dockers betting behind the rail.",
-      "parallax_status": "Single flattened layer; parallax layers planned (ROADMAP M3)",
+      "parallax_status": "Single flattened layer (Art Pack v1); layers planned for the next stage art pass (asset-spec \u00a73.1)",
       "music": "pier_nine"
     },
     {
@@ -24,8 +24,56 @@
       ],
       "floor_y_logical": 316,
       "description": "Night market after curfew; stalls shuttered, the ring roped off under the old station clock.",
-      "parallax_status": "Single flattened layer; parallax layers planned (ROADMAP M3)",
+      "parallax_status": "Single flattened layer (Art Pack v1); layers planned for the next stage art pass (asset-spec \u00a73.1)",
       "music": "lantern_row"
+    },
+    {
+      "id": "foundry",
+      "name": "The Foundry",
+      "image": "Stages/Foundry/foundry.png",
+      "size": [
+        640,
+        360
+      ],
+      "floor_y_logical": 316,
+      "description": "The shut-down Voll Works; the ring laid between cold furnaces, the night shift's last crew behind the rail.",
+      "parallax_status": "Layered, 800 px wide (placeholder art from Tools/Art/generate.py foundry)",
+      "music": "foundry",
+      "width": 800,
+      "layers": [
+        {
+          "image": "Stages/Foundry/foundry_wall.png",
+          "parallax": 0.25
+        },
+        {
+          "image": "Stages/Foundry/foundry_furnace.png",
+          "parallax": 0.55
+        },
+        {
+          "image": "Stages/Foundry/foundry_steam.png",
+          "parallax": 0.55,
+          "drift": -6
+        },
+        {
+          "image": "Stages/Foundry/foundry_crowd.png",
+          "parallax": 0.8,
+          "y": 186,
+          "frames": 8,
+          "frameTicks": 14,
+          "crowd": true
+        },
+        {
+          "image": "Stages/Foundry/foundry_floor.png",
+          "parallax": 1.0,
+          "y": 262
+        },
+        {
+          "image": "Stages/Foundry/foundry_front.png",
+          "parallax": 1.25,
+          "x": -10,
+          "front": true
+        }
+      ]
     },
     {
       "id": "the_crown",
@@ -37,7 +85,7 @@
       ],
       "floor_y_logical": 316,
       "description": "Rooftop terrace of the derelict Crown Hotel at first light; the final bout of the Iron Ring.",
-      "parallax_status": "Single flattened layer; parallax layers planned (ROADMAP M3)",
+      "parallax_status": "Single flattened layer (Art Pack v1); layers planned for the next stage art pass (asset-spec \u00a73.1)",
       "music": "the_crown"
     }
   ]
