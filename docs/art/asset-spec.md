@@ -33,6 +33,8 @@ Each fighter lives in `Assets/Fighters/<Name>/`:
 | `<id>.fighter.json` | Gameplay data and animation timing ([schema](#25-fighter-definition-idfighterjson)). |
 | `<id>_atlas.png` + `<id>_atlas.json` | All frames, packed, with pivots ([schema](#24-sprite-atlas-json)). |
 | `<id>_portrait.png` | 32 × 32 HUD portrait: head and shoulders facing **right**, 1 px outline, dark night backdrop (`night_1`) with a dithered warm glow from above. |
+| `<id>_select.png` (optional) | 48 × 48 character-select portrait, the same framing, shown 1:1 (else the HUD portrait is scaled). `selectPortrait` in the definition. |
+| `<id>_ending.png` (optional) | 640 × 360 arcade-ending picture: the champion on The Crown's roof at dawn; y 0–96 and 292–360 stay calm for the text. `ending` in the definition. |
 
 ### 2.1 Size and registration
 
@@ -67,6 +69,7 @@ Every fighter needs these frames (names are case-sensitive). Ticks are at 60 per
 | `held_0`, `held_1` | Being thrown: grabbed, lifted/airborne | Drawn by the **opponent's** throw (partner frames). Every fighter needs them. |
 | `down_0`…`down_3` | Knockdown: falling backwards, lying on the back (head towards −x), sitting up, getting up | `down_1` is held for 30 ticks and is also the KO pose. |
 | `win_0`, `win_1` | Victory pose, two-frame loop | |
+| `champion_0`…`champion_5` | Arcade ending: the champion holds a length of the ring's chain overhead | `champion_0..2` play once (`champion_intro`), `champion_3..5` loop (`champion`). Until drawn, both animations use the win frames. Brief: [vertical-slice-art-brief.md §3.3](vertical-slice-art-brief.md#33-new-the-champion-pose-f3) |
 
 Special frames for the starters:
 
@@ -129,7 +132,8 @@ Units: lengths in logical pixels, speeds in 1/256 px per tick, times in ticks. B
 
 - `moves` keys: `lightPunch`, `heavyPunch`, `lightKick`, `heavyKick`, `throw`, `special` (all optional, but the starters define all six).
 - Move fields: `name`, `animation`, `startup`, `active`, `recovery`, `hitbox`, `damage`, `hitstun`, `blockstun` (7), `knockback`, `blockPush` (3), `hitstopOnHit` (5), `hitstopOnBlock` (3), `low`, `heavy`, `knockdown`, `cancel` (the special may cancel its recovery on hit or block), `advance` (forward speed during the move), `hurt` (optional per-phase hurtboxes: `{"startup"|"active"|"recovery": [[x, y, w, h], ...]}`, one or two boxes each, e.g. the body plus an extended limb; a phase without boxes uses the stand/crouch box); throws add `kind: "throw"`, `holdAnimation`, `throwDuration` (40), `throwDistance` (50), `techable`; specials add `input` in numpad notation (`236P`, `63214P`; P/K = either punch/kick). Values in brackets are defaults.
-- `animations` must contain: `idle`, `walk`, `crouch`, `guard`, `guard_crouch`, `jump_rise`, `jump_fall`, `hit`, `hit_crouch`, `held`, `knockdown`, `ko`, `win`, plus every animation a move names. A frame entry is `[frame, ticks]` or, in throw holds, `[frame, ticks, opponentFrame]`.
+- `animations` must contain: `idle`, `walk`, `crouch`, `guard`, `guard_crouch`, `jump_rise`, `jump_fall`, `hit`, `hit_crouch`, `held`, `knockdown`, `ko`, `win`, plus every animation a move names. Optional, as a pair: `champion_intro` (plays once) and `champion` (loops) for the arcade ending; without them the ending uses `win`.
+- Optional files: `selectPortrait` (48 × 48) and `ending` (640 × 360), checked for size at build time. A frame entry is `[frame, ticks]` or, in throw holds, `[frame, ticks, opponentFrame]`.
 - No desperation / super moves: the Heat meter only pays for the Breakaway (guard + HP + HK, 50 Heat), which uses no extra frames.
 
 Full rationale: [ADR-0010](../adr/0010-fighter-content-format.md).

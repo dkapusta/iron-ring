@@ -195,7 +195,36 @@ class PoseBook:
         f["down_3"] = replace(f["crouch"], lean=30, head=10)
 
         f["win_0"], f["win_1"] = self.victory()
+        f.update(self.champion())
         f.update(self.specials())
+        return f
+
+    def champion(self) -> dict[str, Pose]:
+        """Arcade ending: the champion raises a length of the ring's chain overhead.
+
+        champion_0..2 play once (turn to the crowd, lift, hold high), then
+        champion_3..5 loop (a slow breath, then a shout). The chain itself is
+        drawn by the artist between the hands; these poses place the hands.
+        """
+        b, hip = self.b, self.hip
+        f: dict[str, Pose] = {}
+        pelvis = (0.0, hip - 2)
+        sh = self.shoulders(pelvis, 0)
+        feet = {"near_foot": (12, b.ankle), "far_foot": (-14, b.ankle)}
+        f["champion_0"] = self.stance(lean=2, bob=2, near_hand=add(sh, (10, -30)), far_hand=add(sh, (-6, -32)),
+                                      near_open=False, far_open=False, **feet)
+        f["champion_1"] = self.stance(lean=-2, bob=3, near_hand=add(sh, (18, 6)), far_hand=add(sh, (-12, 4)),
+                                      near_elbow=1, far_elbow=1, **feet)
+        if self.c.id == "dee":
+            # Both fists overhead, the chain stretched between them.
+            high = {"near_hand": add(sh, (12, 46)), "far_hand": add(sh, (-10, 46)), "near_elbow": 1, "far_elbow": 1}
+        else:
+            # Arms wide and high, the chain held taut across them.
+            high = {"near_hand": add(sh, (30, 40)), "far_hand": add(sh, (-26, 40)), "near_elbow": 1, "far_elbow": 1}
+        f["champion_2"] = self.stance(lean=-4, bob=4, expression="shout", **high, **feet)
+        f["champion_3"] = self.stance(lean=-4, bob=4, **high, **feet)
+        f["champion_4"] = self.stance(lean=-4, bob=3, **high, **feet)
+        f["champion_5"] = self.stance(lean=-6, bob=4, head=-8, expression="shout", **high, **feet)
         return f
 
     def victory(self) -> tuple[Pose, Pose]:

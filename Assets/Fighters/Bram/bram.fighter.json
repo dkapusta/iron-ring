@@ -41,6 +41,8 @@
     "held": {"frames": [["held_0", 1]]},
     "knockdown": {"frames": [["down_0", 8], ["down_1", 30], ["down_2", 10], ["down_3", 6]]},
     "ko": {"frames": [["down_0", 8], ["down_1", 1]]},
-    "win": {"loop": true, "frames": [["win_0", 22], ["win_1", 22]]}
+    "win": {"loop": true, "frames": [["win_0", 22], ["win_1", 22]]},
+    "champion_intro": {"frames": [["win_0", 20], ["win_1", 16], ["win_0", 14]]},
+    "champion": {"loop": true, "frames": [["win_0", 18], ["win_1", 18], ["win_0", 18]]}
   }
 }

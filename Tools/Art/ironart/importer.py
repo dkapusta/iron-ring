@@ -227,8 +227,29 @@ def export_references(fighter: str, assets: Path, target: Path, scale: int = 4,
             .save(target / f"{frame['name']}.png")
         if "partner" in frame:
             manifest[frame["name"]] = {"partner": frame["partner"]}
+    # Frames the art doesn't have yet (new animations): the procedural pose, on the same canvas.
+    from .characters import CHARACTERS
+    from .figure import Canvas
+    from .poses import PoseBook
+
+    existing = {f["name"] for f in data["frames"]}
+    new = []
+    if fighter in CHARACTERS:
+        character = CHARACTERS[fighter]
+        for name, pose in PoseBook(character).frames().items():
+            if name in existing:
+                continue
+            canvas = Canvas(REFERENCE_CANVAS[0], REFERENCE_CANVAS[1], REFERENCE_ORIGIN)
+            character.draw(canvas, pose)
+            image = Image.new("RGBA", REFERENCE_CANVAS, key + (255,))
+            image.alpha_composite(canvas.render())
+            image.convert("RGB").resize((REFERENCE_CANVAS[0] * scale, REFERENCE_CANVAS[1] * scale), Image.NEAREST) \
+                .save(target / f"{name}.png")
+            new.append(name)
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     ox, oy = REFERENCE_ORIGIN[0] * scale, REFERENCE_ORIGIN[1] * scale
     print(f"exported {len(data['frames'])} references to {target}")
+    if new:
+        print(f"  plus {len(new)} procedural references for frames not drawn yet: {', '.join(new)}")
     print(f"import back with: import_art.py fighter {fighter} <frames> --origin {ox} {oy} --scale {1 / scale:g} "
           f"--manifest {target / 'manifest.json'}")

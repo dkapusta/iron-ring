@@ -11,7 +11,7 @@ Milestones are ordered; items inside a milestone are roughly ordered. ✅ done �
 3. **Review and corrections (here).** The art is imported and reviewed in training mode and with `Tools/Art/review_frames.py`, and correction notes are written ([example](docs/art/frame-review.md)).
 4. **Polish.** A corrected pack is generated and imported, followed by a final pass.
 
-Final art replaces placeholder art only when a **vertical slice** needs it. That's the end of M2: the complete local loop for one matchup at release quality. Until then, new fighters and venues ship with placeholder art. Art Pack v1 (Dee, Bram, three venues) is already in; its corrections (Art Pack v2) are scheduled for M3.
+Final art replaces placeholder art only when a **vertical slice** needs it. That's the end of M2: the complete local loop for one matchup at release quality. Until then, new fighters and venues ship with placeholder art. Art Pack v1 (Dee, Bram, three venues) is already in; Art Pack v2 (its corrections, plus the slice's remaining art) is briefed for the M2 vertical slice.
 
 ## M0 — Foundation ✅
 
@@ -65,10 +65,12 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 - ✅ Hit feel: counter hits, combo counts with damage scaling, special cancels; shake and flash (with a reduced option); HDR spark glow; layered hit audio (counter sting, rising combo blip); HUD callouts. Heat reworked (A + B + C of [docs/design/heat.md](docs/design/heat.md)): the Breakaway is a guard cancel that staggers, light attacks pressure on block, Heat lasts the match ([ADR-0018](docs/adr/0018-hit-feel-and-heat.md))
 - ✅ Arcade ladder (`Data/arcade.json`: four bouts to the final at The Crown, continues, an ending) against a new CPU with five levels and a difficulty option; `-autoplay` soak test in CI ([ADR-0019](docs/adr/0019-cpu-levels-and-arcade.md))
 - ⬜ **Vertical slice**: the complete local loop for Dee vs Bram at release quality; final art takes over from placeholder art where the slice needs it (see *How art is made*)
+  - ✅ Art brief for Art Pack v2: [docs/art/vertical-slice-art-brief.md](docs/art/vertical-slice-art-brief.md) (frame corrections, the champion pose, select portraits, ending pictures, The Foundry, layered Pier 9 / Lantern Row / The Crown, title logo, menu backdrop)
+  - ✅ Engine ready for it: champion animations (placeholders from the win frames), optional select portraits and ending pictures, procedural pose references for new frames (`import_art.py refs`)
+  - ⬜ Art Pack v2 delivered (owner), imported, reviewed, corrected; then the polish pass
 
 ## M3 — Roster and world
 
-- ⬜ Art Pack v2 for Dee and Bram: the P1/P2 corrections from the [frame review](docs/art/frame-review.md) (Bram's punches and grabs, Dee's uppercut and throw, idle and walk loops, outline pass), then a polish pass
 
 - ⬜ Sable, Idris, Greta, Jun (identities in `setting.md`; a fighter file, atlas and portrait each — no code), with placeholder art first
 - ⬜ Final art for Lantern Row and The Crown, and for The Foundry (placeholder in M2); layered versions of the Art Pack v1 venues; new venues (dry dock, ship's hold, the Broker's club)
@@ -108,7 +110,8 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 | 2026-10-29 | Art | Procedural interim art now; final art made elsewhere against the [asset spec](docs/art/asset-spec.md) and imported ([ADR-0011](docs/adr/0011-procedural-interim-art.md)) |
 | 2026-10-30 | Sound | Kit placeholders replaced by generated NES-style effects and theme ([ADR-0013](docs/adr/0013-nes-style-generated-audio.md)) |
 | 2026-10-30 | Music and voice | One theme per venue; an announcer ([ADR-0014](docs/adr/0014-venue-themes-and-announcer.md)) |
-| 2026-10-30 | Art process | Placeholder art and guidelines here, final art made by the owner elsewhere, review and corrections here, then polish; final art replaces placeholders at the vertical slice; Art Pack v2 in M3 |
+| 2026-10-30 | Art process | Placeholder art and guidelines here, final art made by the owner elsewhere, review and corrections here, then polish; final art replaces placeholders at the vertical slice |
+| 2026-10-30 | Art Pack v2 | Brought into the M2 vertical slice: frame corrections, a champion pose per fighter, layered versions of every venue, final Foundry, title logo and menu backdrop ([brief](docs/art/vertical-slice-art-brief.md)) |
 | 2026-10-30 | Announcer | Keep the eSpeak NG source for now |
 | 2026-10-30 | Front end | Scene stack; options saved to `prefs.cfg`; Escape pauses instead of quitting; the Arcade entry stays disabled until the ladder lands ([ADR-0015](docs/adr/0015-front-end-scene-stack.md)) |
 | 2026-10-30 | Heat | A + B + C: Breakaway as a guard cancel, light-attack pressure on block, Heat carries across rounds ([docs/design/heat.md](docs/design/heat.md)) |

@@ -153,6 +153,8 @@ FighterDefinition parseFighter(const json& j, std::string_view path) {
         d.displayName = j.value("displayName", d.name);
         d.atlas = siblingPath(path, j.at("atlas").get<std::string>());
         d.portrait = siblingPath(path, j.at("portrait").get<std::string>());
+        if (j.contains("selectPortrait")) d.selectPortrait = siblingPath(path, j.at("selectPortrait").get<std::string>());
+        if (j.contains("ending")) d.ending = siblingPath(path, j.at("ending").get<std::string>());
 
         auto& s = d.spec;
         const auto& physics = j.at("physics");
