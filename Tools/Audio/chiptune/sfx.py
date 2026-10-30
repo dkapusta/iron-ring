@@ -116,6 +116,20 @@ def menu_confirm() -> Channels:
     return ch
 
 
+def menu_move() -> Channels:
+    """Cursor step: a short, quiet blip that won't tire over many presses."""
+    ch = Channels(5)
+    pulse(ch, 0, 0, [1760.0, 1760.0, 1975.5, 1975.5], [8, 6, 4, 2], duty=1)
+    return ch
+
+
+def menu_back() -> Channels:
+    """Back / not allowed: the confirm's two notes, falling."""
+    ch = Channels(12)
+    pulse(ch, 0, 0, [1046.5] * 3 + [698.5] * 7, [11, 10, 9, 10, 8, 6, 5, 3, 2, 1], duty=2)
+    return ch
+
+
 def ko() -> Channels:
     """A heavy impact, then a long falling tone over a rumble."""
     ch = Channels(84)
@@ -155,6 +169,8 @@ EFFECTS = {
     "slam": slam,
     "round_bell": round_bell,
     "menu_confirm": menu_confirm,
+    "menu_move": menu_move,
+    "menu_back": menu_back,
     "ko": ko,
     "victory": victory,
 }
