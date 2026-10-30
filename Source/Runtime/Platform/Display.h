@@ -32,6 +32,11 @@ public:
 
     void onHdrStateChanged();
     void toggleFullscreen();
+    // Live changes from the Options screen. HDR needs a new renderer: next launch.
+    void setFullscreen(bool fullscreen);
+    [[nodiscard]] bool fullscreen() const;
+    void setPresentation(Presentation presentation);
+    void setVsync(bool vsync);
     [[nodiscard]] std::string describe() const;
 
 private:
@@ -42,6 +47,7 @@ private:
     RendererHandle renderer_;
     HdrState hdr_;
     float maxBoost_ = 1.0f;
+    int logicalWidth_ = 640, logicalHeight_ = 360;
 };
 
 } // namespace iron

@@ -38,9 +38,11 @@ inline constexpr std::array<std::string_view, 10> kVoiceLines{"round_1", "round_
                                                               "final_round", "fight", "ko",      "double_ko",
                                                               "time_over",  "draw"};
 
-// Sound ids the game plays (Game/FightScene.cpp); each must be in GameSettings.json -> sounds.
-inline constexpr std::array<std::string_view, 9> kSounds{"light_hit", "heavy_hit",  "guard", "breakaway", "tech",
-                                                         "slam",      "round_bell", "ko",    "victory"};
+// Sound ids the game plays (Game/FightScene.cpp, Game/MenuView.cpp); each must be
+// in GameSettings.json -> sounds.
+inline constexpr std::array<std::string_view, 12> kSounds{"light_hit",  "heavy_hit", "guard",        "breakaway",
+                                                          "tech",       "slam",      "round_bell",   "ko",
+                                                          "victory",    "menu_move", "menu_confirm", "menu_back"};
 
 [[nodiscard]] std::vector<std::string> validateFighter(const FighterDefinition& fighter, const AtlasDefinition& atlas,
                                                        std::pair<int, int> imageSize);

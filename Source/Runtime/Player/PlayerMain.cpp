@@ -1,5 +1,6 @@
 #include "IronRing/Player.h"
 
+#include "Core/PlayerPrefs.h"
 #include "Platform/PlayerLog.h"
 #include "Player/Application.h"
 
@@ -66,23 +67,33 @@ int runPlayer(const std::vector<std::string>& args) {
     (void)applyCommandLine(probe, args);
     const fs::path dataFolder = probe.dataFolder.empty() ? executableFolder() / IR_DATA_DIR_NAME : probe.dataFolder;
 
+    auto info = readAppInfo(dataFolder);
+    info.userFolder = userFolder(info);
+
+    // defaults < boot.config < prefs.cfg (the Options screen) < command line.
+    // Batch runs ignore prefs.cfg, so they come out the same on every machine.
     PlayerSettings settings;
     settings.dataFolder = dataFolder;
     auto warnings = applyBootConfig(settings, parseKeyValueText(readText(dataFolder / "boot.config")));
+    PlayerPrefs prefs(probe.batchMode ? fs::path{} : info.userFolder / "prefs.cfg");
+    if (!probe.batchMode) {
+        const auto loadWarnings = prefs.load();
+        const auto prefWarnings = prefs.applyTo(settings);
+        warnings.insert(warnings.end(), loadWarnings.begin(), loadWarnings.end());
+        warnings.insert(warnings.end(), prefWarnings.begin(), prefWarnings.end());
+    }
     const auto argWarnings = applyCommandLine(settings, args);
     warnings.insert(warnings.end(), argWarnings.begin(), argWarnings.end());
-
-    auto info = readAppInfo(dataFolder);
-    info.userFolder = userFolder(info);
     const PlayerLog log(settings.logFile, info.company.c_str(), info.product.c_str());
     SDL_Log("%s %s (engine %s), SDL %d.%d.%d", info.product.c_str(), IR_VERSION_STRING, IR_PLAYER_LIBRARY_NAME,
             SDL_VERSIONNUM_MAJOR(SDL_GetVersion()), SDL_VERSIONNUM_MINOR(SDL_GetVersion()),
             SDL_VERSIONNUM_MICRO(SDL_GetVersion()));
     SDL_Log("Data folder: %s", dataFolder.string().c_str());
+    if (!prefs.file().empty()) SDL_Log("Preferences: %s", prefs.file().string().c_str());
     for (const auto& w : warnings) SDL_Log("Warning: %s", w.c_str());
 
     try {
-        Application app(settings, info);
+        Application app(settings, std::move(prefs), info);
         return app.run();
     } catch (const std::exception& e) {
         SDL_LogCritical(SDL_LOG_CATEGORY_APPLICATION, "Fatal: %s", e.what());

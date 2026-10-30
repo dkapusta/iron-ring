@@ -113,7 +113,8 @@ void AudioSystem::play(std::string_view id) {
 }
 
 void AudioSystem::playMusic(Music music) {
-    if (!mixer_ || !musicTrack_ || musicVolume_ <= 0.0f) return;
+    if (!mixer_ || !musicTrack_) return;
+    if (!music.id.empty() && music.id == musicId_ && MIX_TrackPlaying(musicTrack_)) return;
     MIX_StopTrack(musicTrack_, 0);
     MIX_SetTrackAudio(musicTrack_, nullptr);
     if (musicAudio_) MIX_DestroyAudio(musicAudio_);
@@ -127,7 +128,9 @@ void AudioSystem::playMusic(Music music) {
         return;
     }
     MIX_SetTrackAudio(musicTrack_, musicAudio_);
-    MIX_SetTrackGain(musicTrack_, music.gain * musicVolume_);
+    musicGain_ = music.gain;
+    musicId_ = music.id;
+    MIX_SetTrackGain(musicTrack_, musicGain_ * musicVolume_);
     const SDL_PropertiesID options = SDL_CreateProperties();
     SDL_SetNumberProperty(options, MIX_PROP_PLAY_LOOPS_NUMBER, -1);
     SDL_SetNumberProperty(options, MIX_PROP_PLAY_LOOP_START_FRAME_NUMBER, music.loopStartFrame);
@@ -136,8 +139,16 @@ void AudioSystem::playMusic(Music music) {
 }
 
 void AudioSystem::stopMusic(int fadeOutMs) {
+    musicId_.clear();
     if (!musicTrack_) return;
     MIX_StopTrack(musicTrack_, MIX_TrackMSToFrames(musicTrack_, fadeOutMs));
+}
+
+void AudioSystem::setVolumes(float music, float sfx, float voice) {
+    musicVolume_ = music;
+    sfxVolume_ = sfx;
+    voiceVolume_ = voice;
+    if (musicTrack_) MIX_SetTrackGain(musicTrack_, musicGain_ * musicVolume_);
 }
 
 } // namespace iron

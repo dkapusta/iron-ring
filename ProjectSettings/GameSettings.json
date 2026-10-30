@@ -11,6 +11,7 @@
     "Fighters/Dee/dee.fighter.json",
     "Fighters/Bram/bram.fighter.json"
   ],
+  "roster": "Data/roster.json",
   "stages": "Data/stages.json",
   "effects": "Resources/FX/effects_atlas.json",
   "fonts": {
@@ -23,7 +24,9 @@
     "heavy_hit": "Resources/Audio/heavy_hit.wav",
     "ko": "Resources/Audio/ko.wav",
     "light_hit": "Resources/Audio/light_hit.wav",
+    "menu_back": "Resources/Audio/menu_back.wav",
     "menu_confirm": "Resources/Audio/menu_confirm.wav",
+    "menu_move": "Resources/Audio/menu_move.wav",
     "round_bell": "Resources/Audio/round_bell.wav",
     "slam": "Resources/Audio/slam.wav",
     "tech": "Resources/Audio/tech.wav",
@@ -43,5 +46,10 @@
     "draw": "Resources/Audio/Voice/draw.wav",
     "dee_wins": "Resources/Audio/Voice/dee_wins.wav",
     "bram_wins": "Resources/Audio/Voice/bram_wins.wav"
+  },
+  "ui": {
+    "logo": "Resources/UI/title_logo.png",
+    "backdrop": "Resources/UI/menu_backdrop.png",
+    "music": "menu"
   }
 }

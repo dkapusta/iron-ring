@@ -1,5 +1,5 @@
 {
-  "$comment": "Keyboard bindings by SDL scancode name (SDL_GetScancodeFromName). Gamepads and remapping UI: ROADMAP M2.",
+  "$comment": "Keyboard bindings by SDL scancode name (SDL_GetScancodeFromName); the gamepad layout by SDL gamepad button or trigger name (SDL_GetGamepadButtonFromString), shared by both pads. The d-pad and left stick always move. Remapping UI: ROADMAP M2.",
   "players": [
     {
       "left": ["A"], "right": ["D"], "up": ["W"], "down": ["S"],
@@ -11,5 +11,9 @@
       "lightPunch": ["Keypad 1"], "heavyPunch": ["Keypad 2"], "lightKick": ["Keypad 3"], "heavyKick": ["Keypad 0"],
       "guard": ["Right Shift"]
     }
-  ]
+  ],
+  "gamepad": {
+    "lightPunch": ["x"], "heavyPunch": ["y"], "lightKick": ["a"], "heavyKick": ["b"],
+    "guard": ["rightshoulder", "righttrigger"]
+  }
 }

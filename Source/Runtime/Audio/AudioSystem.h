@@ -37,13 +37,19 @@ public:
     void playVoice(std::string_view id);
 
     struct Music {
+        std::string id;                // theme id; playMusic() of the theme already playing is a no-op
         vfs::Bytes encoded;            // kept alive: music is decoded while it plays
         std::int64_t loopStartFrame = 0; // sample frame the loop returns to (skips the intro)
         float gain = 1.0f;             // the track's own level, before musicVolume
     };
-    // Starts (or restarts) the music from the beginning, looping forever.
+    // Starts the music from the beginning, looping forever, unless the same
+    // theme is already playing.
     void playMusic(Music music);
     void stopMusic(int fadeOutMs);
+    [[nodiscard]] const std::string& musicId() const { return musicId_; } // empty when stopped
+
+    // Mix group levels, 0..1; applied at once, also to the music playing.
+    void setVolumes(float music, float sfx, float voice);
 
 private:
     static constexpr std::size_t kSfxTracks = 8;
@@ -60,6 +66,8 @@ private:
     MIX_Track* musicTrack_ = nullptr;
     MIX_Audio* musicAudio_ = nullptr;
     vfs::Bytes musicBytes_;
+    std::string musicId_;
+    float musicGain_ = 1.0f;
 };
 
 } // namespace iron
