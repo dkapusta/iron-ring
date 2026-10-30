@@ -30,7 +30,8 @@ Application::Application(const PlayerSettings& settings, const ProductInfo& info
         SDL_SetHint(SDL_HINT_VIDEO_DRIVER, "offscreen");
         SDL_SetHint(SDL_HINT_AUDIO_DRIVER, "dummy");
     }
-    SDL_SetAppMetadata(info.product.c_str(), IR_VERSION_STRING, nullptr);
+    // The id becomes the Wayland app_id / X11 class, matching the installed .desktop file.
+    SDL_SetAppMetadata(info.product.c_str(), IR_VERSION_STRING, IR_APP_ID);
     sdlCheck(SDL_Init(SDL_INIT_VIDEO), "SDL_Init");
 
     mountData();

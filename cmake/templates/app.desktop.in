@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Version=1.5
+Name=@IR_PRODUCT_DISPLAY_NAME@
+GenericName=Fighting game
+Comment=Early-90s arcade fighting game: the illegal Iron Ring tournament
+Exec=@IR_DESKTOP_EXEC@
+Path=@IR_DESKTOP_PATH@
+Icon=@IR_APP_ID@
+Terminal=false
+Categories=Game;ActionGame;
+Keywords=fighting;arcade;retro;
+StartupWMClass=@IR_APP_ID@

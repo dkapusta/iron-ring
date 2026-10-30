@@ -72,7 +72,7 @@ Player/Release/
     └── sharedassets0.assets     Assets/Data, Fighters, Stages
 ```
 
-The folder is self-contained and can be zipped and copied as is. The player writes `Player.log` (previous run: `Player-prev.log`) and F12 screenshots to the per-user data folder (`%APPDATA%\dkapusta\Iron Ring\` on Windows, `~/.local/share/dkapusta/Iron Ring/` on Linux).
+The folder is self-contained and can be zipped and copied as is. `cmake --install Build/release --prefix ~/.local` installs it, with a desktop entry and icon on Linux ([docs/install.md](docs/install.md)). The player writes `Player.log` (previous run: `Player-prev.log`) and F12 screenshots to the per-user data folder (`%APPDATA%\dkapusta\Iron Ring\` on Windows, `~/.local/share/dkapusta/Iron Ring/` on Linux).
 
 ### Controls
 

@@ -52,7 +52,7 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 - ⬜ Per-frame hurt boxes for moves that change the silhouette (sweeps, uppercut)
 - ✅ **Audio**: NES-style effects and the "Iron Ring" fight theme generated from a 2A03 model; music streamed and looping past its intro; SFX/music mix groups with volume settings; a soft limiter; round-call, tech, slam, K.O. and victory cues ([ADR-0013](docs/adr/0013-nes-style-generated-audio.md))
 - ✅ A theme per venue ("Iron Ring", "Curfew Market", "Crown at Dawn") and the ring announcer through the DMC channel, with a voice mix group ([ADR-0014](docs/adr/0014-venue-themes-and-announcer.md))
-- ⬜ Linux `.desktop` file and icon
+- ✅ `cmake --install`: the player folder, plus a Linux desktop entry and hicolor icon; the app id is passed to SDL so the window matches the entry ([docs/install.md](docs/install.md))
 
 ## M2 — Complete local play
 
