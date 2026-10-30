@@ -29,29 +29,33 @@ Static libraries without SDL (`Core`, `Vfs`, `Simulation`, `Content`) carry ever
 | Folder | Responsibility |
 | --- | --- |
 | `Player/PlayerMain.cpp` | exported entry points; resolve data folder; `boot.config` + command line → `PlayerSettings`; `app.info`; `Player.log`; fatal-error dialog |
-| `Player/Application` | composition root; mounts archives; owns Display, Audio, AssetLibrary, Scene; fixed-step loop; F-key handling; screenshots |
+| `Player/Application` | composition root; mounts archives; owns Display, Audio, AssetLibrary, Controls, GameData and the scene stack; fixed-step loop; global keys; `-keys` scripts; screenshots |
 | `Platform/Display` | fullscreen window at desktop resolution; renderer with sRGB or scRGB output; HDR state; logical presentation |
 | `Platform/PlayerLog` | mirrors SDL logging into `Player.log` |
 | `Assets/AssetLibrary` | virtual path → JSON / decoded texture (cached) |
-| `Audio/AudioSystem` | SDL3_mixer mixer; one-shot SFX by id; silent fallback |
-| `Game/Scene` | scene interface (`handleEvent`, `fixedUpdate`, `render`, `status`) |
-| `Game/FightScene` | versus screen: loads fighters and stages from data; `Match` + views + effects + HUD + overlay; events → sounds; vs CPU / 2P / demo |
+| `Audio/AudioSystem` | SDL3_mixer mixer; mix groups (sfx pool, announcer, music) with live levels; silent fallback |
+| `Game/Scene`, `Game/SceneStack` | scene interface (`handleEvent`, `handleMenu`, `fixedUpdate`, `render`, `onEnter`, `opaque`); the stack applies push/pop/replace between calls, with fades ([ADR-0015](adr/0015-front-end-scene-stack.md)) |
+| `Game/Services`, `Game/GameData` | what scenes share: assets, audio, display, controls, settings, prefs; fonts, sounds, themes, stages and the roster, loaded once |
+| `Game/TitleScene`, `CharacterSelectScene`, `StageSelectScene`, `OptionsScene`, `FightMenuScene` | the front end: title + attract demo, roster grid, venue picker, options (live, saved to `prefs.cfg`), pause / post-match menu |
+| `Game/MenuView` | shared menu behaviour and drawing over `Core/Menu` |
+| `Game/FightScene` | versus screen for a `FightSetup` (fighters, stage, control, training); `Match` + views + effects + HUD + overlay; events → sounds |
 | `Game/FighterView` | simulation state → animation frame (and the held opponent's pose during throws) |
 | `Game/Effects` | short sprite effects spawned from `StepEvents`, HDR-boosted |
 | `Game/Hud` | health, Heat, timer, portraits, win markers, round banners, from `hud_layout.json` |
 | `Game/TrainingOverlay` | F3: hit/hurt boxes (per move phase), move frame data, frame advantage |
 | `Game/InputDisplay` | training: both players' recent inputs (ticks, numpad direction, buttons) |
-| `Game/InputMapper` | keyboard → simulation input bits, edge latch between ticks |
-| `Render/SpriteSheet`, `Render/BitmapFont` | atlas frames drawn at their pivots (flippable); monospaced bitmap text |
+| `Game/Controls` | keyboard and gamepads → simulation input bits (edge latch between ticks) and menu actions |
+| `Render/SpriteSheet`, `Render/BitmapFont`, `Render/Ui` | atlas frames drawn at their pivots (flippable); monospaced bitmap text; palette colours, frames, word wrap |
 
 ## Startup sequence
 
 1. Launcher calls `UnityMain` (Windows) or `PlayerMain`.
 2. Command line is probed for `-data-folder`; default `<exe dir>/IronRing_Data`.
-3. `PlayerSettings` = defaults ← `boot.config` ← command line. Unknown entries become log warnings, never errors.
-4. `app.info` gives company/product → per-user folder → `Player.log` (previous run rotated to `Player-prev.log`).
-5. `Application`: `-batchmode` selects offscreen video and dummy audio → `SDL_Init(VIDEO)` → mount every archive (sorted), then `-assets-folder` → read `ProjectSettings/GameSettings.json` → `Display` → `AudioSystem` → `AssetLibrary` → `FightScene`.
-6. Main loop: poll events → accumulate time (cap 250 ms) → `fixedUpdate()` per 1/60 s → `render()` → present. Batch mode runs one tick per frame and exits after `-frames`, optionally saving the last frame.
+3. `app.info` gives company/product → per-user folder.
+4. `PlayerSettings` = defaults ← `boot.config` ← `prefs.cfg` (skipped in batch mode) ← command line. Unknown entries become log warnings, never errors.
+5. `Player.log` opens (previous run rotated to `Player-prev.log`).
+6. `Application`: `-batchmode` selects offscreen video and dummy audio → `SDL_Init(VIDEO)` → mount every archive (sorted), then `-assets-folder` → read `ProjectSettings/GameSettings.json` → `Display` → `AudioSystem` → `AssetLibrary` → `Controls` (opens the gamepad subsystem) → `GameData` → the title scene, plus a fight on top for `-demo`/`-training`/`-stage`, or the screen named by `-scene`.
+7. Main loop: poll events (→ global keys, the top scene, `Controls` → menu actions) → accumulate time (cap 250 ms) → the stack's `fixedUpdate()` per 1/60 s → `render()` (from the topmost opaque scene up, then the fade) → present. Batch mode runs one tick per frame and exits after `-frames`, optionally saving the last frame. The player quits when the stack empties or the title's Quit is chosen.
 
 Any exception during setup is logged as `Fatal:` and shown in a message box (except in batch mode); the process exits with code 1.
 
@@ -59,7 +63,7 @@ Any exception during setup is logged as `Fatal:` and shown in a message box (exc
 
 ```text
 fixedUpdate (60 Hz)                         render (display rate)
-  InputMapper.sample(p1, p2 | CPU)            clear → stage → fighters (z by attacker)
+  Controls.sample(p1, p2 | CPU | dummy)       clear → stage → fighters (z by attacker)
   Match.step(inputs) → MatchStep              → effects (colour scale = HDR boost)
   events → AudioSystem.play(...), Effects     → HUD → [training overlay] → [debug overlay] → [capture] → present
 ```

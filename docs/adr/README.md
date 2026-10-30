@@ -18,3 +18,4 @@ One file per decision, numbered, never renumbered. Supersede rather than rewrite
 | [0012](0012-adopting-external-art.md) | Adopt Art Pack v1, re-registered at one scale per fighter, with sources in ArtSource/ | Accepted |
 | [0013](0013-nes-style-generated-audio.md) | Generate all audio from an NES sound-chip model; music as looping Vorbis | Accepted |
 | [0014](0014-venue-themes-and-announcer.md) | A theme per venue, and an announcer through the DMC channel | Accepted |
+| [0015](0015-front-end-scene-stack.md) | Build the front end on a scene stack, with saved options in prefs.cfg | Accepted |

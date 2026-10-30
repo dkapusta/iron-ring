@@ -9,7 +9,11 @@ An early-90s style arcade fighting game about the **Iron Ring** — an illegal, 
 
 *Above: a real frame captured with `-batchmode -demo -screenshot`: Bram Hollis's Dock Hoist slams Dee Marlowe at Pier 9. Fighters and stages are from Iron Ring Art Pack v1 ([ADR-0012](docs/adr/0012-adopting-external-art.md)); the music (a theme per venue), sound effects and announcer are generated on a model of the NES sound chip ([docs/audio.md](docs/audio.md)).*
 
-> **Status: M1 — First playable matchup, complete.** Dee vs Bram, data-driven fighters with per-phase hurtboxes, throws, specials, knockdowns, best-of-3 rounds, a pixel-art HUD, a training mode, venue themes and an announcer. Next: M2, complete local play. See [ROADMAP.md](ROADMAP.md).
+> **Status: M2 — Complete local play, in progress.** M1 delivered Dee vs Bram with data-driven fighters, throws, specials, knockdowns, best-of-3 rounds, a pixel-art HUD, a training mode, venue themes and an announcer. M2 so far: the front end (title with an attract demo, character select, stage select, options, pause and rematch menus), saved options and gamepads. See [ROADMAP.md](ROADMAP.md).
+
+![The title menu, character select, stage select and pause menu](docs/images/m2-front-end.png)
+
+*The front end (M2): title menu, character select (the unbuilt fighters are locked), stage select and the pause menu. Logo and menu backdrop are generated placeholders ([asset spec §5](docs/art/asset-spec.md#5-ui)).*
 
 ## Highlights
 
@@ -72,7 +76,11 @@ Player/Release/
     └── sharedassets0.assets     Assets/Data, Fighters, Stages
 ```
 
-The folder is self-contained and can be zipped and copied as is. `cmake --install Build/release --prefix ~/.local` installs it, with a desktop entry and icon on Linux ([docs/install.md](docs/install.md)). The player writes `Player.log` (previous run: `Player-prev.log`) and F12 screenshots to the per-user data folder (`%APPDATA%\dkapusta\Iron Ring\` on Windows, `~/.local/share/dkapusta/Iron Ring/` on Linux).
+The folder is self-contained and can be zipped and copied as is. `cmake --install Build/release --prefix ~/.local` installs it, with a desktop entry and icon on Linux ([docs/install.md](docs/install.md)). The player writes `Player.log` (previous run: `Player-prev.log`), `prefs.cfg` (what you chose in Options, plus the last stage picked) and F12 screenshots to the per-user data folder (`%APPDATA%\dkapusta\Iron Ring\` on Windows, `~/.local/share/dkapusta/Iron Ring/` on Linux). Delete `prefs.cfg` to go back to the defaults.
+
+### Playing
+
+The game opens on the title screen: press Start (Return, or a pad's Start) for the menu: **Versus CPU**, **2 Players**, **Training**, **Options**. Pick fighters on the character select (locked slots are the fighters still to come), then a venue. Start or Escape pauses a fight (resume, restart, character select, options, quit to title); after a match you get a rematch menu. Left alone, the title runs a CPU-vs-CPU demo, like an arcade cabinet.
 
 ### Controls
 
@@ -84,6 +92,10 @@ The folder is self-contained and can be zipped and copied as is. `cmake --instal
 | Guard | Space, or hold back | Right Shift, or hold back |
 | Throw (close) / throw tech (when grabbed) | F + H (LP + LK) | Keypad 1 + 3 |
 | Breakaway (50 Heat) | Guard + G + J | Guard + Keypad 2 + 0 |
+| Menus: confirm / back | F (light punch) or Return / H (light kick) or Backspace | Keypad 1 / Keypad 3 |
+| Pause | Escape | Escape |
+
+**Gamepads.** The first two pads connected play as player 1 and player 2 (the keyboard keeps working): d-pad or left stick to move, X/Y (west/north) light/heavy punch, A/B (south/east) light/heavy kick, right shoulder or right trigger to guard, Start to pause. In menus A confirms and B backs out. The layout is in `InputManager.json → gamepad`; remapping from the game comes later in M2.
 
 Moves, written for a fighter facing right (numpad notation: 6 = forward, 2 = down, 3 = down-forward):
 
@@ -92,7 +104,7 @@ Moves, written for a fighter facing right (numpad notation: 6 = forward, 2 = dow
 | **Dee Marlowe** | Stiff Jab | Cross Counter | Shin Kick | Leg Sweep (low, knockdown) | Clinch Toss | **Rush Uppercut** — 236 + P (↓↘→ + punch) |
 | **Bram Hollis** | Palm Shove | Anchor Hook | Boot Kick | Hull Breaker (low, knockdown) | Pier Toss | **Dock Hoist** — 63214 + P (→↘↓↙← + punch), command throw, can't be teched |
 
-Tab: vs CPU → 2 players → CPU vs CPU · F2: next stage · F3: training overlay (boxes, frame data, frame advantage) · F5: new match · F4: reset positions (training) · F6: next dummy behaviour (training) · F1: debug overlay · F11 or Alt+Enter: fullscreen · F12: screenshot · Esc: quit. Bindings live in [`ProjectSettings/InputManager.json`](ProjectSettings/InputManager.json); fighter data in `Assets/Fighters/<Name>/<id>.fighter.json`.
+In a fight: F3 training overlay (boxes, frame data, frame advantage) · F4 reset positions (training) · F6 next dummy behaviour (training). Developer keys: Tab vs CPU → 2 players → CPU vs CPU · F2 next stage · F5 new match · F1 debug overlay. Anywhere: F11 or Alt+Enter fullscreen · F12 screenshot. Bindings live in [`ProjectSettings/InputManager.json`](ProjectSettings/InputManager.json); fighter data in `Assets/Fighters/<Name>/<id>.fighter.json`.
 
 ### Command line
 
@@ -106,16 +118,20 @@ Unity-compatible names where they exist:
 | `-batchmode` | Headless: offscreen video, dummy audio, one tick per frame, quits after `-frames` |
 | `-frames N` | Frames to run in batch mode (default 180) |
 | `-screenshot <path>` | Save the final batch-mode frame as PNG |
-| `-demo` | Start in CPU vs CPU mode |
+| `-demo` | Skip the menus: a CPU vs CPU match (with `-training` or `-stage`, also straight into a fight) |
 | `-training` | Training mode: the clock stops, nobody is K.O.'d, health and Heat refill after a second; player 2 is a dummy; the overlay and an input display are on |
 | `-dummy <mode>` | Training dummy: `stand`, `crouch`, `jump`, `guard`, `guard-all` (crouches against lows), `cpu` |
-| `-stage <id>` | Start on a stage: `pier_nine`, `lantern_row`, `the_crown` |
-| `-music-volume 0..1`, `-sfx-volume 0..1`, `-voice-volume 0..1` | Mix-group volumes (also in `boot.config`) |
+| `-stage <id>` | Straight into a fight on a stage: `pier_nine`, `lantern_row`, `the_crown` |
+| `-scene <name>` | Open `title`, `select`, `stage` or `options` (screenshots, testing) |
+| `-keys "<frame>:<key>,..."` | Batch tests: tap keys (SDL key names) at the given frames, e.g. `"10:Return,30:Down"` |
+| `-music-volume 0..1`, `-sfx-volume 0..1`, `-voice-volume 0..1` | Mix-group volumes (also in `boot.config` and Options) |
 | `-hdr auto\|on\|off`, `-vsync 0\|1`, `-presentation integer\|letterbox`, `-render-driver <name>` | Override `boot.config` |
 | `-data-folder <path>` | Use another `<name>_Data` folder |
 | `-assets-folder <path>` | Mount a loose `Assets/` folder over the archives (edit-and-run without repacking) |
 
-Smoke test used by CI: `IronRing.x86_64 -batchmode -demo -screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -frames 420 -screenshot shot.png`.
+Settings come from defaults, then `boot.config`, then `prefs.cfg`, then the command line; batch runs ignore `prefs.cfg`.
+
+Smoke tests used by CI: `IronRing.x86_64 -batchmode -demo -screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -frames 420 -screenshot shot.png`, and the front end driven by key taps: `-batchmode -frames 440 -keys "10:Return,30:Return,60:Return,80:Return,160:Right,175:Return,420:Escape"` (title → Versus CPU → both picks → next stage → fight → pause).
 
 ## Repository layout
 
@@ -123,7 +139,7 @@ Smoke test used by CI: `IronRing.x86_64 -batchmode -demo -screen-fullscreen 0 -s
 Assets/              source content: fighters, stages, effects, UI, sounds
 ProjectSettings/     GameSettings, InputManager, AssetPipeline (→ globalgamemanagers)
 Source/
-  Core/              settings parsing (boot.config, command line)          — no SDL
+  Core/              settings (boot.config, prefs.cfg, command line), menu model — no SDL
   Vfs/               archive format, writer, ZIP/folder mounts, VFS         — no SDL
   Simulation/        deterministic combat core                              — no SDL
   Content/           fighter/atlas parsing and content validation           — no SDL

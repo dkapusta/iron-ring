@@ -186,7 +186,16 @@ The three venues: **Pier 9** (closed cargo pier, crane legs, freighter floodligh
 | Font charset | both | `␠ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?:-+/'"%()#=<>*` in that order. Uppercase only. |
 | HUD layout | `Resources/UI/hud_layout.json` | Rects/points on the 640 × 360 canvas; edit to move elements, no art change. |
 | Icon | `Resources/UI/icon.png` | 256 × 256 RGBA: a chain ring around the letters IR, designed on a 32 × 32 grid so it reads at 16 × 16. Also the Windows `.ico` (`Source/Launcher/Resources/IronRing.ico`, 16–256 px). |
-| Portraits | per fighter | 32 × 32, see §2. |
+| Portraits | per fighter | 32 × 32, see §2. Also drawn at 1.5× (48 × 48) in the character-select grid, so keep the outline clean. |
+| Title logo | `Resources/UI/title_logo.png` | 432 × 96 RGBA, transparent background. "IRON RING" in brass block letters with a dark outline, over (or through) a ring of welded chain. Drawn at 1× centred on the title screen, top edge at y 34, over a dimmed venue; must read on both dark and lit backgrounds. |
+| Menu backdrop | `Resources/UI/menu_backdrop.png` | 640 × 360, opaque. Behind the character select, stage select and options. Dark and calm from y 60 to 336, where menus, fighter previews and text sit; detail only at the edges (a header band above y 60, a crowd silhouette below y 336). No text. |
+
+**Front-end layout** (positions are in code, `Source/Runtime/Game/*Scene.cpp`, on the 640 × 360 canvas):
+
+- *Title:* logo at y 34; tag line below it; "PRESS START" or the menu at y 200–280; footer line at y 346. The background is the venue of the next attract demo, dimmed to about 35 %.
+- *Character select:* title at y 14; a 3 × 2 grid of 56 × 56 cells centred at y 168–288; each side's fighter idle (win pose once picked) with the feet at y 262, 112 px in from the screen edge (player 2 mirrored); name, role and three lines of bio from y 274. Locked slots show "?".
+- *Stage select:* the venue at half size (320 × 180) at y 50, its name, theme and description below.
+- *Options, pause:* framed panels on the backdrop or over the dimmed fight.
 
 ## 6. Audio
 

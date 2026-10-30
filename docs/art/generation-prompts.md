@@ -100,6 +100,22 @@ Shared stage block:
 
 Import with `import_art.py image pier.png Assets/Stages/PierNine/pier_nine.png --size 640 360`, then check the layout rules: ground at y 316, calm HUD bands at y 0–52 and 330–360, chain ring present. Generators rarely put the floor in the right place, so expect to compose or paint over parts.
 
+## Front end: title logo and menu backdrop
+
+Placeholders come from `python3 Tools/Art/generate.py ui`; sizes and layout rules are in [asset-spec.md §5](asset-spec.md#5-ui).
+
+**Title logo (432 × 96, transparent).** Hand-pixel it, or generate a reference and redraw: generators blur thin outlines and invent letters.
+
+> Pixel-art logo for a 1990s arcade fighting game, the words IRON RING in heavy block capitals with riveted brass plates for letters, a warm top-lit gradient from pale gold to dark amber, a two-pixel near-black outline and a hard drop shadow, a ring of heavy welded chain passing behind the letters as a flattened ellipse, flat transparent background, no other text, no gloss, no lens flare
+
+Check: reads at 1× from across a room; the letter shapes match the in-game fonts' squared style; outline pixels are the palette's ink (`#07090f`); nothing outside 432 × 96.
+
+**Menu backdrop (640 × 360, opaque).**
+
+> 1990s arcade fighting-game menu background, pixel art at 640x360, a dark empty fight floor seen from the front at night, two cold floodlight beams falling from above the frame, a flattened ellipse of welded chain on the floor in the lower third, the silhouettes of a crowd's heads and shoulders along the bottom edge, a thin brass rule near the top and the bottom, mostly deep navy, limited palette, ordered dithering, very low contrast in the centre, no people in focus, no text
+
+Check: the centre band (y 60–336) stays dark and even, because the select screen puts portraits, fighters and white text there; brass rules at about y 60 and y 336 line up with the layout.
+
 ## Effects, fonts, icon
 
 These are small and exact. Draw them by hand in a pixel editor at 1× (or keep the procedural ones) rather than generating them; the sizes and frame counts are in [asset-spec.md §4–5](asset-spec.md#4-effects).
