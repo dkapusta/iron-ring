@@ -10,7 +10,7 @@ import numpy as np
 
 from .apu import Channels, pulse_period, triangle_period
 from .song import Drum, Instrument, Score
-from .theme import KIT
+from .instruments import KIT
 
 
 def _env(start: int, end: int, frames: int) -> np.ndarray:

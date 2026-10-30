@@ -13,6 +13,7 @@
 #include <array>
 #include <memory>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 namespace iron {
@@ -44,11 +45,13 @@ private:
     struct StageView {
         std::string name;
         const Texture* background = nullptr;
+        std::string music; // theme id in music.json; empty = no music
     };
 
     void loadStages(AssetLibrary& assets, const std::string& stagesPath, const std::string& startStage);
     void loadMusic(AssetLibrary& assets, const std::string& musicPath);
     void newMatch();
+    void playStageMusic();
     [[nodiscard]] const char* controlName() const;
     void playEvents(const sim::MatchStep& step);
     void drawShadow(SDL_Renderer* r, float x, float groundY, float height) const;
@@ -66,7 +69,7 @@ private:
     std::size_t stage_ = 0;
     Control control_ = Control::VsCpu;
     int clock_ = 0; // presentation clock: stops during hitstop
-    AudioSystem::Music music_;
+    std::unordered_map<std::string, AudioSystem::Music> themes_; // by theme id
 };
 
 } // namespace iron

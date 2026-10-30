@@ -52,7 +52,8 @@ void FightScene::loadStages(AssetLibrary& assets, const std::string& stagesPath,
     const auto catalog = assets.json(stagesPath); // keep alive: range-for over a temporary's member dangles
     for (const auto& s : catalog.at("stages")) {
         if (s.at("id").get<std::string>() == startStage) stage_ = stages_.size();
-        stages_.push_back({s.at("name").get<std::string>(), &assets.texture(s.at("image").get<std::string>())});
+        stages_.push_back({s.at("name").get<std::string>(), &assets.texture(s.at("image").get<std::string>()),
+                           s.value("music", std::string{})});
     }
     if (stages_.empty()) throw std::runtime_error(stagesPath + ": no stages");
     const bool found = std::any_of(catalog.at("stages").begin(), catalog.at("stages").end(),
@@ -63,18 +64,30 @@ void FightScene::loadStages(AssetLibrary& assets, const std::string& stagesPath,
 }
 
 void FightScene::loadMusic(AssetLibrary& assets, const std::string& musicPath) {
-    const auto catalog = assets.json(musicPath);
-    const auto& theme = catalog.at("theme");
+    const auto catalog = assets.json(musicPath); // keep alive: iterated below
     const auto folder = musicPath.substr(0, musicPath.find_last_of('/') + 1);
-    music_.encoded = assets.bytes(folder + theme.at("file").get<std::string>());
-    music_.loopStartFrame = theme.value("loopStartFrame", std::int64_t{0});
-    music_.gain = theme.value("gain", 1.0f);
+    for (const auto& [id, theme] : catalog.at("themes").items()) {
+        AudioSystem::Music music;
+        music.encoded = assets.bytes(folder + theme.at("file").get<std::string>());
+        music.loopStartFrame = theme.value("loopStartFrame", std::int64_t{0});
+        music.gain = theme.value("gain", 1.0f);
+        themes_.emplace(id, std::move(music));
+    }
+}
+
+void FightScene::playStageMusic() {
+    const auto it = themes_.find(stages_[stage_].music);
+    if (it == themes_.end()) {
+        audio_.stopMusic(300);
+        return;
+    }
+    audio_.playMusic(it->second); // a copy: the encoded bytes stay with themes_
 }
 
 void FightScene::newMatch() {
     match_ = std::make_unique<sim::Match>(views_[0]->definition().spec, views_[1]->definition().spec);
     effects_->clear();
-    if (!music_.encoded.empty()) audio_.playMusic(music_);
+    playStageMusic();
 }
 
 void FightScene::handleEvent(const SDL_Event& event) {
@@ -86,7 +99,10 @@ void FightScene::handleEvent(const SDL_Event& event) {
         control_ = control_ == Control::VsCpu ? Control::TwoPlayers
                  : control_ == Control::TwoPlayers ? Control::Demo : Control::VsCpu;
         break;
-    case SDL_SCANCODE_F2: stage_ = (stage_ + 1) % stages_.size(); break;
+    case SDL_SCANCODE_F2:
+        stage_ = (stage_ + 1) % stages_.size();
+        playStageMusic();
+        break;
     case SDL_SCANCODE_F3: overlay_->toggle(); break;
     case SDL_SCANCODE_F5: newMatch(); break;
     default: break;

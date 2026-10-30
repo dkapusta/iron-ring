@@ -11,7 +11,8 @@
       ],
       "floor_y_logical": 316,
       "description": "Closed cargo pier after the night shift; a chalk ring between crane legs, dockers betting behind the rail.",
-      "parallax_status": "Single flattened layer; parallax layers planned (ROADMAP M3)"
+      "parallax_status": "Single flattened layer; parallax layers planned (ROADMAP M3)",
+      "music": "pier_nine"
     },
     {
       "id": "lantern_row",
@@ -23,7 +24,8 @@
       ],
       "floor_y_logical": 316,
       "description": "Night market after curfew; stalls shuttered, the ring roped off under the old station clock.",
-      "parallax_status": "Single flattened layer; parallax layers planned (ROADMAP M3)"
+      "parallax_status": "Single flattened layer; parallax layers planned (ROADMAP M3)",
+      "music": "lantern_row"
     },
     {
       "id": "the_crown",
@@ -35,7 +37,8 @@
       ],
       "floor_y_logical": 316,
       "description": "Rooftop terrace of the derelict Crown Hotel at first light; the final bout of the Iron Ring.",
-      "parallax_status": "Single flattened layer; parallax layers planned (ROADMAP M3)"
+      "parallax_status": "Single flattened layer; parallax layers planned (ROADMAP M3)",
+      "music": "the_crown"
     }
   ]
 }
