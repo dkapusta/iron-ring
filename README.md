@@ -142,7 +142,7 @@ Unity-compatible names where they exist:
 
 Settings come from defaults, then `boot.config`, then `prefs.cfg`, then the command line; batch runs ignore `prefs.cfg`.
 
-Smoke tests used by CI: `IronRing.x86_64 -batchmode -demo -screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -frames 420 -screenshot shot.png`, the front end driven by key taps: `-batchmode -frames 450 -keys "10:Return,20:Down,30:Return,60:Return,80:Return,160:Right,175:Return,430:Escape"` (title → Versus CPU → both picks → next stage → fight → pause), and the arcade soak: `-batchmode -autoplay -frames 13000 -keys "10:Return,30:Return,60:Return"` (the whole ladder to the ending).
+Smoke tests used by CI: `IronRing.x86_64 -batchmode -demo -screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -frames 420 -screenshot shot.png`, the front end driven by key taps: `-batchmode -frames 450 -keys "10:Return,20:Down,30:Return,60:Return,80:Return,160:Right,175:Return,430:Escape"` (title → Versus CPU → both picks → next stage → fight → pause), and the arcade soak: `-batchmode -autoplay -frames 14000 -keys "10:Return,30:Return,60:Return"` (the whole ladder to the ending, which autoplay holds).
 
 ## Repository layout
 

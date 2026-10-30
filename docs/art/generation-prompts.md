@@ -1,5 +1,7 @@
 # Generation prompts
 
+> For the M2 vertical slice (Art Pack v2: corrections, the champion pose, layered stages, the title logo and menu backdrop) the self-contained brief is [vertical-slice-art-brief.md](vertical-slice-art-brief.md).
+
 Prompts for producing Iron Ring art with an outside image generator. Every result goes through `Tools/Art/import_art.py` and has to meet the [asset specification](asset-spec.md). Image generators are inconsistent across frames, so the workflow anchors each frame to a pose reference instead of trusting text alone.
 
 ## Workflow that keeps frames consistent
@@ -78,6 +80,7 @@ Prefix each with the character prompt, append the style block. `(ref)` means: us
 | Bram `special_0`, `_1` | low lunge with both arms spread wide, a bear-hug reach / arms closed around the opponent's waist, clamped (ref) |
 | Bram `lp_*` (Palm Shove) | both palms pushed out at full arm length at chest height, heels of the hands forward, shoulders forward (ref) |
 | Bram `hp_*` (Anchor Hook) | lead arm bent 90° sweeping across in a hook, torso turning into it, rear heel lifting / fist past the centre line (ref) |
+| `champion_0…5` | holding up a length of heavy welded steel chain with both hands on a rooftop at dawn: chain low, catching breath / lifting / overhead, taut, shouting / holding / breath, chain sagging 1–2 px / head back, shouting (ref, procedural for now; see the [brief §3.3](vertical-slice-art-brief.md#33-new-the-champion-pose-f3)) |
 | Bram `hoist_0…2` | lifting an (invisible) opponent from the waist / pressing them overhead at full arm's length, thick arms locked / slamming them down in front (ref) |
 
 ## Portraits (32 × 32)
