@@ -25,6 +25,16 @@ inline constexpr int kTechWindow = 10;     // ticks after a throw connects in wh
 inline constexpr int kMotionStepWindow = 12; // max ticks between two directions of a motion
 inline constexpr int kMotionReadyWindow = 8; // ticks to press the button after the motion
 inline constexpr int kTrainingRefillTicks = 60; // training: idle ticks before health and Heat refill
+// Counter hits: a strike that lands while the opponent is starting or swinging an attack.
+inline constexpr int kCounterDamagePercent = 125;
+inline constexpr int kCounterHitstun = 6;     // extra ticks of hitstun
+inline constexpr int kCounterHitstop = 4;     // extra ticks of hitstop
+// Combos: each hit after the first, while the opponent is still in hitstun, does less.
+inline constexpr int kComboScaleStep = 15;    // percent off per hit: 100, 85, 70, 55, then 50
+inline constexpr int kComboScaleFloor = 50;
+inline constexpr int kCancelWindow = 6;       // ticks after a cancelable move's active frames to cancel into the special
+// Breakaway (Heat): a guard cancel, only in blockstun. The attacker is staggered, not pushed away.
+inline constexpr int kBreakStagger = 18;      // ticks of no-damage stun on the attacker
 
 enum class Outcome : std::int32_t { Running = 0, Player1 = 1, Player2 = 2, Draw = 3 };
 enum class Effect : std::int32_t { LightHit = 0, HeavyHit = 1, Guard = 2, Breakaway = 3, ThrowTech = 4, Slam = 5 };
@@ -48,6 +58,7 @@ struct Fighter {
     int techTicks = 0;   // remaining tech window while held
     int motionStep = 0, motionTimer = 0, motionReady = 0;
     int recoverTicks = 0; // training: ticks since the fighter was last hit or held
+    int combo = 0;        // hits taken in the current combo (0 when free)
 
     // Free to act, block and be thrown.
     [[nodiscard]] bool busy() const { return knockdown > 0 || throwTicks > 0 || heldTicks > 0; }
@@ -58,13 +69,17 @@ struct Fighter {
 struct StepEvents {
     struct Event {
         Effect effect;
-        int x, y; // fixed-point world position
+        int x, y;            // fixed-point world position
+        int attacker = -1;   // side that landed it, for hits, guards and Breakaways
+        int combo = 0;       // hits, light and heavy: the hit's place in the combo (1 = first)
+        bool counter = false; // hits: a counter hit
     };
     std::array<Event, 4> items{};
     int count = 0;
 
-    void push(Effect effect, int x, int y) {
-        if (count < static_cast<int>(items.size())) items[static_cast<std::size_t>(count++)] = {effect, x, y};
+    void push(Effect effect, int x, int y, int attacker = -1, int combo = 0, bool counter = false) {
+        if (count < static_cast<int>(items.size()))
+            items[static_cast<std::size_t>(count++)] = {effect, x, y, attacker, combo, counter};
     }
 };
 
@@ -114,7 +129,8 @@ private:
     void resolveThrows(const std::array<bool, 2>& techs, StepEvents& events);
     void resolveContacts(StepEvents& events);
     void separate();
-    void setEffect(Effect e, int x, int y, int ticks, StepEvents& events);
+    void setEffect(Effect e, int x, int y, int ticks, StepEvents& events, int attacker = -1, int combo = 0,
+                   bool counter = false);
     void applyTrainingRules();
 };
 

@@ -8,7 +8,7 @@ namespace {
 
 constexpr int kBufferTicks = 6;
 constexpr int kBreakRange = 120;
-constexpr int kBreakPush = 55;
+constexpr int kBreakPush = 24; // the staggered attacker slides back a little, still in reach
 constexpr int kPushHeight = 40;
 constexpr int kHoldOffset = 30;   // victim's distance from the thrower while held
 constexpr int kTechSeparation = 24;
@@ -26,6 +26,10 @@ void clampToStage(Fighter& f, int stageWidth) {
 }
 
 int addMeter(int meter, int amount) { return std::min(kMeterMax, meter + amount); }
+
+// Heat gains (docs/design/heat.md). Heat lasts the whole match, so these are
+// kept low enough that a Breakaway (50) is something to save for.
+constexpr int kHeatForHit = 7, kHeatForBeingHit = 4, kHeatForBlocking = 5, kHeatForBeingBlocked = 2;
 
 bool chordPressed(Input held, Input pressed, Input a, Input b) {
     return (held & a) && (held & b) && (pressed & (a | b));
@@ -113,12 +117,12 @@ void Round::reset() {
     effectY = 0;
 }
 
-void Round::setEffect(Effect e, int x, int y, int ticks, StepEvents& events) {
+void Round::setEffect(Effect e, int x, int y, int ticks, StepEvents& events, int attacker, int combo, bool counter) {
     effect = e;
     effectX = x;
     effectY = y;
     effectTicks = ticks;
-    events.push(e, x, y);
+    events.push(e, x, y, attacker, combo, counter);
 }
 
 HurtSet Round::hurtboxes(const Fighter& f) const {
@@ -242,7 +246,10 @@ void Round::updateFighter(std::size_t i, Input in, Input pressed, StepEvents& ev
 
     if (f.move < 0) f.facing = other.x >= f.x ? 1 : -1;
     if (f.stun > 0) --f.stun;
-    if (f.stun == 0) f.blockstun = false;
+    if (f.stun == 0) {
+        f.blockstun = false;
+        f.combo = 0; // recovered: the next hit starts a new combo
+    }
     if (f.move >= 0 && ++f.age >= currentMove(f).duration()) {
         f.move = -1;
         f.age = 0;
@@ -253,10 +260,12 @@ void Round::updateFighter(std::size_t i, Input in, Input pressed, StepEvents& ev
     const bool holdingBack = f.facing == 1 ? (in & Left) : (in & Right);
     f.guarding = ((in & Guard) || holdingBack) && f.move < 0 && (f.stun == 0 || f.blockstun) && f.y == 0;
 
-    const bool canBreak = f.guarding && f.meter >= kBreakCost && f.breakTicks > 0 &&
+    // Breakaway: a guard cancel. Only out of blockstun, so it answers pressure;
+    // it ends the blockstun and staggers the attacker (no damage), which turns
+    // the exchange around: the defender gets to punish.
+    const bool canBreak = f.guarding && f.blockstun && f.stun > 0 && f.meter >= kBreakCost && f.breakTicks > 0 &&
                           std::abs(other.x - f.x) < kBreakRange * kFixed;
     if (canBreak) {
-        // Breakaway: spend Heat, cancel blockstun, shove the opponent away.
         f.meter -= kBreakCost;
         f.stun = 0;
         f.blockstun = false;
@@ -264,11 +273,14 @@ void Round::updateFighter(std::size_t i, Input in, Input pressed, StepEvents& ev
         f.bufferTicks = 0;
         f.breakTicks = 0;
         if (!other.busy()) {
+            stopActing(other);
+            other.stun = kBreakStagger;
+            other.blockstun = false;
             other.x += f.facing * kBreakPush * kFixed;
             clampToStage(other, stageWidth);
         }
         hitstop = 6;
-        setEffect(Effect::Breakaway, f.x, f.y + 55 * kFixed, 12, events);
+        setEffect(Effect::Breakaway, f.x, f.y + 55 * kFixed, 12, events, static_cast<int>(i));
     } else if (f.stun == 0 && f.move < 0) {
         if ((pressed & Up) && f.y == 0) f.vy = s.jumpVelocity;
         if (!f.crouching) {
@@ -284,6 +296,18 @@ void Round::updateFighter(std::size_t i, Input in, Input pressed, StepEvents& ev
             f.buffered = -1;
             f.bufferTicks = 0;
             f.guarding = false;
+        }
+    }
+    // A cancelable move that connected (hit or block) can be cut short by the special.
+    if (f.move >= 0 && f.move != SpecialSlot && f.connected && f.buffered == SpecialSlot && f.y == 0) {
+        const MoveSpec& m = currentMove(f);
+        if (m.cancel && s.moves[SpecialSlot].enabled && f.age >= m.startup &&
+            f.age < m.startup + m.active + kCancelWindow) {
+            f.move = SpecialSlot;
+            f.age = 0;
+            f.connected = false;
+            f.buffered = -1;
+            f.bufferTicks = 0;
         }
     }
     if (f.move >= 0) {
@@ -328,8 +352,8 @@ void Round::resolveThrows(const std::array<bool, 2>& techs, StepEvents& events) 
         d.knockdown = spec(d).knockdownTicks;
         d.x = a.x + a.facing * m.throwDistance * kFixed;
         clampToStage(d, stageWidth);
-        a.meter = addMeter(a.meter, 12);
-        d.meter = addMeter(d.meter, 6);
+        a.meter = addMeter(a.meter, kHeatForHit);
+        d.meter = addMeter(d.meter, kHeatForBeingHit);
         a.throwSlot = -1;
         hitstop = std::max(hitstop, m.hitstopOnHit);
         setEffect(Effect::Slam, d.x, d.y + 12 * kFixed, 12, events);
@@ -391,17 +415,24 @@ void Round::resolveContacts(StepEvents& events) {
         auto& d = fighters[1 - i];
         if (!hittable(d)) continue; // grabbed on this tick
         const MoveSpec& m = *c.move;
+        bool counter = false;
         if (c.blocked) {
-            d.meter = addMeter(d.meter, 8);
-            a.meter = addMeter(a.meter, 3);
+            d.meter = addMeter(d.meter, kHeatForBlocking);
+            a.meter = addMeter(a.meter, kHeatForBeingBlocked);
             d.stun = m.blockstun;
             d.blockstun = true;
             hitstop = std::max(hitstop, m.hitstopOnBlock);
         } else {
             const bool airborne = d.y > 0;
-            d.hp = std::max(0, d.hp - m.damage);
-            d.meter = addMeter(d.meter, 6);
-            a.meter = addMeter(a.meter, 12);
+            // Caught starting or swinging an attack: a counter hit (a trade is not).
+            counter = d.move >= 0 && d.age < currentMove(d).startup + currentMove(d).active && !contacts[1 - i].hit;
+            // Still in hitstun from the last hit: the combo goes on, each hit worth less.
+            d.combo = d.stun > 0 && !d.blockstun ? d.combo + 1 : 1;
+            int damage = counter ? m.damage * kCounterDamagePercent / 100 : m.damage;
+            damage = damage * std::max(kComboScaleFloor, 100 - kComboScaleStep * (d.combo - 1)) / 100;
+            d.hp = std::max(0, d.hp - std::max(1, damage));
+            d.meter = addMeter(d.meter, kHeatForBeingHit);
+            a.meter = addMeter(a.meter, kHeatForHit);
             d.move = -1;
             d.age = 0;
             d.connected = false;
@@ -410,15 +441,16 @@ void Round::resolveContacts(StepEvents& events) {
                 stopActing(d);
                 d.knockdown = spec(d).knockdownTicks;
             } else {
-                d.stun = m.hitstun;
+                d.stun = m.hitstun + (counter ? kCounterHitstun : 0);
             }
-            hitstop = std::max(hitstop, m.hitstopOnHit);
+            hitstop = std::max(hitstop, m.hitstopOnHit + (counter ? kCounterHitstop : 0));
         }
         d.x += c.direction * (c.blocked ? m.blockPush : m.knockback) * kFixed;
         a.x -= c.direction * 2 * kFixed;
         const Effect e = c.blocked ? Effect::Guard : (m.heavy ? Effect::HeavyHit : Effect::LightHit);
         const WorldBox box = place(m.hitbox, a);
-        setEffect(e, (a.x + d.x) / 2, (box.y0 + box.y1) / 2, 10, events);
+        setEffect(e, (a.x + d.x) / 2, (box.y0 + box.y1) / 2, 10, events, static_cast<int>(i), c.blocked ? 0 : d.combo,
+                  counter);
     }
 }
 
@@ -472,7 +504,7 @@ std::uint64_t Round::checksum() const {
         add(f.side); add(f.previous);
         add(f.connected); add(f.crouching); add(f.guarding); add(f.blockstun);
         add(f.knockdown); add(f.throwTicks); add(f.throwSlot); add(f.heldTicks); add(f.techTicks);
-        add(f.motionStep); add(f.motionTimer); add(f.motionReady);
+        add(f.motionStep); add(f.motionTimer); add(f.motionReady); add(f.combo);
         if (training) add(f.recoverTicks); // only under training rules, so match checksums stay put
     }
     if (training) add(1);
@@ -518,7 +550,8 @@ Input cpuInput(const Round& r, int side) {
     if (other.move >= 0 && distance < 90 && tick % 4 != 0) {
         result |= Guard;
         if (r.currentMove(other).low) result |= Down;
-        if (self.meter >= kBreakCost && tick % 31 == 0) result |= HeavyPunch | HeavyKick;
+        // Under pressure: spend Heat on a Breakaway now and then, then punish the stagger.
+        if (self.blockstun && self.stun > 0 && self.meter >= kBreakCost && tick % 5 == 0) result |= HeavyPunch | HeavyKick;
     } else if (distance < 80 && tick % 36 == 0) {
         constexpr Input sequence[]{LightPunch, LightKick, HeavyPunch, HeavyKick};
         result |= sequence[(tick / 36) % 4];

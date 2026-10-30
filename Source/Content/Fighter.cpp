@@ -49,6 +49,7 @@ sim::MoveSpec parseMove(const json& j, std::string_view path, const std::string&
     read(j, "throwDuration", m.throwDuration);
     read(j, "throwDistance", m.throwDistance);
     read(j, "techable", m.techable);
+    read(j, "cancel", m.cancel);
     if (j.contains("hurt")) {
         constexpr std::array<std::string_view, sim::kPhaseCount> phases{"startup", "active", "recovery"};
         const auto& hurt = j.at("hurt");

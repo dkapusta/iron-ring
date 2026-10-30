@@ -61,6 +61,7 @@ struct MoveSpec {
     bool low = false;                     // must be blocked crouching
     bool heavy = false;                   // presentation: heavy hit effect
     bool knockdown = false;               // a clean hit knocks the opponent down
+    bool cancel = false;                  // on hit or block, the special can cancel its recovery
     int advance = 0;                      // 1/kFixed px per tick forward during startup + active
     // Hurtboxes per phase, for moves that change the silhouette: a sweep
     // ducks low, an extended limb can be hit (whiff punishes).
