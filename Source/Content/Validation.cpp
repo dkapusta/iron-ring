@@ -159,6 +159,18 @@ ValidationReport validateProject(const FileReader& read) {
                 (void)readPng(read, siblingPath(fontPath, json->at("image").get<std::string>()), report);
         }
         for (const auto& [id, path] : settings->at("sounds").items()) requireFile(read, path.get<std::string>(), report);
+        for (const auto id : kSounds)
+            if (!settings->at("sounds").contains(id))
+                report.errors.push_back("GameSettings.json: sounds: missing '" + std::string(id) + "'");
+        if (settings->contains("music")) {
+            const auto musicPath = settings->at("music").get<std::string>();
+            if (const auto music = readJson(read, musicPath, report)) {
+                const auto& theme = music->at("theme");
+                requireFile(read, siblingPath(musicPath, theme.at("file").get<std::string>()), report);
+                if (theme.value("loopStartFrame", std::int64_t{0}) >= theme.value("lengthFrames", std::int64_t{0}))
+                    report.errors.push_back(musicPath + ": loopStartFrame must be inside the track");
+            }
+        }
     } catch (const nlohmann::json::exception& e) {
         report.errors.push_back(std::string("GameSettings.json: ") + e.what());
     } catch (const ContentError& e) {

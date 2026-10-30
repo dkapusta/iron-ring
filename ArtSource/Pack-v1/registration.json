@@ -1,0 +1,2675 @@
+[
+  {
+    "fighter": "dee",
+    "frame": "idle_0",
+    "source_sheet": "dee_poses_1.png",
+    "crop": [
+      66,
+      71,
+      192,
+      330
+    ],
+    "target_size": [
+      51,
+      130
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      21,
+      130
+    ],
+    "source_scale_xy": [
+      0.40476190476190477,
+      0.5019305019305019
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "idle_1",
+    "source_sheet": "dee_poses_1.png",
+    "crop": [
+      319,
+      71,
+      444,
+      330
+    ],
+    "target_size": [
+      51,
+      129
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      21,
+      129
+    ],
+    "source_scale_xy": [
+      0.408,
+      0.4980694980694981
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "idle_2",
+    "source_sheet": "dee_poses_1.png",
+    "crop": [
+      582,
+      71,
+      709,
+      330
+    ],
+    "target_size": [
+      51,
+      128
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      21,
+      128
+    ],
+    "source_scale_xy": [
+      0.4015748031496063,
+      0.4942084942084942
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "idle_3",
+    "source_sheet": "dee_poses_1.png",
+    "crop": [
+      846,
+      72,
+      972,
+      330
+    ],
+    "target_size": [
+      51,
+      129
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      21,
+      129
+    ],
+    "source_scale_xy": [
+      0.40476190476190477,
+      0.5
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "walk_0",
+    "source_sheet": "dee_poses_1.png",
+    "crop": [
+      1100,
+      73,
+      1262,
+      332
+    ],
+    "target_size": [
+      61,
+      130
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      130
+    ],
+    "source_scale_xy": [
+      0.3765432098765432,
+      0.5019305019305019
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "walk_1",
+    "source_sheet": "dee_poses_1.png",
+    "crop": [
+      1362,
+      73,
+      1534,
+      332
+    ],
+    "target_size": [
+      57,
+      129
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      24,
+      129
+    ],
+    "source_scale_xy": [
+      0.3313953488372093,
+      0.4980694980694981
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "walk_2",
+    "source_sheet": "dee_poses_1.png",
+    "crop": [
+      62,
+      401,
+      191,
+      661
+    ],
+    "target_size": [
+      47,
+      129
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      19,
+      129
+    ],
+    "source_scale_xy": [
+      0.3643410852713178,
+      0.49615384615384617
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "walk_3",
+    "source_sheet": "dee_poses_1.png",
+    "crop": [
+      314,
+      401,
+      445,
+      661
+    ],
+    "target_size": [
+      41,
+      130
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      16,
+      130
+    ],
+    "source_scale_xy": [
+      0.31297709923664124,
+      0.5
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "walk_4",
+    "source_sheet": "dee_poses_1.png",
+    "crop": [
+      590,
+      401,
+      712,
+      661
+    ],
+    "target_size": [
+      47,
+      129
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      19,
+      129
+    ],
+    "source_scale_xy": [
+      0.38524590163934425,
+      0.49615384615384617
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "walk_5",
+    "source_sheet": "dee_poses_1.png",
+    "crop": [
+      841,
+      401,
+      973,
+      661
+    ],
+    "target_size": [
+      57,
+      129
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      24,
+      129
+    ],
+    "source_scale_xy": [
+      0.4318181818181818,
+      0.49615384615384617
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "crouch",
+    "source_sheet": "dee_poses_1.png",
+    "crop": [
+      1123,
+      469,
+      1256,
+      661
+    ],
+    "target_size": [
+      61,
+      93
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      24,
+      93
+    ],
+    "source_scale_xy": [
+      0.45864661654135336,
+      0.484375
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "guard",
+    "source_sheet": "dee_poses_1.png",
+    "crop": [
+      1377,
+      391,
+      1513,
+      661
+    ],
+    "target_size": [
+      51,
+      130
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      21,
+      130
+    ],
+    "source_scale_xy": [
+      0.375,
+      0.48148148148148145
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "guard_crouch",
+    "source_sheet": "dee_poses_1.png",
+    "crop": [
+      57,
+      786,
+      210,
+      974
+    ],
+    "target_size": [
+      72,
+      93
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      24,
+      93
+    ],
+    "source_scale_xy": [
+      0.47058823529411764,
+      0.4946808510638298
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "jump_rise",
+    "source_sheet": "dee_poses_1.png",
+    "crop": [
+      330,
+      716,
+      446,
+      964
+    ],
+    "target_size": [
+      51,
+      119
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      16,
+      128
+    ],
+    "source_scale_xy": [
+      0.4396551724137931,
+      0.4798387096774194
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "jump_apex",
+    "source_sheet": "dee_poses_1.png",
+    "crop": [
+      605,
+      727,
+      713,
+      920
+    ],
+    "target_size": [
+      48,
+      99
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      11,
+      124
+    ],
+    "source_scale_xy": [
+      0.4444444444444444,
+      0.5129533678756477
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "jump_fall",
+    "source_sheet": "dee_poses_1.png",
+    "crop": [
+      854,
+      716,
+      972,
+      974
+    ],
+    "target_size": [
+      48,
+      127
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      18,
+      128
+    ],
+    "source_scale_xy": [
+      0.4067796610169492,
+      0.49224806201550386
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "lp_0",
+    "source_sheet": "dee_poses_1.png",
+    "crop": [
+      1115,
+      712,
+      1249,
+      974
+    ],
+    "target_size": [
+      51,
+      129
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      21,
+      129
+    ],
+    "source_scale_xy": [
+      0.3805970149253731,
+      0.49236641221374045
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "lp_1",
+    "source_sheet": "dee_poses_1.png",
+    "crop": [
+      1356,
+      722,
+      1549,
+      974
+    ],
+    "target_size": [
+      78,
+      128
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      21,
+      128
+    ],
+    "source_scale_xy": [
+      0.40414507772020725,
+      0.5079365079365079
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "lp_2",
+    "source_sheet": "dee_poses_2.png",
+    "crop": [
+      46,
+      81,
+      197,
+      358
+    ],
+    "target_size": [
+      61,
+      129
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      21,
+      129
+    ],
+    "source_scale_xy": [
+      0.40397350993377484,
+      0.4657039711191336
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "hp_0",
+    "source_sheet": "dee_poses_2.png",
+    "crop": [
+      315,
+      80,
+      462,
+      358
+    ],
+    "target_size": [
+      56,
+      130
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      130
+    ],
+    "source_scale_xy": [
+      0.38095238095238093,
+      0.4676258992805755
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "hp_1",
+    "source_sheet": "dee_poses_2.png",
+    "crop": [
+      577,
+      95,
+      819,
+      358
+    ],
+    "target_size": [
+      88,
+      124
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      21,
+      124
+    ],
+    "source_scale_xy": [
+      0.36363636363636365,
+      0.4714828897338403
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "hp_2",
+    "source_sheet": "dee_poses_2.png",
+    "crop": [
+      830,
+      92,
+      1058,
+      358
+    ],
+    "target_size": [
+      82,
+      126
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      21,
+      126
+    ],
+    "source_scale_xy": [
+      0.35964912280701755,
+      0.47368421052631576
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "hp_3",
+    "source_sheet": "dee_poses_2.png",
+    "crop": [
+      1107,
+      91,
+      1269,
+      359
+    ],
+    "target_size": [
+      61,
+      129
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      21,
+      129
+    ],
+    "source_scale_xy": [
+      0.3765432098765432,
+      0.48134328358208955
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "lk_0",
+    "source_sheet": "dee_poses_2.png",
+    "crop": [
+      1396,
+      64,
+      1524,
+      359
+    ],
+    "target_size": [
+      57,
+      133
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      17,
+      133
+    ],
+    "source_scale_xy": [
+      0.4453125,
+      0.45084745762711864
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "lk_1",
+    "source_sheet": "dee_poses_2.png",
+    "crop": [
+      56,
+      407,
+      285,
+      688
+    ],
+    "target_size": [
+      93,
+      132
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      19,
+      132
+    ],
+    "source_scale_xy": [
+      0.40611353711790393,
+      0.4697508896797153
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "lk_2",
+    "source_sheet": "dee_poses_2.png",
+    "crop": [
+      339,
+      407,
+      467,
+      688
+    ],
+    "target_size": [
+      57,
+      133
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      17,
+      133
+    ],
+    "source_scale_xy": [
+      0.4453125,
+      0.47330960854092524
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "hk_0",
+    "source_sheet": "dee_poses_2.png",
+    "crop": [
+      576,
+      480,
+      731,
+      688
+    ],
+    "target_size": [
+      66,
+      96
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      21,
+      95
+    ],
+    "source_scale_xy": [
+      0.4258064516129032,
+      0.46153846153846156
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "hk_1",
+    "source_sheet": "dee_poses_2.png",
+    "crop": [
+      831,
+      505,
+      1076,
+      688
+    ],
+    "target_size": [
+      96,
+      87
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      14,
+      86
+    ],
+    "source_scale_xy": [
+      0.39183673469387753,
+      0.47540983606557374
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "hk_2",
+    "source_sheet": "dee_poses_2.png",
+    "crop": [
+      1127,
+      498,
+      1311,
+      688
+    ],
+    "target_size": [
+      82,
+      89
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      14,
+      88
+    ],
+    "source_scale_xy": [
+      0.44565217391304346,
+      0.46842105263157896
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "hk_3",
+    "source_sheet": "dee_poses_2.png",
+    "crop": [
+      1377,
+      492,
+      1522,
+      688
+    ],
+    "target_size": [
+      61,
+      94
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      24,
+      94
+    ],
+    "source_scale_xy": [
+      0.4206896551724138,
+      0.47959183673469385
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "throw_0",
+    "source_sheet": "dee_poses_2.png",
+    "crop": [
+      38,
+      724,
+      217,
+      984
+    ],
+    "target_size": [
+      76,
+      127
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      21,
+      127
+    ],
+    "source_scale_xy": [
+      0.4245810055865922,
+      0.48846153846153845
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "throw_1",
+    "source_sheet": "dee_poses_2.png",
+    "crop": [
+      299,
+      723,
+      464,
+      984
+    ],
+    "target_size": [
+      69,
+      128
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      21,
+      128
+    ],
+    "source_scale_xy": [
+      0.41818181818181815,
+      0.4904214559386973
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "throw_hold_0",
+    "source_sheet": "dee_poses_2.png",
+    "crop": [
+      576,
+      724,
+      756,
+      984
+    ],
+    "target_size": [
+      69,
+      128
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      21,
+      128
+    ],
+    "source_scale_xy": [
+      0.38333333333333336,
+      0.49230769230769234
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "throw_hold_1",
+    "source_sheet": "dee_poses_2.png",
+    "crop": [
+      829,
+      718,
+      992,
+      984
+    ],
+    "target_size": [
+      59,
+      131
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      32,
+      130
+    ],
+    "source_scale_xy": [
+      0.3619631901840491,
+      0.4924812030075188
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "hit_0",
+    "source_sheet": "dee_poses_2.png",
+    "crop": [
+      1125,
+      728,
+      1289,
+      984
+    ],
+    "target_size": [
+      71,
+      128
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      41,
+      128
+    ],
+    "source_scale_xy": [
+      0.4329268292682927,
+      0.5
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "hit_1",
+    "source_sheet": "dee_poses_2.png",
+    "crop": [
+      1383,
+      748,
+      1568,
+      984
+    ],
+    "target_size": [
+      77,
+      123
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      49,
+      123
+    ],
+    "source_scale_xy": [
+      0.41621621621621624,
+      0.5211864406779662
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "hit_crouch",
+    "source_sheet": "dee_poses_3.png",
+    "crop": [
+      60,
+      149,
+      192,
+      321
+    ],
+    "target_size": [
+      64,
+      101
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      24,
+      101
+    ],
+    "source_scale_xy": [
+      0.48484848484848486,
+      0.5872093023255814
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "held_0",
+    "source_sheet": "dee_poses_3.png",
+    "crop": [
+      303,
+      86,
+      432,
+      321
+    ],
+    "target_size": [
+      69,
+      127
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      41,
+      127
+    ],
+    "source_scale_xy": [
+      0.5348837209302325,
+      0.5404255319148936
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "held_1",
+    "source_sheet": "dee_poses_3.png",
+    "crop": [
+      507,
+      199,
+      723,
+      321
+    ],
+    "target_size": [
+      117,
+      64
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      69,
+      66
+    ],
+    "source_scale_xy": [
+      0.5416666666666666,
+      0.5245901639344263
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "down_0",
+    "source_sheet": "dee_poses_3.png",
+    "crop": [
+      774,
+      186,
+      1001,
+      279
+    ],
+    "target_size": [
+      113,
+      48
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      70,
+      75
+    ],
+    "source_scale_xy": [
+      0.4977973568281938,
+      0.5161290322580645
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "down_1",
+    "source_sheet": "dee_poses_3.png",
+    "crop": [
+      1033,
+      246,
+      1298,
+      322
+    ],
+    "target_size": [
+      135,
+      38
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      69,
+      36
+    ],
+    "source_scale_xy": [
+      0.5094339622641509,
+      0.5
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "down_2",
+    "source_sheet": "dee_poses_3.png",
+    "crop": [
+      1369,
+      180,
+      1553,
+      321
+    ],
+    "target_size": [
+      87,
+      73
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      41,
+      72
+    ],
+    "source_scale_xy": [
+      0.47282608695652173,
+      0.5177304964539007
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "down_3",
+    "source_sheet": "dee_poses_3.png",
+    "crop": [
+      60,
+      492,
+      191,
+      667
+    ],
+    "target_size": [
+      61,
+      92
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      24,
+      92
+    ],
+    "source_scale_xy": [
+      0.46564885496183206,
+      0.5257142857142857
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "win_0",
+    "source_sheet": "dee_poses_3.png",
+    "crop": [
+      330,
+      377,
+      449,
+      667
+    ],
+    "target_size": [
+      50,
+      156
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      24,
+      156
+    ],
+    "source_scale_xy": [
+      0.42016806722689076,
+      0.5379310344827586
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "win_1",
+    "source_sheet": "dee_poses_3.png",
+    "crop": [
+      604,
+      371,
+      713,
+      667
+    ],
+    "target_size": [
+      50,
+      161
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      24,
+      161
+    ],
+    "source_scale_xy": [
+      0.45871559633027525,
+      0.543918918918919
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "special_0",
+    "source_sheet": "dee_poses_3.png",
+    "crop": [
+      836,
+      462,
+      980,
+      668
+    ],
+    "target_size": [
+      60,
+      109
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      21,
+      108
+    ],
+    "source_scale_xy": [
+      0.4166666666666667,
+      0.529126213592233
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "special_1",
+    "source_sheet": "dee_poses_3.png",
+    "crop": [
+      1090,
+      455,
+      1270,
+      668
+    ],
+    "target_size": [
+      79,
+      112
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      28,
+      112
+    ],
+    "source_scale_xy": [
+      0.4388888888888889,
+      0.5258215962441315
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "special_2",
+    "source_sheet": "dee_poses_3.png",
+    "crop": [
+      1400,
+      378,
+      1519,
+      667
+    ],
+    "target_size": [
+      49,
+      156
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      20,
+      159
+    ],
+    "source_scale_xy": [
+      0.4117647058823529,
+      0.5397923875432526
+    ]
+  },
+  {
+    "fighter": "dee",
+    "frame": "special_3",
+    "source_sheet": "dee_poses_3.png",
+    "crop": [
+      61,
+      736,
+      187,
+      977
+    ],
+    "target_size": [
+      57,
+      135
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      21,
+      135
+    ],
+    "source_scale_xy": [
+      0.4523809523809524,
+      0.5601659751037344
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "idle_0",
+    "source_sheet": "bram_poses_1.png",
+    "crop": [
+      27,
+      66,
+      225,
+      338
+    ],
+    "target_size": [
+      69,
+      134
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      134
+    ],
+    "source_scale_xy": [
+      0.3484848484848485,
+      0.49264705882352944
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "idle_1",
+    "source_sheet": "bram_poses_1.png",
+    "crop": [
+      301,
+      66,
+      490,
+      338
+    ],
+    "target_size": [
+      69,
+      133
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      133
+    ],
+    "source_scale_xy": [
+      0.36507936507936506,
+      0.4889705882352941
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "idle_2",
+    "source_sheet": "bram_poses_1.png",
+    "crop": [
+      567,
+      66,
+      752,
+      338
+    ],
+    "target_size": [
+      69,
+      132
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      132
+    ],
+    "source_scale_xy": [
+      0.372972972972973,
+      0.4852941176470588
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "idle_3",
+    "source_sheet": "bram_poses_1.png",
+    "crop": [
+      828,
+      66,
+      1018,
+      338
+    ],
+    "target_size": [
+      69,
+      133
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      133
+    ],
+    "source_scale_xy": [
+      0.3631578947368421,
+      0.4889705882352941
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "walk_0",
+    "source_sheet": "bram_poses_1.png",
+    "crop": [
+      1090,
+      61,
+      1289,
+      338
+    ],
+    "target_size": [
+      75,
+      135
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      31,
+      135
+    ],
+    "source_scale_xy": [
+      0.3768844221105528,
+      0.48736462093862815
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "walk_1",
+    "source_sheet": "bram_poses_1.png",
+    "crop": [
+      1363,
+      61,
+      1555,
+      338
+    ],
+    "target_size": [
+      73,
+      133
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      29,
+      133
+    ],
+    "source_scale_xy": [
+      0.3802083333333333,
+      0.48014440433212996
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "walk_2",
+    "source_sheet": "bram_poses_1.png",
+    "crop": [
+      34,
+      397,
+      230,
+      668
+    ],
+    "target_size": [
+      66,
+      133
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      24,
+      133
+    ],
+    "source_scale_xy": [
+      0.336734693877551,
+      0.4907749077490775
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "walk_3",
+    "source_sheet": "bram_poses_1.png",
+    "crop": [
+      302,
+      396,
+      489,
+      668
+    ],
+    "target_size": [
+      62,
+      135
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      21,
+      135
+    ],
+    "source_scale_xy": [
+      0.3315508021390374,
+      0.4963235294117647
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "walk_4",
+    "source_sheet": "bram_poses_1.png",
+    "crop": [
+      560,
+      397,
+      754,
+      668
+    ],
+    "target_size": [
+      66,
+      133
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      24,
+      133
+    ],
+    "source_scale_xy": [
+      0.3402061855670103,
+      0.4907749077490775
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "walk_5",
+    "source_sheet": "bram_poses_1.png",
+    "crop": [
+      829,
+      396,
+      1018,
+      668
+    ],
+    "target_size": [
+      73,
+      133
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      29,
+      133
+    ],
+    "source_scale_xy": [
+      0.3862433862433862,
+      0.4889705882352941
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "crouch",
+    "source_sheet": "bram_poses_1.png",
+    "crop": [
+      1101,
+      457,
+      1305,
+      668
+    ],
+    "target_size": [
+      81,
+      99
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      29,
+      97
+    ],
+    "source_scale_xy": [
+      0.39705882352941174,
+      0.46919431279620855
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "guard",
+    "source_sheet": "bram_poses_1.png",
+    "crop": [
+      1378,
+      389,
+      1547,
+      668
+    ],
+    "target_size": [
+      62,
+      136
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      136
+    ],
+    "source_scale_xy": [
+      0.3668639053254438,
+      0.4874551971326165
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "guard_crouch",
+    "source_sheet": "bram_poses_1.png",
+    "crop": [
+      31,
+      762,
+      211,
+      968
+    ],
+    "target_size": [
+      82,
+      99
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      29,
+      97
+    ],
+    "source_scale_xy": [
+      0.45555555555555555,
+      0.48058252427184467
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "jump_rise",
+    "source_sheet": "bram_poses_1.png",
+    "crop": [
+      331,
+      697,
+      476,
+      957
+    ],
+    "target_size": [
+      56,
+      126
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      17,
+      134
+    ],
+    "source_scale_xy": [
+      0.38620689655172413,
+      0.4846153846153846
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "jump_apex",
+    "source_sheet": "bram_poses_1.png",
+    "crop": [
+      579,
+      708,
+      739,
+      921
+    ],
+    "target_size": [
+      57,
+      105
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      14,
+      129
+    ],
+    "source_scale_xy": [
+      0.35625,
+      0.49295774647887325
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "jump_fall",
+    "source_sheet": "bram_poses_1.png",
+    "crop": [
+      851,
+      702,
+      1007,
+      969
+    ],
+    "target_size": [
+      54,
+      134
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      19,
+      134
+    ],
+    "source_scale_xy": [
+      0.34615384615384615,
+      0.50187265917603
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "lp_0",
+    "source_sheet": "bram_poses_1.png",
+    "crop": [
+      1092,
+      705,
+      1266,
+      969
+    ],
+    "target_size": [
+      64,
+      133
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      133
+    ],
+    "source_scale_xy": [
+      0.367816091954023,
+      0.5037878787878788
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "lp_1",
+    "source_sheet": "bram_poses_1.png",
+    "crop": [
+      1344,
+      713,
+      1559,
+      969
+    ],
+    "target_size": [
+      86,
+      132
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      132
+    ],
+    "source_scale_xy": [
+      0.4,
+      0.515625
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "lp_2",
+    "source_sheet": "bram_poses_2.png",
+    "crop": [
+      31,
+      90,
+      208,
+      340
+    ],
+    "target_size": [
+      70,
+      133
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      133
+    ],
+    "source_scale_xy": [
+      0.3954802259887006,
+      0.532
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "hp_0",
+    "source_sheet": "bram_poses_2.png",
+    "crop": [
+      315,
+      84,
+      482,
+      340
+    ],
+    "target_size": [
+      65,
+      135
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      29,
+      135
+    ],
+    "source_scale_xy": [
+      0.38922155688622756,
+      0.52734375
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "hp_1",
+    "source_sheet": "bram_poses_2.png",
+    "crop": [
+      578,
+      98,
+      791,
+      340
+    ],
+    "target_size": [
+      94,
+      127
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      127
+    ],
+    "source_scale_xy": [
+      0.4413145539906103,
+      0.5247933884297521
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "hp_2",
+    "source_sheet": "bram_poses_2.png",
+    "crop": [
+      838,
+      96,
+      1038,
+      340
+    ],
+    "target_size": [
+      88,
+      129
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      129
+    ],
+    "source_scale_xy": [
+      0.44,
+      0.5286885245901639
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "hp_3",
+    "source_sheet": "bram_poses_2.png",
+    "crop": [
+      1108,
+      90,
+      1293,
+      341
+    ],
+    "target_size": [
+      76,
+      133
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      133
+    ],
+    "source_scale_xy": [
+      0.41081081081081083,
+      0.5298804780876494
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "lk_0",
+    "source_sheet": "bram_poses_2.png",
+    "crop": [
+      1407,
+      73,
+      1553,
+      340
+    ],
+    "target_size": [
+      67,
+      141
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      22,
+      141
+    ],
+    "source_scale_xy": [
+      0.4589041095890411,
+      0.5280898876404494
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "lk_1",
+    "source_sheet": "bram_poses_2.png",
+    "crop": [
+      53,
+      397,
+      279,
+      662
+    ],
+    "target_size": [
+      100,
+      141
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      20,
+      141
+    ],
+    "source_scale_xy": [
+      0.4424778761061947,
+      0.5320754716981132
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "lk_2",
+    "source_sheet": "bram_poses_2.png",
+    "crop": [
+      320,
+      397,
+      474,
+      662
+    ],
+    "target_size": [
+      66,
+      141
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      22,
+      141
+    ],
+    "source_scale_xy": [
+      0.42857142857142855,
+      0.5320754716981132
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "hk_0",
+    "source_sheet": "bram_poses_2.png",
+    "crop": [
+      562,
+      467,
+      734,
+      663
+    ],
+    "target_size": [
+      76,
+      101
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      100
+    ],
+    "source_scale_xy": [
+      0.4418604651162791,
+      0.5153061224489796
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "hk_1",
+    "source_sheet": "bram_poses_2.png",
+    "crop": [
+      819,
+      492,
+      1079,
+      660
+    ],
+    "target_size": [
+      105,
+      91
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      15,
+      90
+    ],
+    "source_scale_xy": [
+      0.40384615384615385,
+      0.5416666666666666
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "hk_2",
+    "source_sheet": "bram_poses_2.png",
+    "crop": [
+      1117,
+      482,
+      1317,
+      661
+    ],
+    "target_size": [
+      91,
+      93
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      15,
+      92
+    ],
+    "source_scale_xy": [
+      0.455,
+      0.5195530726256983
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "hk_3",
+    "source_sheet": "bram_poses_2.png",
+    "crop": [
+      1374,
+      478,
+      1558,
+      663
+    ],
+    "target_size": [
+      82,
+      100
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      29,
+      98
+    ],
+    "source_scale_xy": [
+      0.44565217391304346,
+      0.5405405405405406
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "throw_0",
+    "source_sheet": "bram_poses_2.png",
+    "crop": [
+      28,
+      722,
+      235,
+      963
+    ],
+    "target_size": [
+      87,
+      131
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      131
+    ],
+    "source_scale_xy": [
+      0.42028985507246375,
+      0.5435684647302904
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "throw_1",
+    "source_sheet": "bram_poses_2.png",
+    "crop": [
+      292,
+      722,
+      497,
+      963
+    ],
+    "target_size": [
+      80,
+      132
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      132
+    ],
+    "source_scale_xy": [
+      0.3902439024390244,
+      0.5477178423236515
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "throw_hold_0",
+    "source_sheet": "bram_poses_2.png",
+    "crop": [
+      557,
+      722,
+      761,
+      963
+    ],
+    "target_size": [
+      80,
+      132
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      132
+    ],
+    "source_scale_xy": [
+      0.39215686274509803,
+      0.5477178423236515
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "throw_hold_1",
+    "source_sheet": "bram_poses_2.png",
+    "crop": [
+      851,
+      704,
+      1014,
+      963
+    ],
+    "target_size": [
+      64,
+      136
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      31,
+      135
+    ],
+    "source_scale_xy": [
+      0.39263803680981596,
+      0.525096525096525
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "hit_0",
+    "source_sheet": "bram_poses_2.png",
+    "crop": [
+      1110,
+      710,
+      1307,
+      963
+    ],
+    "target_size": [
+      82,
+      134
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      46,
+      134
+    ],
+    "source_scale_xy": [
+      0.41624365482233505,
+      0.5296442687747036
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "hit_1",
+    "source_sheet": "bram_poses_2.png",
+    "crop": [
+      1389,
+      723,
+      1569,
+      964
+    ],
+    "target_size": [
+      89,
+      129
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      55,
+      129
+    ],
+    "source_scale_xy": [
+      0.49444444444444446,
+      0.5352697095435685
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "hit_crouch",
+    "source_sheet": "bram_poses_3.png",
+    "crop": [
+      33,
+      139,
+      237,
+      323
+    ],
+    "target_size": [
+      83,
+      107
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      29,
+      105
+    ],
+    "source_scale_xy": [
+      0.4068627450980392,
+      0.5815217391304348
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "held_0",
+    "source_sheet": "bram_poses_3.png",
+    "crop": [
+      296,
+      83,
+      454,
+      324
+    ],
+    "target_size": [
+      80,
+      133
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      46,
+      133
+    ],
+    "source_scale_xy": [
+      0.5063291139240507,
+      0.5518672199170125
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "held_1",
+    "source_sheet": "bram_poses_3.png",
+    "crop": [
+      513,
+      192,
+      750,
+      319
+    ],
+    "target_size": [
+      118,
+      73
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      69,
+      72
+    ],
+    "source_scale_xy": [
+      0.4978902953586498,
+      0.5748031496062992
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "down_0",
+    "source_sheet": "bram_poses_3.png",
+    "crop": [
+      791,
+      185,
+      1023,
+      290
+    ],
+    "target_size": [
+      118,
+      57
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      70,
+      83
+    ],
+    "source_scale_xy": [
+      0.5086206896551724,
+      0.5428571428571428
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "down_1",
+    "source_sheet": "bram_poses_3.png",
+    "crop": [
+      1055,
+      242,
+      1337,
+      321
+    ],
+    "target_size": [
+      143,
+      45
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      69,
+      44
+    ],
+    "source_scale_xy": [
+      0.5070921985815603,
+      0.569620253164557
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "down_2",
+    "source_sheet": "bram_poses_3.png",
+    "crop": [
+      1373,
+      180,
+      1559,
+      324
+    ],
+    "target_size": [
+      90,
+      76
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      41,
+      74
+    ],
+    "source_scale_xy": [
+      0.4838709677419355,
+      0.5277777777777778
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "down_3",
+    "source_sheet": "bram_poses_3.png",
+    "crop": [
+      52,
+      472,
+      215,
+      655
+    ],
+    "target_size": [
+      81,
+      98
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      29,
+      96
+    ],
+    "source_scale_xy": [
+      0.49693251533742333,
+      0.5355191256830601
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "win_0",
+    "source_sheet": "bram_poses_3.png",
+    "crop": [
+      321,
+      364,
+      463,
+      655
+    ],
+    "target_size": [
+      63,
+      161
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      30,
+      161
+    ],
+    "source_scale_xy": [
+      0.44366197183098594,
+      0.5532646048109966
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "win_1",
+    "source_sheet": "bram_poses_3.png",
+    "crop": [
+      585,
+      357,
+      726,
+      655
+    ],
+    "target_size": [
+      59,
+      168
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      168
+    ],
+    "source_scale_xy": [
+      0.41843971631205673,
+      0.5637583892617449
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "special_0",
+    "source_sheet": "bram_poses_3.png",
+    "crop": [
+      827,
+      447,
+      1040,
+      656
+    ],
+    "target_size": [
+      101,
+      116
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      116
+    ],
+    "source_scale_xy": [
+      0.47417840375586856,
+      0.5550239234449761
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "special_1",
+    "source_sheet": "bram_poses_3.png",
+    "crop": [
+      1088,
+      440,
+      1289,
+      656
+    ],
+    "target_size": [
+      92,
+      116
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      116
+    ],
+    "source_scale_xy": [
+      0.4577114427860697,
+      0.5370370370370371
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "hoist_0",
+    "source_sheet": "bram_poses_3.png",
+    "crop": [
+      1380,
+      432,
+      1528,
+      655
+    ],
+    "target_size": [
+      66,
+      120
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      120
+    ],
+    "source_scale_xy": [
+      0.44594594594594594,
+      0.5381165919282511
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "hoist_1",
+    "source_sheet": "bram_poses_3.png",
+    "crop": [
+      71,
+      679,
+      186,
+      975
+    ],
+    "target_size": [
+      48,
+      175
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      19,
+      178
+    ],
+    "source_scale_xy": [
+      0.41739130434782606,
+      0.5912162162162162
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "hoist_2",
+    "source_sheet": "bram_poses_3.png",
+    "crop": [
+      292,
+      790,
+      464,
+      975
+    ],
+    "target_size": [
+      82,
+      101
+    ],
+    "target_origin": [
+      128,
+      232
+    ],
+    "original_pivot": [
+      26,
+      100
+    ],
+    "source_scale_xy": [
+      0.47674418604651164,
+      0.5459459459459459
+    ]
+  }
+]

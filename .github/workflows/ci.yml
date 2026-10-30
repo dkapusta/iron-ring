@@ -16,7 +16,7 @@ env:
 
 jobs:
   art:
-    name: Art tools
+    name: Art and audio tools
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
@@ -28,6 +28,8 @@ jobs:
       - run: pip install -r Tools/Art/requirements.txt
       # Committed assets match the generator; export -> import is lossless.
       - run: python3 Tools/Art/selftest.py
+      # Generated audio is current (effects byte-exact, theme by PCM hash).
+      - run: python3 Tools/Audio/generate_audio.py --check
 
   linux:
     name: Linux (${{ matrix.compiler }})

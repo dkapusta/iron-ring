@@ -7,7 +7,7 @@
   "portrait": "dee_portrait.png",
 
   "physics": { "walkForward": 420, "walkBack": 340, "jumpVelocity": 1900, "gravity": 70 },
-  "body": { "standHurt": [-16, 0, 32, 124], "crouchHurt": [-18, 0, 38, 88], "pushWidth": 34, "knockdownTicks": 54 },
+  "body": { "standHurt": [-16, 0, 32, 124], "crouchHurt": [-18, 0, 38, 92], "pushWidth": 34, "knockdownTicks": 54 },
 
   "moves": {
     "lightPunch": { "name": "Stiff Jab", "animation": "light_punch",
@@ -17,7 +17,7 @@
                     "startup": 8, "active": 3, "recovery": 20, "hitbox": [40, 87, 28, 18],
                     "damage": 12, "hitstun": 23, "knockback": 10, "heavy": true, "hitstopOnHit": 8 },
     "lightKick":  { "name": "Shin Kick", "animation": "light_kick",
-                    "startup": 7, "active": 4, "recovery": 15, "hitbox": [44, 54, 32, 18],
+                    "startup": 7, "active": 4, "recovery": 15, "hitbox": [48, 68, 36, 20],
                     "damage": 9, "hitstun": 18, "knockback": 8 },
     "heavyKick":  { "name": "Leg Sweep", "animation": "heavy_kick",
                     "startup": 12, "active": 5, "recovery": 23, "hitbox": [46, 0, 38, 14],

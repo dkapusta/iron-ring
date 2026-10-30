@@ -7,7 +7,7 @@
   "portrait": "bram_portrait.png",
 
   "physics": { "walkForward": 340, "walkBack": 280, "jumpVelocity": 1750, "gravity": 72 },
-  "body": { "standHurt": [-20, 0, 40, 128], "crouchHurt": [-22, 0, 44, 92], "pushWidth": 40, "knockdownTicks": 54 },
+  "body": { "standHurt": [-20, 0, 40, 128], "crouchHurt": [-22, 0, 44, 100], "pushWidth": 40, "knockdownTicks": 54 },
 
   "moves": {
     "lightPunch": { "name": "Palm Shove", "animation": "light_punch",

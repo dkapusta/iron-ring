@@ -1,0 +1,143 @@
+[
+  {
+    "id": "dee_poses_1",
+    "frames": [
+      "idle_0",
+      "idle_1",
+      "idle_2",
+      "idle_3",
+      "walk_0",
+      "walk_1",
+      "walk_2",
+      "walk_3",
+      "walk_4",
+      "walk_5",
+      "crouch",
+      "guard",
+      "guard_crouch",
+      "jump_rise",
+      "jump_apex",
+      "jump_fall",
+      "lp_0",
+      "lp_1"
+    ],
+    "prompt": "Use case: style-transfer. Asset type: FINAL production pixel art animation sprite sheet, 6 columns x 3 rows of equal cells, exactly matching image 1 layout and pose order. Output canvas landscape 1536x960 (aspect 8:5). Input image 1 is the STRICT POSE AND REGISTRATION target: repaint every figure in place with beautiful complete pixel art anatomy and fabric detail. Image 2 is the IDENTITY AND COSTUME reference only. Upgrade skeletal placeholder figures into richly crafted 1993 arcade fighting-game sprites; use image 2 for all faces, hair, body mass, clothing, colors, hands and boots. Dee is a LEAN athletic Black woman with cropped curls, silver stud, teal sleeveless top, charcoal track pants with one white stripe, white fabric hand wraps up to forearms, black high top boxing boots. NO gloves.\nExtremely important: one identical character per occupied cell, all exactly the same scale, all generally facing RIGHT. Follow EVERY different supplied limb pose exactly, including crouching, kicks, recoil and prone poses. Do NOT substitute idle poses. Do NOT reorder. Preserve occupied cells and leave empty cells empty. Keep head center, wrists and ankles at positions shown in image 1. Do not enlarge or move bodies within cells, no frames cut off, never overlap cells. Feet use the same baseline as image 1. Each original 256x320 cell has ground origin at (112,288). Standing height about 195 image pixels; crouches lower; raised fists higher; prone bodies horizontal. Keep full hands and feet.\nAuthentic crisp pixel clusters at ~130px in-game character height; 4 tones per material, 1 game pixel dark colored silhouette outline, warm upper-left light and restrained teal rim on right, deep navy shadows, details readable when reduced. No painterly rendering, no blur, no smooth gradients. Every frame has consistent anatomical proportions and the same costume.\nBACKGROUND MUST BE REAL TRANSPARENCY, NO green background and no cast shadows, no ground, no labels, no text, no panel borders, no gridlines, no decorations. Erase all names from image 1. No visual effects, no phantom opponent or extra people. Occupied cells row:column frame ids: 1:1 idle_0, 1:2 idle_1, 1:3 idle_2, 1:4 idle_3, 1:5 walk_0, 1:6 walk_1, 2:1 walk_2, 2:2 walk_3, 2:3 walk_4, 2:4 walk_5, 2:5 crouch, 2:6 guard, 3:1 guard_crouch, 3:2 jump_rise, 3:3 jump_apex, 3:4 jump_fall, 3:5 lp_0, 3:6 lp_1.",
+    "mode": "built-in image generation; pose + identity references"
+  },
+  {
+    "id": "dee_poses_2",
+    "frames": [
+      "lp_2",
+      "hp_0",
+      "hp_1",
+      "hp_2",
+      "hp_3",
+      "lk_0",
+      "lk_1",
+      "lk_2",
+      "hk_0",
+      "hk_1",
+      "hk_2",
+      "hk_3",
+      "throw_0",
+      "throw_1",
+      "throw_hold_0",
+      "throw_hold_1",
+      "hit_0",
+      "hit_1"
+    ],
+    "prompt": "Use case: style-transfer. Asset type: FINAL production pixel art animation sprite sheet, 6 columns x 3 rows of equal cells, exactly matching image 1 layout and pose order. Output canvas landscape 1536x960 (aspect 8:5). Input image 1 is the STRICT POSE AND REGISTRATION target: repaint every figure in place with beautiful complete pixel art anatomy and fabric detail. Image 2 is the IDENTITY AND COSTUME reference only. Upgrade skeletal placeholder figures into richly crafted 1993 arcade fighting-game sprites; use image 2 for all faces, hair, body mass, clothing, colors, hands and boots. Dee is a LEAN athletic Black woman with cropped curls, silver stud, teal sleeveless top, charcoal track pants with one white stripe, white fabric hand wraps up to forearms, black high top boxing boots. NO gloves.\nExtremely important: one identical character per occupied cell, all exactly the same scale, all generally facing RIGHT. Follow EVERY different supplied limb pose exactly, including crouching, kicks, recoil and prone poses. Do NOT substitute idle poses. Do NOT reorder. Preserve occupied cells and leave empty cells empty. Keep head center, wrists and ankles at positions shown in image 1. Do not enlarge or move bodies within cells, no frames cut off, never overlap cells. Feet use the same baseline as image 1. Each original 256x320 cell has ground origin at (112,288). Standing height about 195 image pixels; crouches lower; raised fists higher; prone bodies horizontal. Keep full hands and feet.\nAuthentic crisp pixel clusters at ~130px in-game character height; 4 tones per material, 1 game pixel dark colored silhouette outline, warm upper-left light and restrained teal rim on right, deep navy shadows, details readable when reduced. No painterly rendering, no blur, no smooth gradients. Every frame has consistent anatomical proportions and the same costume.\nBACKGROUND MUST BE REAL TRANSPARENCY, NO green background and no cast shadows, no ground, no labels, no text, no panel borders, no gridlines, no decorations. Erase all names from image 1. No visual effects, no phantom opponent or extra people. Occupied cells row:column frame ids: 1:1 lp_2, 1:2 hp_0, 1:3 hp_1, 1:4 hp_2, 1:5 hp_3, 1:6 lk_0, 2:1 lk_1, 2:2 lk_2, 2:3 hk_0, 2:4 hk_1, 2:5 hk_2, 2:6 hk_3, 3:1 throw_0, 3:2 throw_1, 3:3 throw_hold_0, 3:4 throw_hold_1, 3:5 hit_0, 3:6 hit_1.\nInput image 3 is an APPROVED finished sprite sheet of this character; match its costume, face, body proportions and pixel craftsmanship, but use only image 1's poses. Critical attack poses: punches extend arms to right, kicks extend leg to right, sweeps are LOW with sole at floor; prone poses head to LEFT. Throws and overhead hoists have no visible opponent. Make every attack distinct. Use the full exact canvas, no rescaling the grid.",
+    "mode": "built-in image generation; pose + identity references"
+  },
+  {
+    "id": "dee_poses_3",
+    "frames": [
+      "hit_crouch",
+      "held_0",
+      "held_1",
+      "down_0",
+      "down_1",
+      "down_2",
+      "down_3",
+      "win_0",
+      "win_1",
+      "special_0",
+      "special_1",
+      "special_2",
+      "special_3"
+    ],
+    "prompt": "Use case: style-transfer. Asset type: FINAL production pixel art animation sprite sheet, 6 columns x 3 rows of equal cells, exactly matching image 1 layout and pose order. Output canvas landscape 1536x960 (aspect 8:5). Input image 1 is the STRICT POSE AND REGISTRATION target: repaint every figure in place with beautiful complete pixel art anatomy and fabric detail. Image 2 is the IDENTITY AND COSTUME reference only. Upgrade skeletal placeholder figures into richly crafted 1993 arcade fighting-game sprites; use image 2 for all faces, hair, body mass, clothing, colors, hands and boots. Dee is a LEAN athletic Black woman with cropped curls, silver stud, teal sleeveless top, charcoal track pants with one white stripe, white fabric hand wraps up to forearms, black high top boxing boots. NO gloves.\nExtremely important: one identical character per occupied cell, all exactly the same scale, all generally facing RIGHT. Follow EVERY different supplied limb pose exactly, including crouching, kicks, recoil and prone poses. Do NOT substitute idle poses. Do NOT reorder. Preserve occupied cells and leave empty cells empty. Keep head center, wrists and ankles at positions shown in image 1. Do not enlarge or move bodies within cells, no frames cut off, never overlap cells. Feet use the same baseline as image 1. Each original 256x320 cell has ground origin at (112,288). Standing height about 195 image pixels; crouches lower; raised fists higher; prone bodies horizontal. Keep full hands and feet.\nAuthentic crisp pixel clusters at ~130px in-game character height; 4 tones per material, 1 game pixel dark colored silhouette outline, warm upper-left light and restrained teal rim on right, deep navy shadows, details readable when reduced. No painterly rendering, no blur, no smooth gradients. Every frame has consistent anatomical proportions and the same costume.\nBACKGROUND MUST BE REAL TRANSPARENCY, NO green background and no cast shadows, no ground, no labels, no text, no panel borders, no gridlines, no decorations. Erase all names from image 1. No visual effects, no phantom opponent or extra people. Occupied cells row:column frame ids: 1:1 hit_crouch, 1:2 held_0, 1:3 held_1, 1:4 down_0, 1:5 down_1, 1:6 down_2, 2:1 down_3, 2:2 win_0, 2:3 win_1, 2:4 special_0, 2:5 special_1, 2:6 special_2, 3:1 special_3.\nInput image 3 is an APPROVED finished sprite sheet of this character; match its costume, face, body proportions and pixel craftsmanship, but use only image 1's poses. Critical attack poses: punches extend arms to right, kicks extend leg to right, sweeps are LOW with sole at floor; prone poses head to LEFT. Throws and overhead hoists have no visible opponent. Make every attack distinct. Use the full exact canvas, no rescaling the grid.",
+    "mode": "built-in image generation; pose + identity references"
+  },
+  {
+    "id": "bram_poses_1",
+    "frames": [
+      "idle_0",
+      "idle_1",
+      "idle_2",
+      "idle_3",
+      "walk_0",
+      "walk_1",
+      "walk_2",
+      "walk_3",
+      "walk_4",
+      "walk_5",
+      "crouch",
+      "guard",
+      "guard_crouch",
+      "jump_rise",
+      "jump_apex",
+      "jump_fall",
+      "lp_0",
+      "lp_1"
+    ],
+    "prompt": "Use case: style-transfer. Asset type: FINAL production pixel art animation sprite sheet, 6 columns x 3 rows of equal cells, exactly matching image 1 layout and pose order. Output canvas landscape 1536x960 (aspect 8:5). Input image 1 is the STRICT POSE AND REGISTRATION target: repaint every figure in place with beautiful complete pixel art anatomy and fabric detail. Image 2 is the IDENTITY AND COSTUME reference only. Upgrade skeletal placeholder figures into richly crafted 1993 arcade fighting-game sprites; use image 2 for all faces, hair, body mass, clothing, colors, hands and boots. Bram is a HUGE broad barrel-chested heavily built bald white dockworker, full brown beard, charcoal T shirt, rust orange overalls folded down at waist with loose hanging straps at hips, brown wrist straps, black work boots. Bare OPEN hands for grabs. NO chest bib or chest suspenders.\nExtremely important: one identical character per occupied cell, all exactly the same scale, all generally facing RIGHT. Follow EVERY different supplied limb pose exactly, including crouching, kicks, recoil and prone poses. Do NOT substitute idle poses. Do NOT reorder. Preserve occupied cells and leave empty cells empty. Keep head center, wrists and ankles at positions shown in image 1. Do not enlarge or move bodies within cells, no frames cut off, never overlap cells. Feet use the same baseline as image 1. Each original 256x320 cell has ground origin at (112,288). Standing height about 195 image pixels; crouches lower; raised fists higher; prone bodies horizontal. Keep full hands and feet.\nAuthentic crisp pixel clusters at ~130px in-game character height; 4 tones per material, 1 game pixel dark colored silhouette outline, warm upper-left light and restrained teal rim on right, deep navy shadows, details readable when reduced. No painterly rendering, no blur, no smooth gradients. Every frame has consistent anatomical proportions and the same costume.\nBACKGROUND MUST BE REAL TRANSPARENCY, NO green background and no cast shadows, no ground, no labels, no text, no panel borders, no gridlines, no decorations. Erase all names from image 1. No visual effects, no phantom opponent or extra people. Occupied cells row:column frame ids: 1:1 idle_0, 1:2 idle_1, 1:3 idle_2, 1:4 idle_3, 1:5 walk_0, 1:6 walk_1, 2:1 walk_2, 2:2 walk_3, 2:3 walk_4, 2:4 walk_5, 2:5 crouch, 2:6 guard, 3:1 guard_crouch, 3:2 jump_rise, 3:3 jump_apex, 3:4 jump_fall, 3:5 lp_0, 3:6 lp_1.",
+    "mode": "built-in image generation; pose + identity references"
+  },
+  {
+    "id": "bram_poses_2",
+    "frames": [
+      "lp_2",
+      "hp_0",
+      "hp_1",
+      "hp_2",
+      "hp_3",
+      "lk_0",
+      "lk_1",
+      "lk_2",
+      "hk_0",
+      "hk_1",
+      "hk_2",
+      "hk_3",
+      "throw_0",
+      "throw_1",
+      "throw_hold_0",
+      "throw_hold_1",
+      "hit_0",
+      "hit_1"
+    ],
+    "prompt": "Use case: style-transfer. Asset type: FINAL production pixel art animation sprite sheet, 6 columns x 3 rows of equal cells, exactly matching image 1 layout and pose order. Output canvas landscape 1536x960 (aspect 8:5). Input image 1 is the STRICT POSE AND REGISTRATION target: repaint every figure in place with beautiful complete pixel art anatomy and fabric detail. Image 2 is the IDENTITY AND COSTUME reference only. Upgrade skeletal placeholder figures into richly crafted 1993 arcade fighting-game sprites; use image 2 for all faces, hair, body mass, clothing, colors, hands and boots. Bram is a HUGE broad barrel-chested heavily built bald white dockworker, full brown beard, charcoal T shirt, rust orange overalls folded down at waist with loose hanging straps at hips, brown wrist straps, black work boots. Bare OPEN hands for grabs. NO chest bib or chest suspenders.\nExtremely important: one identical character per occupied cell, all exactly the same scale, all generally facing RIGHT. Follow EVERY different supplied limb pose exactly, including crouching, kicks, recoil and prone poses. Do NOT substitute idle poses. Do NOT reorder. Preserve occupied cells and leave empty cells empty. Keep head center, wrists and ankles at positions shown in image 1. Do not enlarge or move bodies within cells, no frames cut off, never overlap cells. Feet use the same baseline as image 1. Each original 256x320 cell has ground origin at (112,288). Standing height about 195 image pixels; crouches lower; raised fists higher; prone bodies horizontal. Keep full hands and feet.\nAuthentic crisp pixel clusters at ~130px in-game character height; 4 tones per material, 1 game pixel dark colored silhouette outline, warm upper-left light and restrained teal rim on right, deep navy shadows, details readable when reduced. No painterly rendering, no blur, no smooth gradients. Every frame has consistent anatomical proportions and the same costume.\nBACKGROUND MUST BE REAL TRANSPARENCY, NO green background and no cast shadows, no ground, no labels, no text, no panel borders, no gridlines, no decorations. Erase all names from image 1. No visual effects, no phantom opponent or extra people. Occupied cells row:column frame ids: 1:1 lp_2, 1:2 hp_0, 1:3 hp_1, 1:4 hp_2, 1:5 hp_3, 1:6 lk_0, 2:1 lk_1, 2:2 lk_2, 2:3 hk_0, 2:4 hk_1, 2:5 hk_2, 2:6 hk_3, 3:1 throw_0, 3:2 throw_1, 3:3 throw_hold_0, 3:4 throw_hold_1, 3:5 hit_0, 3:6 hit_1.\nInput image 3 is an APPROVED finished sprite sheet of this character; match its costume, face, body proportions and pixel craftsmanship, but use only image 1's poses. Critical attack poses: punches extend arms to right, kicks extend leg to right, sweeps are LOW with sole at floor; prone poses head to LEFT. Throws and overhead hoists have no visible opponent. Make every attack distinct. Use the full exact canvas, no rescaling the grid.",
+    "mode": "built-in image generation; pose + identity references"
+  },
+  {
+    "id": "bram_poses_3",
+    "frames": [
+      "hit_crouch",
+      "held_0",
+      "held_1",
+      "down_0",
+      "down_1",
+      "down_2",
+      "down_3",
+      "win_0",
+      "win_1",
+      "special_0",
+      "special_1",
+      "hoist_0",
+      "hoist_1",
+      "hoist_2"
+    ],
+    "prompt": "Use case: style-transfer. Asset type: FINAL production pixel art animation sprite sheet, 6 columns x 3 rows of equal cells, exactly matching image 1 layout and pose order. Output canvas landscape 1536x960 (aspect 8:5). Input image 1 is the STRICT POSE AND REGISTRATION target: repaint every figure in place with beautiful complete pixel art anatomy and fabric detail. Image 2 is the IDENTITY AND COSTUME reference only. Upgrade skeletal placeholder figures into richly crafted 1993 arcade fighting-game sprites; use image 2 for all faces, hair, body mass, clothing, colors, hands and boots. Bram is a HUGE broad barrel-chested heavily built bald white dockworker, full brown beard, charcoal T shirt, rust orange overalls folded down at waist with loose hanging straps at hips, brown wrist straps, black work boots. Bare OPEN hands for grabs. NO chest bib or chest suspenders.\nExtremely important: one identical character per occupied cell, all exactly the same scale, all generally facing RIGHT. Follow EVERY different supplied limb pose exactly, including crouching, kicks, recoil and prone poses. Do NOT substitute idle poses. Do NOT reorder. Preserve occupied cells and leave empty cells empty. Keep head center, wrists and ankles at positions shown in image 1. Do not enlarge or move bodies within cells, no frames cut off, never overlap cells. Feet use the same baseline as image 1. Each original 256x320 cell has ground origin at (112,288). Standing height about 195 image pixels; crouches lower; raised fists higher; prone bodies horizontal. Keep full hands and feet.\nAuthentic crisp pixel clusters at ~130px in-game character height; 4 tones per material, 1 game pixel dark colored silhouette outline, warm upper-left light and restrained teal rim on right, deep navy shadows, details readable when reduced. No painterly rendering, no blur, no smooth gradients. Every frame has consistent anatomical proportions and the same costume.\nBACKGROUND MUST BE REAL TRANSPARENCY, NO green background and no cast shadows, no ground, no labels, no text, no panel borders, no gridlines, no decorations. Erase all names from image 1. No visual effects, no phantom opponent or extra people. Occupied cells row:column frame ids: 1:1 hit_crouch, 1:2 held_0, 1:3 held_1, 1:4 down_0, 1:5 down_1, 1:6 down_2, 2:1 down_3, 2:2 win_0, 2:3 win_1, 2:4 special_0, 2:5 special_1, 2:6 hoist_0, 3:1 hoist_1, 3:2 hoist_2.\nInput image 3 is an APPROVED finished sprite sheet of this character; match its costume, face, body proportions and pixel craftsmanship, but use only image 1's poses. Critical attack poses: punches extend arms to right, kicks extend leg to right, sweeps are LOW with sole at floor; prone poses head to LEFT. Throws and overhead hoists have no visible opponent. Make every attack distinct. Use the full exact canvas, no rescaling the grid.",
+    "mode": "built-in image generation; pose + identity references"
+  }
+]

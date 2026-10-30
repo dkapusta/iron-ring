@@ -2,6 +2,8 @@
 
 The contract between art and the game. Anything that meets it can replace the interim procedural art (`Tools/Art/generate.py`, [ADR-0011](../adr/0011-procedural-interim-art.md)) without code changes. Where to make the art is up to you: by hand, with an image generator ([prompts](generation-prompts.md)), or a mix. `Tools/Art/import_art.py` turns raw images into game-ready files, and the AssetPacker step of every build validates the result.
 
+Externally authored art keeps its editable sources in [ArtSource/](../../ArtSource/README.md); `Tools/Art/ironart/ownership.py` lists which `Assets/` folders are external.
+
 Setting, tone and costume direction: [docs/design/setting.md](../design/setting.md). The concept kit and Fatal Fury 2 are references only: do not copy their characters, stages or logos.
 
 ## 1. Global rules
@@ -11,7 +13,7 @@ Setting, tone and costume direction: [docs/design/setting.md](../design/setting.
 | Logical canvas | **640 × 360** px. The game scales it by a whole number to the display (letterboxed), so 1 art pixel = 1 logical pixel. |
 | Pixel art | Hard pixel edges. No anti-aliasing against transparency, no semi-transparent pixels in sprites (alpha is 0 or 255). |
 | Format | PNG, 8-bit RGBA (sprites, effects, UI) or RGB (stages). sRGB. No colour profiles that change the values. |
-| Palette | `Assets/Data/palette.gpl` (GIMP/Aseprite) and `palette.json`. Sprites should stay inside it; the importer snaps to it. |
+| Palette | Stages, effects and UI use `Assets/Data/palette.gpl` / `palette.json`. Each fighter uses **one limited palette of at most 48 colours**, either the shared material ramps or a palette fitted to that fighter's own frames (Dee and Bram, [ADR-0012](../adr/0012-adopting-external-art.md)). Outlines use the ramps' line colours. |
 | Outlines | Every sprite silhouette has a 1 px outline in the darkest tone of the material it bounds (not black, not the background). |
 | Light | Warm key light from the upper left, in front of the picture plane; cool teal rim light from the right. Sprites are lit for facing right; the mirrored player-2 sprite keeps the same shading (arcade convention). Stages are night by default; The Crown is dawn. |
 | Shading | 4 tones per material + its line colour (the ramps in `palette.json`). Gradients use ordered (Bayer) dithering, never smooth blends. |
@@ -39,7 +41,7 @@ Each fighter lives in `Assets/Fighters/<Name>/`:
 - **Origin / pivot**: the point on the ground midway between the feet in the idle stance. It is the same body point for every frame, so the character never slides when frames change: in a lunge the pivot stays under the hips' starting position and the body moves forward of it.
 - Nothing reaches more than **3 px below** the ground line (y of the pivot) except airborne frames, which are drawn above it anyway. The generator and importer both warn about this.
 - The body should fill its hurtbox: Dee stands in `[-16, 0, 32, 124]`, Bram in `[-20, 0, 40, 128]` (x from the pivot, forwards; y up from the ground; w, h). Crouching: Dee `[-18, 0, 38, 88]`, Bram `[-22, 0, 44, 92]`.
-- Attack frames must put the striking limb inside the move's hitbox during its **active** frames (§2.3). Turn on the training overlay (`-training`, F3) to check.
+- Attack frames must put the striking limb inside the move's hitbox during its **active** frames (§2.3). Turn on the training overlay (`-training`, F3; `-stage <id>` picks the venue) to check.
 
 ### 2.2 Frame list
 
@@ -173,11 +175,7 @@ The three venues: **Pier 9** (closed cargo pier, crane legs, freighter floodligh
 
 ## 6. Audio
 
-`Assets/Resources/Audio/*.wav`, wired in `ProjectSettings/GameSettings.json → sounds`.
-
-- WAV, PCM 16-bit, **48 kHz, mono**. Short (under 1 s), trimmed with no leading silence (they fire on the impact tick), peaks around −3 dBFS.
-- Required: `light_hit`, `heavy_hit`, `guard`, `breakaway`, `round_bell`, `menu_confirm`. Throw slams use `heavy_hit`; throw techs use `guard` (separate `throw`, `tech`, `ko` sounds are planned).
-- Texture: leather and tape on skin, chain rattle for the Breakaway, a cracked boxing bell for rounds. No voices yet.
+All sound is generated from an NES sound-chip model by `Tools/Audio/generate_audio.py`; the ids, formats, levels and how to change them are in [docs/audio.md](../audio.md). Replacement audio must keep the ids in `ProjectSettings/GameSettings.json → sounds` (AssetPacker checks the required ones), be 44.1 kHz mono 16-bit WAV for effects (no leading silence: they fire on the impact tick) and OGG for music with its loop point in `music.json`.
 
 ## 7. Naming and layout
 
@@ -209,8 +207,8 @@ The three venues: **Pier 9** (closed cargo pier, crane legs, freighter floodligh
 - [ ] No frame reaches more than 3 px below the ground (importer/generator warning is clean).
 - [ ] Attack limbs inside the hitbox on active frames; body roughly fills the hurtboxes (F3 overlay).
 - [ ] Throw holds: opponent's `held_*` frame lines up with the thrower's hands (play a throw in training mode).
-- [ ] Hard edges, 1 px coloured outline, palette colours only, no semi-transparent pixels.
+- [ ] Hard edges, 1 px coloured outline, one limited palette per fighter (≤ 48 colours), no semi-transparent pixels.
 - [ ] Facing right; reads clearly in silhouette at 1× scale against all three stages.
 - [ ] Stages are 640 × 360, ground at y 316, calm HUD bands, chain ring present, crowd behind the barrier.
-- [ ] Effects and fonts follow §4–5; sounds are 48 kHz mono 16-bit WAV.
+- [ ] Effects and fonts follow §4–5; sounds follow [docs/audio.md](../audio.md).
 - [ ] Nothing copied from Fatal Fury 2, the concept kit or other existing games; no logos or real brands.

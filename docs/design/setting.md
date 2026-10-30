@@ -62,7 +62,7 @@ Planned additions (M3): a flooded dry dock, a foundry floor, a ship's hold, the 
 
 ## Art direction
 
-The binding rules (sizes, palette, frames, layout) are in the [asset specification](../art/asset-spec.md); the current art is procedural and interim ([ADR-0011](../adr/0011-procedural-interim-art.md)).
+The binding rules (sizes, palette, frames, layout) are in the [asset specification](../art/asset-spec.md); the fighters and stages come from Art Pack v1 ([ADR-0012](../adr/0012-adopting-external-art.md)); effects, fonts and the icon are procedural ([ADR-0011](../adr/0011-procedural-interim-art.md)).
 
 - The concept kit is a **visual reference only** (silhouette clarity, palette discipline, sprite scale, HUD layout); none of its art ships.
 - Night is the default; The Crown is the one dawn stage. Warm sodium/amber key light against teal-blue shadow keeps the kit's teal/coral readability.

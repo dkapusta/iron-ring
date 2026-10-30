@@ -16,8 +16,8 @@ const char* soundFor(sim::Effect effect) {
     case sim::Effect::HeavyHit:  return "heavy_hit";
     case sim::Effect::Guard:     return "guard";
     case sim::Effect::Breakaway: return "breakaway";
-    case sim::Effect::ThrowTech: return "guard";
-    case sim::Effect::Slam:      return "heavy_hit";
+    case sim::Effect::ThrowTech: return "tech";
+    case sim::Effect::Slam:      return "slam";
     }
     return "";
 }
@@ -33,7 +33,8 @@ FightScene::FightScene(AssetLibrary& assets, AudioSystem& audio, FightOptions op
     for (std::size_t i = 0; i < views_.size(); ++i)
         views_[i] = std::make_unique<FighterView>(assets, roster.at(i).get<std::string>());
 
-    loadStages(assets, settings.at("stages").get<std::string>(), settings.value("startStage", ""));
+    loadStages(assets, settings.at("stages").get<std::string>(),
+               options.stage.empty() ? settings.value("startStage", "") : options.stage);
     effects_ = std::make_unique<Effects>(assets, settings.at("effects").get<std::string>());
     small_ = std::make_unique<BitmapFont>(assets, settings.at("fonts").at("small").get<std::string>());
     large_ = std::make_unique<BitmapFont>(assets, settings.at("fonts").at("large").get<std::string>());
@@ -43,6 +44,7 @@ FightScene::FightScene(AssetLibrary& assets, AudioSystem& audio, FightOptions op
     if (options.training) overlay_->toggle();
 
     for (const auto& [id, path] : settings.at("sounds").items()) audio_.load(id, assets.bytes(path.get<std::string>()));
+    if (settings.contains("music")) loadMusic(assets, settings.at("music").get<std::string>());
     newMatch();
 }
 
@@ -53,11 +55,26 @@ void FightScene::loadStages(AssetLibrary& assets, const std::string& stagesPath,
         stages_.push_back({s.at("name").get<std::string>(), &assets.texture(s.at("image").get<std::string>())});
     }
     if (stages_.empty()) throw std::runtime_error(stagesPath + ": no stages");
+    const bool found = std::any_of(catalog.at("stages").begin(), catalog.at("stages").end(),
+                                   [&](const auto& s) { return s.at("id").template get<std::string>() == startStage; });
+    if (!startStage.empty() && !found)
+        SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "Unknown stage '%s'; starting on %s", startStage.c_str(),
+                    stages_.front().name.c_str());
+}
+
+void FightScene::loadMusic(AssetLibrary& assets, const std::string& musicPath) {
+    const auto catalog = assets.json(musicPath);
+    const auto& theme = catalog.at("theme");
+    const auto folder = musicPath.substr(0, musicPath.find_last_of('/') + 1);
+    music_.encoded = assets.bytes(folder + theme.at("file").get<std::string>());
+    music_.loopStartFrame = theme.value("loopStartFrame", std::int64_t{0});
+    music_.gain = theme.value("gain", 1.0f);
 }
 
 void FightScene::newMatch() {
     match_ = std::make_unique<sim::Match>(views_[0]->definition().spec, views_[1]->definition().spec);
     effects_->clear();
+    if (!music_.encoded.empty()) audio_.playMusic(music_);
 }
 
 void FightScene::handleEvent(const SDL_Event& event) {
@@ -83,9 +100,17 @@ void FightScene::playEvents(const sim::MatchStep& step) {
         audio_.play(soundFor(e.effect));
     }
     switch (step.flow) {
-    case sim::FlowEvent::RoundCall: audio_.play("menu_confirm"); break;
-    case sim::FlowEvent::Fight:
-    case sim::FlowEvent::RoundEnd: audio_.play("round_bell"); break;
+    case sim::FlowEvent::RoundCall: audio_.play("round_call"); break;
+    case sim::FlowEvent::Fight: audio_.play("round_bell"); break;
+    case sim::FlowEvent::RoundEnd: {
+        const auto& f = match_->round.fighters;
+        audio_.play(f[0].hp == 0 || f[1].hp == 0 ? "ko" : "round_bell");
+        break;
+    }
+    case sim::FlowEvent::MatchEnd:
+        audio_.stopMusic(800);
+        audio_.play(match_->winner == sim::Outcome::Draw ? "round_bell" : "victory");
+        break;
     default: break;
     }
 }

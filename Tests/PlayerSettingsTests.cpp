@@ -30,7 +30,9 @@ TEST_CASE("command line uses Unity-compatible names and overrides boot.config") 
 
     const std::vector<std::string> args{"-screen-fullscreen", "0", "-screen-width", "1600",
                                         "-screen-height", "900", "-vsync", "0", "-hdr", "on",
-                                        "-batchmode", "-frames", "30", "-logFile", "out.log"};
+                                        "-batchmode", "-frames", "30", "-logFile", "out.log",
+                                        "-demo", "-training", "-stage", "the_crown",
+                                        "-music-volume", "0.25", "-sfx-volume", "0"};
     const auto warnings = applyCommandLine(s, args);
     CHECK(warnings.empty());
     CHECK(s.windowMode == WindowMode::Windowed);
@@ -41,6 +43,11 @@ TEST_CASE("command line uses Unity-compatible names and overrides boot.config") 
     CHECK(s.batchMode);
     CHECK(s.batchFrames == 30);
     CHECK(s.logFile == "out.log");
+    CHECK(s.demo);
+    CHECK(s.training);
+    CHECK(s.stage == "the_crown");
+    CHECK(s.musicVolume == doctest::Approx(0.25f));
+    CHECK(s.sfxVolume == 0.0f);
 }
 
 TEST_CASE("malformed command-line values are reported, not applied") {
@@ -48,6 +55,8 @@ TEST_CASE("malformed command-line values are reported, not applied") {
     const std::vector<std::string> args{"-screen-width", "wide", "-hdr", "maybe", "-unknown", "-frames"};
     const auto warnings = applyCommandLine(s, args);
     CHECK(warnings.size() == 4);
+    CHECK(applyCommandLine(s, std::vector<std::string>{"-stage"}).size() == 1);
+    CHECK(applyCommandLine(s, std::vector<std::string>{"-music-volume", "2"}).size() == 1);
     CHECK(s.windowWidth == 1280);
     CHECK(s.hdr == HdrMode::Auto);
 }
