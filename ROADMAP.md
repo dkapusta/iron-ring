@@ -62,7 +62,7 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 - ✅ Persistent settings: `prefs.cfg` in the user folder, between `boot.config` and the command line
 - ✅ Renderer recreation when the HDR option, the display's HDR state or the display changes; fullscreen, scaling and vsync change live
 - ✅ Stage layers and parallax; animated crowds that react to the fight; camera follow (no zoom: pixel art) on stages wider than the screen; **The Foundry**, the first layered venue, with placeholder art and its own theme ([ADR-0017](docs/adr/0017-layered-stages-and-camera.md))
-- ⬜ Hitstop/shake/flash tuning pass; HDR-aware VFX (float textures for sparks); hit-confirm audio layering (needs counter hits and combo counts in the simulation)
+- ✅ Hit feel: counter hits, combo counts with damage scaling, special cancels; shake and flash (with a reduced option); HDR spark glow; layered hit audio (counter sting, rising combo blip); HUD callouts. Heat reworked (A + B + C of [docs/design/heat.md](docs/design/heat.md)): the Breakaway is a guard cancel that staggers, light attacks pressure on block, Heat lasts the match ([ADR-0018](docs/adr/0018-hit-feel-and-heat.md))
 - ⬜ **Vertical slice**: the complete local loop for Dee vs Bram at release quality; final art takes over from placeholder art where the slice needs it (see *How art is made*)
 - ⬜ Arcade ladder with CPU difficulty levels
 
@@ -111,8 +111,9 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 | 2026-10-30 | Art process | Placeholder art and guidelines here, final art made by the owner elsewhere, review and corrections here, then polish; final art replaces placeholders at the vertical slice; Art Pack v2 in M3 |
 | 2026-10-30 | Announcer | Keep the eSpeak NG source for now |
 | 2026-10-30 | Front end | Scene stack; options saved to `prefs.cfg`; Escape pauses instead of quitting; the Arcade entry stays disabled until the ladder lands ([ADR-0015](docs/adr/0015-front-end-scene-stack.md)) |
+| 2026-10-30 | Heat | A + B + C: Breakaway as a guard cancel, light-attack pressure on block, Heat carries across rounds ([docs/design/heat.md](docs/design/heat.md)) |
 | 2026-10-30 | Final art | Art Pack v1 adopted; frames re-registered at one scale, 48 colours per fighter ([ADR-0012](docs/adr/0012-adopting-external-art.md)) |
 
 ## Open questions for the project owner
 
-- **Heat's role.** Heat fills fast and its only use, the Breakaway, rarely helps (every attack is already minus on block). Options and a recommendation: [docs/design/heat.md](docs/design/heat.md).
+None at the moment.

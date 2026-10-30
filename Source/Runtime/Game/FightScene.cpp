@@ -72,6 +72,25 @@ void FightScene::followCamera(bool snap) {
     else camera_.follow(a, b, width, services_.width);
 }
 
+void FightScene::shake(float amplitude, int ticks) {
+    // Reduced screen effects: a one-pixel nudge at most.
+    if (services_.settings.reducedEffects) amplitude = std::min(amplitude, 1.0f);
+    if (amplitude * static_cast<float>(ticks) < shakeAmplitude_ * static_cast<float>(shakeTicks_)) return;
+    shakeAmplitude_ = amplitude;
+    shakeTicks_ = shakeTotal_ = ticks;
+}
+
+void FightScene::flash(int ticks) {
+    if (!services_.settings.reducedEffects) flashTicks_ = std::max(flashTicks_, ticks);
+}
+
+float FightScene::shakeOffset() const {
+    if (shakeTicks_ <= 0) return 0;
+    // Alternating sides every two ticks, dying away.
+    const float strength = shakeAmplitude_ * static_cast<float>(shakeTicks_) / static_cast<float>(shakeTotal_);
+    return std::round(((shakeTicks_ / 2) % 2 == 0 ? 1.0f : -1.0f) * strength);
+}
+
 void FightScene::newMatch() {
     match_ = std::make_unique<sim::Match>(views_[0]->definition().spec, views_[1]->definition().spec);
     match_->round.training = training_;
@@ -79,6 +98,8 @@ void FightScene::newMatch() {
     match_->round.reset(); // start positions depend on the width
     followCamera(true);
     stageView_->calm();
+    hud_->clearCallouts();
+    shakeTicks_ = flashTicks_ = 0;
     effects_->clear();
     inputDisplay_->clear();
     cues_.clear();
@@ -146,6 +167,26 @@ void FightScene::playEvents(const sim::MatchStep& step) {
         const auto& e = step.round.items[static_cast<std::size_t>(i)];
         effects_->spawn(e, clock_);
         audio_.play(soundFor(e.effect));
+        const bool hit = e.effect == sim::Effect::LightHit || e.effect == sim::Effect::HeavyHit;
+        if (hit) {
+            // Layers over the hit: a sting for a counter, a blip that climbs with the combo.
+            if (e.counter) audio_.play("counter");
+            if (e.combo >= 2) audio_.play("combo", std::min(1.0f + 0.12f * static_cast<float>(e.combo - 2), 1.7f));
+            hud_->onHit(e.attacker, e.combo, e.counter);
+            if (e.counter) stageView_->excite(0.25f);
+            if (e.combo >= 3) stageView_->excite(0.1f * static_cast<float>(e.combo));
+        }
+        switch (e.effect) {
+        case sim::Effect::HeavyHit: shake(e.counter ? 3.0f : 2.0f, e.counter ? 9 : 6); break;
+        case sim::Effect::LightHit: if (e.counter) shake(2.0f, 6); break;
+        case sim::Effect::Slam: shake(4.0f, 10); break;
+        case sim::Effect::Breakaway:
+            shake(2.0f, 6);
+            hud_->onBreakaway(e.attacker);
+            break;
+        default: break;
+        }
+        if (e.counter) flash(3);
     }
     switch (step.flow) {
     case sim::FlowEvent::RoundCall:
@@ -162,6 +203,10 @@ void FightScene::playEvents(const sim::MatchStep& step) {
         const bool ko = f[0].hp == 0 || f[1].hp == 0;
         audio_.play(ko ? "ko" : "round_bell");
         stageView_->excite(ko ? 1.0f : 0.4f);
+        if (ko) {
+            shake(5.0f, 18);
+            flash(4);
+        }
         // Let the impact land before the call.
         cue(kVoice, !ko ? "time_over" : f[0].hp == 0 && f[1].hp == 0 ? "double_ko" : "ko", ko ? 24 : 6);
         break;
@@ -224,6 +269,8 @@ void FightScene::fixedUpdate() {
     for (int side = 0; side < 2; ++side) views_[static_cast<std::size_t>(side)]->update(*match_, side, clock_);
     followCamera(false);
     stageView_->update();
+    if (shakeTicks_ > 0) --shakeTicks_; // counts on through hitstop: the shake sells the freeze
+    if (flashTicks_ > 0) --flashTicks_;
     effects_->update(clock_);
     hud_->update(*match_);
 }
@@ -247,7 +294,7 @@ void FightScene::render(const RenderContext& context) {
     SDL_SetRenderDrawBlendMode(r, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor(r, 0, 0, 0, 255);
     SDL_RenderClear(r);
-    const float cx = camera_.offset();
+    const float cx = camera_.offset() + shakeOffset();
     stageView_->drawBack(r, cx);
 
     const auto& round = match_->round;
@@ -271,6 +318,14 @@ void FightScene::render(const RenderContext& context) {
 
     stageView_->drawFront(r, cx);
     effects_->draw(context, clock_, cx);
+    if (flashTicks_ > 0) {
+        // A brief white wash over the world (not the HUD); above SDR white on HDR displays.
+        SDL_SetRenderDrawBlendMode(r, SDL_BLENDMODE_ADD);
+        SDL_SetRenderColorScale(r, context.highlightBoost);
+        ui::fill(r, 0, 0, services_.width, services_.height, {255, 244, 220, static_cast<Uint8>(22 * flashTicks_)});
+        SDL_SetRenderColorScale(r, 1.0f);
+        SDL_SetRenderDrawBlendMode(r, SDL_BLENDMODE_BLEND);
+    }
     overlay_->draw(r, round, views(), cx);
     if (training_) inputDisplay_->draw(r);
     const bool blink = (clock_ / 30) % 2 == 0;

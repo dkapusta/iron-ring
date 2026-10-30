@@ -62,6 +62,14 @@ TEST_CASE("malformed command-line values are reported, not applied") {
     CHECK(s.hdr == HdrMode::Auto);
 }
 
+TEST_CASE("screen effects setting") {
+    PlayerSettings s;
+    CHECK_FALSE(s.reducedEffects);
+    CHECK(applyCommandLine(s, std::vector<std::string>{"-screen-effects", "reduced"}).empty());
+    CHECK(s.reducedEffects);
+    CHECK(applyCommandLine(s, std::vector<std::string>{"-screen-effects", "wobbly"}).size() == 1);
+}
+
 TEST_CASE("front-end test flags") {
     PlayerSettings s;
     const std::vector<std::string> args{"-scene", "options", "-keys", "10:Return,30:Down"};

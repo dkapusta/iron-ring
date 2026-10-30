@@ -380,3 +380,77 @@ TEST_CASE("wide stages: start in the middle, walls at the ends, never further ap
     CHECK(flat.fighters[0].x == 230 * kFixed);
     CHECK(flat.fighters[1].x == 410 * kFixed);
 }
+
+TEST_CASE("counter hits: catching an attack's startup hits harder and stuns longer") {
+    // Player 2 starts a slow heavy kick; player 1's jab lands inside its startup.
+    auto r = closeRound();
+    const MoveSpec& jab = rusherSpec().moves[LightPunchSlot];
+    (void)r.step({0, HeavyKick});
+    StepEvents hit;
+    (void)r.step({LightPunch, 0});
+    for (int t = 0; t < 12 && hit.count == 0; ++t) hit = r.step({0, 0});
+    REQUIRE(hit.count == 1);
+    CHECK(hit.items[0].counter);
+    CHECK(hit.items[0].attacker == 0);
+    CHECK(hit.items[0].combo == 1);
+    CHECK(r.fighters[1].hp == kMaxHealth - jab.damage * kCounterDamagePercent / 100);
+    CHECK(r.fighters[1].stun == jab.hitstun + kCounterHitstun);
+
+    // The same jab on a fighter standing still is a normal hit.
+    auto calm = closeRound();
+    (void)calm.step({LightPunch, 0});
+    StepEvents normal;
+    for (int t = 0; t < 12 && normal.count == 0; ++t) normal = calm.step({0, 0});
+    REQUIRE(normal.count == 1);
+    CHECK_FALSE(normal.items[0].counter);
+    CHECK(calm.fighters[1].hp == kMaxHealth - jab.damage);
+}
+
+TEST_CASE("combos: a cancelable jab into the special, the second hit scaled") {
+    FighterSpec canceler = rusher();
+    canceler.moves[LightPunchSlot].cancel = true;
+    Round r(canceler, grabberSpec());
+    r.fighters[0].x = 280 * kFixed;
+    r.fighters[1].x = 316 * kFixed;
+    const int jab = canceler.moves[LightPunchSlot].damage;
+    const int uppercut = canceler.moves[SpecialSlot].damage;
+
+    (void)r.step({LightPunch, 0});
+    for (int t = 0; t < 12 && !r.fighters[0].connected; ++t) (void)r.step({0, 0});
+    REQUIRE(r.fighters[0].connected);
+    typeMotion(r, {2, 3, 6}, LightPunch); // during the jab: cancels its recovery
+    int combo = 0;
+    for (int t = 0; t < 30; ++t) {
+        const auto e = r.step({0, 0});
+        for (int i = 0; i < e.count; ++i) combo = std::max(combo, e.items[static_cast<std::size_t>(i)].combo);
+    }
+    CHECK(combo == 2);
+    CHECK(r.fighters[1].hp == kMaxHealth - jab - uppercut * (100 - kComboScaleStep) / 100);
+
+    // Without the cancel flag the special can't come out of the jab's recovery in time.
+    Round plain = closeRound();
+    (void)plain.step({LightPunch, 0});
+    for (int t = 0; t < 12 && !plain.fighters[0].connected; ++t) (void)plain.step({0, 0});
+    typeMotion(plain, {2, 3, 6}, LightPunch);
+    combo = 0;
+    for (int t = 0; t < 30; ++t) {
+        const auto e = plain.step({0, 0});
+        for (int i = 0; i < e.count; ++i) combo = std::max(combo, e.items[static_cast<std::size_t>(i)].combo);
+    }
+    CHECK(combo < 2);
+}
+
+TEST_CASE("Heat carries over into the next round, and resets with a new match") {
+    Match m(rusherSpec(), grabberSpec());
+    while (m.phase != Phase::Fight) (void)m.step({0, 0});
+    m.round.fighters[0].meter = 70;
+    m.round.fighters[1].hp = 0;
+    (void)m.step({0, 0});
+    REQUIRE(m.phase == Phase::RoundOver);
+    while (m.phase == Phase::RoundOver) (void)m.step({0, 0});
+    CHECK(m.roundNumber == 2);
+    CHECK(m.round.fighters[0].meter == 70);
+    CHECK(m.round.fighters[1].hp == kMaxHealth);
+    Match fresh(rusherSpec(), grabberSpec());
+    CHECK(fresh.round.fighters[0].meter == 0);
+}

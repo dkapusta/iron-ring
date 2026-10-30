@@ -64,6 +64,10 @@ private:
     void openMenu(bool postMatch);
     void setStage(std::size_t index);
     void followCamera(bool snap);
+    // Hit feel: a short horizontal shake of the world, and a white flash.
+    void shake(float amplitude, int ticks);
+    void flash(int ticks);
+    [[nodiscard]] float shakeOffset() const;
     void playStageMusic();
     static constexpr bool kVoice = true, kSound = false;
     // Delayed audio, so the announcer doesn't talk over an impact or a jingle.
@@ -85,6 +89,8 @@ private:
     std::unique_ptr<InputDisplay> inputDisplay_;
     std::unique_ptr<StageView> stageView_;
     Camera camera_;
+    float shakeAmplitude_ = 0;
+    int shakeTicks_ = 0, shakeTotal_ = 0, flashTicks_ = 0;
     bool training_ = false;
     sim::Dummy dummy_ = sim::Dummy::Stand;
     std::size_t stage_ = 0;

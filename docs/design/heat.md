@@ -1,8 +1,26 @@
-# Heat: what it does today, and what it could do
+# Heat: what it did, and what it does now
 
-Review, 2026-10-30, against the M2 code (`Source/Simulation/Round.cpp`) and the shipped fighter data. Heat is the 0–100 meter under each health bar.
+Heat is the 0–100 meter under each health bar.
 
-## The rules as built
+> **Decision (2026-10-30): options A + B + C, built with the hit-feel pass ([ADR-0018](../adr/0018-hit-feel-and-heat.md)).** The section "Now" below is what the game does; the review that led to it follows.
+
+## Now
+
+| | |
+| --- | --- |
+| **Gain** | landing a hit or a throw +7; taking one +4; blocking +5; having your attack blocked +2. Capped at 100. |
+| **Lifetime** | the whole match: Heat carries into the next round (C). |
+| **Spend** | the **Breakaway**, only in blockstun (A): guard + HP + HK, 50 Heat. It ends your blockstun and **staggers the attacker** for 18 ticks without damage, sliding them 24 px: still in reach, so the defender punishes. |
+| **Pressure to break** | light attacks are −1 to +2 on block and cancel into the special (B), so a defender can be kept under strings worth escaping. Heavies and specials stay punishable on block. |
+| **CPU** | breaks away now and then while it is in blockstun, never in neutral. |
+
+Measured again over 40 CPU-vs-CPU matches (93 rounds): Breakaways roughly doubled, and fighters end rounds with 61–67 Heat on average (from 81–91), now banked for the next round instead of thrown away. The lower gains keep a Breakaway something to save for.
+
+## Review (before the change)
+
+Against the M2 code and the shipped fighter data, as it was:
+
+### The rules as built
 
 | | |
 | --- | --- |
@@ -11,7 +29,7 @@ Review, 2026-10-30, against the M2 code (`Source/Simulation/Round.cpp`) and the 
 | **Lifetime** | one round. `Round::reset()` starts both fighters at 0 every round. |
 | **Desperation / supers** | none, by decision (2026-10-29). |
 
-## What it actually does
+### What it actually did
 
 Heat has a role on paper, but it hardly matters in play.
 
@@ -35,7 +53,7 @@ Heat has a role on paper, but it hardly matters in play.
 
 In short: the meter fills quickly, sits near full, and its only outlet is rarely worth taking. The crowd now reacts to big hits (stage crowds, M2). That reaction is presentation only and doesn't involve Heat.
 
-## Options (for the project owner)
+### Options considered
 
 All of these keep the "no supers" decision; Heat still pays only for the Breakaway.
 
@@ -48,4 +66,4 @@ All of these keep the "no supers" decision; Heat still pays only for the Breakaw
 - **C. Keep Heat across rounds** (reset per match). It becomes a resource you save for the deciding round instead of a bar that refills for free.
 - **D. Leave it as is** and treat Heat as flavour until the hit-feel pass (counter hits, combos), which will change block and hit advantage anyway.
 
-**Recommendation:** A + B + C, folded into the M2 hit-feel pass. That pass already changes the simulation (counter hits, combo counts) and will rebaseline the golden checksum once. The CPU then spends Heat when it is actually blocking a string, not on a timer.
+**Chosen:** A + B + C.

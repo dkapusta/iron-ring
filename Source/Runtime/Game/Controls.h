@@ -96,6 +96,9 @@ private:
     std::array<SDL_Gamepad*, 2> pads_{};
     std::array<std::array<int, 2>, 2> stick_{}; // last menu direction per player and axis (-1, 0, 1)
     std::array<sim::Input, 2> latched_{};
+    // Keys held according to key events, alongside SDL's keyboard state (which
+    // events pushed by -keys scripts don't update).
+    std::array<bool, SDL_SCANCODE_COUNT> held_{};
 };
 
 } // namespace iron

@@ -8,16 +8,16 @@
   "physics": {"walkForward": 420, "walkBack": 340, "jumpVelocity": 1900, "gravity": 70},
   "body": {"standHurt": [-16, 0, 32, 124], "crouchHurt": [-18, 0, 38, 92], "pushWidth": 34, "knockdownTicks": 54},
   "moves": {
-    "lightPunch": { "name": "Stiff Jab", "animation": "light_punch", "startup": 4, "active": 3, "recovery": 10, "hitbox": [36, 84, 22, 16], "damage": 6, "hitstun": 14, "knockback": 5,
+    "lightPunch": { "name": "Stiff Jab", "animation": "light_punch", "startup": 4, "active": 3, "recovery": 10, "hitbox": [36, 84, 22, 16], "damage": 6, "hitstun": 14, "blockstun": 11, "cancel": true, "knockback": 5,
       "hurt": {"active": [[-16, 0, 32, 124], [16, 84, 36, 14]]} },
-    "heavyPunch": { "name": "Cross Counter", "animation": "heavy_punch", "startup": 8, "active": 3, "recovery": 20, "hitbox": [40, 87, 28, 18], "damage": 12, "hitstun": 23, "knockback": 10, "heavy": true, "hitstopOnHit": 8,
+    "heavyPunch": { "name": "Cross Counter", "animation": "heavy_punch", "startup": 8, "active": 3, "recovery": 20, "hitbox": [40, 87, 28, 18], "damage": 12, "hitstun": 23, "blockstun": 12, "knockback": 10, "heavy": true, "hitstopOnHit": 8,
       "hurt": {"active": [[-16, 0, 32, 124], [16, 86, 48, 16]]} },
-    "lightKick": { "name": "Shin Kick", "animation": "light_kick", "startup": 7, "active": 4, "recovery": 15, "hitbox": [48, 68, 36, 20], "damage": 9, "hitstun": 18, "knockback": 8,
+    "lightKick": { "name": "Shin Kick", "animation": "light_kick", "startup": 7, "active": 4, "recovery": 15, "hitbox": [48, 68, 36, 20], "damage": 9, "hitstun": 18, "blockstun": 17, "cancel": true, "knockback": 8,
       "hurt": {"active": [[-16, 0, 32, 124], [14, 66, 62, 20]]} },
-    "heavyKick": { "name": "Leg Sweep", "animation": "heavy_kick", "startup": 12, "active": 5, "recovery": 23, "hitbox": [46, 0, 38, 14], "damage": 14, "hitstun": 26, "knockback": 14, "low": true, "knockdown": true, "heavy": true, "hitstopOnHit": 8,
+    "heavyKick": { "name": "Leg Sweep", "animation": "heavy_kick", "startup": 12, "active": 5, "recovery": 23, "hitbox": [46, 0, 38, 14], "damage": 14, "hitstun": 26, "blockstun": 10, "knockback": 14, "low": true, "knockdown": true, "heavy": true, "hitstopOnHit": 8,
       "hurt": {"startup": [[-18, 0, 40, 96]], "active": [[-18, 0, 38, 86], [20, 0, 60, 14]], "recovery": [[-18, 0, 38, 90]]} },
     "throw": { "name": "Clinch Toss", "kind": "throw", "animation": "throw", "holdAnimation": "throw_hold", "startup": 3, "active": 2, "recovery": 22, "hitbox": [8, 40, 24, 60], "damage": 10, "throwDuration": 40, "throwDistance": 50, "techable": true, "hitstopOnHit": 8 },
-    "special": { "name": "Rush Uppercut", "input": "236P", "animation": "special", "startup": 6, "active": 4, "recovery": 20, "hitbox": [10, 60, 40, 90], "advance": 512, "damage": 14, "hitstun": 30, "knockback": 12, "knockdown": true, "heavy": true, "hitstopOnHit": 10,
+    "special": { "name": "Rush Uppercut", "input": "236P", "animation": "special", "startup": 6, "active": 4, "recovery": 20, "hitbox": [10, 60, 40, 90], "advance": 512, "damage": 14, "hitstun": 30, "blockstun": 10, "knockback": 12, "knockdown": true, "heavy": true, "hitstopOnHit": 10,
       "hurt": {"startup": [[-18, 0, 38, 100]], "active": [[-14, 0, 30, 140]], "recovery": [[-16, 0, 32, 118]]} }
   },
   "animations": {

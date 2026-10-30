@@ -60,7 +60,7 @@ private:
     std::unique_ptr<Services> services_;
     int logicalWidth_ = 640, logicalHeight_ = 360;
     struct ScriptedKey {
-        int frame;
+        int first, last; // held from frame `first` through `last`
         SDL_Scancode key;
     };
     std::vector<ScriptedKey> keyScript_; // -keys, for batch tests of the menus

@@ -42,6 +42,18 @@ void Effects::draw(const RenderContext& context, int clock, float cameraX) const
         const int frame = std::clamp((clock - a.start) / kTicksPerFrame, 0, a.frames - 1);
         sheet_.draw(context.renderer, a.name + "_" + std::to_string(frame), a.x - cameraX, a.y, false);
     }
+    // HDR: a second, additive pass makes sparks glow above SDR white. SDR output is untouched.
+    if (context.highlightBoost > 1.0f) {
+        SDL_Texture* tex = sheet_.texture();
+        SDL_SetTextureBlendMode(tex, SDL_BLENDMODE_ADD);
+        SDL_SetTextureAlphaModFloat(tex, std::min(1.0f, (context.highlightBoost - 1.0f) * 0.5f));
+        for (const auto& a : active_) {
+            const int frame = std::clamp((clock - a.start) / kTicksPerFrame, 0, a.frames - 1);
+            sheet_.draw(context.renderer, a.name + "_" + std::to_string(frame), a.x - cameraX, a.y, false);
+        }
+        SDL_SetTextureAlphaModFloat(tex, 1.0f);
+        SDL_SetTextureBlendMode(tex, SDL_BLENDMODE_BLEND);
+    }
     SDL_SetRenderColorScale(context.renderer, 1.0f);
 }
 

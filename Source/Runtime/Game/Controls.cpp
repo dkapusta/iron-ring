@@ -270,8 +270,12 @@ std::optional<MenuEvent> Controls::onEvent(const SDL_Event& event) {
     switch (event.type) {
     case SDL_EVENT_GAMEPAD_ADDED: addPad(event.gdevice.which); return std::nullopt;
     case SDL_EVENT_GAMEPAD_REMOVED: removePad(event.gdevice.which); return std::nullopt;
+    case SDL_EVENT_KEY_UP:
+        if (event.key.scancode < SDL_SCANCODE_COUNT) held_[event.key.scancode] = false;
+        return std::nullopt;
     case SDL_EVENT_KEY_DOWN: {
         const auto& key = event.key;
+        if (key.scancode < SDL_SCANCODE_COUNT) held_[key.scancode] = true;
         std::optional<MenuEvent> menu;
         if (const auto action = keyAction(key.scancode)) menu = MenuEvent{0, *action};
         for (std::size_t p = 0; p < keys_.size(); ++p) {
@@ -313,7 +317,7 @@ sim::Input Controls::sample(int player) const {
     auto held = latched_[p];
     const auto add = [&held](sim::Input bit) { held = static_cast<sim::Input>(held | bit); };
     for (const auto& k : keys_[p])
-        if (keys[k.scancode]) add(k.bit);
+        if (keys[k.scancode] || held_[k.scancode]) add(k.bit);
     if (SDL_Gamepad* pad = pads_[p]) {
         for (const auto& b : padLayouts_[p].buttons)
             if (SDL_GetGamepadButton(pad, b.button)) add(b.bit);

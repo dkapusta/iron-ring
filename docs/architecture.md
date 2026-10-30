@@ -42,7 +42,7 @@ Static libraries without SDL (`Core`, `Vfs`, `Simulation`, `Content`) carry ever
 | `Game/FighterView` | simulation state → animation frame (and the held opponent's pose during throws) |
 | `Game/StageView` | a flat stage, or layers with parallax, drift and animation for a camera position; the crowd's excitement (raised by hits, throws, K.O.s) |
 | `Game/Effects` | short sprite effects spawned from `StepEvents`, HDR-boosted |
-| `Game/Hud` | health, Heat, timer, portraits, win markers, round banners, from `hud_layout.json` |
+| `Game/Hud` | health, Heat, timer, portraits, win markers, round banners, from `hud_layout.json`; combo counter and COUNTER / BREAKAWAY callouts |
 | `Game/TrainingOverlay` | F3: hit/hurt boxes (per move phase), move frame data, frame advantage |
 | `Game/InputDisplay` | training: both players' recent inputs (ticks, numpad direction, buttons) |
 | `Game/Controls` | keyboard and gamepads → simulation input bits (edge latch between ticks) and menu actions; bindings from `Core/InputBindings` (per player, per pad device) |

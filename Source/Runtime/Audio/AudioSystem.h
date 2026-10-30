@@ -31,7 +31,8 @@ public:
 
     // Decodes a sound effect from memory (WAV, OGG, FLAC) under a short id.
     void load(const std::string& id, const vfs::Bytes& encoded);
-    void play(std::string_view id);
+    // pitch: playback-rate ratio (1 = as recorded); the combo blip rises with each hit.
+    void play(std::string_view id, float pitch = 1.0f);
     // Announcer lines: a separate set of ids and their own track and volume.
     void loadVoice(const std::string& id, const vfs::Bytes& encoded);
     void playVoice(std::string_view id);

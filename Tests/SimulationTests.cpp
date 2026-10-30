@@ -48,7 +48,7 @@ TEST_CASE("guard prevents normal hit damage and grants meter once") {
     (void)m.step({LightPunch, Guard});
     idle(m, 40, Guard);
     CHECK(m.fighters[1].hp == 100);
-    CHECK(m.fighters[1].meter == 8);
+    CHECK(m.fighters[1].meter == 5);
 }
 
 TEST_CASE("high/low defense") {
@@ -89,15 +89,12 @@ TEST_CASE("fighters stay within stage bounds") {
     CHECK(m.fighters[1].x == kStageMaxX * kFixed);
 }
 
-TEST_CASE("Breakaway spends meter and pushes without damage") {
+TEST_CASE("Breakaway is a guard cancel: nothing happens outside blockstun") {
     auto m = closeRound();
     m.fighters[0].meter = kBreakCost;
     const auto events = m.step({Guard | HeavyPunch | HeavyKick, 0});
-    CHECK(m.fighters[0].meter == 0);
-    CHECK(m.fighters[1].hp == 100);
-    CHECK(m.effect == Effect::Breakaway);
-    REQUIRE(events.count == 1);
-    CHECK(events.items[0].effect == Effect::Breakaway);
+    CHECK(m.fighters[0].meter == kBreakCost);
+    CHECK(events.count == 0);
 }
 
 TEST_CASE("Breakaway entered during hitstop executes from blockstun") {
@@ -108,11 +105,16 @@ TEST_CASE("Breakaway entered during hitstop executes from blockstun") {
     REQUIRE(m.fighters[0].blockstun);
     REQUIRE(m.hitstop > 0);
 
-    (void)m.step({Guard | HeavyPunch | HeavyKick, 0});
-    for (int i = 0; i < 5; ++i) (void)m.step({Guard, 0});
-    CHECK(m.fighters[0].meter == 8);
+    (void)m.step({Guard | HeavyPunch | HeavyKick, 0}); // entered in hitstop, buffered
+    for (int i = 0; i < 5 && m.effect != Effect::Breakaway; ++i) (void)m.step({Guard, 0});
+    CHECK(m.fighters[0].meter == 5); // 50 + 5 for the block - 50
     CHECK_FALSE(m.fighters[0].blockstun);
+    CHECK(m.fighters[0].stun == 0);
     CHECK(m.effect == Effect::Breakaway);
+    // The attacker is staggered (no damage), not pushed out of reach.
+    CHECK(m.fighters[1].stun > kBreakStagger - 6);
+    CHECK(m.fighters[1].move < 0);
+    CHECK(m.fighters[1].hp == 100);
 }
 
 TEST_CASE("identical input histories produce identical checksums every tick") {
@@ -128,10 +130,12 @@ TEST_CASE("identical input histories produce identical checksums every tick") {
 //   17886306297783925268  kit prototype, reproduced bit-for-bit by the port
 //    8522570831175173500  knockdown (air hits, KO), throw/special state in the
 //                         checksum, effects placed at the hitbox centre
+//   15812912959688531244  counter hits, combo scaling (combo in the checksum),
+//                         Breakaway as a guard cancel that staggers (docs/design/heat.md)
 TEST_CASE("simulation behaviour is pinned (golden checksum)") {
     Round m;
     randomHistory(4000, [&](const std::array<Input, 2>& in) { (void)m.step(in); });
-    CHECK(m.checksum() == 8522570831175173500ULL);
+    CHECK(m.checksum() == 15812912959688531244ULL);
 }
 
 TEST_CASE("a copied match is a snapshot that reproduces subsequent state") {

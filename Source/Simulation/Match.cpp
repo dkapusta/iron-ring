@@ -50,7 +50,10 @@ MatchStep Match::step(const std::array<Input, 2>& inputs) {
             enter(Phase::MatchOver);
         } else {
             ++roundNumber;
+            // Heat lasts the whole match: what a fighter saved carries into the next round.
+            const std::array<int, 2> heat{round.fighters[0].meter, round.fighters[1].meter};
             round.reset();
+            for (std::size_t i = 0; i < 2; ++i) round.fighters[i].meter = heat[i];
             enter(Phase::Intro);
         }
         break;

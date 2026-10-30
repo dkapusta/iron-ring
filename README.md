@@ -5,11 +5,11 @@
 
 An early-90s style arcade fighting game about the **Iron Ring** — an illegal, invitation-only fight-club tournament in the dying port city of Grayhaven, 1992. Big pixel-art sprites, four attack buttons, throws and specials, short explosive exchanges, built on a small, testable C++20 / SDL3 codebase. Setting and cast: [docs/design/setting.md](docs/design/setting.md).
 
-![Bram Hollis slams Dee Marlowe with the Dock Hoist at Pier 9](docs/images/m1-demo-capture.png)
+![Dee Marlowe's Shin Kick lands on Bram Hollis at Pier 9](docs/images/demo-capture.png)
 
-*Above: a real frame captured with `-batchmode -demo -screenshot`: Bram Hollis's Dock Hoist slams Dee Marlowe at Pier 9. Fighters and stages are from Iron Ring Art Pack v1 ([ADR-0012](docs/adr/0012-adopting-external-art.md)); the music (a theme per venue), sound effects and announcer are generated on a model of the NES sound chip ([docs/audio.md](docs/audio.md)).*
+*Above: a real frame captured with `-batchmode -demo -frames 420 -screenshot` at 1920 × 1080: Dee Marlowe's Shin Kick lands on Bram Hollis at Pier 9. Fighters and stages are from Iron Ring Art Pack v1 ([ADR-0012](docs/adr/0012-adopting-external-art.md)); the music (a theme per venue), sound effects and announcer are generated on a model of the NES sound chip ([docs/audio.md](docs/audio.md)).*
 
-> **Status: M2 — Complete local play, in progress.** M1 delivered Dee vs Bram with data-driven fighters, throws, specials, knockdowns, best-of-3 rounds, a pixel-art HUD, a training mode, venue themes and an announcer. M2 so far: the front end (title with an attract demo, character select, stage select, options, pause and rematch menus), saved options and gamepads. See [ROADMAP.md](ROADMAP.md).
+> **Status: M2 — Complete local play, in progress.** M1 delivered Dee vs Bram with data-driven fighters, throws, specials, knockdowns, best-of-3 rounds, a pixel-art HUD, a training mode, venue themes and an announcer. M2 so far: the front end (title with an attract demo, character and stage select, options, pause and rematch menus), saved options, gamepads and remapping, layered scrolling stages with a reacting crowd, and the hit-feel pass: counter hits, combos and cancels, a Breakaway that guard-cancels, and Heat that lasts the match. See [ROADMAP.md](ROADMAP.md).
 
 ![The title menu, character select, stage select and pause menu](docs/images/m2-front-end.png)
 
@@ -97,7 +97,7 @@ The full scheme for both players, the menus and pads, with each fighter's moves 
 | Light kick / heavy kick | H / J | Keypad 3 / 0 |
 | Guard | Space, or hold back | Right Shift, or hold back |
 | Throw (close) / throw tech (when grabbed) | F + H (LP + LK) | Keypad 1 + 3 |
-| Breakaway (50 Heat) | Guard + G + J | Guard + Keypad 2 + 0 |
+| Breakaway (50 Heat, while blocking) | Guard + G + J | Guard + Keypad 2 + 0 |
 | Menus: confirm / back | F (light punch) or Return / H (light kick) or Backspace | Keypad 1 / Keypad 3 |
 | Pause | Escape | Escape |
 
@@ -131,8 +131,9 @@ Unity-compatible names where they exist:
 | `-dummy <mode>` | Training dummy: `stand`, `crouch`, `jump`, `guard`, `guard-all` (crouches against lows), `cpu` |
 | `-stage <id>` | Straight into a fight on a stage: `pier_nine`, `lantern_row`, `foundry`, `the_crown` |
 | `-scene <name>` | Open `title`, `select`, `stage` or `options` (screenshots, testing) |
-| `-keys "<frame>:<key>,..."` | Batch tests: tap keys (SDL key names) at the given frames, e.g. `"10:Return,30:Down"` |
+| `-keys "<frame>:<key>,..."` | Batch tests: tap keys (SDL key names) at the given frames, e.g. `"10:Return,30:Down"`; `"30-90:D"` holds a key, `"40:S+D"` presses keys together |
 | `-music-volume 0..1`, `-sfx-volume 0..1`, `-voice-volume 0..1` | Mix-group volumes (also in `boot.config` and Options) |
+| `-screen-effects full\|reduced` | Reduced: a gentle shake and no full-screen flashes (also in Options) |
 | `-hdr auto\|on\|off`, `-vsync 0\|1`, `-presentation integer\|letterbox`, `-render-driver <name>` | Override `boot.config` |
 | `-data-folder <path>` | Use another `<name>_Data` folder |
 | `-assets-folder <path>` | Mount a loose `Assets/` folder over the archives (edit-and-run without repacking) |
