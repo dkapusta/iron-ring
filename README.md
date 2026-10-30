@@ -84,6 +84,8 @@ The game opens on the title screen: press Start (Return, or a pad's Start) for t
 
 ### Controls
 
+The full scheme for both players, the menus and pads, with each fighter's moves written for either side of the screen, is in **[docs/controls.md](docs/controls.md)**. Rebind keys and pad buttons in **Options → Controls**; the pause menu's **Move list** shows every move in the keys you use.
+
 | Action | Player 1 | Player 2 |
 | --- | --- | --- |
 | Move / jump / crouch | A D / W / S | Arrow keys |
@@ -95,16 +97,18 @@ The game opens on the title screen: press Start (Return, or a pad's Start) for t
 | Menus: confirm / back | F (light punch) or Return / H (light kick) or Backspace | Keypad 1 / Keypad 3 |
 | Pause | Escape | Escape |
 
-**Gamepads.** The first two pads connected play as player 1 and player 2 (the keyboard keeps working): d-pad or left stick to move, X/Y (west/north) light/heavy punch, A/B (south/east) light/heavy kick, right shoulder or right trigger to guard, Start to pause. In menus A confirms and B backs out. The layout is in `InputManager.json → gamepad`; remapping from the game comes later in M2.
+**Gamepads.** The first two pads connected play as player 1 and player 2 (the keyboard keeps working): d-pad or left stick to move, X/Y (west/north) light/heavy punch, A/B (south/east) light/heavy kick, right shoulder or right trigger to guard, Start to pause. In menus A confirms and B backs out. Each pad remembers its own button layout (saved by device), whichever slot it is in.
+
+Player 2's default keys use the numeric keypad; without one, rebind them in Options → Controls.
 
 Moves, written for a fighter facing right (numpad notation: 6 = forward, 2 = down, 3 = down-forward):
 
 | Fighter | LP | HP | LK | HK | Throw | Special |
 | --- | --- | --- | --- | --- | --- | --- |
-| **Dee Marlowe** | Stiff Jab | Cross Counter | Shin Kick | Leg Sweep (low, knockdown) | Clinch Toss | **Rush Uppercut** — 236 + P (↓↘→ + punch) |
-| **Bram Hollis** | Palm Shove | Anchor Hook | Boot Kick | Hull Breaker (low, knockdown) | Pier Toss | **Dock Hoist** — 63214 + P (→↘↓↙← + punch), command throw, can't be teched |
+| **Dee Marlowe** | Stiff Jab | Cross Counter | Shin Kick | Leg Sweep (low, knockdown) | Clinch Toss | **Rush Uppercut** — 236 + P (↓↘→ + punch; facing left ↓↙←) |
+| **Bram Hollis** | Palm Shove | Anchor Hook | Boot Kick | Hull Breaker (low, knockdown) | Pier Toss | **Dock Hoist** — 63214 + P (→↘↓↙← + punch; facing left ←↙↓↘→), command throw, can't be teched |
 
-In a fight: F3 training overlay (boxes, frame data, frame advantage) · F4 reset positions (training) · F6 next dummy behaviour (training). Developer keys: Tab vs CPU → 2 players → CPU vs CPU · F2 next stage · F5 new match · F1 debug overlay. Anywhere: F11 or Alt+Enter fullscreen · F12 screenshot. Bindings live in [`ProjectSettings/InputManager.json`](ProjectSettings/InputManager.json); fighter data in `Assets/Fighters/<Name>/<id>.fighter.json`.
+In a fight: F3 training overlay (boxes, frame data, frame advantage) · F4 reset positions (training) · F6 next dummy behaviour (training). Developer keys: Tab vs CPU → 2 players → CPU vs CPU · F2 next stage · F5 new match · F1 debug overlay. Anywhere: F11 or Alt+Enter fullscreen · F12 screenshot. Default bindings live in [`ProjectSettings/InputManager.json`](ProjectSettings/InputManager.json), your changes in `prefs.cfg`; fighter data in `Assets/Fighters/<Name>/<id>.fighter.json`.
 
 ### Command line
 
@@ -139,7 +143,7 @@ Smoke tests used by CI: `IronRing.x86_64 -batchmode -demo -screen-fullscreen 0 -
 Assets/              source content: fighters, stages, effects, UI, sounds
 ProjectSettings/     GameSettings, InputManager, AssetPipeline (→ globalgamemanagers)
 Source/
-  Core/              settings (boot.config, prefs.cfg, command line), menu model — no SDL
+  Core/              settings (boot.config, prefs.cfg, command line), bindings, menu model — no SDL
   Vfs/               archive format, writer, ZIP/folder mounts, VFS         — no SDL
   Simulation/        deterministic combat core                              — no SDL
   Content/           fighter/atlas parsing and content validation           — no SDL
