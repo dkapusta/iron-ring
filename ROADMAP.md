@@ -89,7 +89,9 @@ New fighters arrive with procedural placeholder art and their own frame data, mo
 - ✅ **The Broker**, the boss (placeholder art): after the title bout, by invitation, at his club; not on the select. Every fighter has a story intro, an ending and three win quotes (`story` in the fighter file, checked against the fonts' charset) ([ADR-0022](docs/adr/0022-boss-and-story.md))
 - ✅ Asset streaming: per-stage `sharedassetsN.assets` (layers) + `levelN` (theme), mounted and loaded when a fight uses the stage; the two most recent stay resident, so a session holds about 17 MiB of stage textures instead of 48 ([ADR-0023](docs/adr/0023-stage-streaming.md))
 - ✅ Art brief for Art Pack v3, the production art that replaces every M3 placeholder: Sable, Idris, Greta, Jun and the Broker (frames, champion poses, portraits) and Dry Dock 4, The Hold and The Broker's Club ([docs/art/art-pack-v3-brief.md](docs/art/art-pack-v3-brief.md))
-- ⬜ Art Pack v3 delivered, reviewed and imported; no placeholder art left in the game
+- ✅ Art Pack v3A (characters): final frames, champion poses and portraits for Sable, Idris, Greta, Jun and the Broker; adopted as delivered ([ADR-0024](docs/adr/0024-adopting-art-pack-v3a.md), [review](ArtSource/Pack-v3A/REVIEW.md))
+  - 🔜 v3A.1 corrections: the Broker's skin colour, two of Sable's walk frames, Idris's Mast Kick and Bowline Heel heights ([brief](docs/art/art-pack-v3a.1-brief.md))
+- ⬜ Art Pack v3B (venues): Dry Dock 4, The Hold, The Broker's Club; then no placeholder art is left in the game
 
 ## M4 — Online
 

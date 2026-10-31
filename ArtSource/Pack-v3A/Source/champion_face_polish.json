@@ -1,0 +1,66 @@
+{
+  "sable": {
+    "head_crop": [
+      123,
+      79,
+      144,
+      104
+    ],
+    "integer_chin_lift": [
+      0,
+      -1
+    ],
+    "mouth": [
+      135,
+      97
+    ]
+  },
+  "idris": {
+    "head_crop": [
+      123,
+      82,
+      144,
+      107
+    ],
+    "integer_chin_lift": [
+      0,
+      -1
+    ],
+    "mouth": [
+      135,
+      100
+    ]
+  },
+  "greta": {
+    "head_crop": [
+      123,
+      107,
+      144,
+      132
+    ],
+    "integer_chin_lift": [
+      0,
+      -1
+    ],
+    "mouth": [
+      135,
+      125
+    ]
+  },
+  "jun": {
+    "head_crop": [
+      123,
+      101,
+      144,
+      126
+    ],
+    "integer_chin_lift": [
+      0,
+      -1
+    ],
+    "mouth": [
+      135,
+      119
+    ]
+  }
+}

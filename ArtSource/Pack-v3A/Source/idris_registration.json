@@ -1,0 +1,7 @@
+{
+  "scale": 0.9459459459459459,
+  "dx": -4,
+  "dy": -7,
+  "target_height": 139,
+  "method": "one constant whole-canvas scale per fighter, calibrated only from idle_0; remaining registration is integer translation"
+}

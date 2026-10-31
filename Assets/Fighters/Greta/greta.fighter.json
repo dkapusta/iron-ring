@@ -1,10 +1,11 @@
 {
-  "$comment": "Fighter definition (docs/adr/0010-fighter-content-format.md). Lengths in logical pixels, speeds in 1/256 px per tick, times in 60 Hz ticks. Boxes are [x, y, w, h] from the feet, x forward, y up. Placeholder art: Tools/Art/generate.py fighters.",
+  "$comment": "Fighter definition (docs/adr/0010-fighter-content-format.md). Lengths in logical pixels, speeds in 1/256 px per tick, times in 60 Hz ticks. Boxes are [x, y, w, h] from the feet, x forward, y up. Art: Iron Ring Art Pack v3A (ArtSource/Fighters/Greta/frames).",
   "id": "greta",
   "name": "Greta Voll",
   "displayName": "GRETA VOLL",
   "atlas": "greta_atlas.json",
   "portrait": "greta_portrait.png",
+  "selectPortrait": "greta_select.png",
   "story": {
     "intro": ["The Broker's money bought the Voll Works and shut it.", "Four hundred jobs, gone with one signature.", "I'll look him in the eye. Then I'll hit him."],
     "ending": ["Greta walks out with the deed to the Voll Works.", "On Monday the furnaces are lit again.", "The night shift comes back. So does the crowd."],

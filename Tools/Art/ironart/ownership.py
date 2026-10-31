@@ -12,10 +12,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 ART_SOURCE = ROOT / "ArtSource"
 
-# Folders under Assets/ whose art is externally authored (Iron Ring Art Packs v1 and v2).
+# Folders under Assets/ whose art is externally authored (Iron Ring Art Packs v1, v2 and v3A).
 EXTERNAL = {
     ("Fighters", "Dee"),
     ("Fighters", "Bram"),
+    ("Fighters", "Sable"),
+    ("Fighters", "Idris"),
+    ("Fighters", "Greta"),
+    ("Fighters", "Jun"),
+    ("Fighters", "Broker"),
     ("Stages", "PierNine"),
     ("Stages", "LanternRow"),
     ("Stages", "TheCrown"),

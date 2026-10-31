@@ -13,7 +13,7 @@ Setting, tone and costume direction: [docs/design/setting.md](../design/setting.
 | Logical canvas | **640 × 360** px. The game scales it by a whole number to the display (letterboxed), so 1 art pixel = 1 logical pixel. |
 | Pixel art | Hard pixel edges. No anti-aliasing against transparency, no semi-transparent pixels in sprites (alpha is 0 or 255). |
 | Format | PNG, 8-bit RGBA (sprites, effects, UI) or RGB (stages). sRGB. No colour profiles that change the values. |
-| Palette | Stages, effects and UI use `Assets/Data/palette.gpl` / `palette.json`. Each fighter uses **one limited palette of at most 48 colours**, either the shared material ramps or a palette fitted to that fighter's own frames (Dee and Bram, [ADR-0012](../adr/0012-adopting-external-art.md)). Outlines use the ramps' line colours. |
+| Palette | Stages, effects and UI use `Assets/Data/palette.gpl` / `palette.json`. Each fighter uses **one limited palette of at most 48 colours**, either the shared material ramps or a palette fitted to that fighter's own frames (every fighter now: [ADR-0012](../adr/0012-adopting-external-art.md), [ADR-0024](../adr/0024-adopting-art-pack-v3a.md)). Outlines use the ramps' line colours. |
 | Outlines | Every sprite silhouette has a 1 px outline in the darkest tone of the material it bounds (not black, not the background). |
 | Light | Warm key light from the upper left, in front of the picture plane; cool teal rim light from the right. Sprites are lit for facing right; the mirrored player-2 sprite keeps the same shading (arcade convention). Stages are night by default; The Crown is dawn. |
 | Shading | 4 tones per material + its line colour (the ramps in `palette.json`). Gradients use ordered (Bayer) dithering, never smooth blends. |

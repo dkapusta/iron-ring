@@ -1,0 +1,87 @@
+{
+  "sable": {
+    "partner": [
+      40,
+      86
+    ],
+    "grip_points": [
+      [
+        28,
+        125
+      ],
+      [
+        34,
+        129
+      ]
+    ],
+    "max_contact_distance_over_seven_victims": 0.0
+  },
+  "idris": {
+    "partner": [
+      54,
+      91
+    ],
+    "grip_points": [
+      [
+        40,
+        139
+      ],
+      [
+        48,
+        132
+      ]
+    ],
+    "max_contact_distance_over_seven_victims": 0.0
+  },
+  "greta": {
+    "partner": [
+      35,
+      77
+    ],
+    "grip_points": [
+      [
+        23,
+        116
+      ],
+      [
+        29,
+        121
+      ]
+    ],
+    "max_contact_distance_over_seven_victims": 0.0
+  },
+  "jun": {
+    "partner": [
+      41,
+      65
+    ],
+    "grip_points": [
+      [
+        29,
+        111
+      ],
+      [
+        38,
+        119
+      ]
+    ],
+    "max_contact_distance_over_seven_victims": 0.0
+  },
+  "broker": {
+    "partner": [
+      42,
+      88
+    ],
+    "grip_points": [
+      [
+        30,
+        134
+      ],
+      [
+        39,
+        142
+      ]
+    ],
+    "max_contact_distance_over_seven_victims": 0.0
+  }
+}

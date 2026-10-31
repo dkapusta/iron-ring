@@ -1,0 +1,1045 @@
+{
+  "frame_results": [
+    {
+      "id": "sable_guard",
+      "ok": true
+    },
+    {
+      "id": "sable_hk_0",
+      "ok": true
+    },
+    {
+      "id": "sable_guard_crouch",
+      "ok": true
+    },
+    {
+      "id": "sable_hk_2",
+      "ok": true
+    },
+    {
+      "id": "sable_hk_3",
+      "ok": true
+    },
+    {
+      "id": "sable_jump_rise",
+      "ok": true
+    },
+    {
+      "id": "sable_jump_apex",
+      "ok": true
+    },
+    {
+      "id": "sable_hp_3",
+      "ok": true
+    },
+    {
+      "id": "sable_hit_0",
+      "ok": true
+    },
+    {
+      "id": "sable_lp_0",
+      "ok": true
+    },
+    {
+      "id": "sable_throw_0",
+      "ok": true
+    },
+    {
+      "id": "sable_crouch",
+      "ok": true
+    },
+    {
+      "id": "sable_walk_0",
+      "ok": true
+    },
+    {
+      "id": "sable_lk_2",
+      "ok": true
+    },
+    {
+      "id": "sable_walk_1",
+      "ok": true
+    },
+    {
+      "id": "sable_walk_2",
+      "ok": true
+    },
+    {
+      "id": "sable_hp_2",
+      "ok": true
+    },
+    {
+      "id": "sable_jump_fall",
+      "ok": true
+    },
+    {
+      "id": "sable_hp_0",
+      "ok": true
+    },
+    {
+      "id": "sable_lp_2",
+      "ok": true
+    },
+    {
+      "id": "sable_throw_hold_0",
+      "ok": true
+    },
+    {
+      "id": "sable_throw_hold_1",
+      "ok": true
+    },
+    {
+      "id": "sable_throw_1",
+      "ok": true
+    },
+    {
+      "id": "sable_held_1",
+      "ok": true
+    },
+    {
+      "id": "sable_lk_0",
+      "ok": true
+    },
+    {
+      "id": "sable_hit_1",
+      "ok": true
+    },
+    {
+      "id": "sable_champion_0",
+      "ok": true
+    },
+    {
+      "id": "sable_special_0",
+      "ok": true
+    },
+    {
+      "id": "sable_held_0",
+      "ok": true
+    },
+    {
+      "id": "sable_special_3",
+      "ok": true
+    },
+    {
+      "id": "sable_down_0",
+      "ok": true
+    },
+    {
+      "id": "sable_hk_1",
+      "ok": true
+    },
+    {
+      "id": "sable_down_2",
+      "ok": true
+    },
+    {
+      "id": "sable_win_0",
+      "ok": true
+    },
+    {
+      "id": "sable_down_3",
+      "ok": true
+    },
+    {
+      "id": "sable_hit_crouch",
+      "ok": true
+    },
+    {
+      "id": "sable_down_1",
+      "ok": true
+    },
+    {
+      "id": "sable_champion_1",
+      "ok": true
+    },
+    {
+      "id": "idris_walk_1",
+      "ok": true
+    },
+    {
+      "id": "sable_champion_3",
+      "ok": true
+    },
+    {
+      "id": "sable_win_1",
+      "ok": true
+    },
+    {
+      "id": "sable_special_1",
+      "ok": true
+    },
+    {
+      "id": "idris_walk_2",
+      "ok": true
+    },
+    {
+      "id": "idris_walk_0",
+      "ok": true
+    },
+    {
+      "id": "idris_crouch",
+      "ok": true
+    },
+    {
+      "id": "sable_special_2",
+      "ok": true
+    },
+    {
+      "id": "idris_jump_fall",
+      "ok": true
+    },
+    {
+      "id": "idris_lp_2",
+      "ok": true
+    },
+    {
+      "id": "sable_lp_1",
+      "ok": true
+    },
+    {
+      "id": "idris_guard_crouch",
+      "ok": true
+    },
+    {
+      "id": "idris_hk_0",
+      "ok": true
+    },
+    {
+      "id": "idris_hk_3",
+      "ok": true
+    },
+    {
+      "id": "idris_guard",
+      "ok": true
+    },
+    {
+      "id": "sable_champion_2",
+      "ok": true
+    },
+    {
+      "id": "idris_jump_rise",
+      "ok": true
+    },
+    {
+      "id": "sable_hp_1",
+      "ok": true
+    },
+    {
+      "id": "idris_hp_0",
+      "ok": true
+    },
+    {
+      "id": "idris_jump_apex",
+      "ok": true
+    },
+    {
+      "id": "idris_hp_2",
+      "ok": true
+    },
+    {
+      "id": "idris_throw_hold_1",
+      "ok": true
+    },
+    {
+      "id": "idris_down_0",
+      "ok": true
+    },
+    {
+      "id": "idris_throw_1",
+      "ok": true
+    },
+    {
+      "id": "idris_hit_0",
+      "ok": true
+    },
+    {
+      "id": "idris_lk_0",
+      "ok": true
+    },
+    {
+      "id": "idris_down_1",
+      "ok": true
+    },
+    {
+      "id": "idris_hk_2",
+      "ok": true
+    },
+    {
+      "id": "idris_hp_3",
+      "ok": true
+    },
+    {
+      "id": "idris_down_3",
+      "ok": true
+    },
+    {
+      "id": "idris_throw_0",
+      "ok": true
+    },
+    {
+      "id": "idris_throw_hold_0",
+      "ok": true
+    },
+    {
+      "id": "idris_hit_1",
+      "ok": true
+    },
+    {
+      "id": "idris_hp_1",
+      "ok": true
+    },
+    {
+      "id": "idris_lp_0",
+      "ok": true
+    },
+    {
+      "id": "idris_down_2",
+      "ok": true
+    },
+    {
+      "id": "idris_lk_2",
+      "ok": true
+    },
+    {
+      "id": "sable_lk_1",
+      "ok": true
+    },
+    {
+      "id": "idris_champion_0",
+      "ok": true
+    },
+    {
+      "id": "idris_hit_crouch",
+      "ok": true
+    },
+    {
+      "id": "idris_lk_1",
+      "ok": true
+    },
+    {
+      "id": "idris_champion_2",
+      "ok": true
+    },
+    {
+      "id": "idris_special_0",
+      "ok": true
+    },
+    {
+      "id": "idris_special_1",
+      "ok": true
+    },
+    {
+      "id": "idris_champion_1",
+      "ok": true
+    },
+    {
+      "id": "idris_hk_1",
+      "ok": true
+    },
+    {
+      "id": "idris_held_0",
+      "ok": true
+    },
+    {
+      "id": "greta_walk_2",
+      "ok": true
+    },
+    {
+      "id": "idris_win_0",
+      "ok": true
+    },
+    {
+      "id": "idris_held_1",
+      "ok": true
+    },
+    {
+      "id": "greta_lp_0",
+      "ok": true
+    },
+    {
+      "id": "idris_special_2",
+      "ok": true
+    },
+    {
+      "id": "idris_champion_3",
+      "ok": true
+    },
+    {
+      "id": "idris_win_1",
+      "ok": true
+    },
+    {
+      "id": "greta_crouch",
+      "ok": true
+    },
+    {
+      "id": "idris_lp_1",
+      "ok": true
+    },
+    {
+      "id": "idris_special_3",
+      "ok": true
+    },
+    {
+      "id": "greta_hp_3",
+      "ok": true
+    },
+    {
+      "id": "greta_guard",
+      "ok": true
+    },
+    {
+      "id": "greta_hp_2",
+      "ok": true
+    },
+    {
+      "id": "greta_jump_rise",
+      "ok": true
+    },
+    {
+      "id": "greta_walk_1",
+      "ok": true
+    },
+    {
+      "id": "greta_lp_2",
+      "ok": true
+    },
+    {
+      "id": "greta_lk_0",
+      "ok": true
+    },
+    {
+      "id": "greta_jump_apex",
+      "ok": true
+    },
+    {
+      "id": "greta_jump_fall",
+      "ok": true
+    },
+    {
+      "id": "greta_lk_2",
+      "ok": true
+    },
+    {
+      "id": "greta_throw_1",
+      "ok": true
+    },
+    {
+      "id": "greta_walk_0",
+      "ok": true
+    },
+    {
+      "id": "greta_hp_0",
+      "ok": true
+    },
+    {
+      "id": "greta_throw_0",
+      "ok": true
+    },
+    {
+      "id": "greta_throw_hold_0",
+      "ok": true
+    },
+    {
+      "id": "greta_held_0",
+      "ok": true
+    },
+    {
+      "id": "greta_held_1",
+      "ok": true
+    },
+    {
+      "id": "greta_champion_1",
+      "ok": true
+    },
+    {
+      "id": "greta_hk_0",
+      "ok": true
+    },
+    {
+      "id": "greta_guard_crouch",
+      "ok": true
+    },
+    {
+      "id": "greta_throw_hold_1",
+      "ok": true
+    },
+    {
+      "id": "greta_hk_2",
+      "ok": true
+    },
+    {
+      "id": "greta_down_0",
+      "ok": true
+    },
+    {
+      "id": "greta_champion_0",
+      "ok": true
+    },
+    {
+      "id": "greta_down_1",
+      "ok": true
+    },
+    {
+      "id": "greta_hit_0",
+      "ok": true
+    },
+    {
+      "id": "greta_hit_crouch",
+      "ok": true
+    },
+    {
+      "id": "greta_hk_3",
+      "ok": true
+    },
+    {
+      "id": "greta_hp_1",
+      "ok": true
+    },
+    {
+      "id": "greta_champion_3",
+      "ok": true
+    },
+    {
+      "id": "greta_champion_2",
+      "ok": true
+    },
+    {
+      "id": "greta_win_1",
+      "ok": true
+    },
+    {
+      "id": "jun_walk_0",
+      "ok": true
+    },
+    {
+      "id": "greta_hk_1",
+      "ok": true
+    },
+    {
+      "id": "greta_lk_1",
+      "ok": true
+    },
+    {
+      "id": "jun_guard",
+      "ok": true
+    },
+    {
+      "id": "jun_walk_1",
+      "ok": true
+    },
+    {
+      "id": "jun_jump_rise",
+      "ok": true
+    },
+    {
+      "id": "greta_special_0",
+      "ok": true
+    },
+    {
+      "id": "jun_walk_2",
+      "ok": true
+    },
+    {
+      "id": "jun_lp_0",
+      "ok": true
+    },
+    {
+      "id": "jun_jump_fall",
+      "ok": true
+    },
+    {
+      "id": "jun_guard_crouch",
+      "ok": true
+    },
+    {
+      "id": "greta_down_2",
+      "ok": true
+    },
+    {
+      "id": "greta_lp_1",
+      "ok": true
+    },
+    {
+      "id": "greta_hit_1",
+      "ok": true
+    },
+    {
+      "id": "jun_lp_2",
+      "ok": true
+    },
+    {
+      "id": "greta_special_1",
+      "ok": true
+    },
+    {
+      "id": "jun_jump_apex",
+      "ok": true
+    },
+    {
+      "id": "jun_crouch",
+      "ok": true
+    },
+    {
+      "id": "jun_hp_3",
+      "ok": true
+    },
+    {
+      "id": "jun_hp_0",
+      "ok": true
+    },
+    {
+      "id": "greta_special_3",
+      "ok": true
+    },
+    {
+      "id": "greta_down_3",
+      "ok": true
+    },
+    {
+      "id": "jun_throw_hold_0",
+      "ok": true
+    },
+    {
+      "id": "greta_special_2",
+      "ok": true
+    },
+    {
+      "id": "jun_throw_0",
+      "ok": true
+    },
+    {
+      "id": "jun_lk_2",
+      "ok": true
+    },
+    {
+      "id": "jun_throw_hold_1",
+      "ok": true
+    },
+    {
+      "id": "jun_hk_2",
+      "ok": true
+    },
+    {
+      "id": "jun_held_1",
+      "ok": true
+    },
+    {
+      "id": "jun_down_1",
+      "ok": true
+    },
+    {
+      "id": "jun_hit_1",
+      "ok": true
+    },
+    {
+      "id": "jun_hk_0",
+      "ok": true
+    },
+    {
+      "id": "jun_hit_0",
+      "ok": true
+    },
+    {
+      "id": "jun_down_0",
+      "ok": true
+    },
+    {
+      "id": "jun_hp_2",
+      "ok": true
+    },
+    {
+      "id": "greta_win_0",
+      "ok": true
+    },
+    {
+      "id": "jun_hk_3",
+      "ok": true
+    },
+    {
+      "id": "jun_champion_0",
+      "ok": true
+    },
+    {
+      "id": "jun_lk_0",
+      "ok": true
+    },
+    {
+      "id": "jun_throw_1",
+      "ok": true
+    },
+    {
+      "id": "jun_down_2",
+      "ok": true
+    },
+    {
+      "id": "jun_hit_crouch",
+      "ok": true
+    },
+    {
+      "id": "jun_hk_1",
+      "ok": true
+    },
+    {
+      "id": "jun_champion_1",
+      "ok": true
+    },
+    {
+      "id": "jun_special_0",
+      "ok": true
+    },
+    {
+      "id": "broker_walk_1",
+      "ok": true
+    },
+    {
+      "id": "broker_walk_2",
+      "ok": true
+    },
+    {
+      "id": "jun_special_1",
+      "ok": true
+    },
+    {
+      "id": "jun_held_0",
+      "ok": true
+    },
+    {
+      "id": "jun_down_3",
+      "ok": true
+    },
+    {
+      "id": "broker_guard",
+      "ok": true
+    },
+    {
+      "id": "broker_crouch",
+      "ok": true
+    },
+    {
+      "id": "jun_special_2",
+      "ok": true
+    },
+    {
+      "id": "jun_special_3",
+      "ok": true
+    },
+    {
+      "id": "broker_jump_rise",
+      "ok": true
+    },
+    {
+      "id": "broker_lp_2",
+      "ok": true
+    },
+    {
+      "id": "broker_guard_crouch",
+      "ok": true
+    },
+    {
+      "id": "broker_jump_fall",
+      "ok": true
+    },
+    {
+      "id": "jun_champion_2",
+      "ok": true
+    },
+    {
+      "id": "jun_champion_3",
+      "ok": true
+    },
+    {
+      "id": "jun_lk_1",
+      "ok": true
+    },
+    {
+      "id": "jun_lp_1",
+      "ok": true
+    },
+    {
+      "id": "jun_hp_1",
+      "ok": true
+    },
+    {
+      "id": "broker_jump_apex",
+      "ok": true
+    },
+    {
+      "id": "jun_win_0",
+      "ok": true
+    },
+    {
+      "id": "broker_hp_0",
+      "ok": true
+    },
+    {
+      "id": "broker_lp_0",
+      "ok": true
+    },
+    {
+      "id": "broker_hp_2",
+      "ok": true
+    },
+    {
+      "id": "jun_win_1",
+      "ok": true
+    },
+    {
+      "id": "broker_hk_3",
+      "ok": true
+    },
+    {
+      "id": "broker_lk_2",
+      "ok": true
+    },
+    {
+      "id": "broker_held_1",
+      "ok": true
+    },
+    {
+      "id": "broker_hp_3",
+      "ok": true
+    },
+    {
+      "id": "broker_hk_0",
+      "ok": true
+    },
+    {
+      "id": "broker_throw_hold_0",
+      "ok": true
+    },
+    {
+      "id": "broker_throw_0",
+      "ok": true
+    },
+    {
+      "id": "broker_throw_1",
+      "ok": true
+    },
+    {
+      "id": "broker_held_0",
+      "ok": true
+    },
+    {
+      "id": "broker_down_0",
+      "ok": true
+    },
+    {
+      "id": "broker_hit_crouch",
+      "ok": true
+    },
+    {
+      "id": "broker_throw_hold_1",
+      "ok": true
+    },
+    {
+      "id": "broker_lp_1",
+      "ok": true
+    },
+    {
+      "id": "broker_down_1",
+      "ok": true
+    },
+    {
+      "id": "broker_down_2",
+      "ok": true
+    },
+    {
+      "id": "broker_hk_2",
+      "ok": true
+    },
+    {
+      "id": "broker_walk_0",
+      "ok": true
+    },
+    {
+      "id": "broker_lk_0",
+      "ok": true
+    },
+    {
+      "id": "broker_lk_1",
+      "ok": true
+    },
+    {
+      "id": "broker_win_1",
+      "ok": true
+    },
+    {
+      "id": "broker_hp_1",
+      "ok": true
+    },
+    {
+      "id": "broker_win_0",
+      "ok": true
+    },
+    {
+      "id": "broker_special_3",
+      "ok": true
+    },
+    {
+      "id": "broker_hit_1",
+      "ok": true
+    },
+    {
+      "id": "broker_hk_1",
+      "ok": true
+    },
+    {
+      "id": "broker_special_0",
+      "ok": true
+    },
+    {
+      "id": "broker_special_1",
+      "ok": true
+    },
+    {
+      "id": "broker_hit_0",
+      "ok": true
+    },
+    {
+      "id": "broker_down_3",
+      "ok": true
+    },
+    {
+      "id": "broker_special_2",
+      "ok": true
+    }
+  ],
+  "correction_jobs": [
+    {
+      "id": "sable_portrait",
+      "prompt": "Make ONE pixel-art HEAD AND SHOULDERS portrait for original Iron Ring arcade fighting game. Character looking RIGHT in three-quarter view. Match FACE, HAIR and COSTUME from attached identity sheet. Square canvas, fill most square with head/hair plus upper shoulders, no hands, no text or labels, truly TRANSPARENT background. Native final48x48 and32x32 pixels, large readable pixel clusters, dark material outline, fourtone cel shading, ordered dithering, warm upperleft key, subtle cool fill inside contour. Accurate adult proportions, no chibi, no photorealism/3D/gradients/logos/brands/realperson likeness/franchisematerial. Sable Reyes, lean long-legged athletic Black woman early twenties, black hair tied in a HIGH PONYTAIL visible in every silhouette, violet sleeveless top, black kickboxing shorts above knees, white shin wraps from ankle to below knee, worn grey trainers, black fingerless gloves. Alert high bladed kickboxing guard. Skin warm brown. Palette top #4a2470 #6e3aa0, shorts #1a1724 #292538, wraps #c2b9a0 #e2dbc6, skin #7a4b30 #a06a45.",
+      "refs": [
+        "/workspace/scratch/fde5a8621523/IronRing_ArtPack_v3/Source/Generated/sable_identity.png"
+      ]
+    },
+    {
+      "id": "idris_portrait",
+      "prompt": "Make ONE pixel-art HEAD AND SHOULDERS portrait for original Iron Ring arcade fighting game. Character looking RIGHT in three-quarter view. Match FACE, HAIR and COSTUME from attached identity sheet. Square canvas, fill most square with head/hair plus upper shoulders, no hands, no text or labels, truly TRANSPARENT background. Native final48x48 and32x32 pixels, large readable pixel clusters, dark material outline, fourtone cel shading, ordered dithering, warm upperleft key, subtle cool fill inside contour. Accurate adult proportions, no chibi, no photorealism/3D/gradients/logos/brands/realperson likeness/franchisematerial. Idris Okafor, tall rangy dark-skinned Black man in his forties, close cropped greying hair and short beard, faded BLUE WORK SHIRT with sleeves rolled to elbows, canvas trousers rolled above shins, a ROPE BELT with visible bowline knot, deck shoes. Upright side-on open-hand fighting stance. Calm weathered merchant sailor. Palette shirt #2c4260 #43607e, trousers #48453a #666251, rope #937546 #b89a62, skin #4a2c1b #66412a.",
+      "refs": [
+        "/workspace/scratch/fde5a8621523/IronRing_ArtPack_v3/Source/Generated/idris_identity.png"
+      ]
+    },
+    {
+      "id": "greta_portrait",
+      "prompt": "Make ONE pixel-art HEAD AND SHOULDERS portrait for original Iron Ring arcade fighting game. Character looking RIGHT in three-quarter view. Match FACE, HAIR and COSTUME from attached identity sheet. Square canvas, fill most square with head/hair plus upper shoulders, no hands, no text or labels, truly TRANSPARENT background. Native final48x48 and32x32 pixels, large readable pixel clusters, dark material outline, fourtone cel shading, ordered dithering, warm upperleft key, subtle cool fill inside contour. Accurate adult proportions, no chibi, no photorealism/3D/gradients/logos/brands/realperson likeness/franchisematerial. Greta Voll, BROAD solid short heavy powerful woman in her fifties, iron-grey hair in a tight BUN, khaki work shirt rolled sleeves under BRASS BROWN LEATHER FOUNDRY APRON, dark work trousers, heavy leather gloves and steel toe boots. Square low boxing stance fists at chin, stern foundry forewoman. Palette apron #70421c #9a6228, shirt #6e6340 #928658, trousers #2e3440 #444c5c, hair #6e6e74 #94949a, skin #94604a #b88468.",
+      "refs": [
+        "/workspace/scratch/fde5a8621523/IronRing_ArtPack_v3/Source/Generated/greta_identity.png"
+      ]
+    },
+    {
+      "id": "jun_portrait",
+      "prompt": "Make ONE pixel-art HEAD AND SHOULDERS portrait for original Iron Ring arcade fighting game. Character looking RIGHT in three-quarter view. Match FACE, HAIR and COSTUME from attached identity sheet. Square canvas, fill most square with head/hair plus upper shoulders, no hands, no text or labels, truly TRANSPARENT background. Native final48x48 and32x32 pixels, large readable pixel clusters, dark material outline, fourtone cel shading, ordered dithering, warm upperleft key, subtle cool fill inside contour. Accurate adult proportions, no chibi, no photorealism/3D/gradients/logos/brands/realperson likeness/franchisematerial. Jun Arata, SMALL wiry slim young East Asian man early twenties, messy black hair, faded JADE TRACK JACKET with sleeves shoved above forearms, loose black trousers, RED HIGH TOP sneakers, taped wrists. Hunched light-footed guard, sly grin, restless street pickpocket. Palette jacket #1a5e3c #2a8556, trousers #1f2126 #2f323a, shoes #741a18 #9c2a22, skin #74503a #9a7052.",
+      "refs": [
+        "/workspace/scratch/fde5a8621523/IronRing_ArtPack_v3/Source/Generated/jun_identity.png"
+      ]
+    },
+    {
+      "id": "broker_portrait",
+      "prompt": "Make ONE pixel-art HEAD AND SHOULDERS portrait for original Iron Ring arcade fighting game. Character looking RIGHT in three-quarter view. Match FACE, HAIR and COSTUME from attached identity sheet. Square canvas, fill most square with head/hair plus upper shoulders, no hands, no text or labels, truly TRANSPARENT background. Native final48x48 and32x32 pixels, large readable pixel clusters, dark material outline, fourtone cel shading, ordered dithering, warm upperleft key, subtle cool fill inside contour. Accurate adult proportions, no chibi, no photorealism/3D/gradients/logos/brands/realperson likeness/franchisematerial. The Broker, TALL LEAN man in his sixties, silver hair combed straight BACK, charcoal THREE PIECE SUIT including waistcoat, white shirt, burgundy tie, GOLD WATCH CHAIN across waistcoat, black kid leather gloves and polished black Oxford shoes. Upright old bare-knuckle stance fists forward, composed cold wealthy dangerous. Palette suit #1b1d28 #2a2d3c, shirt #ccc6b6 #e6e0d0, tie #701822 #962632, gold #a07020 #d0a038, hair #9a9ca4 #c4c6cc.",
+      "refs": [
+        "/workspace/scratch/fde5a8621523/IronRing_ArtPack_v3/Source/Generated/broker_identity.png"
+      ]
+    },
+    {
+      "id": "sable_hk_0",
+      "prompt": "CORRECT ONE production animation SPRITE only. FIRST attached pose shows a BENT-LEG body arrangement; use that as structure. Second attached is identity. Preserve BODY SCALE and full empty green margins; canvas origin512928 outof1024. Finished256gamepixels. FacingRIGHT. CRITICAL THIS IS hk_0: HIGH KICK CHAMBER, knee raised toward chest, SHIN FOLDED BACK beneath thigh, grey kicking shoe NEAR HIP. Both gloves high. Do not extend leg. The kicking hip/knee/ankle MUST NOT form a straight line. Entire body on canvas. Preserve exact costume/face. Sable Reyes, lean long-legged athletic Black woman early twenties, black hair tied in a HIGH PONYTAIL visible in every silhouette, violet sleeveless top, black kickboxing shorts above knees, white shin wraps from ankle to below knee, worn grey trainers, black fingerless gloves. Alert high bladed kickboxing guard. Skin warm brown. Palette top #4a2470 #6e3aa0, shorts #1a1724 #292538, wraps #c2b9a0 #e2dbc6, skin #7a4b30 #a06a45. 16-bit arcade fighting game sprite, early-1990s style, hand-placed pixel art at low resolution, limited palette, 1-pixel dark coloured outline around the silhouette (no light or coloured rim on the outer edge), 4-tone cel shading with ordered dithering, warm key light from the upper left, subtle cool fill light from the right kept inside the outline, full body, character facing right, side-on three-quarter view, feet on a flat ground line, flat pure green (#00FF00) background, no shadow on the ground, no text, no border, no anti-aliasing. Negative: blurry, soft gradients, painterly, 3D render, photo, anti-aliased edges, glowing rim light on the silhouette, halo, background scenery, multiple characters, cropped feet, extra limbs, text, watermark, logo, frame, gore, blood.",
+      "refs": [
+        "/workspace/scratch/fde5a8621523/v3_work/refs/sable/lk_0.png",
+        "/workspace/scratch/fde5a8621523/IronRing_ArtPack_v3/Source/Generated/sable_identity.png",
+        "/workspace/scratch/fde5a8621523/IronRing_ArtPack_v3/Source/Generated/sable_idle_0.png"
+      ]
+    },
+    {
+      "id": "sable_hk_2",
+      "prompt": "CORRECT ONE production animation SPRITE only. FIRST attached pose shows a BENT-LEG body arrangement; use that as structure. Second attached is identity. Preserve BODY SCALE and full empty green margins; canvas origin512928 outof1024. Finished256gamepixels. FacingRIGHT. CRITICAL THIS IS hk_2: HIGH KICK RE-CHAMBER after roundhouse, torso turned, knee bent tightly and raised to waist, foot folds BACK toward buttocks. Both gloves high. No extended leg. The kicking hip/knee/ankle MUST NOT form a straight line. Entire body on canvas. Preserve exact costume/face. Sable Reyes, lean long-legged athletic Black woman early twenties, black hair tied in a HIGH PONYTAIL visible in every silhouette, violet sleeveless top, black kickboxing shorts above knees, white shin wraps from ankle to below knee, worn grey trainers, black fingerless gloves. Alert high bladed kickboxing guard. Skin warm brown. Palette top #4a2470 #6e3aa0, shorts #1a1724 #292538, wraps #c2b9a0 #e2dbc6, skin #7a4b30 #a06a45. 16-bit arcade fighting game sprite, early-1990s style, hand-placed pixel art at low resolution, limited palette, 1-pixel dark coloured outline around the silhouette (no light or coloured rim on the outer edge), 4-tone cel shading with ordered dithering, warm key light from the upper left, subtle cool fill light from the right kept inside the outline, full body, character facing right, side-on three-quarter view, feet on a flat ground line, flat pure green (#00FF00) background, no shadow on the ground, no text, no border, no anti-aliasing. Negative: blurry, soft gradients, painterly, 3D render, photo, anti-aliased edges, glowing rim light on the silhouette, halo, background scenery, multiple characters, cropped feet, extra limbs, text, watermark, logo, frame, gore, blood.",
+      "refs": [
+        "/workspace/scratch/fde5a8621523/v3_work/refs/sable/lk_2.png",
+        "/workspace/scratch/fde5a8621523/IronRing_ArtPack_v3/Source/Generated/sable_identity.png",
+        "/workspace/scratch/fde5a8621523/IronRing_ArtPack_v3/Source/Generated/sable_idle_0.png"
+      ]
+    },
+    {
+      "id": "sable_hk_3",
+      "prompt": "CORRECT ONE production animation SPRITE only. FIRST attached pose shows a BENT-LEG body arrangement; use that as structure. Second attached is identity. Preserve BODY SCALE and full empty green margins; canvas origin512928 outof1024. Finished256gamepixels. FacingRIGHT. CRITICAL THIS IS hk_3: HIGH KICK SET DOWN, one foot lowering toward ground well ahead, knee bent only slightly, torso unwinds, arms counterbalance. BOTH feet low. NOT extended high kick or idle. The kicking hip/knee/ankle MUST NOT form a straight line. Entire body on canvas. Preserve exact costume/face. Sable Reyes, lean long-legged athletic Black woman early twenties, black hair tied in a HIGH PONYTAIL visible in every silhouette, violet sleeveless top, black kickboxing shorts above knees, white shin wraps from ankle to below knee, worn grey trainers, black fingerless gloves. Alert high bladed kickboxing guard. Skin warm brown. Palette top #4a2470 #6e3aa0, shorts #1a1724 #292538, wraps #c2b9a0 #e2dbc6, skin #7a4b30 #a06a45. 16-bit arcade fighting game sprite, early-1990s style, hand-placed pixel art at low resolution, limited palette, 1-pixel dark coloured outline around the silhouette (no light or coloured rim on the outer edge), 4-tone cel shading with ordered dithering, warm key light from the upper left, subtle cool fill light from the right kept inside the outline, full body, character facing right, side-on three-quarter view, feet on a flat ground line, flat pure green (#00FF00) background, no shadow on the ground, no text, no border, no anti-aliasing. Negative: blurry, soft gradients, painterly, 3D render, photo, anti-aliased edges, glowing rim light on the silhouette, halo, background scenery, multiple characters, cropped feet, extra limbs, text, watermark, logo, frame, gore, blood.",
+      "refs": [
+        "/workspace/scratch/fde5a8621523/v3_work/refs/sable/down_3.png",
+        "/workspace/scratch/fde5a8621523/IronRing_ArtPack_v3/Source/Generated/sable_identity.png",
+        "/workspace/scratch/fde5a8621523/IronRing_ArtPack_v3/Source/Generated/sable_idle_0.png"
+      ]
+    },
+    {
+      "id": "idris_hk_0",
+      "prompt": "CORRECT ONE production animation SPRITE only. FIRST attached pose shows a BENT-LEG body arrangement; use that as structure. Second attached is identity. Preserve BODY SCALE and full empty green margins; canvas origin512928 outof1024. Finished256gamepixels. FacingRIGHT. CRITICAL THIS IS hk_0: LOW SWEEP WINDUP, deeply crouched loaded support leg and sweeping leg BENT with foot near other ankle. Hands wide for balance. No extended leg. The kicking hip/knee/ankle MUST NOT form a straight line. Entire body on canvas. Preserve exact costume/face. Idris Okafor, tall rangy dark-skinned Black man in his forties, close cropped greying hair and short beard, faded BLUE WORK SHIRT with sleeves rolled to elbows, canvas trousers rolled above shins, a ROPE BELT with visible bowline knot, deck shoes. Upright side-on open-hand fighting stance. Calm weathered merchant sailor. Palette shirt #2c4260 #43607e, trousers #48453a #666251, rope #937546 #b89a62, skin #4a2c1b #66412a. 16-bit arcade fighting game sprite, early-1990s style, hand-placed pixel art at low resolution, limited palette, 1-pixel dark coloured outline around the silhouette (no light or coloured rim on the outer edge), 4-tone cel shading with ordered dithering, warm key light from the upper left, subtle cool fill light from the right kept inside the outline, full body, character facing right, side-on three-quarter view, feet on a flat ground line, flat pure green (#00FF00) background, no shadow on the ground, no text, no border, no anti-aliasing. Negative: blurry, soft gradients, painterly, 3D render, photo, anti-aliased edges, glowing rim light on the silhouette, halo, background scenery, multiple characters, cropped feet, extra limbs, text, watermark, logo, frame, gore, blood.",
+      "refs": [
+        "/workspace/scratch/fde5a8621523/v3_work/refs/idris/lk_0.png",
+        "/workspace/scratch/fde5a8621523/IronRing_ArtPack_v3/Source/Generated/idris_identity.png",
+        "/workspace/scratch/fde5a8621523/IronRing_ArtPack_v3/Source/Generated/idris_idle_0.png"
+      ]
+    },
+    {
+      "id": "idris_hk_2",
+      "prompt": "CORRECT ONE production animation SPRITE only. FIRST attached pose shows a BENT-LEG body arrangement; use that as structure. Second attached is identity. Preserve BODY SCALE and full empty green margins; canvas origin512928 outof1024. Finished256gamepixels. FacingRIGHT. CRITICAL THIS IS hk_2: SWEEP FOLLOW-THROUGH, deep crouched torso turns across, kicking KNEE BENT and foot sweeping back under body near support knee. Not a fully extended sweep. The kicking hip/knee/ankle MUST NOT form a straight line. Entire body on canvas. Preserve exact costume/face. Idris Okafor, tall rangy dark-skinned Black man in his forties, close cropped greying hair and short beard, faded BLUE WORK SHIRT with sleeves rolled to elbows, canvas trousers rolled above shins, a ROPE BELT with visible bowline knot, deck shoes. Upright side-on open-hand fighting stance. Calm weathered merchant sailor. Palette shirt #2c4260 #43607e, trousers #48453a #666251, rope #937546 #b89a62, skin #4a2c1b #66412a. 16-bit arcade fighting game sprite, early-1990s style, hand-placed pixel art at low resolution, limited palette, 1-pixel dark coloured outline around the silhouette (no light or coloured rim on the outer edge), 4-tone cel shading with ordered dithering, warm key light from the upper left, subtle cool fill light from the right kept inside the outline, full body, character facing right, side-on three-quarter view, feet on a flat ground line, flat pure green (#00FF00) background, no shadow on the ground, no text, no border, no anti-aliasing. Negative: blurry, soft gradients, painterly, 3D render, photo, anti-aliased edges, glowing rim light on the silhouette, halo, background scenery, multiple characters, cropped feet, extra limbs, text, watermark, logo, frame, gore, blood.",
+      "refs": [
+        "/workspace/scratch/fde5a8621523/v3_work/refs/idris/lk_2.png",
+        "/workspace/scratch/fde5a8621523/IronRing_ArtPack_v3/Source/Generated/idris_identity.png",
+        "/workspace/scratch/fde5a8621523/IronRing_ArtPack_v3/Source/Generated/idris_idle_0.png"
+      ]
+    },
+    {
+      "id": "idris_hk_3",
+      "prompt": "CORRECT ONE production animation SPRITE only. FIRST attached pose shows a BENT-LEG body arrangement; use that as structure. Second attached is identity. Preserve BODY SCALE and full empty green margins; canvas origin512928 outof1024. Finished256gamepixels. FacingRIGHT. CRITICAL THIS IS hk_3: SWEEP RISE RECOVERY, on one deeply folded knee and front foot planted, torso lifting upright, open palms returning to guard. No extended sweeping leg. The kicking hip/knee/ankle MUST NOT form a straight line. Entire body on canvas. Preserve exact costume/face. Idris Okafor, tall rangy dark-skinned Black man in his forties, close cropped greying hair and short beard, faded BLUE WORK SHIRT with sleeves rolled to elbows, canvas trousers rolled above shins, a ROPE BELT with visible bowline knot, deck shoes. Upright side-on open-hand fighting stance. Calm weathered merchant sailor. Palette shirt #2c4260 #43607e, trousers #48453a #666251, rope #937546 #b89a62, skin #4a2c1b #66412a. 16-bit arcade fighting game sprite, early-1990s style, hand-placed pixel art at low resolution, limited palette, 1-pixel dark coloured outline around the silhouette (no light or coloured rim on the outer edge), 4-tone cel shading with ordered dithering, warm key light from the upper left, subtle cool fill light from the right kept inside the outline, full body, character facing right, side-on three-quarter view, feet on a flat ground line, flat pure green (#00FF00) background, no shadow on the ground, no text, no border, no anti-aliasing. Negative: blurry, soft gradients, painterly, 3D render, photo, anti-aliased edges, glowing rim light on the silhouette, halo, background scenery, multiple characters, cropped feet, extra limbs, text, watermark, logo, frame, gore, blood.",
+      "refs": [
+        "/workspace/scratch/fde5a8621523/v3_work/refs/idris/down_3.png",
+        "/workspace/scratch/fde5a8621523/IronRing_ArtPack_v3/Source/Generated/idris_identity.png",
+        "/workspace/scratch/fde5a8621523/IronRing_ArtPack_v3/Source/Generated/idris_idle_0.png"
+      ]
+    }
+  ],
+  "correction_results": [
+    {
+      "id": "idris_portrait",
+      "ok": true
+    },
+    {
+      "id": "sable_hk_0",
+      "ok": true
+    },
+    {
+      "id": "sable_hk_2",
+      "ok": true
+    },
+    {
+      "id": "sable_portrait",
+      "ok": true
+    },
+    {
+      "id": "sable_hk_3",
+      "ok": true
+    },
+    {
+      "id": "greta_portrait",
+      "ok": true
+    },
+    {
+      "id": "idris_hk_2",
+      "ok": true
+    },
+    {
+      "id": "idris_hk_0",
+      "ok": true
+    },
+    {
+      "id": "idris_hk_3",
+      "ok": true
+    },
+    {
+      "id": "broker_portrait",
+      "ok": true
+    },
+    {
+      "id": "jun_portrait",
+      "ok": true
+    }
+  ]
+}

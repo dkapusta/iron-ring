@@ -1,10 +1,11 @@
 {
-  "$comment": "Fighter definition (docs/adr/0010-fighter-content-format.md). Lengths in logical pixels, speeds in 1/256 px per tick, times in 60 Hz ticks. Boxes are [x, y, w, h] from the feet, x forward, y up. Placeholder art: Tools/Art/generate.py fighters.",
+  "$comment": "Fighter definition (docs/adr/0010-fighter-content-format.md). Lengths in logical pixels, speeds in 1/256 px per tick, times in 60 Hz ticks. Boxes are [x, y, w, h] from the feet, x forward, y up. Art: Iron Ring Art Pack v3A (ArtSource/Fighters/Jun/frames).",
   "id": "jun",
   "name": "Jun Arata",
   "displayName": "JUN ARATA",
   "atlas": "jun_atlas.json",
   "portrait": "jun_portrait.png",
+  "selectPortrait": "jun_select.png",
   "story": {
     "intro": ["The Ring's crowds carry the fattest wallets in town.", "I fight between bouts. It keeps their eyes on me,", "while my hands are on everything else."],
     "ending": ["Jun picks the Broker's pocket on the way out.", "Inside: every marker the Broker holds in the city.", "By morning, half of Grayhaven is free of debt."],

@@ -20,7 +20,7 @@ The contract every asset follows (sizes, frame names, pivots, timing, layout) is
 ## Procedural art
 
 ```sh
-python3 Tools/Art/generate.py                       # every part it still owns: palette, placeholder fighters, effects, font, icon
+python3 Tools/Art/generate.py                       # every part it still owns: palette, placeholder venues, effects, font, icon
 python3 Tools/Art/generate.py fighters stages --assets build/procedural --sheet build/sheet.png
 ```
 

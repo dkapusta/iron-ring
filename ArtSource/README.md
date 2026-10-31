@@ -7,6 +7,7 @@ Editable sources of externally authored art. The game never reads this folder; `
 | `Fighters/<Name>/frames/` | One PNG per frame: 256 × 256 RGBA, character facing right, origin (feet on the ground) at **(128, 232)**, hard alpha, 48-colour palette per fighter. `manifest.json` holds the throw partner offsets. |
 | `Pack-v1/` | Provenance of Iron Ring Art Pack v1: production notes, art review, the generation prompts and the original per-frame registration. |
 | `Pack-v2.1/` | Provenance of Iron Ring Art Pack v2.1 (redrawn crowds, Foundry sign): the pack's README, the review, its registration, motion and validation records (`Source/`). |
+| `Pack-v3A/` | Provenance of Iron Ring Art Pack v3A (Sable, Idris, Greta, Jun, the Broker): the pack's README and provenance, the review, validation reports, palettes and source records (`Source/`). |
 | `Pack-v2/` | Provenance of Iron Ring Art Pack v2: the pack's README, art review, integration notes and validation reports; its palettes, registration and generation records (`Source/`); the still ending pictures, not used by the game (`Endings/`). |
 
 ## Editing a fighter
@@ -34,3 +35,7 @@ Delivered 2026-10-31 against the [vertical-slice art brief](../docs/art/vertical
 ## Art Pack v2.1
 
 Delivered 2026-10-31 against the [v2.1 correction brief](../docs/art/art-pack-v2.1-brief.md): the four crowd layers redrawn (42 distinct spectators per venue, heads in every frame, cheering arms with hands, the barrier unchanged), a legible VOLL WORKS on the Foundry wall, and the stage previews recomposed. Adopted as delivered; review and notes for a later round in [Pack-v2.1/REVIEW.md](Pack-v2.1/REVIEW.md). It retires the v2 crowd repair.
+
+## Art Pack v3A
+
+Delivered 2026-10-31 against the [Art Pack v3 brief](../docs/art/art-pack-v3-brief.md): the full frame sets of Sable, Idris, Greta, Jun (55 each, with champion poses) and the Broker (49), HUD portraits for all five and select portraits for the four playable fighters, under the project's zlib licence. Adopted as delivered ([ADR-0024](../docs/adr/0024-adopting-art-pack-v3a.md)); four corrections go back as the [v3A.1 brief](../docs/art/art-pack-v3a.1-brief.md) ([Pack-v3A/REVIEW.md](Pack-v3A/REVIEW.md)). The pack's 34 MB of generated studies and its previews stay outside the repository. The venues follow as v3B.
