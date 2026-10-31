@@ -37,7 +37,7 @@
         "Switch Step",
         "Wire Kick"
       ],
-      "starter_selectable": false
+      "starter_selectable": true
     },
     {
       "id": "idris",

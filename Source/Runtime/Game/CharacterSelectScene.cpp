@@ -126,10 +126,10 @@ void CharacterSelectScene::drawLadder(SDL_Renderer* r) const {
     const float right = services_.width - 12;
     data.small().draw(r, "THE LADDER", right, 88, ui::kBrassLight, Align::Right, true);
     float y = 104;
+    const auto opponents = content::arcadeOpponents(*ladder, player.id, data.playableIds());
     for (std::size_t i = 0; i < ladder->bouts.size(); ++i) {
         const auto& bout = ladder->bouts[i];
-        const auto opponent = content::arcadeOpponent(bout, player.id, data.playableIds());
-        const auto* entry = data.fighter(opponent);
+        const auto* entry = data.fighter(opponents[i]);
         const auto& stage = data.stages()[data.stageIndex(bout.stage)];
         const std::string who = player.playable() && entry ? ui::upper(entry->name) : "?";
         data.small().draw(r, std::to_string(i + 1) + ". " + ui::upper(stage.name), right, y,

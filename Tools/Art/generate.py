@@ -5,7 +5,7 @@
     python3 Tools/Art/generate.py effects font    # selected parts
     python3 Tools/Art/generate.py --sheet out.png # also write a procedural fighter contact sheet
 
-Fighters, stages and the title/menu pictures are externally authored now
+Dee, Bram, the stages and the title/menu pictures are externally authored now
 (ironart/ownership.py); their procedural versions remain as references and are
 written only with
 --assets pointing somewhere other than Assets/ (or with --overwrite-external).
@@ -27,7 +27,7 @@ from ironart import effects, fighters, font, foundry, icon, palette, stages, ui 
 
 ROOT = HERE.parent.parent
 PARTS = ("palette", "fighters", "stages", "foundry", "effects", "font", "ui", "icon")
-REPLACED = ("fighters", "stages", "foundry", "ui")  # externally authored in Assets/
+REPLACED = ("stages", "foundry", "ui")  # externally authored in Assets/
 
 
 def contact_sheet(path: Path) -> None:
@@ -77,8 +77,8 @@ def main() -> int:
 
     if "palette" in parts:
         palette.write_palette_files(args.assets / "Data")
-    if "fighters" in parts:
-        fighters.generate(args.assets)
+    if "fighters" in parts:  # the externally drawn fighters are skipped in Assets/
+        fighters.generate(args.assets, skip_external=into_assets and not args.overwrite_external)
     if "stages" in parts:
         stages.generate(args.assets)
     if "foundry" in parts:

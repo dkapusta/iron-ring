@@ -31,7 +31,7 @@ TEST_CASE("command line uses Unity-compatible names and overrides boot.config") 
     const std::vector<std::string> args{"-screen-fullscreen", "0", "-screen-width", "1600",
                                         "-screen-height", "900", "-vsync", "0", "-hdr", "on",
                                         "-batchmode", "-frames", "30", "-logFile", "out.log",
-                                        "-demo", "-training", "-stage", "the_crown",
+                                        "-demo", "-training", "-stage", "the_crown", "-fighters", "sable,bram",
                                         "-music-volume", "0.25", "-sfx-volume", "0", "-voice-volume", "0.5"};
     const auto warnings = applyCommandLine(s, args);
     CHECK(warnings.empty());
@@ -46,6 +46,7 @@ TEST_CASE("command line uses Unity-compatible names and overrides boot.config") 
     CHECK(s.demo);
     CHECK(s.training);
     CHECK(s.stage == "the_crown");
+    CHECK(s.fighters == "sable,bram");
     CHECK(s.musicVolume == doctest::Approx(0.25f));
     CHECK(s.sfxVolume == 0.0f);
     CHECK(s.voiceVolume == doctest::Approx(0.5f));

@@ -189,6 +189,26 @@ TEST_CASE("shipped fighters play a deterministic match") {
     CHECK(throws > 0);
 }
 
+#include "Simulation/Cpu.h"
+
+TEST_CASE("the CPU uses a kick special (Sable's 236K Switch Step)") {
+    const auto sable = shippedFighter("Fighters/Sable/sable.fighter.json");
+    const auto dee = shippedFighter("Fighters/Dee/dee.fighter.json");
+    REQUIRE(sable.spec.moves[sim::SpecialSlot].motionButtons == (sim::LightKick | sim::HeavyKick));
+    sim::Match m(sable.spec, dee.spec);
+    sim::CpuPlayer a(4, 7), b(2, 11);
+    int specials = 0, lastMove = -1;
+    for (int i = 0; i < 30000 && !m.finished; ++i) {
+        const std::array<sim::Input, 2> in{a.think(m.round, 0), b.think(m.round, 1)};
+        (void)m.step(in);
+        const int move = m.round.fighters[0].move;
+        specials += move == sim::SpecialSlot && lastMove != sim::SpecialSlot;
+        lastMove = move;
+    }
+    CHECK(m.finished);
+    CHECK(specials > 0);
+}
+
 #include "Content/Stage.h"
 
 TEST_CASE("layered stages: parsing and the layer width rule") {
@@ -218,6 +238,26 @@ TEST_CASE("layered stages: parsing and the layer width rule") {
 
 #include "Content/Arcade.h"
 
+TEST_CASE("arcade ladder: candidate lists meet everyone once") {
+    const auto ladder = iron::content::parseArcade(nlohmann::json::parse(R"({"bouts": [
+        {"stage": "pier_nine", "opponent": ["sable", "dee"]},
+        {"stage": "lantern_row", "opponent": ["dee", "sable"]},
+        {"stage": "foundry", "opponent": "rival"},
+        {"stage": "the_crown", "opponent": ["bram", "dee"], "final": true}]})"),
+                                                  "arcade.json");
+    using Ids = std::vector<std::string>;
+    const Ids playable{"dee", "bram", "sable"};
+    // Each fighter meets the other two before anyone twice, and Bram (the gatekeeper) waits at the Crown.
+    CHECK(iron::content::arcadeOpponents(ladder, "dee", playable) == Ids{"sable", "bram", "sable", "bram"});
+    CHECK(iron::content::arcadeOpponents(ladder, "sable", playable) == Ids{"dee", "bram", "dee", "bram"});
+    CHECK(iron::content::arcadeOpponents(ladder, "bram", playable) == Ids{"sable", "dee", "sable", "dee"});
+    // A listed fighter who isn't playable is skipped.
+    CHECK(iron::content::arcadeOpponents(ladder, "dee", Ids{"dee", "bram"}) == Ids{"bram", "bram", "bram", "bram"});
+    CHECK_THROWS_AS((void)iron::content::parseArcade(
+                        nlohmann::json::parse(R"({"bouts": [{"stage": "x", "opponent": []}]})"), "arcade.json"),
+                    iron::content::ContentError);
+}
+
 TEST_CASE("arcade ladder: opponents, levels and the run's steps") {
     const auto ladder = iron::content::parseArcade(nlohmann::json::parse(R"({"bouts": [
         {"stage": "pier_nine", "opponent": "rival", "level": 1},
@@ -225,11 +265,11 @@ TEST_CASE("arcade ladder: opponents, levels and the run's steps") {
         {"stage": "the_crown", "opponent": "bram", "level": 4, "final": true}]})"),
                                                   "arcade.json");
     REQUIRE(ladder.bouts.size() == 3);
-    const std::vector<std::string> playable{"dee", "bram"};
-    CHECK(iron::content::arcadeOpponent(ladder.bouts[0], "dee", playable) == "bram");
-    CHECK(iron::content::arcadeOpponent(ladder.bouts[0], "bram", playable) == "dee");
-    CHECK(iron::content::arcadeOpponent(ladder.bouts[1], "dee", playable) == "dee");
-    CHECK(iron::content::arcadeOpponent(ladder.bouts[2], "dee", playable) == "bram");
+    using Ids = std::vector<std::string>;
+    const Ids playable{"dee", "bram"};
+    CHECK(iron::content::arcadeOpponents(ladder, "dee", playable) == Ids{"bram", "dee", "bram"});
+    CHECK(iron::content::arcadeOpponents(ladder, "bram", playable) == Ids{"dee", "bram", "dee"}); // can't fight self
+    CHECK(iron::content::arcadeOpponents(ladder, "dee", Ids{"dee"}) == Ids{"dee", "dee", "dee"}); // a roster of one
     CHECK(iron::content::arcadeLevel(ladder.bouts[0], 0) == 0); // EASY: one lower
     CHECK(iron::content::arcadeLevel(ladder.bouts[0], 2) == 2); // HARD: one higher
     CHECK(iron::content::arcadeLevel(ladder.bouts[2], 2) == 4); // capped at CHAMPION

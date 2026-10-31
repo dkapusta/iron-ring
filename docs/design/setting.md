@@ -32,7 +32,7 @@ Archetypes and gameplay roles are inherited from the concept kit; identities are
 | `greta` | **Greta Voll** | Power brawler | Foundry forewoman whose plant the Broker's money shut down. |
 | `jun` | **Jun Arata** | Rushdown / feint | Pickpocket who works the crowd between bouts; feints, resets, cheap shots that are technically legal. |
 
-### Starter fighters in detail
+### Fighters in detail
 
 Moves and frame data live in `Assets/Fighters/<Name>/<id>.fighter.json`.
 
@@ -48,7 +48,13 @@ Moves and frame data live in `Assets/Fighters/<Name>/<id>.fighter.json`.
 - Pier Toss (throw, LP + LK)
 - **Dock Hoist** (63214 + P): a command grab that lifts the opponent overhead and slams them; it can't be teched, so Dee has to stay out of reach or hit him first
 
-The colour coding stays with the characters: teal for Dee, rust/coral for Bram.
+**Sable Reyes**: lean and long-legged, early twenties. Black hair pulled into a high ponytail, a violet sleeveless top, black kickboxing shorts, white shin wraps, worn grey trainers, fingerless gloves. A tall, bladed stance with the hands high, always moving. She runs packages across Grayhaven's rooftops by night and fights strictly for the purse.
+
+- Snap Jab (LP), Rear Cross (HP), Calf Kick (LK, low), Wire Kick (HK, a head-high roundhouse)
+- Rooftop Drop (throw, LP + LK)
+- **Switch Step** (236 + K): a stance switch, a step and a flying knee that knocks down; it gets her past a jab, but it's wide open if blocked
+
+The colour coding stays with the characters: teal for Dee, rust/coral for Bram, violet for Sable.
 
 ## Venues
 

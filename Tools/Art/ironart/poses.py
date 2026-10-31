@@ -35,6 +35,9 @@ STYLES = {
                  jab=(50, 92), straight=(60, 96), kick=(66, 62), sweep=(74, 6)),
     "bram": Style(front=17, back=-19, crouch=10, lean=14, guard_near=(22, -16), guard_far=(16, -9), open_hands=True,
                   jab=(52, 92), straight=(60, 100), kick=(70, 58), sweep=(80, 6)),
+    # Sable: a tall, bladed kickboxer's stance, hands high; the light kick is a low calf kick.
+    "sable": Style(front=16, back=-17, crouch=5, lean=5, guard_near=(12, 2), guard_far=(8, 6), open_hands=False,
+                   jab=(48, 94), straight=(58, 98), kick=(62, 20), sweep=(74, 6)),
 }
 
 
@@ -215,7 +218,7 @@ class PoseBook:
                                       near_open=False, far_open=False, **feet)
         f["champion_1"] = self.stance(lean=-2, bob=3, near_hand=add(sh, (18, 6)), far_hand=add(sh, (-12, 4)),
                                       near_elbow=1, far_elbow=1, **feet)
-        if self.c.id == "dee":
+        if self.c.id in ("dee", "sable"):
             # Both fists overhead, the chain stretched between them.
             high = {"near_hand": add(sh, (12, 46)), "far_hand": add(sh, (-10, 46)), "near_elbow": 1, "far_elbow": 1}
         else:
@@ -235,6 +238,11 @@ class PoseBook:
             a = self.stance(lean=0, bob=4, near_hand=add(sh, (10, 40)), far_hand=add(sh, (2, -18)),
                             near_foot=(10, b.ankle), far_foot=(-12, b.ankle), near_elbow=1)
             return a, replace(a, near_hand=add(sh, (12, 44)), expression="shout")
+        if self.c.id == "sable":
+            # Counting the purse: one fist up, the other hand on the hip; then a point at the crowd.
+            a = self.stance(lean=-2, bob=3, near_hand=add(sh, (8, 42)), far_hand=(-12, hip - 2),
+                            near_foot=(12, b.ankle), far_foot=(-14, b.ankle), near_elbow=1, far_open=True)
+            return a, replace(a, near_hand=add(sh, (34, 22)), near_open=True, expression="shout")
         # Bram: double biceps.
         a = self.stance(lean=-2, bob=2, near_hand=add(sh, (20, 30)), far_hand=add(sh, (-14, 32)),
                         near_foot=(14, b.ankle), far_foot=(-16, b.ankle), near_elbow=-1, far_elbow=1,
@@ -261,6 +269,8 @@ class PoseBook:
             f["special_3"] = Pose(pelvis=(3.0, hip - 4), lean=4, near_foot=(s.front, b.ankle),
                                   far_foot=(s.back, b.ankle), near_hand=(22, 128), near_elbow=-1,
                                   far_hand=add(self.shoulders((3, hip - 4), 4), (8, -4)))
+        elif self.c.id == "sable":
+            f.update(self.sable_specials())
         else:
             # Dock Hoist (63214 + P): reach low, grab; on connect: hoist, slam.
             reach = (6.0, hip * 0.72)
@@ -280,4 +290,38 @@ class PoseBook:
             slam = (6.0, hip * 0.62)
             f["hoist_2"] = Pose(pelvis=slam, lean=44, near_foot=(s.front + 6, b.ankle), far_foot=(s.back, b.ankle),
                                 far_toe=20, near_hand=(48, 30), far_hand=(42, 26), partner=(44, 6))
+        return f
+
+    def sable_specials(self) -> dict[str, Pose]:
+        """Sable's Wire Kick (HK, a high roundhouse that replaces the sweep) and
+        Switch Step (236 + K: a stance switch, a step and a flying knee)."""
+        s, b, hip = self.s, self.b, self.hip
+        f: dict[str, Pose] = {}
+        guard = lambda pelvis, lean: dict(near_hand=add(self.shoulders(pelvis, lean), (12, -4)),  # noqa: E731
+                                          far_hand=add(self.shoulders(pelvis, lean), (6, 0)),
+                                          near_open=False, far_open=False)
+        # Wire Kick: knee chamber, roundhouse (active, foot at head height), re-chamber, set down.
+        p0 = (-2.0, hip - 3)
+        f["hk_0"] = Pose(pelvis=p0, lean=-10, near_foot=(18, 52), far_foot=(s.back + 2, b.ankle), near_toe=-10,
+                         far_toe=20, **guard(p0, -10))
+        p1 = (-6.0, hip - 1)
+        f["hk_1"] = Pose(pelvis=p1, lean=-26, near_foot=(56, 88), far_foot=(s.back + 4, b.ankle), near_toe=10,
+                         far_toe=30, near_knee=1, **guard(p1, -26), expression="shout")
+        f["hk_2"] = Pose(pelvis=(-4.0, hip - 2), lean=-16, near_foot=(30, 66), far_foot=(s.back + 3, b.ankle),
+                         near_toe=-10, far_toe=24, **guard((-4.0, hip - 2), -16))
+        f["hk_3"] = self.stance(lean=s.lean - 2, near_foot=(s.front - 4, b.ankle + 4))
+        # Switch Step: switch stance, the step-in, the flying knee (active), landing.
+        d0 = (0.0, hip - 8)
+        f["special_0"] = Pose(pelvis=d0, lean=12, near_foot=(s.back + 6, b.ankle), far_foot=(s.front, b.ankle),
+                              far_toe=0, near_toe=14, **guard(d0, 12))
+        d1 = (8.0, hip - 4)
+        f["special_1"] = Pose(pelvis=d1, lean=8, near_foot=(-6, b.ankle + 10), far_foot=(22, b.ankle), near_toe=30,
+                              **guard(d1, 8))
+        knee = (12.0, hip + 14)
+        ksh = self.shoulders(knee, -4)
+        f["special_2"] = Pose(pelvis=knee, lean=-4, near_foot=(22, hip - 12), far_foot=(-10, hip - 30), near_knee=1,
+                              far_knee=1, near_toe=-40, far_toe=-50, near_hand=add(ksh, (16, 8)),
+                              far_hand=add(ksh, (-14, -6)), expression="shout")
+        f["special_3"] = Pose(pelvis=(6.0, hip - 10), lean=16, near_foot=(s.front + 10, b.ankle),
+                              far_foot=(s.back + 4, b.ankle), far_toe=12, **guard((6.0, hip - 10), 16))
         return f

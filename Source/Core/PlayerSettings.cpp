@@ -147,13 +147,14 @@ std::vector<std::string> applyCommandLine(PlayerSettings& settings, std::span<co
             settings.training = true;
         } else if (arg == "-autoplay") {
             settings.autoplay = true;
-        } else if (arg == "-stage" || arg == "-dummy" || arg == "-scene" || arg == "-keys") {
+        } else if (arg == "-stage" || arg == "-dummy" || arg == "-scene" || arg == "-keys" || arg == "-fighters") {
             const auto v = next(i);
             ok = v && !v->empty();
             if (ok) {
                 auto& target = arg == "-stage"   ? settings.stage
                              : arg == "-dummy"   ? settings.dummy
                              : arg == "-scene"   ? settings.scene
+                             : arg == "-fighters" ? settings.fighters
                                                  : settings.keys;
                 target = std::string(*v);
             }

@@ -35,6 +35,7 @@ struct PlayerSettings {
     bool training = false;    // -training: hitbox / frame-advantage overlay on
     std::string stage;        // -stage <id>: start stage (default: GameSettings startStage)
     std::string dummy;        // -dummy <mode>: training dummy (stand, crouch, jump, guard, guard-all, cpu)
+    std::string fighters;     // -fighters <p1>,<p2>: fighter ids for -demo / -training / -stage (default: the first two)
     std::string scene;        // -scene <name>: open title, select, stage or options (screenshots, testing)
     bool autoplay = false;    // -autoplay: a CHAMPION CPU plays player 1 (soak tests of the arcade ladder)
     std::string keys;         // -keys "30:Return,45:Down": key taps at given frames (batch testing)

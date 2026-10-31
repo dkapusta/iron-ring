@@ -75,8 +75,14 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 
 ## M3 — Roster and world 🔜
 
+New fighters arrive with procedural placeholder art and their own frame data, move list and announcer line; final art for them comes in a later art pack, as it did for Dee and Bram ([ADR-0021](docs/adr/0021-adding-fighters.md)).
 
-- ⬜ Sable, Idris, Greta, Jun (identities in `setting.md`; a fighter file, atlas and portrait each — no code), with placeholder art first
+- ✅ **Sable Reyes**, mobile kickboxer: a low Calf Kick that cancels, the head-high Wire Kick, the Switch Step flying knee (236 + K); placeholder art; in versus, training and the arcade
+- ✅ Arcade ladder for a growing roster: each bout lists candidates, and a run meets everyone once before anyone twice; Bram still waits at The Crown
+- ✅ `-fighters <p1>,<p2>` for demos, training and tests; the CPU throws kick specials
+- ⬜ Idris Okafor, long-range striker
+- ⬜ Greta Voll, power brawler
+- ⬜ Jun Arata, rushdown / feint
 - ⬜ New venues (dry dock, ship's hold, the Broker's club), layered like the M2 four
 - ⬜ The Broker (boss), story intros/endings, win quotes
 - ⬜ Asset streaming: per-stage `sharedassetsN.assets` + `levelN` loaded on demand
