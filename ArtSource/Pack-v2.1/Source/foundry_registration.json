@@ -1,0 +1,1556 @@
+[
+  {
+    "id": "foundry_00",
+    "index": 0,
+    "center_source": 9,
+    "target_head_top": 26,
+    "headwear": "low flat cap",
+    "build": "stocky broad shoulders",
+    "coat": "navy",
+    "motion_phase": 0,
+    "registered_head_top": 27,
+    "integer_registration": [
+      12,
+      -10
+    ],
+    "source_cell": [
+      0,
+      0,
+      18,
+      96
+    ],
+    "shoulders": [
+      [
+        16,
+        41
+      ],
+      [
+        27,
+        41
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "foundry_01",
+    "index": 1,
+    "center_source": 27,
+    "target_head_top": 33,
+    "headwear": "rounded beanie",
+    "build": "slim narrow shoulders",
+    "coat": "dark brick",
+    "motion_phase": 1,
+    "registered_head_top": 33,
+    "integer_registration": [
+      12,
+      -8
+    ],
+    "source_cell": [
+      18,
+      0,
+      37,
+      96
+    ],
+    "shoulders": [
+      [
+        14,
+        47
+      ],
+      [
+        28,
+        47
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "foundry_02",
+    "index": 2,
+    "center_source": 46,
+    "target_head_top": 29,
+    "headwear": "bare cropped hair",
+    "build": "medium build",
+    "coat": "brown",
+    "motion_phase": 2,
+    "registered_head_top": 29,
+    "integer_registration": [
+      15,
+      -8
+    ],
+    "source_cell": [
+      37,
+      0,
+      55,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        42
+      ],
+      [
+        30,
+        42
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "foundry_03",
+    "index": 3,
+    "center_source": 64,
+    "target_head_top": 36,
+    "headwear": "short hood",
+    "build": "round shoulders",
+    "coat": "ink blue",
+    "motion_phase": 3,
+    "registered_head_top": 35,
+    "integer_registration": [
+      14,
+      -8
+    ],
+    "source_cell": [
+      55,
+      0,
+      73,
+      96
+    ],
+    "shoulders": [
+      [
+        16,
+        48
+      ],
+      [
+        29,
+        48
+      ]
+    ],
+    "coat_rgba": [
+      20,
+      26,
+      48,
+      255
+    ]
+  },
+  {
+    "id": "foundry_04",
+    "index": 4,
+    "center_source": 82,
+    "target_head_top": 32,
+    "headwear": "wide brim felt hat",
+    "build": "tall angular build",
+    "coat": "charcoal",
+    "motion_phase": 0,
+    "registered_head_top": 32,
+    "integer_registration": [
+      15,
+      -3
+    ],
+    "source_cell": [
+      73,
+      0,
+      91,
+      96
+    ],
+    "shoulders": [
+      [
+        17,
+        48
+      ],
+      [
+        30,
+        48
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "foundry_05",
+    "index": 5,
+    "center_source": 101,
+    "target_head_top": 28,
+    "headwear": "knit cap with folded edge",
+    "build": "short broad build",
+    "coat": "navy",
+    "motion_phase": 1,
+    "registered_head_top": 28,
+    "integer_registration": [
+      15,
+      -14
+    ],
+    "source_cell": [
+      91,
+      0,
+      110,
+      96
+    ],
+    "shoulders": [
+      [
+        17,
+        42
+      ],
+      [
+        31,
+        42
+      ]
+    ],
+    "coat_rgba": [
+      20,
+      26,
+      48,
+      255
+    ]
+  },
+  {
+    "id": "foundry_06",
+    "index": 6,
+    "center_source": 119,
+    "target_head_top": 35,
+    "headwear": "tall soft cap",
+    "build": "stocky broad shoulders",
+    "coat": "dark brick",
+    "motion_phase": 2,
+    "registered_head_top": 35,
+    "integer_registration": [
+      16,
+      -1
+    ],
+    "source_cell": [
+      110,
+      0,
+      128,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        49
+      ],
+      [
+        30,
+        49
+      ]
+    ],
+    "coat_rgba": [
+      58,
+      26,
+      26,
+      255
+    ]
+  },
+  {
+    "id": "foundry_07",
+    "index": 7,
+    "center_source": 137,
+    "target_head_top": 31,
+    "headwear": "sloped dock cap",
+    "build": "slim narrow shoulders",
+    "coat": "brown",
+    "motion_phase": 3,
+    "registered_head_top": 31,
+    "integer_registration": [
+      17,
+      -10
+    ],
+    "source_cell": [
+      128,
+      0,
+      146,
+      96
+    ],
+    "shoulders": [
+      [
+        19,
+        45
+      ],
+      [
+        32,
+        45
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "foundry_08",
+    "index": 8,
+    "center_source": 155,
+    "target_head_top": 27,
+    "headwear": "curly hair",
+    "build": "medium build",
+    "coat": "ink blue",
+    "motion_phase": 0,
+    "registered_head_top": 27,
+    "integer_registration": [
+      16,
+      -9
+    ],
+    "source_cell": [
+      146,
+      0,
+      165,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        43
+      ],
+      [
+        32,
+        43
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "foundry_09",
+    "index": 9,
+    "center_source": 174,
+    "target_head_top": 34,
+    "headwear": "raised coat collar and bare hair",
+    "build": "round shoulders",
+    "coat": "charcoal",
+    "motion_phase": 1,
+    "registered_head_top": 34,
+    "integer_registration": [
+      18,
+      -5
+    ],
+    "source_cell": [
+      165,
+      0,
+      183,
+      96
+    ],
+    "shoulders": [
+      [
+        20,
+        47
+      ],
+      [
+        33,
+        47
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "foundry_10",
+    "index": 10,
+    "center_source": 192,
+    "target_head_top": 30,
+    "headwear": "small brim hat",
+    "build": "tall angular build",
+    "coat": "navy",
+    "motion_phase": 2,
+    "registered_head_top": 30,
+    "integer_registration": [
+      17,
+      -6
+    ],
+    "source_cell": [
+      183,
+      0,
+      201,
+      96
+    ],
+    "shoulders": [
+      [
+        19,
+        45
+      ],
+      [
+        31,
+        45
+      ]
+    ],
+    "coat_rgba": [
+      20,
+      26,
+      48,
+      255
+    ]
+  },
+  {
+    "id": "foundry_11",
+    "index": 11,
+    "center_source": 210,
+    "target_head_top": 26,
+    "headwear": "smooth hood",
+    "build": "short broad build",
+    "coat": "dark brick",
+    "motion_phase": 3,
+    "registered_head_top": 26,
+    "integer_registration": [
+      17,
+      -15
+    ],
+    "source_cell": [
+      201,
+      0,
+      219,
+      96
+    ],
+    "shoulders": [
+      [
+        19,
+        39
+      ],
+      [
+        32,
+        39
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "foundry_12",
+    "index": 12,
+    "center_source": 229,
+    "target_head_top": 33,
+    "headwear": "peaked cap",
+    "build": "stocky broad shoulders",
+    "coat": "brown",
+    "motion_phase": 0,
+    "registered_head_top": 33,
+    "integer_registration": [
+      16,
+      -6
+    ],
+    "source_cell": [
+      219,
+      0,
+      238,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        47
+      ],
+      [
+        32,
+        47
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "foundry_13",
+    "index": 13,
+    "center_source": 247,
+    "target_head_top": 29,
+    "headwear": "soft rounded hat",
+    "build": "slim narrow shoulders",
+    "coat": "ink blue",
+    "motion_phase": 1,
+    "registered_head_top": 29,
+    "integer_registration": [
+      17,
+      -9
+    ],
+    "source_cell": [
+      238,
+      0,
+      256,
+      96
+    ],
+    "shoulders": [
+      [
+        19,
+        44
+      ],
+      [
+        30,
+        44
+      ]
+    ],
+    "coat_rgba": [
+      20,
+      26,
+      48,
+      255
+    ]
+  },
+  {
+    "id": "foundry_14",
+    "index": 14,
+    "center_source": 9,
+    "target_head_top": 36,
+    "headwear": "short hood",
+    "build": "medium build",
+    "coat": "dark brick",
+    "motion_phase": 2,
+    "registered_head_top": 36,
+    "integer_registration": [
+      13,
+      -5
+    ],
+    "source_cell": [
+      0,
+      0,
+      18,
+      96
+    ],
+    "shoulders": [
+      [
+        16,
+        49
+      ],
+      [
+        28,
+        49
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "foundry_15",
+    "index": 15,
+    "center_source": 27,
+    "target_head_top": 32,
+    "headwear": "wide brim felt hat",
+    "build": "round shoulders",
+    "coat": "brown",
+    "motion_phase": 3,
+    "registered_head_top": 32,
+    "integer_registration": [
+      14,
+      -5
+    ],
+    "source_cell": [
+      18,
+      0,
+      37,
+      96
+    ],
+    "shoulders": [
+      [
+        17,
+        46
+      ],
+      [
+        30,
+        46
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "foundry_16",
+    "index": 16,
+    "center_source": 46,
+    "target_head_top": 28,
+    "headwear": "knit cap with folded edge",
+    "build": "tall angular build",
+    "coat": "ink blue",
+    "motion_phase": 0,
+    "registered_head_top": 28,
+    "integer_registration": [
+      15,
+      -5
+    ],
+    "source_cell": [
+      37,
+      0,
+      55,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        42
+      ],
+      [
+        30,
+        42
+      ]
+    ],
+    "coat_rgba": [
+      20,
+      26,
+      48,
+      255
+    ]
+  },
+  {
+    "id": "foundry_17",
+    "index": 17,
+    "center_source": 64,
+    "target_head_top": 35,
+    "headwear": "tall soft cap",
+    "build": "short broad build",
+    "coat": "charcoal",
+    "motion_phase": 1,
+    "registered_head_top": 35,
+    "integer_registration": [
+      16,
+      -5
+    ],
+    "source_cell": [
+      55,
+      0,
+      73,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        48
+      ],
+      [
+        31,
+        48
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "foundry_18",
+    "index": 18,
+    "center_source": 82,
+    "target_head_top": 31,
+    "headwear": "sloped dock cap",
+    "build": "stocky broad shoulders",
+    "coat": "navy",
+    "motion_phase": 2,
+    "registered_head_top": 31,
+    "integer_registration": [
+      15,
+      -7
+    ],
+    "source_cell": [
+      73,
+      0,
+      91,
+      96
+    ],
+    "shoulders": [
+      [
+        17,
+        44
+      ],
+      [
+        30,
+        44
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "foundry_19",
+    "index": 19,
+    "center_source": 101,
+    "target_head_top": 27,
+    "headwear": "curly hair",
+    "build": "slim narrow shoulders",
+    "coat": "dark brick",
+    "motion_phase": 3,
+    "registered_head_top": 27,
+    "integer_registration": [
+      14,
+      -7
+    ],
+    "source_cell": [
+      91,
+      0,
+      110,
+      96
+    ],
+    "shoulders": [
+      [
+        17,
+        41
+      ],
+      [
+        30,
+        41
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "foundry_20",
+    "index": 20,
+    "center_source": 119,
+    "target_head_top": 34,
+    "headwear": "raised coat collar and bare hair",
+    "build": "medium build",
+    "coat": "brown",
+    "motion_phase": 0,
+    "registered_head_top": 34,
+    "integer_registration": [
+      16,
+      -5
+    ],
+    "source_cell": [
+      110,
+      0,
+      128,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        47
+      ],
+      [
+        31,
+        47
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "foundry_21",
+    "index": 21,
+    "center_source": 137,
+    "target_head_top": 30,
+    "headwear": "small brim hat",
+    "build": "round shoulders",
+    "coat": "ink blue",
+    "motion_phase": 1,
+    "registered_head_top": 30,
+    "integer_registration": [
+      16,
+      -7
+    ],
+    "source_cell": [
+      128,
+      0,
+      146,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        43
+      ],
+      [
+        31,
+        43
+      ]
+    ],
+    "coat_rgba": [
+      20,
+      26,
+      48,
+      255
+    ]
+  },
+  {
+    "id": "foundry_22",
+    "index": 22,
+    "center_source": 155,
+    "target_head_top": 26,
+    "headwear": "smooth hood",
+    "build": "tall angular build",
+    "coat": "charcoal",
+    "motion_phase": 2,
+    "registered_head_top": 26,
+    "integer_registration": [
+      16,
+      -8
+    ],
+    "source_cell": [
+      146,
+      0,
+      165,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        40
+      ],
+      [
+        32,
+        40
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "foundry_23",
+    "index": 23,
+    "center_source": 174,
+    "target_head_top": 33,
+    "headwear": "peaked cap",
+    "build": "short broad build",
+    "coat": "navy",
+    "motion_phase": 3,
+    "registered_head_top": 33,
+    "integer_registration": [
+      16,
+      -8
+    ],
+    "source_cell": [
+      165,
+      0,
+      183,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        46
+      ],
+      [
+        31,
+        46
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "foundry_24",
+    "index": 24,
+    "center_source": 192,
+    "target_head_top": 29,
+    "headwear": "soft rounded hat",
+    "build": "stocky broad shoulders",
+    "coat": "dark brick",
+    "motion_phase": 0,
+    "registered_head_top": 29,
+    "integer_registration": [
+      16,
+      -8
+    ],
+    "source_cell": [
+      183,
+      0,
+      201,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        42
+      ],
+      [
+        31,
+        42
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "foundry_25",
+    "index": 25,
+    "center_source": 210,
+    "target_head_top": 36,
+    "headwear": "low flat cap",
+    "build": "slim narrow shoulders",
+    "coat": "brown",
+    "motion_phase": 1,
+    "registered_head_top": 36,
+    "integer_registration": [
+      16,
+      -6
+    ],
+    "source_cell": [
+      201,
+      0,
+      219,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        50
+      ],
+      [
+        31,
+        50
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "foundry_26",
+    "index": 26,
+    "center_source": 229,
+    "target_head_top": 32,
+    "headwear": "rounded beanie",
+    "build": "medium build",
+    "coat": "ink blue",
+    "motion_phase": 2,
+    "registered_head_top": 32,
+    "integer_registration": [
+      15,
+      -6
+    ],
+    "source_cell": [
+      219,
+      0,
+      238,
+      96
+    ],
+    "shoulders": [
+      [
+        17,
+        46
+      ],
+      [
+        31,
+        46
+      ]
+    ],
+    "coat_rgba": [
+      20,
+      26,
+      48,
+      255
+    ]
+  },
+  {
+    "id": "foundry_27",
+    "index": 27,
+    "center_source": 247,
+    "target_head_top": 28,
+    "headwear": "bare cropped hair",
+    "build": "round shoulders",
+    "coat": "charcoal",
+    "motion_phase": 3,
+    "registered_head_top": 28,
+    "integer_registration": [
+      17,
+      -8
+    ],
+    "source_cell": [
+      238,
+      0,
+      256,
+      96
+    ],
+    "shoulders": [
+      [
+        19,
+        41
+      ],
+      [
+        31,
+        41
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "foundry_28",
+    "index": 28,
+    "center_source": 9,
+    "target_head_top": 35,
+    "headwear": "tall soft cap",
+    "build": "tall angular build",
+    "coat": "brown",
+    "motion_phase": 0,
+    "registered_head_top": 35,
+    "integer_registration": [
+      12,
+      1
+    ],
+    "source_cell": [
+      0,
+      0,
+      18,
+      96
+    ],
+    "shoulders": [
+      [
+        15,
+        52
+      ],
+      [
+        27,
+        52
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "foundry_29",
+    "index": 29,
+    "center_source": 27,
+    "target_head_top": 31,
+    "headwear": "sloped dock cap",
+    "build": "short broad build",
+    "coat": "ink blue",
+    "motion_phase": 1,
+    "registered_head_top": 31,
+    "integer_registration": [
+      12,
+      -9
+    ],
+    "source_cell": [
+      18,
+      0,
+      37,
+      96
+    ],
+    "shoulders": [
+      [
+        14,
+        45
+      ],
+      [
+        28,
+        45
+      ]
+    ],
+    "coat_rgba": [
+      20,
+      26,
+      48,
+      255
+    ]
+  },
+  {
+    "id": "foundry_30",
+    "index": 30,
+    "center_source": 46,
+    "target_head_top": 27,
+    "headwear": "curly hair",
+    "build": "stocky broad shoulders",
+    "coat": "charcoal",
+    "motion_phase": 2,
+    "registered_head_top": 27,
+    "integer_registration": [
+      13,
+      -9
+    ],
+    "source_cell": [
+      37,
+      0,
+      55,
+      96
+    ],
+    "shoulders": [
+      [
+        16,
+        40
+      ],
+      [
+        28,
+        40
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "foundry_31",
+    "index": 31,
+    "center_source": 64,
+    "target_head_top": 34,
+    "headwear": "raised coat collar and bare hair",
+    "build": "slim narrow shoulders",
+    "coat": "navy",
+    "motion_phase": 3,
+    "registered_head_top": 34,
+    "integer_registration": [
+      14,
+      -6
+    ],
+    "source_cell": [
+      55,
+      0,
+      73,
+      96
+    ],
+    "shoulders": [
+      [
+        16,
+        47
+      ],
+      [
+        29,
+        47
+      ]
+    ],
+    "coat_rgba": [
+      20,
+      26,
+      48,
+      255
+    ]
+  },
+  {
+    "id": "foundry_32",
+    "index": 32,
+    "center_source": 82,
+    "target_head_top": 30,
+    "headwear": "small brim hat",
+    "build": "medium build",
+    "coat": "dark brick",
+    "motion_phase": 0,
+    "registered_head_top": 30,
+    "integer_registration": [
+      14,
+      -8
+    ],
+    "source_cell": [
+      73,
+      0,
+      91,
+      96
+    ],
+    "shoulders": [
+      [
+        16,
+        44
+      ],
+      [
+        29,
+        44
+      ]
+    ],
+    "coat_rgba": [
+      61,
+      18,
+      22,
+      255
+    ]
+  },
+  {
+    "id": "foundry_33",
+    "index": 33,
+    "center_source": 101,
+    "target_head_top": 26,
+    "headwear": "smooth hood",
+    "build": "round shoulders",
+    "coat": "brown",
+    "motion_phase": 1,
+    "registered_head_top": 27,
+    "integer_registration": [
+      14,
+      -10
+    ],
+    "source_cell": [
+      91,
+      0,
+      110,
+      96
+    ],
+    "shoulders": [
+      [
+        16,
+        41
+      ],
+      [
+        30,
+        41
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "foundry_34",
+    "index": 34,
+    "center_source": 119,
+    "target_head_top": 33,
+    "headwear": "peaked cap",
+    "build": "tall angular build",
+    "coat": "ink blue",
+    "motion_phase": 2,
+    "registered_head_top": 33,
+    "integer_registration": [
+      15,
+      -2
+    ],
+    "source_cell": [
+      110,
+      0,
+      128,
+      96
+    ],
+    "shoulders": [
+      [
+        17,
+        48
+      ],
+      [
+        29,
+        48
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "foundry_35",
+    "index": 35,
+    "center_source": 137,
+    "target_head_top": 29,
+    "headwear": "soft rounded hat",
+    "build": "short broad build",
+    "coat": "charcoal",
+    "motion_phase": 3,
+    "registered_head_top": 29,
+    "integer_registration": [
+      17,
+      -12
+    ],
+    "source_cell": [
+      128,
+      0,
+      146,
+      96
+    ],
+    "shoulders": [
+      [
+        19,
+        42
+      ],
+      [
+        32,
+        42
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "foundry_36",
+    "index": 36,
+    "center_source": 155,
+    "target_head_top": 36,
+    "headwear": "low flat cap",
+    "build": "stocky broad shoulders",
+    "coat": "navy",
+    "motion_phase": 0,
+    "registered_head_top": 35,
+    "integer_registration": [
+      16,
+      -6
+    ],
+    "source_cell": [
+      146,
+      0,
+      165,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        49
+      ],
+      [
+        32,
+        49
+      ]
+    ],
+    "coat_rgba": [
+      20,
+      26,
+      48,
+      255
+    ]
+  },
+  {
+    "id": "foundry_37",
+    "index": 37,
+    "center_source": 174,
+    "target_head_top": 32,
+    "headwear": "rounded beanie",
+    "build": "slim narrow shoulders",
+    "coat": "dark brick",
+    "motion_phase": 1,
+    "registered_head_top": 32,
+    "integer_registration": [
+      16,
+      -7
+    ],
+    "source_cell": [
+      165,
+      0,
+      183,
+      96
+    ],
+    "shoulders": [
+      [
+        19,
+        45
+      ],
+      [
+        31,
+        45
+      ]
+    ],
+    "coat_rgba": [
+      61,
+      18,
+      22,
+      255
+    ]
+  },
+  {
+    "id": "foundry_38",
+    "index": 38,
+    "center_source": 192,
+    "target_head_top": 28,
+    "headwear": "bare cropped hair",
+    "build": "medium build",
+    "coat": "brown",
+    "motion_phase": 2,
+    "registered_head_top": 28,
+    "integer_registration": [
+      18,
+      -9
+    ],
+    "source_cell": [
+      183,
+      0,
+      201,
+      96
+    ],
+    "shoulders": [
+      [
+        20,
+        41
+      ],
+      [
+        32,
+        41
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "foundry_39",
+    "index": 39,
+    "center_source": 210,
+    "target_head_top": 35,
+    "headwear": "short hood",
+    "build": "round shoulders",
+    "coat": "ink blue",
+    "motion_phase": 3,
+    "registered_head_top": 35,
+    "integer_registration": [
+      17,
+      -6
+    ],
+    "source_cell": [
+      201,
+      0,
+      219,
+      96
+    ],
+    "shoulders": [
+      [
+        19,
+        48
+      ],
+      [
+        32,
+        48
+      ]
+    ],
+    "coat_rgba": [
+      20,
+      26,
+      48,
+      255
+    ]
+  },
+  {
+    "id": "foundry_40",
+    "index": 40,
+    "center_source": 229,
+    "target_head_top": 31,
+    "headwear": "wide brim felt hat",
+    "build": "tall angular build",
+    "coat": "charcoal",
+    "motion_phase": 0,
+    "registered_head_top": 31,
+    "integer_registration": [
+      17,
+      -3
+    ],
+    "source_cell": [
+      219,
+      0,
+      238,
+      96
+    ],
+    "shoulders": [
+      [
+        19,
+        48
+      ],
+      [
+        33,
+        48
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "foundry_41",
+    "index": 41,
+    "center_source": 247,
+    "target_head_top": 27,
+    "headwear": "knit cap with folded edge",
+    "build": "short broad build",
+    "coat": "navy",
+    "motion_phase": 1,
+    "registered_head_top": 27,
+    "integer_registration": [
+      17,
+      -10
+    ],
+    "source_cell": [
+      238,
+      0,
+      256,
+      96
+    ],
+    "shoulders": [
+      [
+        19,
+        41
+      ],
+      [
+        30,
+        41
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  }
+]

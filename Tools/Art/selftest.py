@@ -116,18 +116,29 @@ def check_round_trip(work: Path) -> list[str]:
     return errors
 
 
+CROWD_STRIP, CROWD_HEAD_ROW = 128, 37
+
+
 def check_crowds() -> list[str]:
-    """Every spectator group in the crowd layers has its heads (repair_crowds.py)."""
+    """Every crowd layer shows heads all along its width in the rest frames (asset spec §3.1):
+    each 128 px strip has a spectator reaching above row 37 of the frame."""
     import numpy as np
     from PIL import Image
 
-    import repair_crowds
+    from ironart import preview
 
     errors = []
-    for relative, barrier in repair_crowds.BARRIER.items():
-        pixels = np.array(Image.open(ASSETS / relative).convert("RGBA"))
-        if repair_crowds.repair(pixels, barrier)[1]:
-            errors.append(f"{relative}: clipped spectator groups (run Tools/Art/repair_crowds.py)")
+    for stage in preview.layered_stages(ASSETS):
+        for layer in (l for l in stage["layers"] if l.get("crowd")):
+            alpha = np.array(Image.open(ASSETS / layer["image"]).convert("RGBA"))[:, :, 3] > 0
+            frames = layer.get("frames", 1)
+            frame_h = alpha.shape[0] // frames
+            for f in range(max(1, frames // 2)):  # the rest frames; cheering arms would hide a clipped top
+                top = alpha[f * frame_h:f * frame_h + CROWD_HEAD_ROW]
+                for x in range(0, alpha.shape[1], CROWD_STRIP):
+                    if not top[:, x:x + CROWD_STRIP].any():
+                        errors.append(f"{layer['image']}: frame {f}, x {x}-{x + CROWD_STRIP - 1}: "
+                                      f"no heads above row {CROWD_HEAD_ROW} (spectators cut off?)")
     return errors
 
 

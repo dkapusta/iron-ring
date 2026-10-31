@@ -6,6 +6,7 @@ Editable sources of externally authored art. The game never reads this folder; `
 | --- | --- |
 | `Fighters/<Name>/frames/` | One PNG per frame: 256 × 256 RGBA, character facing right, origin (feet on the ground) at **(128, 232)**, hard alpha, 48-colour palette per fighter. `manifest.json` holds the throw partner offsets. |
 | `Pack-v1/` | Provenance of Iron Ring Art Pack v1: production notes, art review, the generation prompts and the original per-frame registration. |
+| `Pack-v2.1/` | Provenance of Iron Ring Art Pack v2.1 (redrawn crowds, Foundry sign): the pack's README, the review, its registration, motion and validation records (`Source/`). |
 | `Pack-v2/` | Provenance of Iron Ring Art Pack v2: the pack's README, art review, integration notes and validation reports; its palettes, registration and generation records (`Source/`); the still ending pictures, not used by the game (`Endings/`). |
 
 ## Editing a fighter
@@ -29,3 +30,7 @@ Delivered 2026-10-30, generated with an image model from [docs/art/generation-pr
 ## Art Pack v2
 
 Delivered 2026-10-31 against the [vertical-slice art brief](../docs/art/vertical-slice-art-brief.md), under the project's zlib licence. It replaces both fighters' frame sets (the brief's corrections, a dark outline pass, six champion frames each), adds select portraits, makes all four venues layered and final (The Foundry replaces its procedural placeholder), and supplies the title logo and menu backdrop. Adopted as delivered ([ADR-0020](../docs/adr/0020-adopting-art-pack-v2.md)), with one later correction: in every crowd layer, three of the six spectator groups were cut off at the head; `Tools/Art/repair_crowds.py` rebuilt them from the intact groups of the same frame and recomposed the previews ([Pack-v2/CORRECTIONS.md](Pack-v2/CORRECTIONS.md)); the arcade ending animates the champion, so the pack's still ending pictures are kept in `Pack-v2/Endings/` only. Generation originals (about 44 MB) and the pack's previews and rebuild scripts stay outside the repository.
+
+## Art Pack v2.1
+
+Delivered 2026-10-31 against the [v2.1 correction brief](../docs/art/art-pack-v2.1-brief.md): the four crowd layers redrawn (42 distinct spectators per venue, heads in every frame, cheering arms with hands, the barrier unchanged), a legible VOLL WORKS on the Foundry wall, and the stage previews recomposed. Adopted as delivered; review and notes for a later round in [Pack-v2.1/REVIEW.md](Pack-v2.1/REVIEW.md). It retires the v2 crowd repair.

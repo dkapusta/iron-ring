@@ -1,0 +1,1556 @@
+[
+  {
+    "id": "the_crown_00",
+    "index": 0,
+    "center_source": 9,
+    "target_head_top": 35,
+    "headwear": "rounded beanie",
+    "build": "stocky broad shoulders",
+    "coat": "navy",
+    "motion_phase": 0,
+    "registered_head_top": 35,
+    "integer_registration": [
+      12,
+      -5
+    ],
+    "source_cell": [
+      0,
+      0,
+      18,
+      96
+    ],
+    "shoulders": [
+      [
+        15,
+        51
+      ],
+      [
+        27,
+        51
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_01",
+    "index": 1,
+    "center_source": 27,
+    "target_head_top": 31,
+    "headwear": "bare cropped hair",
+    "build": "slim narrow shoulders",
+    "coat": "dark brick",
+    "motion_phase": 1,
+    "registered_head_top": 31,
+    "integer_registration": [
+      13,
+      -9
+    ],
+    "source_cell": [
+      18,
+      0,
+      37,
+      96
+    ],
+    "shoulders": [
+      [
+        15,
+        45
+      ],
+      [
+        29,
+        45
+      ]
+    ],
+    "coat_rgba": [
+      61,
+      18,
+      22,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_02",
+    "index": 2,
+    "center_source": 46,
+    "target_head_top": 27,
+    "headwear": "short hood",
+    "build": "medium build",
+    "coat": "brown",
+    "motion_phase": 2,
+    "registered_head_top": 27,
+    "integer_registration": [
+      15,
+      -11
+    ],
+    "source_cell": [
+      37,
+      0,
+      55,
+      96
+    ],
+    "shoulders": [
+      [
+        17,
+        40
+      ],
+      [
+        30,
+        40
+      ]
+    ],
+    "coat_rgba": [
+      7,
+      9,
+      15,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_03",
+    "index": 3,
+    "center_source": 64,
+    "target_head_top": 34,
+    "headwear": "wide brim felt hat",
+    "build": "round shoulders",
+    "coat": "ink blue",
+    "motion_phase": 3,
+    "registered_head_top": 34,
+    "integer_registration": [
+      14,
+      -5
+    ],
+    "source_cell": [
+      55,
+      0,
+      73,
+      96
+    ],
+    "shoulders": [
+      [
+        16,
+        47
+      ],
+      [
+        29,
+        47
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_04",
+    "index": 4,
+    "center_source": 82,
+    "target_head_top": 30,
+    "headwear": "knit cap with folded edge",
+    "build": "tall angular build",
+    "coat": "charcoal",
+    "motion_phase": 0,
+    "registered_head_top": 30,
+    "integer_registration": [
+      14,
+      -3
+    ],
+    "source_cell": [
+      73,
+      0,
+      91,
+      96
+    ],
+    "shoulders": [
+      [
+        17,
+        47
+      ],
+      [
+        29,
+        47
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_05",
+    "index": 5,
+    "center_source": 101,
+    "target_head_top": 26,
+    "headwear": "tall soft cap",
+    "build": "short broad build",
+    "coat": "navy",
+    "motion_phase": 1,
+    "registered_head_top": 26,
+    "integer_registration": [
+      13,
+      -14
+    ],
+    "source_cell": [
+      91,
+      0,
+      110,
+      96
+    ],
+    "shoulders": [
+      [
+        15,
+        40
+      ],
+      [
+        29,
+        40
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_06",
+    "index": 6,
+    "center_source": 119,
+    "target_head_top": 33,
+    "headwear": "sloped dock cap",
+    "build": "stocky broad shoulders",
+    "coat": "dark brick",
+    "motion_phase": 2,
+    "registered_head_top": 33,
+    "integer_registration": [
+      14,
+      -8
+    ],
+    "source_cell": [
+      110,
+      0,
+      128,
+      96
+    ],
+    "shoulders": [
+      [
+        16,
+        46
+      ],
+      [
+        29,
+        46
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_07",
+    "index": 7,
+    "center_source": 137,
+    "target_head_top": 29,
+    "headwear": "curly hair",
+    "build": "slim narrow shoulders",
+    "coat": "brown",
+    "motion_phase": 3,
+    "registered_head_top": 29,
+    "integer_registration": [
+      15,
+      -9
+    ],
+    "source_cell": [
+      128,
+      0,
+      146,
+      96
+    ],
+    "shoulders": [
+      [
+        17,
+        43
+      ],
+      [
+        30,
+        43
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_08",
+    "index": 8,
+    "center_source": 155,
+    "target_head_top": 36,
+    "headwear": "raised coat collar and bare hair",
+    "build": "medium build",
+    "coat": "ink blue",
+    "motion_phase": 0,
+    "registered_head_top": 36,
+    "integer_registration": [
+      16,
+      -5
+    ],
+    "source_cell": [
+      146,
+      0,
+      165,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        50
+      ],
+      [
+        32,
+        50
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_09",
+    "index": 9,
+    "center_source": 174,
+    "target_head_top": 32,
+    "headwear": "small brim hat",
+    "build": "round shoulders",
+    "coat": "charcoal",
+    "motion_phase": 1,
+    "registered_head_top": 32,
+    "integer_registration": [
+      16,
+      -8
+    ],
+    "source_cell": [
+      165,
+      0,
+      183,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        45
+      ],
+      [
+        31,
+        45
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_10",
+    "index": 10,
+    "center_source": 192,
+    "target_head_top": 28,
+    "headwear": "smooth hood",
+    "build": "tall angular build",
+    "coat": "navy",
+    "motion_phase": 2,
+    "registered_head_top": 28,
+    "integer_registration": [
+      16,
+      -8
+    ],
+    "source_cell": [
+      183,
+      0,
+      201,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        42
+      ],
+      [
+        30,
+        42
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_11",
+    "index": 11,
+    "center_source": 210,
+    "target_head_top": 35,
+    "headwear": "peaked cap",
+    "build": "short broad build",
+    "coat": "dark brick",
+    "motion_phase": 3,
+    "registered_head_top": 35,
+    "integer_registration": [
+      16,
+      -7
+    ],
+    "source_cell": [
+      201,
+      0,
+      219,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        48
+      ],
+      [
+        31,
+        48
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_12",
+    "index": 12,
+    "center_source": 229,
+    "target_head_top": 31,
+    "headwear": "soft rounded hat",
+    "build": "stocky broad shoulders",
+    "coat": "brown",
+    "motion_phase": 0,
+    "registered_head_top": 31,
+    "integer_registration": [
+      16,
+      -8
+    ],
+    "source_cell": [
+      219,
+      0,
+      238,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        45
+      ],
+      [
+        32,
+        45
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_13",
+    "index": 13,
+    "center_source": 247,
+    "target_head_top": 27,
+    "headwear": "low flat cap",
+    "build": "slim narrow shoulders",
+    "coat": "ink blue",
+    "motion_phase": 1,
+    "registered_head_top": 27,
+    "integer_registration": [
+      17,
+      -13
+    ],
+    "source_cell": [
+      238,
+      0,
+      256,
+      96
+    ],
+    "shoulders": [
+      [
+        19,
+        40
+      ],
+      [
+        30,
+        40
+      ]
+    ],
+    "coat_rgba": [
+      20,
+      26,
+      48,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_14",
+    "index": 14,
+    "center_source": 9,
+    "target_head_top": 34,
+    "headwear": "wide brim felt hat",
+    "build": "medium build",
+    "coat": "dark brick",
+    "motion_phase": 2,
+    "registered_head_top": 34,
+    "integer_registration": [
+      14,
+      -6
+    ],
+    "source_cell": [
+      0,
+      0,
+      18,
+      96
+    ],
+    "shoulders": [
+      [
+        17,
+        47
+      ],
+      [
+        29,
+        47
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_15",
+    "index": 15,
+    "center_source": 27,
+    "target_head_top": 30,
+    "headwear": "knit cap with folded edge",
+    "build": "round shoulders",
+    "coat": "brown",
+    "motion_phase": 3,
+    "registered_head_top": 30,
+    "integer_registration": [
+      14,
+      -8
+    ],
+    "source_cell": [
+      18,
+      0,
+      37,
+      96
+    ],
+    "shoulders": [
+      [
+        17,
+        44
+      ],
+      [
+        30,
+        44
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_16",
+    "index": 16,
+    "center_source": 46,
+    "target_head_top": 26,
+    "headwear": "tall soft cap",
+    "build": "tall angular build",
+    "coat": "ink blue",
+    "motion_phase": 0,
+    "registered_head_top": 26,
+    "integer_registration": [
+      16,
+      -9
+    ],
+    "source_cell": [
+      37,
+      0,
+      55,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        39
+      ],
+      [
+        31,
+        39
+      ]
+    ],
+    "coat_rgba": [
+      20,
+      26,
+      48,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_17",
+    "index": 17,
+    "center_source": 64,
+    "target_head_top": 33,
+    "headwear": "sloped dock cap",
+    "build": "short broad build",
+    "coat": "charcoal",
+    "motion_phase": 1,
+    "registered_head_top": 33,
+    "integer_registration": [
+      15,
+      -7
+    ],
+    "source_cell": [
+      55,
+      0,
+      73,
+      96
+    ],
+    "shoulders": [
+      [
+        17,
+        46
+      ],
+      [
+        30,
+        46
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_18",
+    "index": 18,
+    "center_source": 82,
+    "target_head_top": 29,
+    "headwear": "curly hair",
+    "build": "stocky broad shoulders",
+    "coat": "navy",
+    "motion_phase": 2,
+    "registered_head_top": 29,
+    "integer_registration": [
+      15,
+      -9
+    ],
+    "source_cell": [
+      73,
+      0,
+      91,
+      96
+    ],
+    "shoulders": [
+      [
+        17,
+        42
+      ],
+      [
+        30,
+        42
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_19",
+    "index": 19,
+    "center_source": 101,
+    "target_head_top": 36,
+    "headwear": "raised coat collar and bare hair",
+    "build": "slim narrow shoulders",
+    "coat": "dark brick",
+    "motion_phase": 3,
+    "registered_head_top": 36,
+    "integer_registration": [
+      14,
+      -4
+    ],
+    "source_cell": [
+      91,
+      0,
+      110,
+      96
+    ],
+    "shoulders": [
+      [
+        16,
+        50
+      ],
+      [
+        30,
+        50
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_20",
+    "index": 20,
+    "center_source": 119,
+    "target_head_top": 32,
+    "headwear": "small brim hat",
+    "build": "medium build",
+    "coat": "brown",
+    "motion_phase": 0,
+    "registered_head_top": 32,
+    "integer_registration": [
+      16,
+      -7
+    ],
+    "source_cell": [
+      110,
+      0,
+      128,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        45
+      ],
+      [
+        30,
+        45
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_21",
+    "index": 21,
+    "center_source": 137,
+    "target_head_top": 28,
+    "headwear": "smooth hood",
+    "build": "round shoulders",
+    "coat": "ink blue",
+    "motion_phase": 1,
+    "registered_head_top": 28,
+    "integer_registration": [
+      16,
+      -11
+    ],
+    "source_cell": [
+      128,
+      0,
+      146,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        41
+      ],
+      [
+        30,
+        41
+      ]
+    ],
+    "coat_rgba": [
+      20,
+      26,
+      48,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_22",
+    "index": 22,
+    "center_source": 155,
+    "target_head_top": 35,
+    "headwear": "peaked cap",
+    "build": "tall angular build",
+    "coat": "charcoal",
+    "motion_phase": 2,
+    "registered_head_top": 35,
+    "integer_registration": [
+      16,
+      -3
+    ],
+    "source_cell": [
+      146,
+      0,
+      165,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        49
+      ],
+      [
+        32,
+        49
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_23",
+    "index": 23,
+    "center_source": 174,
+    "target_head_top": 31,
+    "headwear": "soft rounded hat",
+    "build": "short broad build",
+    "coat": "navy",
+    "motion_phase": 3,
+    "registered_head_top": 31,
+    "integer_registration": [
+      16,
+      -10
+    ],
+    "source_cell": [
+      165,
+      0,
+      183,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        44
+      ],
+      [
+        31,
+        44
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_24",
+    "index": 24,
+    "center_source": 192,
+    "target_head_top": 27,
+    "headwear": "low flat cap",
+    "build": "stocky broad shoulders",
+    "coat": "dark brick",
+    "motion_phase": 0,
+    "registered_head_top": 27,
+    "integer_registration": [
+      14,
+      -13
+    ],
+    "source_cell": [
+      183,
+      0,
+      201,
+      96
+    ],
+    "shoulders": [
+      [
+        16,
+        40
+      ],
+      [
+        29,
+        40
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_25",
+    "index": 25,
+    "center_source": 210,
+    "target_head_top": 34,
+    "headwear": "rounded beanie",
+    "build": "slim narrow shoulders",
+    "coat": "brown",
+    "motion_phase": 1,
+    "registered_head_top": 34,
+    "integer_registration": [
+      14,
+      -6
+    ],
+    "source_cell": [
+      201,
+      0,
+      219,
+      96
+    ],
+    "shoulders": [
+      [
+        16,
+        47
+      ],
+      [
+        29,
+        47
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_26",
+    "index": 26,
+    "center_source": 229,
+    "target_head_top": 30,
+    "headwear": "bare cropped hair",
+    "build": "medium build",
+    "coat": "ink blue",
+    "motion_phase": 2,
+    "registered_head_top": 30,
+    "integer_registration": [
+      15,
+      -10
+    ],
+    "source_cell": [
+      219,
+      0,
+      238,
+      96
+    ],
+    "shoulders": [
+      [
+        17,
+        44
+      ],
+      [
+        31,
+        44
+      ]
+    ],
+    "coat_rgba": [
+      20,
+      26,
+      48,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_27",
+    "index": 27,
+    "center_source": 247,
+    "target_head_top": 26,
+    "headwear": "short hood",
+    "build": "round shoulders",
+    "coat": "charcoal",
+    "motion_phase": 3,
+    "registered_head_top": 27,
+    "integer_registration": [
+      16,
+      -11
+    ],
+    "source_cell": [
+      238,
+      0,
+      256,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        40
+      ],
+      [
+        31,
+        40
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_28",
+    "index": 28,
+    "center_source": 9,
+    "target_head_top": 33,
+    "headwear": "sloped dock cap",
+    "build": "tall angular build",
+    "coat": "brown",
+    "motion_phase": 0,
+    "registered_head_top": 33,
+    "integer_registration": [
+      13,
+      -7
+    ],
+    "source_cell": [
+      0,
+      0,
+      18,
+      96
+    ],
+    "shoulders": [
+      [
+        16,
+        48
+      ],
+      [
+        28,
+        48
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_29",
+    "index": 29,
+    "center_source": 27,
+    "target_head_top": 29,
+    "headwear": "curly hair",
+    "build": "short broad build",
+    "coat": "ink blue",
+    "motion_phase": 1,
+    "registered_head_top": 29,
+    "integer_registration": [
+      14,
+      -13
+    ],
+    "source_cell": [
+      18,
+      0,
+      37,
+      96
+    ],
+    "shoulders": [
+      [
+        16,
+        43
+      ],
+      [
+        30,
+        43
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_30",
+    "index": 30,
+    "center_source": 46,
+    "target_head_top": 36,
+    "headwear": "raised coat collar and bare hair",
+    "build": "stocky broad shoulders",
+    "coat": "charcoal",
+    "motion_phase": 2,
+    "registered_head_top": 35,
+    "integer_registration": [
+      15,
+      -6
+    ],
+    "source_cell": [
+      37,
+      0,
+      55,
+      96
+    ],
+    "shoulders": [
+      [
+        17,
+        48
+      ],
+      [
+        30,
+        48
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_31",
+    "index": 31,
+    "center_source": 64,
+    "target_head_top": 32,
+    "headwear": "small brim hat",
+    "build": "slim narrow shoulders",
+    "coat": "navy",
+    "motion_phase": 3,
+    "registered_head_top": 32,
+    "integer_registration": [
+      15,
+      -11
+    ],
+    "source_cell": [
+      55,
+      0,
+      73,
+      96
+    ],
+    "shoulders": [
+      [
+        17,
+        45
+      ],
+      [
+        30,
+        45
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_32",
+    "index": 32,
+    "center_source": 82,
+    "target_head_top": 28,
+    "headwear": "smooth hood",
+    "build": "medium build",
+    "coat": "dark brick",
+    "motion_phase": 0,
+    "registered_head_top": 28,
+    "integer_registration": [
+      15,
+      -13
+    ],
+    "source_cell": [
+      73,
+      0,
+      91,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        41
+      ],
+      [
+        30,
+        41
+      ]
+    ],
+    "coat_rgba": [
+      61,
+      18,
+      22,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_33",
+    "index": 33,
+    "center_source": 101,
+    "target_head_top": 35,
+    "headwear": "peaked cap",
+    "build": "round shoulders",
+    "coat": "brown",
+    "motion_phase": 1,
+    "registered_head_top": 35,
+    "integer_registration": [
+      14,
+      -7
+    ],
+    "source_cell": [
+      91,
+      0,
+      110,
+      96
+    ],
+    "shoulders": [
+      [
+        16,
+        49
+      ],
+      [
+        30,
+        49
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_34",
+    "index": 34,
+    "center_source": 119,
+    "target_head_top": 31,
+    "headwear": "soft rounded hat",
+    "build": "tall angular build",
+    "coat": "ink blue",
+    "motion_phase": 2,
+    "registered_head_top": 31,
+    "integer_registration": [
+      15,
+      -7
+    ],
+    "source_cell": [
+      110,
+      0,
+      128,
+      96
+    ],
+    "shoulders": [
+      [
+        17,
+        46
+      ],
+      [
+        29,
+        46
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_35",
+    "index": 35,
+    "center_source": 137,
+    "target_head_top": 27,
+    "headwear": "low flat cap",
+    "build": "short broad build",
+    "coat": "charcoal",
+    "motion_phase": 3,
+    "registered_head_top": 27,
+    "integer_registration": [
+      16,
+      -18
+    ],
+    "source_cell": [
+      128,
+      0,
+      146,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        40
+      ],
+      [
+        31,
+        40
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_36",
+    "index": 36,
+    "center_source": 155,
+    "target_head_top": 34,
+    "headwear": "rounded beanie",
+    "build": "stocky broad shoulders",
+    "coat": "navy",
+    "motion_phase": 0,
+    "registered_head_top": 34,
+    "integer_registration": [
+      14,
+      -7
+    ],
+    "source_cell": [
+      146,
+      0,
+      165,
+      96
+    ],
+    "shoulders": [
+      [
+        17,
+        48
+      ],
+      [
+        30,
+        48
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_37",
+    "index": 37,
+    "center_source": 174,
+    "target_head_top": 30,
+    "headwear": "bare cropped hair",
+    "build": "slim narrow shoulders",
+    "coat": "dark brick",
+    "motion_phase": 1,
+    "registered_head_top": 30,
+    "integer_registration": [
+      14,
+      -12
+    ],
+    "source_cell": [
+      165,
+      0,
+      183,
+      96
+    ],
+    "shoulders": [
+      [
+        16,
+        44
+      ],
+      [
+        29,
+        44
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_38",
+    "index": 38,
+    "center_source": 192,
+    "target_head_top": 26,
+    "headwear": "short hood",
+    "build": "medium build",
+    "coat": "brown",
+    "motion_phase": 2,
+    "registered_head_top": 26,
+    "integer_registration": [
+      16,
+      -16
+    ],
+    "source_cell": [
+      183,
+      0,
+      201,
+      96
+    ],
+    "shoulders": [
+      [
+        19,
+        39
+      ],
+      [
+        31,
+        39
+      ]
+    ],
+    "coat_rgba": [
+      42,
+      26,
+      18,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_39",
+    "index": 39,
+    "center_source": 210,
+    "target_head_top": 33,
+    "headwear": "wide brim felt hat",
+    "build": "round shoulders",
+    "coat": "ink blue",
+    "motion_phase": 3,
+    "registered_head_top": 33,
+    "integer_registration": [
+      16,
+      -7
+    ],
+    "source_cell": [
+      201,
+      0,
+      219,
+      96
+    ],
+    "shoulders": [
+      [
+        19,
+        47
+      ],
+      [
+        31,
+        47
+      ]
+    ],
+    "coat_rgba": [
+      20,
+      26,
+      48,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_40",
+    "index": 40,
+    "center_source": 229,
+    "target_head_top": 29,
+    "headwear": "knit cap with folded edge",
+    "build": "tall angular build",
+    "coat": "charcoal",
+    "motion_phase": 0,
+    "registered_head_top": 29,
+    "integer_registration": [
+      15,
+      -8
+    ],
+    "source_cell": [
+      219,
+      0,
+      238,
+      96
+    ],
+    "shoulders": [
+      [
+        17,
+        45
+      ],
+      [
+        31,
+        45
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  },
+  {
+    "id": "the_crown_41",
+    "index": 41,
+    "center_source": 247,
+    "target_head_top": 36,
+    "headwear": "tall soft cap",
+    "build": "short broad build",
+    "coat": "navy",
+    "motion_phase": 1,
+    "registered_head_top": 36,
+    "integer_registration": [
+      16,
+      -6
+    ],
+    "source_cell": [
+      238,
+      0,
+      256,
+      96
+    ],
+    "shoulders": [
+      [
+        18,
+        50
+      ],
+      [
+        30,
+        50
+      ]
+    ],
+    "coat_rgba": [
+      12,
+      16,
+      32,
+      255
+    ]
+  }
+]

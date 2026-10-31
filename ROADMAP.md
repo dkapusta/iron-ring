@@ -11,7 +11,7 @@ Milestones are ordered; items inside a milestone are roughly ordered. ✅ done �
 3. **Review and corrections (here).** The art is imported and reviewed in training mode and with `Tools/Art/review_frames.py`, and correction notes are written ([example](docs/art/frame-review.md)).
 4. **Polish.** A corrected pack is generated and imported, followed by a final pass.
 
-Final art replaces placeholder art only when a **vertical slice** needs it. That's the end of M2: the complete local loop for one matchup at release quality. Until then, new fighters and venues ship with placeholder art. Art Pack v1 (Dee, Bram, three venues) and Art Pack v2 (its corrections, plus the slice's remaining art: champion poses, select portraits, every venue layered, the final Foundry, title logo and menu backdrop) are in.
+Final art replaces placeholder art only when a **vertical slice** needs it. That's the end of M2: the complete local loop for one matchup at release quality. Until then, new fighters and venues ship with placeholder art. Art Pack v1 (Dee, Bram, three venues), Art Pack v2 (its corrections, plus the slice's remaining art: champion poses, select portraits, every venue layered, the final Foundry, title logo and menu backdrop) and Art Pack v2.1 (redrawn crowds) are in: the vertical slice is complete.
 
 ## M0 — Foundation ✅
 
@@ -54,7 +54,7 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 - ✅ A theme per venue ("Iron Ring", "Curfew Market", "Crown at Dawn") and the ring announcer through the DMC channel, with a voice mix group ([ADR-0014](docs/adr/0014-venue-themes-and-announcer.md))
 - ✅ `cmake --install`: the player folder, plus a Linux desktop entry and hicolor icon; the app id is passed to SDL so the window matches the entry ([docs/install.md](docs/install.md))
 
-## M2 — Complete local play 🔜
+## M2 — Complete local play ✅
 
 - ✅ Title (with an attract demo), character select (the full roster, unbuilt fighters locked), stage select, options, pause and post-match menus, on a scene stack with fades ([ADR-0015](docs/adr/0015-front-end-scene-stack.md)); a front-end theme and menu sounds
 - ✅ Gamepads via SDL_Gamepad: two pads, one layout from `InputManager.json`
@@ -64,16 +64,16 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 - ✅ Stage layers and parallax; animated crowds that react to the fight; camera follow (no zoom: pixel art) on stages wider than the screen; **The Foundry**, the first layered venue, with its own theme ([ADR-0017](docs/adr/0017-layered-stages-and-camera.md))
 - ✅ Hit feel: counter hits, combo counts with damage scaling, special cancels; shake and flash (with a reduced option); HDR spark glow; layered hit audio (counter sting, rising combo blip); HUD callouts. Heat reworked (A + B + C of [docs/design/heat.md](docs/design/heat.md)): the Breakaway is a guard cancel that staggers, light attacks pressure on block, Heat lasts the match ([ADR-0018](docs/adr/0018-hit-feel-and-heat.md))
 - ✅ Arcade ladder (`Data/arcade.json`: four bouts to the final at The Crown, continues, an ending) against a new CPU with five levels and a difficulty option; `-autoplay` soak test in CI ([ADR-0019](docs/adr/0019-cpu-levels-and-arcade.md))
-- ⬜ **Vertical slice**: the complete local loop for Dee vs Bram at release quality; final art takes over from placeholder art where the slice needs it (see *How art is made*)
+- ✅ **Vertical slice**: the complete local loop for Dee vs Bram at release quality; final art takes over from placeholder art where the slice needs it (see *How art is made*)
   - ✅ Art brief for Art Pack v2: [docs/art/vertical-slice-art-brief.md](docs/art/vertical-slice-art-brief.md) (frame corrections, the champion pose, select portraits, ending pictures, The Foundry, layered Pier 9 / Lantern Row / The Crown, title logo, menu backdrop)
   - ✅ Engine ready for it: champion animations, optional select portraits and ending pictures, procedural pose references for new frames (`import_art.py refs`)
   - ✅ Art Pack v2 delivered, reviewed and imported: corrected frames and six champion frames per fighter, select portraits, four layered venues on an 800 px world, title logo and menu backdrop; animated champion endings ([ADR-0020](docs/adr/0020-adopting-art-pack-v2.md))
   - ✅ Polish pass: a full playthrough at release quality (both fighters, every venue, the arcade loop), fixing what it turns up; the owner's full arcade playthrough on 2026-10-31 found no further issues
     - ✅ Crowds: the spectator groups the pack cut off at the head are rebuilt from intact ones, in every venue and frame; stage previews recomposed; the art self-test guards both ([ADR-0020](docs/adr/0020-adopting-art-pack-v2.md))
     - ✅ Text over busy art: a backing behind the training-box legend, dark bands behind the arcade ending's lines
-  - ⬜ Art Pack v2.1 (owner): redrawn crowds for the four venues (six distinct groups, real cheering arms) and a legible Foundry sign; brief: [docs/art/art-pack-v2.1-brief.md](docs/art/art-pack-v2.1-brief.md)
+  - ✅ Art Pack v2.1: redrawn crowds for the four venues (42 distinct spectators each, heads in every frame, cheering arms with hands) and a legible Foundry sign ([brief](docs/art/art-pack-v2.1-brief.md), [review](ArtSource/Pack-v2.1/REVIEW.md))
 
-## M3 — Roster and world
+## M3 — Roster and world 🔜
 
 
 - ⬜ Sable, Idris, Greta, Jun (identities in `setting.md`; a fighter file, atlas and portrait each — no code), with placeholder art first
@@ -121,6 +121,7 @@ Goal: two characters that feel good in local play on one stage. Target platforms
 | 2026-10-30 | Heat | A + B + C: Breakaway as a guard cancel, light-attack pressure on block, Heat carries across rounds ([docs/design/heat.md](docs/design/heat.md)) |
 | 2026-10-30 | Final art | Art Pack v1 adopted; frames re-registered at one scale, 48 colours per fighter ([ADR-0012](docs/adr/0012-adopting-external-art.md)) |
 | 2026-10-31 | Art Pack v2 | Adopted as delivered; the arcade ending animates the champion, the still ending pictures are kept as key art ([ADR-0020](docs/adr/0020-adopting-art-pack-v2.md)) |
+| 2026-10-31 | Art Pack v2.1 | Redrawn crowds and the Foundry sign adopted as delivered; the vertical slice and M2 are complete |
 
 ## Open questions for the project owner
 

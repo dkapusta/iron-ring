@@ -1,0 +1,18 @@
+fighters: dee: 55 frames
+fighters: bram: 56 frames
+stages: PierNine/pier_nine
+stages: LanternRow/lantern_row
+stages: TheCrown/the_crown
+effects: 28 frames
+font: 63 glyphs
+ui: title_logo.png, menu_backdrop.png
+foundry: 6 layers + preview
+imported 56 frames at scale 1.0000 into /tmp/tmp84zaa2ht/sources/Fighters/Bram
+imported 55 frames at scale 1.0000 into /tmp/tmp84zaa2ht/sources/Fighters/Dee
+exported 55 references to /tmp/tmp84zaa2ht/roundtrip/refs/dee
+import back with: import_art.py fighter dee <frames> --origin 512 928 --scale 0.25 --manifest /tmp/tmp84zaa2ht/roundtrip/refs/dee/manifest.json
+imported 55 frames at scale 0.2500 into /tmp/tmp84zaa2ht/roundtrip/assets/Fighters/Dee
+exported 56 references to /tmp/tmp84zaa2ht/roundtrip/refs/bram
+import back with: import_art.py fighter bram <frames> --origin 512 928 --scale 0.25 --manifest /tmp/tmp84zaa2ht/roundtrip/refs/bram/manifest.json
+imported 56 frames at scale 0.2500 into /tmp/tmp84zaa2ht/roundtrip/assets/Fighters/Bram
+art selftest: ok
