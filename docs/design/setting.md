@@ -105,7 +105,7 @@ The colour coding stays with the characters: teal for Dee, rust/coral for Bram, 
 | `ship_hold` | **The Hold** | The hold of an impounded freighter (Idris's ship): steel ribs, stacked crates, a work lamp swinging under the open hatch. |
 | `brokers_club` | **The Broker's Club** | The Broker's private club: velvet, brass and gilt frames, the city's money watching from behind a red rope. |
 
-The three M3 venues (Dry Dock 4, The Hold, the Broker's Club) have procedural placeholder art until Art Pack v3B; the first four have final art (Art Packs v2 and v2.1).
+All seven venues have final art: the first four from Art Packs v2 and v2.1, the three M3 venues (Dry Dock 4, The Hold, the Broker's Club) from Art Pack v3B.
 
 ## Art direction
 

@@ -27,7 +27,7 @@ from ironart import effects, fighters, font, foundry, icon, palette, stages, ui,
 
 ROOT = HERE.parent.parent
 PARTS = ("palette", "fighters", "stages", "foundry", "venues", "effects", "font", "ui", "icon")
-REPLACED = ("stages", "foundry", "ui")  # externally authored in Assets/
+REPLACED = ("stages", "foundry", "venues", "ui")  # externally authored in Assets/
 
 
 def contact_sheet(path: Path) -> None:

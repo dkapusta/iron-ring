@@ -20,7 +20,7 @@ The contract every asset follows (sizes, frame names, pivots, timing, layout) is
 ## Procedural art
 
 ```sh
-python3 Tools/Art/generate.py                       # every part it still owns: palette, placeholder venues, effects, font, icon
+python3 Tools/Art/generate.py                       # every part it still owns: palette, effects, font, icon
 python3 Tools/Art/generate.py fighters stages --assets build/procedural --sheet build/sheet.png
 ```
 
@@ -38,7 +38,7 @@ Dee, Bram, the stages (The Foundry included) and the title logo and menu backdro
 | `atlas.py` | Shared trimming, shelf packing and atlas JSON writing (also used by the importer). |
 | `importer.py` | Background keying, consistent downscaling, palette snapping, fringe cleanup, reference export. |
 | `preview.py` | Composes a layered stage's 640 × 360 preview from its layers, as the game draws them; the self-test compares it with the committed preview. |
-| `venues.py` | The M3 venues' placeholder layers (Dry Dock 4, The Hold, the Broker's Club): back, structure, crowd, floor, foreground; previews composed by `preview.py`. |
+| `venues.py` | The M3 venues' former placeholder layers, kept as composition references (the final art is Art Pack v3B; `generate.py` no longer writes them) (Dry Dock 4, The Hold, the Broker's Club): back, structure, crowd, floor, foreground; previews composed by `preview.py`. |
 | `ownership.py` | Which `Assets/` folders and files are externally authored, and where their sources live. |
 
 ## Replacing art with outside art

@@ -11,7 +11,7 @@ Milestones are ordered; items inside a milestone are roughly ordered. ✅ done �
 3. **Review and corrections (here).** The art is imported and reviewed in training mode and with `Tools/Art/review_frames.py`, and correction notes are written ([example](docs/art/frame-review.md)).
 4. **Polish.** A corrected pack is generated and imported, followed by a final pass.
 
-Final art replaces placeholder art only when a **vertical slice** needs it. That's the end of M2: the complete local loop for one matchup at release quality. Until then, new fighters and venues ship with placeholder art. Art Pack v1 (Dee, Bram, three venues), Art Pack v2 (its corrections, plus the slice's remaining art: champion poses, select portraits, every venue layered, the final Foundry, title logo and menu backdrop) and Art Pack v2.1 (redrawn crowds) are in: the vertical slice is complete.
+Final art replaces placeholder art only when a **vertical slice** needs it. That's the end of M2: the complete local loop for one matchup at release quality. Until then, new fighters and venues ship with placeholder art. Art Pack v1 (Dee, Bram, three venues), Art Pack v2 (its corrections, plus the slice's remaining art: champion poses, select portraits, every venue layered, the final Foundry, title logo and menu backdrop) and Art Pack v2.1 (redrawn crowds) are in: the vertical slice is complete. Art Pack v3 (v3A characters, v3A.1 corrections, v3B venues) replaced the M3 placeholders.
 
 ## M0 — Foundation ✅
 
@@ -90,8 +90,8 @@ New fighters arrive with procedural placeholder art and their own frame data, mo
 - ✅ Asset streaming: per-stage `sharedassetsN.assets` (layers) + `levelN` (theme), mounted and loaded when a fight uses the stage; the two most recent stay resident, so a session holds about 17 MiB of stage textures instead of 48 ([ADR-0023](docs/adr/0023-stage-streaming.md))
 - ✅ Art brief for Art Pack v3, the production art that replaces every M3 placeholder: Sable, Idris, Greta, Jun and the Broker (frames, champion poses, portraits) and Dry Dock 4, The Hold and The Broker's Club ([docs/art/art-pack-v3-brief.md](docs/art/art-pack-v3-brief.md))
 - ✅ Art Pack v3A (characters): final frames, champion poses and portraits for Sable, Idris, Greta, Jun and the Broker; adopted as delivered ([ADR-0024](docs/adr/0024-adopting-art-pack-v3a.md), [review](ArtSource/Pack-v3A/REVIEW.md))
-  - 🔜 v3A.1 corrections: the Broker's skin colour, two of Sable's walk frames, Idris's Mast Kick and Bowline Heel heights ([brief](docs/art/art-pack-v3a.1-brief.md))
-- ⬜ Art Pack v3B (venues): Dry Dock 4, The Hold, The Broker's Club; then no placeholder art is left in the game
+  - ✅ v3A.1 corrections: the Broker's skin colour, two of Sable's walk frames, Idris's Mast Kick and Bowline Heel heights, Sable's Wire Kick ([brief](docs/art/art-pack-v3a.1-brief.md))
+- ✅ Art Pack v3B (venues): final layered art for Dry Dock 4, The Hold and The Broker's Club; no placeholder art is left in the game ([ADR-0025](docs/adr/0025-adopting-art-pack-v3b.md), [review](ArtSource/Pack-v3B/REVIEW.md))
 
 ## M4 — Online
 

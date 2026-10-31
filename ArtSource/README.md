@@ -7,6 +7,7 @@ Editable sources of externally authored art. The game never reads this folder; `
 | `Fighters/<Name>/frames/` | One PNG per frame: 256 × 256 RGBA, character facing right, origin (feet on the ground) at **(128, 232)**, hard alpha, 48-colour palette per fighter. `manifest.json` holds the throw partner offsets. |
 | `Pack-v1/` | Provenance of Iron Ring Art Pack v1: production notes, art review, the generation prompts and the original per-frame registration. |
 | `Pack-v2.1/` | Provenance of Iron Ring Art Pack v2.1 (redrawn crowds, Foundry sign): the pack's README, the review, its registration, motion and validation records (`Source/`). |
+| `Pack-v3B/` | Provenance of Iron Ring Art Pack v3B (Dry Dock 4, The Hold, The Broker's Club) and the v3A.1 corrections: the pack's README, provenance, review, validation, authoring notes and prompts, and the separable people, barrier and spectator masters (`Source/`). |
 | `Pack-v3A/` | Provenance of Iron Ring Art Pack v3A (Sable, Idris, Greta, Jun, the Broker): the pack's README and provenance, the review, validation reports, palettes and source records (`Source/`). |
 | `Pack-v2/` | Provenance of Iron Ring Art Pack v2: the pack's README, art review, integration notes and validation reports; its palettes, registration and generation records (`Source/`); the still ending pictures, not used by the game (`Endings/`). |
 
@@ -39,3 +40,12 @@ Delivered 2026-10-31 against the [v2.1 correction brief](../docs/art/art-pack-v2
 ## Art Pack v3A
 
 Delivered 2026-10-31 against the [Art Pack v3 brief](../docs/art/art-pack-v3-brief.md): the full frame sets of Sable, Idris, Greta, Jun (55 each, with champion poses) and the Broker (49), HUD portraits for all five and select portraits for the four playable fighters, under the project's zlib licence. Adopted as delivered ([ADR-0024](../docs/adr/0024-adopting-art-pack-v3a.md)); four corrections go back as the [v3A.1 brief](../docs/art/art-pack-v3a.1-brief.md) ([Pack-v3A/REVIEW.md](Pack-v3A/REVIEW.md)). The pack's 34 MB of generated studies and its previews stay outside the repository. The venues follow as v3B.
+
+## Art Pack v3B and v3A.1
+
+Delivered 2026-11-01. It holds final layered art for Dry Dock 4, The Hold and The Broker's Club (the [v3 brief](../docs/art/art-pack-v3-brief.md)'s S1–S3), and the [v3A.1 corrections](../docs/art/art-pack-v3a.1-brief.md):
+- the Broker's skin recoloured in all 49 frames and his portrait;
+- Sable's walk contact frames redrawn and her Wire Kick lowered;
+- Idris's Mast Kick and Bowline Heel brought into their hitboxes.
+
+Adopted as delivered ([ADR-0025](../docs/adr/0025-adopting-art-pack-v3b.md), [Pack-v3B/REVIEW.md](Pack-v3B/REVIEW.md)). With it, no procedural placeholder art is left in `Assets/`. The pack's 20 MB of generated studies and its previews stay outside the repository.

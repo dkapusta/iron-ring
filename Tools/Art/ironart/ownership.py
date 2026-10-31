@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 ART_SOURCE = ROOT / "ArtSource"
 
-# Folders under Assets/ whose art is externally authored (Iron Ring Art Packs v1, v2 and v3A).
+# Folders under Assets/ whose art is externally authored (Iron Ring Art Packs v1, v2 and v3).
 EXTERNAL = {
     ("Fighters", "Dee"),
     ("Fighters", "Bram"),
@@ -25,6 +25,9 @@ EXTERNAL = {
     ("Stages", "LanternRow"),
     ("Stages", "TheCrown"),
     ("Stages", "Foundry"),
+    ("Stages", "DryDock"),
+    ("Stages", "ShipHold"),
+    ("Stages", "BrokersClub"),
 }
 
 # Protect only the two external front-end pictures; fonts and HUD stay procedural.

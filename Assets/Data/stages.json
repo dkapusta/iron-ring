@@ -1,5 +1,5 @@
 {
-  "$comment": "Iron Ring venues (docs/design/setting.md). Each venue is layers over an 800 px world, with a 640x360 preview in 'image' (docs/art/asset-spec.md \u00a73). Feet on y = 316. Art: Iron Ring Art Pack v2.",
+  "$comment": "Iron Ring venues (docs/design/setting.md). Each venue is layers over an 800 px world, with a 640x360 preview in 'image' (docs/art/asset-spec.md \u00a73). Feet on y = 316. Art: Iron Ring Art Packs v2, v2.1 (crowds) and v3B (the M3 venues).",
   "stages": [
     {
       "id": "pier_nine",
@@ -211,7 +211,7 @@
       ],
       "floor_y_logical": 316,
       "description": "A flooded dry dock under a laid-up freighter's bow; the ring on wet concrete, dockers behind the chain.",
-      "parallax_status": "Layered, 800 px wide (placeholder art from Tools/Art/generate.py venues)",
+      "parallax_status": "Layered production art, Art Pack v3B, 800 px world",
       "music": "dry_dock",
       "width": 800,
       "layers": [
@@ -254,7 +254,7 @@
       ],
       "floor_y_logical": 316,
       "description": "The hold of an impounded freighter: steel ribs, stacked crates, a work lamp swinging under the open hatch.",
-      "parallax_status": "Layered, 800 px wide (placeholder art from Tools/Art/generate.py venues)",
+      "parallax_status": "Layered production art, Art Pack v3B, 800 px world",
       "music": "ship_hold",
       "width": 800,
       "layers": [
@@ -299,7 +299,7 @@
       ],
       "floor_y_logical": 316,
       "description": "The Broker's private club: velvet, brass and gilt frames, the city's money watching from behind the rope.",
-      "parallax_status": "Layered, 800 px wide (placeholder art from Tools/Art/generate.py venues)",
+      "parallax_status": "Layered production art, Art Pack v3B, 800 px world",
       "music": "brokers_club",
       "width": 800,
       "layers": [

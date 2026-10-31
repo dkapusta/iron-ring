@@ -67,3 +67,5 @@ Win poses and champion poses follow the brief; the chain is the shared metal ram
 - **Portraits:** in `Assets/Fighters/<Name>/`; `selectPortrait` is added to the four playable fighter files.
 - **Ownership:** the five folders join `EXTERNAL` in `Tools/Art/ironart/ownership.py`, so `generate.py` no longer draws any fighter.
 - **Provenance:** this folder holds the pack's README, provenance, licence, the frame-review and validation reports, and its small source records and palettes (about 0.8 MB). The 34 MB of generated studies and the 9 MB of previews stay outside the repository ([ADR-0008](../../docs/adr/0008-repository-and-binary-assets.md)).
+
+*Later:* all four corrections, and the recommended Wire Kick change, arrived with Art Pack v3B and are adopted ([Pack-v3B/REVIEW.md](../Pack-v3B/REVIEW.md)).
