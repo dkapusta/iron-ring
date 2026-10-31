@@ -124,6 +124,12 @@ void Application::openFirstScene() {
         setup.control = settings_.demo ? Control::Demo : Control::VsCpu;
         setup.training = settings_.training;
         setup.stage = settings_.stage;
+        if (const auto comma = settings_.fighters.find(','); comma != std::string::npos) {
+            setup.fighters[0] = settings_.fighters.substr(0, comma);
+            setup.fighters[1] = settings_.fighters.substr(comma + 1);
+        } else if (!settings_.fighters.empty()) {
+            SDL_Log("-fighters wants two ids, like dee,bram; using the default pair");
+        }
         if (!settings_.dummy.empty()) {
             if (const auto dummy = sim::parseDummy(settings_.dummy)) setup.dummy = *dummy;
             else SDL_Log("Unknown -dummy '%s'; using STAND", settings_.dummy.c_str());

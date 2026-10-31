@@ -375,7 +375,63 @@ class Bram(Character):
             canvas.pixel(self.local(s, 0.70, -0.45), "eye", 0, HEAD)
 
 
-CHARACTERS = {"dee": Dee(), "bram": Bram()}
+class Sable(Character):
+    """Sable Reyes: a lean, long-legged kickboxer. Violet sleeveless top, black
+    kickboxing shorts, white shin wraps, grey trainers, fingerless gloves, a
+    high ponytail that reads in every silhouette."""
+
+    def __init__(self) -> None:
+        super().__init__(
+            id="sable",
+            build=Build(ankle=5, shin=34, thigh=33, spine=42, neck=4, upper_arm=23, forearm=21,
+                        head=(7.4, 9.4), thigh_r=(7.4, 5.2), shin_r=(5.0, 3.4), upper_r=(4.2, 3.4),
+                        fore_r=(3.5, 3.0), neck_r=3.4, waist_r=8.0, chest_r=10.4, pelvis=(10.0, 7.6),
+                        fist=(4.2, 3.8), foot=13, deltoid=4.6),
+            skin="sable_skin",
+            materials={"legs": "sable_skin", "boots": "sable_shoes", "top": "sable_top", "pelvis": "sable_shorts",
+                       "deltoid": "sable_skin", "hand": "sable_shorts", "hand_open": "sable_skin"},
+        )
+
+    def thigh_material(self, canvas: Canvas, near: bool):
+        shorts, skin = canvas.material_id("sable_shorts"), canvas.material_id("sable_skin")
+        return lambda t, side: np.where(t < 0.50, shorts, skin).astype(np.int16)
+
+    def shin_material(self, canvas: Canvas):
+        skin, wraps, shoes = (canvas.material_id("sable_skin"), canvas.material_id("sable_wraps"),
+                              canvas.material_id("sable_shoes"))
+        return lambda t, side: np.where(t > 0.84, shoes, np.where(t > 0.40, wraps, skin)).astype(np.int16)
+
+    def torso_material(self, canvas: Canvas, top: bool = False):
+        shirt, shorts = canvas.material_id("sable_top"), canvas.material_id("sable_shorts")
+        if top:
+            return "sable_top"
+        return lambda t, side: np.where(t < 0.14, shorts, shirt).astype(np.int16)
+
+    def head_material(self, canvas: Canvas):
+        skin, hair = canvas.material_id("sable_skin"), canvas.material_id("sable_hair")
+        # Hair pulled back tight: a hairline from the brow to behind the ear.
+        return lambda ux, uy: np.where(uy > 0.42 + 0.35 * ux, hair, skin).astype(np.int16)
+
+    def face(self, canvas: Canvas, s: Skeleton, pose: Pose) -> None:
+        # High ponytail: a tie at the crown, then a tail swinging back and down.
+        tie = self.local(s, -0.55, 0.85)
+        canvas.ellipse(tie, 2.2, 2.0, 0.0, "sable_top", HEAD)
+        tail_mid = add(tie, rot((-7.0, -3.0), -s.head_angle * 0.4))
+        tail_end = add(tail_mid, rot((-4.0, -9.0), -s.head_angle * 0.2))
+        # Lying down, the tail rests on the floor rather than through it.
+        floor = self.build.shin_r[1]
+        tail_mid, tail_end = ((x, max(y, floor)) for x, y in (tail_mid, tail_end))
+        canvas.capsule(tie, tail_mid, 2.6, 2.4, "sable_hair", HEAD)
+        canvas.capsule(tail_mid, tail_end, 2.4, 1.2, "sable_hair", HEAD)
+        eye = self.local(s, 0.52, 0.12)
+        canvas.pixel(eye, "eye", 0, HEAD)
+        canvas.pixel(add(self.local(s, 0.50, 0.30), (0, 0)), "sable_hair", 1, HEAD)  # brow
+        canvas.pixel(self.local(s, 1.02, -0.04), "sable_skin", 3, HEAD)  # nose
+        if pose.expression == "shout":
+            canvas.pixel(self.local(s, 0.72, -0.45), "eye", 0, HEAD)
+
+
+CHARACTERS = {"dee": Dee(), "bram": Bram(), "sable": Sable()}
 
 
 def mirrored(pose: Pose, **changes) -> Pose:

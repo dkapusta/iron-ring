@@ -46,7 +46,7 @@ Fighters always turn to face each other, so the keys for "forward" swap when the
 
 Each direction of a motion must follow the last within 12 ticks (0.2 s), and the button within 8 ticks of the last direction. Diagonals count: you can roll the stick or the keys.
 
-## System moves (both fighters)
+## System moves (every fighter)
 
 | Move | Input | Notes |
 | --- | --- | --- |
@@ -89,5 +89,18 @@ Slow advance, close-range reads, a command throw.
 | Hull Breaker | HK | J | Keypad 0 | 14 / 5 / 26 | 18 | Low (crouch-guard it), knocks down |
 | Pier Toss | LP + LK, close | F + H | Keypad 1 + 3 | 3 / 2 / 24 | 13 | Throw, techable |
 | **Dock Hoist** | **63214 + P** (→ ↘ ↓ ↙ ← + either punch) | **D, S+D, S, S+A, A + F or G** | **←, ↓+←, ↓, ↓+→, → + Keypad 1 or 2** | 5 / 2 / 34 | 20 | Special: command throw with a longer reach than Pier Toss; can't be teched, only avoided (jump, or hit him first). Huge recovery on a miss |
+
+## Sable Reyes — mobile kickboxer
+
+Fast feet, a high, floaty jump and kicks from odd angles: a low kick that cancels, a head-high roundhouse, and a flying knee that crosses half the ring. Placeholder art for now.
+
+| Move | Button / motion | Player 1 (facing right) | Player 2 (facing left) | Startup / active / recovery | Damage | Notes |
+| --- | --- | --- | --- | --- | --- | --- |
+| Snap Jab | LP | F | Keypad 1 | 4 / 2 / 10 | 5 | Cancels; 0 to +1 on block |
+| Rear Cross | HP | G | Keypad 2 | 9 / 3 / 19 | 11 | Heavy |
+| Calf Kick | LK | H | Keypad 3 | 5 / 3 / 12 | 6 | Low (crouch-guard it); cancels; −1 to +1 on block |
+| Wire Kick | HK | J | Keypad 0 | 11 / 4 / 21 | 13 | Head-high roundhouse; heavy, long reach |
+| Rooftop Drop | LP + LK, close | F + H | Keypad 1 + 3 | 3 / 2 / 22 | 10 | Throw, techable; lands the opponent far away |
+| **Switch Step** | **236 + K** (↓ ↘ → + either kick) | **S, S+D, D + H or J** | **↓, ↓+←, ← + Keypad 3 or 0** | 7 / 4 / 19 | 13 | Special: a stance switch, a long step and a flying knee; knocks down. Cancels from Snap Jab or Calf Kick. Very punishable on block |
 
 Frame counts are 60 Hz ticks, from the fighter files (`Assets/Fighters/<Name>/<id>.fighter.json`). In training, F3 shows the boxes and the frame advantage of every hit.

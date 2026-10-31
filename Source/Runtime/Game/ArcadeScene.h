@@ -32,7 +32,7 @@ private:
     static constexpr int kEndingTicks = 60 * 30;
 
     [[nodiscard]] const content::ArcadeBout& bout() const;
-    [[nodiscard]] std::string opponent() const;
+    [[nodiscard]] const std::string& opponent() const;
     void loadViews();
     void startFight();
     void drawVersus(SDL_Renderer* r) const;
@@ -44,6 +44,7 @@ private:
     Services& services_;
     const content::ArcadeLadder& ladder_;
     std::string player_;
+    std::vector<std::string> opponents_; // per bout, fixed for the run
     content::ArcadeRun run_;
     std::array<std::unique_ptr<FighterView>, 2> views_; // player, this bout's opponent
     std::optional<sim::Outcome> result_;                 // set by the fight, read on return

@@ -10,15 +10,14 @@ namespace iron {
 using Step = content::ArcadeRun::Step;
 
 ArcadeScene::ArcadeScene(Services& services, std::string player)
-    : services_(services), ladder_(*services.data.arcade()), player_(std::move(player)) {
+    : services_(services), ladder_(*services.data.arcade()), player_(std::move(player)),
+      opponents_(content::arcadeOpponents(ladder_, player_, services.data.playableIds())) {
     loadViews();
 }
 
 const content::ArcadeBout& ArcadeScene::bout() const { return ladder_.bouts[run_.bout]; }
 
-std::string ArcadeScene::opponent() const {
-    return content::arcadeOpponent(bout(), player_, services_.data.playableIds());
-}
+const std::string& ArcadeScene::opponent() const { return opponents_[run_.bout]; }
 
 void ArcadeScene::loadViews() {
     const auto& data = services_.data;

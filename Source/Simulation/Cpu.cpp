@@ -42,6 +42,17 @@ void CpuPlayer::planPress(Input input, int ticks) {
 
 void CpuPlayer::planSpecial(const Round& r, const Fighter& self, Input button) {
     const MoveSpec& special = r.spec(self).moves[SpecialSlot];
+    // The callers ask for a strength (light or heavy); the special decides the limb (236P, 236K).
+    if (!(special.motionButtons & button)) {
+        const Input kick = button == HeavyPunch ? HeavyKick : LightKick;
+        const Input punch = button == HeavyKick ? HeavyPunch : LightPunch;
+        if (special.motionButtons & kick) button = kick;
+        else if (special.motionButtons & punch) button = punch;
+        else {
+            const int allowed = special.motionButtons;
+            button = static_cast<Input>(allowed & -allowed); // the lowest allowed button
+        }
+    }
     planLength_ = planAt_ = 0;
     for (int i = 0; i < special.motionLength; ++i)
         plan_[static_cast<std::size_t>(planLength_++)] = inputForDirection(special.motion[static_cast<std::size_t>(i)], self.facing);

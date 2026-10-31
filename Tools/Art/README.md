@@ -20,11 +20,11 @@ The contract every asset follows (sizes, frame names, pivots, timing, layout) is
 ## Procedural art
 
 ```sh
-python3 Tools/Art/generate.py                       # every part it still owns: palette, effects, font, icon
+python3 Tools/Art/generate.py                       # every part it still owns: palette, placeholder fighters, effects, font, icon
 python3 Tools/Art/generate.py fighters stages --assets build/procedural --sheet build/sheet.png
 ```
 
-Fighters, stages (The Foundry included) and the title logo and menu backdrop are external now (`ironart/ownership.py`); their procedural versions remain as references and can only be written outside `Assets/` (or with `--overwrite-external`). After changing anything under `ironart/`, regenerate and commit the changed assets together with the code; `selftest.py` fails otherwise.
+Dee, Bram, the stages (The Foundry included) and the title logo and menu backdrop are external now (`ironart/ownership.py`); their procedural versions remain as references and can only be written outside `Assets/` (or with `--overwrite-external`). New fighters start procedural (Sable): `generate.py fighters` draws every fighter that isn't external into `Assets/` and leaves the external ones alone. After changing anything under `ironart/`, regenerate and commit the changed assets together with the code; `selftest.py` fails otherwise.
 
 | Module | Content |
 | --- | --- |

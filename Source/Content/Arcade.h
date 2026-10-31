@@ -6,10 +6,14 @@
 //   { "bouts": [ { "stage": "pier_nine", "opponent": "rival", "level": 1 }, ...,
 //                { "stage": "the_crown", "opponent": "rival", "level": 3, "final": true } ] }
 //
-// opponent: "rival" (the first playable fighter who isn't the player),
-// "mirror" (the player's own fighter), or a fighter id. level: the CPU level
-// (0 ROOKIE .. 4 CHAMPION) at NORMAL difficulty; EASY plays one lower, HARD
-// one higher.
+// opponent: a fighter id, "rival" (a playable fighter who isn't the player),
+// "mirror" (the player's own fighter; only as the first entry), or a list of
+// these: the first that is playable, isn't the player and hasn't been met
+// earlier in the run. So one
+// ladder serves every fighter and a growing roster: nobody fights themselves
+// by accident or meets the same opponent twice while others are left. level:
+// the CPU level (0 ROOKIE .. 4 CHAMPION) at NORMAL difficulty; EASY plays one
+// lower, HARD one higher.
 
 #include <nlohmann/json.hpp>
 
@@ -21,7 +25,7 @@ namespace iron::content {
 
 struct ArcadeBout {
     std::string stage;
-    std::string opponent; // "rival", "mirror" or a fighter id
+    std::vector<std::string> opponents{"rival"}; // candidates in order: fighter ids, "rival", "mirror"
     int level = 1;
     bool final = false;
 };
@@ -32,10 +36,10 @@ struct ArcadeLadder {
 
 [[nodiscard]] ArcadeLadder parseArcade(const nlohmann::json& json, std::string_view path);
 
-// The opponent's fighter id for a bout. `playable` lists the playable fighter
-// ids in roster order.
-[[nodiscard]] std::string arcadeOpponent(const ArcadeBout& bout, const std::string& player,
-                                         const std::vector<std::string>& playable);
+// Every bout's opponent for a run as `player`, in ladder order. `playable`
+// lists the playable fighter ids in roster order.
+[[nodiscard]] std::vector<std::string> arcadeOpponents(const ArcadeLadder& ladder, const std::string& player,
+                                                       const std::vector<std::string>& playable);
 // The CPU level for a bout at a difficulty (0 EASY, 1 NORMAL, 2 HARD), within 0..4.
 [[nodiscard]] int arcadeLevel(const ArcadeBout& bout, int difficulty);
 

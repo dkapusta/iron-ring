@@ -1,9 +1,9 @@
 {
-  "$comment": "The arcade ladder (Source/Content/Arcade.h). opponent: rival | mirror | a fighter id. level: CPU level at NORMAL difficulty, 0 ROOKIE .. 4 CHAMPION; EASY plays one lower, HARD one higher.",
+  "$comment": "The arcade ladder (Source/Content/Arcade.h). opponent: a fighter id, rival, mirror, or a list of them: the first who is playable, isn't the player and hasn't been met in this run. level: CPU level at NORMAL difficulty, 0 ROOKIE .. 4 CHAMPION; EASY plays one lower, HARD one higher.",
   "bouts": [
-    { "stage": "pier_nine", "opponent": "rival", "level": 1 },
-    { "stage": "lantern_row", "opponent": "mirror", "level": 1 },
+    { "stage": "pier_nine", "opponent": ["sable", "dee"], "level": 1 },
+    { "stage": "lantern_row", "opponent": ["dee", "sable"], "level": 1 },
     { "stage": "foundry", "opponent": "rival", "level": 2 },
-    { "stage": "the_crown", "opponent": "rival", "level": 3, "final": true }
+    { "stage": "the_crown", "opponent": ["bram", "dee"], "level": 3, "final": true }
   ]
 }

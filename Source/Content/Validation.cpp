@@ -215,10 +215,12 @@ ValidationReport validateProject(const FileReader& read) {
                     const auto where = arcadePath + ": bout " + std::to_string(b + 1);
                     if (std::find(stageIds.begin(), stageIds.end(), bout.stage) == stageIds.end())
                         report.errors.push_back(where + ": unknown stage '" + bout.stage + "'");
-                    const bool known = bout.opponent == "rival" || bout.opponent == "mirror" ||
-                                       std::any_of(fighters.begin(), fighters.end(),
-                                                   [&](const auto& f) { return f.first.id == bout.opponent; });
-                    if (!known) report.errors.push_back(where + ": unknown opponent '" + bout.opponent + "'");
+                    for (const auto& candidate : bout.opponents) {
+                        const bool known = candidate == "rival" || candidate == "mirror" ||
+                                           std::any_of(fighters.begin(), fighters.end(),
+                                                       [&](const auto& f) { return f.first.id == candidate; });
+                        if (!known) report.errors.push_back(where + ": unknown opponent '" + candidate + "'");
+                    }
                 }
                 if (!ladder.bouts.back().final) report.warnings.push_back(arcadePath + ": the last bout isn't marked final");
             }

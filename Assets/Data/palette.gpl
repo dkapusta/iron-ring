@@ -98,6 +98,36 @@ Columns: 8
  27  25  24	bram_boots_2
  43  40  38	bram_boots_3
  67  62  58	bram_boots_4
+ 34  19  12	sable_skin_0
+ 78  47  30	sable_skin_1
+122  75  48	sable_skin_2
+160 106  69	sable_skin_3
+196 139  94	sable_skin_4
+  6   5   8	sable_hair_0
+ 18  14  18	sable_hair_1
+ 30  24  30	sable_hair_2
+ 46  37  48	sable_hair_3
+ 68  56  74	sable_hair_4
+ 20   8  31	sable_top_0
+ 42  18  64	sable_top_1
+ 74  36 112	sable_top_2
+110  58 160	sable_top_3
+155  98 204	sable_top_4
+  5   4   8	sable_shorts_0
+ 15  13  22	sable_shorts_1
+ 26  23  36	sable_shorts_2
+ 41  37  56	sable_shorts_3
+ 62  57  82	sable_shorts_4
+ 54  50  43	sable_wraps_0
+148 139 118	sable_wraps_1
+194 185 160	sable_wraps_2
+226 219 198	sable_wraps_3
+248 244 232	sable_wraps_4
+ 10  11  14	sable_shoes_0
+ 42  45  53	sable_shoes_1
+ 69  74  85	sable_shoes_2
+102 108 120	sable_shoes_3
+144 151 163	sable_shoes_4
  11  13  18	metal_0
  61  74 102	metal_1
  90 103 130	metal_2
