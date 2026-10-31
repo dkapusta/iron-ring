@@ -196,7 +196,7 @@ A stage can be wider than the screen and drawn as layers that scroll at differen
 - the HUD bands stay calm;
 - spectators stay behind the barrier.
 
-The `image` field is a 640 × 360 preview: frame 0 of every layer, composed at the middle camera position without drift (`Tools/Art/ironart/preview.py`). It is used on the stage select, the title and the arcade ending. After changing a layer, recompose it; the art self-test fails while preview and layers disagree.
+The `image` field is a 640 × 360 preview: frame 0 of every layer, composed at the middle camera position without drift (`Tools/Art/ironart/preview.py`). It is used on the stage select, the title and the arcade ending. After changing a layer, recompose it with `python3 Tools/Art/compose_previews.py`; the art self-test fails while preview and layers disagree.
 
 Suggested stack, back to front:
 1. back wall or sky (0.2–0.3);

@@ -20,7 +20,7 @@ Editable sources of externally authored art. The game never reads this folder; `
 
 3. Build, then check in `IronRing -training -stage <id>` (F3 shows boxes). `python3 Tools/Art/selftest.py` fails if `Assets/` and these frames disagree.
 
-Stage layers, previews, portraits (32 × 32 HUD, 48 × 48 select), the title logo and the menu backdrop are final images; edit them directly in `Assets/`. Stage layer sizes follow the width rule in [asset spec §3.1](../docs/art/asset-spec.md#31-layered-stages); the build checks it. A stage's 640 × 360 preview is composed from its layers (`Tools/Art/ironart/preview.py`); recompose it after editing a layer, or the art self-test fails.
+Stage layers, previews, portraits (32 × 32 HUD, 48 × 48 select), the title logo and the menu backdrop are final images; edit them directly in `Assets/`. Stage layer sizes follow the width rule in [asset spec §3.1](../docs/art/asset-spec.md#31-layered-stages); the build checks it. A stage's 640 × 360 preview is composed from its layers (`Tools/Art/ironart/preview.py`); recompose it after editing a layer (`python3 Tools/Art/compose_previews.py`), or the art self-test fails.
 
 ## Art Pack v1
 

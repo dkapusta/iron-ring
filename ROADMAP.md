@@ -68,9 +68,10 @@ Goal: two characters that feel good in local play on one stage. Target platforms
   - ✅ Art brief for Art Pack v2: [docs/art/vertical-slice-art-brief.md](docs/art/vertical-slice-art-brief.md) (frame corrections, the champion pose, select portraits, ending pictures, The Foundry, layered Pier 9 / Lantern Row / The Crown, title logo, menu backdrop)
   - ✅ Engine ready for it: champion animations, optional select portraits and ending pictures, procedural pose references for new frames (`import_art.py refs`)
   - ✅ Art Pack v2 delivered, reviewed and imported: corrected frames and six champion frames per fighter, select portraits, four layered venues on an 800 px world, title logo and menu backdrop; animated champion endings ([ADR-0020](docs/adr/0020-adopting-art-pack-v2.md))
-  - ⬜ Polish pass: a full playthrough at release quality (both fighters, every venue, the arcade loop), fixing what it turns up
+  - ✅ Polish pass: a full playthrough at release quality (both fighters, every venue, the arcade loop), fixing what it turns up; the owner's full arcade playthrough on 2026-10-31 found no further issues
     - ✅ Crowds: the spectator groups the pack cut off at the head are rebuilt from intact ones, in every venue and frame; stage previews recomposed; the art self-test guards both ([ADR-0020](docs/adr/0020-adopting-art-pack-v2.md))
     - ✅ Text over busy art: a backing behind the training-box legend, dark bands behind the arcade ending's lines
+  - ⬜ Art Pack v2.1 (owner): redrawn crowds for the four venues (six distinct groups, real cheering arms) and a legible Foundry sign; brief: [docs/art/art-pack-v2.1-brief.md](docs/art/art-pack-v2.1-brief.md)
 
 ## M3 — Roster and world
 
