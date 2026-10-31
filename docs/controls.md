@@ -1,6 +1,6 @@
 # Controls and move lists
 
-These are the default bindings. You can change them in **Options → Controls** (they are saved to `prefs.cfg`); the defaults live in [`ProjectSettings/InputManager.json`](../ProjectSettings/InputManager.json). The in-game **Move list** (pause menu) shows each side's moves with the keys that side currently uses.
+These are the default bindings. You can change them in **Options → Controls** (they are saved to `prefs.cfg`); the defaults live in [`ProjectSettings/InputManager.json`](../ProjectSettings/InputManager.json). The in-game **Move list** shows each side's moves with the keys that side currently uses: heavy punch on the character select, or **Move list** in the pause menu.
 
 ## Both players at a glance
 
@@ -25,8 +25,9 @@ The first gamepad connected is player 1, the second player 2; the keyboard works
 | Move the cursor | W A S D | Arrow keys | D-pad or left stick | — |
 | Confirm | F (light punch) | Keypad 1 (light punch) | A (south) | Return |
 | Back | H (light kick) | Keypad 3 (light kick) | B (east) | Backspace, Escape |
+| Move list (character select) | G (heavy punch) | Keypad 2 (heavy punch) | Y (north) | — |
 
-Menus follow your bindings: if you move light punch to another key, that key confirms. On screens one player drives (title, Versus CPU and Training select, options), either player's keys work; on the 2 Players select each side moves its own cursor.
+On the character select, heavy punch opens the move list of the fighter under your cursor, in your keys and written as your side faces at the start of a round; any button closes it. Menus follow your bindings: if you move light punch to another key, that key confirms. On screens one player drives (title, Versus CPU and Training select, options), either player's keys work; on the 2 Players select each side moves its own cursor.
 
 ### Anywhere
 
@@ -128,5 +129,18 @@ Square, planted and hard to move: short reach, heavy hands. She waits behind her
 | Pig-Iron Sweep | HK | J | Keypad 0 | 15 / 5 / 26 | 18 | Low (crouch-guard it), knocks down |
 | Crucible Toss | LP + LK, close | F + H | Keypad 1 + 3 | 3 / 2 / 24 | 14 | Throw, techable |
 | **Ladle Drop** | **623 + P** (→ ↓ ↘ + either punch) | **D, S, S+D + F or G** | **←, ↓, ↓+← + Keypad 1 or 2** | 12 / 4 / 24 | 18 | Special: both fists locked and brought down like a tipping ladle, lunging in; knocks down. Huge recovery on a miss |
+
+## Jun Arata — rushdown / feint
+
+Small, quick and always in your face: the fastest jab in the game, a stepping low kick, and a dash that ends safe so the pressure starts again. Placeholder art for now.
+
+| Move | Button / motion | Player 1 (facing right) | Player 2 (facing left) | Startup / active / recovery | Damage | Notes |
+| --- | --- | --- | --- | --- | --- | --- |
+| Pick Jab | LP | F | Keypad 1 | 3 / 2 / 9 | 4 | The fastest button; cancels; 0 to +1 on block |
+| Pocket Hook | HP | G | Keypad 2 | 7 / 3 / 16 | 11 | Heavy |
+| Lift Step | LK | H | Keypad 3 | 6 / 3 / 14 | 7 | Low (crouch-guard it); steps in; cancels; −3 to −1 on block |
+| Turnstile Kick | HK | J | Keypad 0 | 12 / 4 / 20 | 14 | A spinning kick at chest height; heavy |
+| Purse Snatch | LP + LK, close | F + H | Keypad 1 + 3 | 3 / 2 / 20 | 9 | Throw, techable; lands them close |
+| **Sleight Feint** | **236 + P** (↓ ↘ → + either punch) | **S, S+D, D + F or G** | **↓, ↓+←, ← + Keypad 1 or 2** | 8 / 3 / 10 | 8 | Special: a low dash into a quick elbow; +2 to +4 on block, so it resets the pressure. Cancels from Pick Jab or Lift Step |
 
 Frame counts are 60 Hz ticks, from the fighter files (`Assets/Fighters/<Name>/<id>.fighter.json`). In training, F3 shows the boxes and the frame advantage of every hit.

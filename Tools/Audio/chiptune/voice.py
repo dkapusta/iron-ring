@@ -143,4 +143,5 @@ LINES = {
     "sable_wins": Line("Sable Reyes wins!", rate=140, pitch=32),
     "idris_wins": Line("Idris Okafor wins!", rate=140, pitch=32),
     "greta_wins": Line("Greta Voll wins!", rate=140, pitch=32),
+    "jun_wins": Line("Jun Arata wins!", rate=140, pitch=32),
 }

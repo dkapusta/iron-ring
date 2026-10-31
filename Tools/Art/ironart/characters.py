@@ -536,7 +536,57 @@ class Greta(Character):
             canvas.pixel(self.local(s, 0.70, -0.45), "eye", 0, HEAD)
 
 
-CHARACTERS = {"dee": Dee(), "bram": Bram(), "sable": Sable(), "idris": Idris(), "greta": Greta()}
+class Jun(Character):
+    """Jun Arata: small and wiry, early twenties. Messy black hair, a faded jade
+    track jacket with the sleeves shoved up, loose black trousers, red
+    high-tops, taped wrists. Hunched, light on his feet."""
+
+    def __init__(self) -> None:
+        super().__init__(
+            id="jun",
+            build=Build(ankle=5, shin=30, thigh=30, spine=40, neck=4, upper_arm=22, forearm=20,
+                        head=(7.2, 9.0), thigh_r=(6.8, 4.8), shin_r=(4.6, 3.2), upper_r=(4.0, 3.2),
+                        fore_r=(3.4, 2.8), neck_r=3.2, waist_r=7.6, chest_r=9.8, pelvis=(9.4, 7.2),
+                        fist=(4.0, 3.6), foot=12, deltoid=4.4),
+            skin="jun_skin",
+            materials={"legs": "jun_trousers", "boots": "jun_shoes", "top": "jun_jacket", "pelvis": "jun_trousers",
+                       "deltoid": "jun_jacket", "hand": "jun_tape", "hand_open": "jun_skin"},
+        )
+
+    def shin_material(self, canvas: Canvas):
+        cloth, shoes = canvas.material_id("jun_trousers"), canvas.material_id("jun_shoes")
+        return lambda t, side: np.where(t > 0.78, shoes, cloth).astype(np.int16)  # high-tops
+
+    def upper_arm_material(self, canvas: Canvas):
+        return "jun_jacket"
+
+    def forearm_material(self, canvas: Canvas):
+        jacket, skin = canvas.material_id("jun_jacket"), canvas.material_id("jun_skin")
+        return lambda t, side: np.where(t < 0.45, jacket, skin).astype(np.int16)  # sleeves shoved up
+
+    def torso_material(self, canvas: Canvas, top: bool = False):
+        jacket, cloth = canvas.material_id("jun_jacket"), canvas.material_id("jun_trousers")
+        if top:
+            return "jun_jacket"
+        return lambda t, side: np.where(t < 0.10, cloth, jacket).astype(np.int16)
+
+    def head_material(self, canvas: Canvas):
+        skin, hair = canvas.material_id("jun_skin"), canvas.material_id("jun_hair")
+        return lambda ux, uy: np.where(uy > 0.25 + 0.45 * ux, hair, skin).astype(np.int16)
+
+    def face(self, canvas: Canvas, s: Skeleton, pose: Pose) -> None:
+        # Messy hair: uneven tufts over the crown and the brow.
+        for i, size in enumerate((2.6, 2.0, 2.8, 2.2, 2.6, 1.8)):
+            a = math.radians(40 + i * 24)
+            canvas.ellipse(self.local(s, math.cos(a) * 1.02, math.sin(a) * 1.05), size, size * 0.8, 0.0, "jun_hair",
+                           HEAD)
+        canvas.pixel(self.local(s, 0.52, 0.10), "eye", 0, HEAD)
+        canvas.pixel(self.local(s, 1.02, -0.06), "jun_skin", 3, HEAD)  # nose
+        if pose.expression == "shout":
+            canvas.pixel(self.local(s, 0.72, -0.45), "eye", 0, HEAD)
+
+
+CHARACTERS = {"dee": Dee(), "bram": Bram(), "sable": Sable(), "idris": Idris(), "greta": Greta(), "jun": Jun()}
 
 
 def mirrored(pose: Pose, **changes) -> Pose:

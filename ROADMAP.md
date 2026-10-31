@@ -82,7 +82,8 @@ New fighters arrive with procedural placeholder art and their own frame data, mo
 - ✅ `-fighters <p1>,<p2>` for demos, training and tests; the CPU throws kick specials
 - ✅ **Idris Okafor**, long-range striker (the Mast Kick push kick, the Bowline Heel 214 + K) and **Greta Voll**, power brawler (the Slag Knuckle, the Ladle Drop 623 + P); placeholder art; Greta meets every challenger at her old Foundry
 - ✅ CPU: a special that out-ranges every normal (Idris's heel, Greta's lunge) is thrown as a poke; a CPU-vs-CPU win matrix test for tuning frame data
-- ⬜ Jun Arata, rushdown / feint
+- ✅ **Jun Arata**, rushdown / feint (the fastest jab, the Lift Step low, the Sleight Feint 236 + P that's +2 on block); placeholder art; he works the Lantern Row crowd. The roster of six is complete
+- ✅ Move list on the character select: heavy punch (pad Y) shows the highlighted fighter's moves in that player's keys
 - ⬜ New venues (dry dock, ship's hold, the Broker's club), layered like the M2 four
 - ⬜ The Broker (boss), story intros/endings, win quotes
 - ⬜ Asset streaming: per-stage `sharedassetsN.assets` + `levelN` loaded on demand

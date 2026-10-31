@@ -193,9 +193,9 @@ TEST_CASE("shipped fighters play a deterministic match") {
 
 #include "Content/Arcade.h"
 
-TEST_CASE("the shipped arcade ladder: no repeats, Greta at her Foundry, Bram at the Crown") {
+TEST_CASE("the shipped arcade ladder: no repeats; Jun at Lantern Row, Greta at her Foundry, Bram at the Crown") {
     const auto ladder = iron::content::parseArcade(readJson(projectReader(), "Data/arcade.json"), "arcade.json");
-    const std::vector<std::string> playable{"dee", "bram", "sable", "idris", "greta"};
+    const std::vector<std::string> playable{"dee", "bram", "sable", "idris", "greta", "jun"};
     for (const auto& player : playable) {
         const auto run = iron::content::arcadeOpponents(ladder, player, playable);
         REQUIRE(run.size() == 4);
@@ -203,15 +203,16 @@ TEST_CASE("the shipped arcade ladder: no repeats, Greta at her Foundry, Bram at 
             CHECK(run[i] != player);
             for (std::size_t j = 0; j < i; ++j) CHECK(run[i] != run[j]);
         }
+        if (player != "jun") CHECK(run[1] == "jun");
         if (player != "greta") CHECK(run[2] == "greta");
         if (player != "bram") CHECK(run[3] == "bram");
     }
 }
 
-TEST_CASE("the CPU lands every new fighter's special (236K, 214K, 623P)") {
+TEST_CASE("the CPU lands every new fighter's special (236K, 214K, 623P, 236P)") {
     const auto dee = shippedFighter("Fighters/Dee/dee.fighter.json");
     for (const char* path : {"Fighters/Sable/sable.fighter.json", "Fighters/Idris/idris.fighter.json",
-                             "Fighters/Greta/greta.fighter.json"}) {
+                             "Fighters/Greta/greta.fighter.json", "Fighters/Jun/jun.fighter.json"}) {
         CAPTURE(path);
         const auto fighter = shippedFighter(path);
         int specials = 0;
@@ -320,16 +321,16 @@ TEST_CASE("arcade ladder: opponents, levels and the run's steps") {
 // Not a check: a CPU-vs-CPU win matrix at VETERAN for tuning frame data.
 // Run with: IronRingTests -s -tc="balance*" --no-skip. Rows win out of 100 against columns.
 TEST_CASE("balance: CPU win matrix" * doctest::skip()) {
-    const char* ids[]{"dee", "bram", "sable", "idris", "greta"};
+    const char* ids[]{"dee", "bram", "sable", "idris", "greta", "jun"};
     const char* paths[]{"Fighters/Dee/dee.fighter.json", "Fighters/Bram/bram.fighter.json",
                         "Fighters/Sable/sable.fighter.json", "Fighters/Idris/idris.fighter.json",
-                        "Fighters/Greta/greta.fighter.json"};
+                        "Fighters/Greta/greta.fighter.json", "Fighters/Jun/jun.fighter.json"};
     std::vector<FighterDefinition> f;
     for (auto* p : paths) f.push_back(shippedFighter(p));
-    MESSAGE("        dee bram sable idris greta");
-    for (int i = 0; i < 5; ++i) {
+    MESSAGE("        dee bram sable idris greta jun");
+    for (int i = 0; i < 6; ++i) {
         std::string line = ids[i];
-        for (int j = 0; j < 5; ++j) {
+        for (int j = 0; j < 6; ++j) {
             int wins = 0;
             for (std::uint32_t seed = 1; seed <= 100; ++seed) {
                 const bool swap = seed % 2;

@@ -16,7 +16,8 @@ namespace iron {
 
 // What menus react to. Pause is Escape or a pad's Start: it opens the pause
 // menu in a fight and backs out of menus.
-enum class MenuAction { Up, Down, Left, Right, Confirm, Back, Pause };
+// Info: heavy punch, or the pad's north button: more about what's under the cursor (a move list).
+enum class MenuAction { Up, Down, Left, Right, Confirm, Back, Pause, Info };
 
 struct MenuEvent {
     int player = 0; // 0 or 1: whose keys or pad it came from

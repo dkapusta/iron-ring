@@ -2,6 +2,7 @@
 
 #include "Game/ArcadeScene.h"
 #include "Game/MenuView.h"
+#include "Game/MoveListScene.h"
 #include "Game/StageSelectScene.h"
 #include "Render/Ui.h"
 
@@ -65,6 +66,22 @@ void CharacterSelectScene::pick(int side) {
     services_.audio.play("menu_confirm");
 }
 
+void CharacterSelectScene::showMoves(int side) {
+    const auto* fighter = view(cursor_[static_cast<std::size_t>(side)]);
+    if (!fighter) {
+        services_.audio.play("menu_back"); // a locked slot has no moves yet
+        return;
+    }
+    // Written as this side will face at the start of a round, in the keys of whoever picks it.
+    const int keys = mode_ == SelectMode::TwoPlayers || side == 0 ? side : -1;
+    const std::string label = keys < 0 ? "CPU" : side == 0 ? "PLAYER 1" : "PLAYER 2";
+    services_.audio.play("menu_confirm");
+    services_.scenes.push(std::make_unique<MoveListScene>(
+                              services_, std::vector<MoveListPanel>{{&fighter->definition(), side == 0 ? 1 : -1, keys, label}},
+                              side == 0 ? "ARROWS AS PLAYER 1 FACES: RIGHT" : "ARROWS AS PLAYER 2 FACES: LEFT"),
+                          Transition::Cut);
+}
+
 void CharacterSelectScene::unpick(int side) {
     picked_[static_cast<std::size_t>(side)] = false;
     ready_ = 0;
@@ -92,6 +109,7 @@ void CharacterSelectScene::handleMenu(const MenuEvent& event) {
     case MenuAction::Up: cursor = gridMove(cursor, 0, -1, kColumns, count); break;
     case MenuAction::Down: cursor = gridMove(cursor, 0, 1, kColumns, count); break;
     case MenuAction::Confirm: pick(side); break;
+    case MenuAction::Info: showMoves(side); break;
     default: break;
     }
     if (cursor != before) services_.audio.play("menu_move");
@@ -236,7 +254,8 @@ void CharacterSelectScene::render(const RenderContext& context) {
     if (ready() && mode_ != SelectMode::Arcade) {
         if ((clock_ / 6) % 2 == 0) data.large().draw(r, "VS", services_.width / 2, 110, ui::kBrassLight, Align::Centre);
     } else {
-        data.small().draw(r, "PUNCH TO PICK - KICK TO GO BACK", services_.width / 2, 346, ui::kFog, Align::Centre, true);
+        data.small().draw(r, "LIGHT PUNCH: PICK - LIGHT KICK: BACK - HEAVY PUNCH: MOVE LIST", services_.width / 2, 346,
+                          ui::kFog, Align::Centre, true);
     }
 }
 

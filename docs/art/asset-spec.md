@@ -22,7 +22,7 @@ Setting, tone and costume direction: [docs/design/setting.md](../design/setting.
 
 ### Palette structure
 
-`palette.json` contains named colours (`night_*`, `steel_*`, `sodium_*`, `teal_*`, `coral_*`, neutrals) and **material ramps**: `[line, shadow, mid, light, highlight]`. Fighters use their own ramps (`dee_skin`, `dee_top`, `bram_overall`, …) plus the shared `metal` and `eye`. Player-side colour coding: **teal** for Dee, **rust/coral** for Bram, **violet** for Sable, **muted blue** for Idris, **brass** for Greta. New fighters add their own ramps (5 colours each) to `Tools/Art/ironart/palette.py` and regenerate the palette files (`python3 Tools/Art/generate.py palette`).
+`palette.json` contains named colours (`night_*`, `steel_*`, `sodium_*`, `teal_*`, `coral_*`, neutrals) and **material ramps**: `[line, shadow, mid, light, highlight]`. Fighters use their own ramps (`dee_skin`, `dee_top`, `bram_overall`, …) plus the shared `metal` and `eye`. Player-side colour coding: **teal** for Dee, **rust/coral** for Bram, **violet** for Sable, **muted blue** for Idris, **brass** for Greta, **jade** for Jun. New fighters add their own ramps (5 colours each) to `Tools/Art/ironart/palette.py` and regenerate the palette files (`python3 Tools/Art/generate.py palette`).
 
 ## 2. Fighters
 

@@ -35,6 +35,7 @@ std::optional<MenuAction> bitAction(sim::Input bit) {
     case sim::Right: return MenuAction::Right;
     case sim::LightPunch: return MenuAction::Confirm;
     case sim::LightKick: return MenuAction::Back;
+    case sim::HeavyPunch: return MenuAction::Info;
     default: return std::nullopt;
     }
 }
@@ -47,6 +48,7 @@ std::optional<MenuAction> padAction(SDL_GamepadButton button) {
     case SDL_GAMEPAD_BUTTON_DPAD_RIGHT: return MenuAction::Right;
     case SDL_GAMEPAD_BUTTON_SOUTH: return MenuAction::Confirm;
     case SDL_GAMEPAD_BUTTON_EAST: return MenuAction::Back;
+    case SDL_GAMEPAD_BUTTON_NORTH: return MenuAction::Info;
     case SDL_GAMEPAD_BUTTON_START: return MenuAction::Pause;
     default: return std::nullopt;
     }
