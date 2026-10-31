@@ -82,8 +82,11 @@ The colour coding stays with the characters: teal for Dee, rust/coral for Bram, 
 | `lantern_row` | **Lantern Row** | Night market after curfew; shutters down, the ring roped off under the old station clock, lanterns half lit. |
 | `foundry` | **The Foundry** | The shut-down Voll Works, Greta Voll's old plant: the ring laid between cold furnaces under a hanging ladle, the last night shift betting behind the rail. |
 | `the_crown` | **The Crown** | Roof terrace of the derelict Crown Hotel at first light, under the hotel's half-dead bulb sign — the final bout. |
+| `dry_dock` | **Dry Dock 4** | A flooded dry dock under a laid-up freighter's bow; the ring on wet concrete, dockers behind a sagging chain. |
+| `ship_hold` | **The Hold** | The hold of an impounded freighter (Idris's ship): steel ribs, stacked crates, a work lamp swinging under the open hatch. |
+| `brokers_club` | **The Broker's Club** | The Broker's private club: velvet, brass and gilt frames, the city's money watching from behind a red rope. |
 
-Planned additions (M3): a flooded dry dock, a ship's hold, the Broker's private club. The Foundry is in the game with placeholder art (the first layered venue).
+The three M3 venues (Dry Dock 4, The Hold, the Broker's Club) have procedural placeholder art for now; the first four have final art (Art Packs v2 and v2.1).
 
 ## Art direction
 

@@ -193,19 +193,20 @@ TEST_CASE("shipped fighters play a deterministic match") {
 
 #include "Content/Arcade.h"
 
-TEST_CASE("the shipped arcade ladder: no repeats; Jun at Lantern Row, Greta at her Foundry, Bram at the Crown") {
+TEST_CASE("the shipped arcade ladder: no repeats; Jun at Lantern Row, Idris in the Hold, Greta at her Foundry, Bram at the Crown") {
     const auto ladder = iron::content::parseArcade(readJson(projectReader(), "Data/arcade.json"), "arcade.json");
     const std::vector<std::string> playable{"dee", "bram", "sable", "idris", "greta", "jun"};
     for (const auto& player : playable) {
         const auto run = iron::content::arcadeOpponents(ladder, player, playable);
-        REQUIRE(run.size() == 4);
+        REQUIRE(run.size() == 5);
         for (std::size_t i = 0; i < run.size(); ++i) {
             CHECK(run[i] != player);
             for (std::size_t j = 0; j < i; ++j) CHECK(run[i] != run[j]);
         }
         if (player != "jun") CHECK(run[1] == "jun");
-        if (player != "greta") CHECK(run[2] == "greta");
-        if (player != "bram") CHECK(run[3] == "bram");
+        if (player != "idris") CHECK(run[2] == "idris");
+        if (player != "greta") CHECK(run[3] == "greta");
+        if (player != "bram") CHECK(run[4] == "bram");
     }
 }
 

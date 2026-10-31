@@ -168,7 +168,7 @@ Learned from the first external pack ([frame review](frame-review.md)). `python3
 
 ### 3.1 Layered stages
 
-A stage can be wider than the screen and drawn as layers that scroll at different rates (parallax). `stages.json` gives the world `width` (640–2048; all four venues use 800) and a list of `layers`, back to front. The camera shows 640 px, follows the fighters' midpoint, stops at the stage ends and never zooms. The fighters can never be more than 580 px apart, so both always fit on screen.
+A stage can be wider than the screen and drawn as layers that scroll at different rates (parallax). `stages.json` gives the world `width` (640–2048; every venue uses 800) and a list of `layers`, back to front. The camera shows 640 px, follows the fighters' midpoint, stops at the stage ends and never zooms. The fighters can never be more than 580 px apart, so both always fit on screen.
 
 | Field | Meaning |
 | --- | --- |

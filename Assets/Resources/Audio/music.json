@@ -37,6 +37,33 @@
       "gain": 0.5,
       "pcmSha256": "62ceae54917a3511da56b401b29576d13a2620847c37eb342ba00e7eb9bc81c8"
     },
+    "dry_dock": {
+      "title": "Low Tide",
+      "file": "theme_dry_dock.ogg",
+      "sampleRate": 44100,
+      "loopStartFrame": 188160,
+      "lengthFrames": 1693440,
+      "gain": 0.5,
+      "pcmSha256": "0deda0187dddc05848e6cb5a077e06224a8049b6fb6630e0f03ef9bde9afc247"
+    },
+    "ship_hold": {
+      "title": "Below Decks",
+      "file": "theme_ship_hold.ogg",
+      "sampleRate": 44100,
+      "loopStartFrame": 141120,
+      "lengthFrames": 1270080,
+      "gain": 0.5,
+      "pcmSha256": "c80955978dba62a0de9efd2b29f8aa64df699d0840413525e91baf24a46d6e17"
+    },
+    "brokers_club": {
+      "title": "Gilt and Smoke",
+      "file": "theme_brokers_club.ogg",
+      "sampleRate": 44100,
+      "loopStartFrame": 188160,
+      "lengthFrames": 1693440,
+      "gain": 0.5,
+      "pcmSha256": "441860f09e10a25befab66b9d9f906379e83bb06760edc27f61a901d692c9efc"
+    },
     "menu": {
       "title": "Invitation Only",
       "file": "theme_menu.ogg",

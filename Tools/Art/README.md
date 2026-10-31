@@ -38,6 +38,7 @@ Dee, Bram, the stages (The Foundry included) and the title logo and menu backdro
 | `atlas.py` | Shared trimming, shelf packing and atlas JSON writing (also used by the importer). |
 | `importer.py` | Background keying, consistent downscaling, palette snapping, fringe cleanup, reference export. |
 | `preview.py` | Composes a layered stage's 640 × 360 preview from its layers, as the game draws them; the self-test compares it with the committed preview. |
+| `venues.py` | The M3 venues' placeholder layers (Dry Dock 4, The Hold, the Broker's Club): back, structure, crowd, floor, foreground; previews composed by `preview.py`. |
 | `ownership.py` | Which `Assets/` folders and files are externally authored, and where their sources live. |
 
 ## Replacing art with outside art

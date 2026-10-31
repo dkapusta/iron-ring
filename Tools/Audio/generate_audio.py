@@ -31,7 +31,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
 from chiptune import apu, sfx, voice  # noqa: E402
-from chiptune.themes import foundry, lantern_row, menu, pier_nine, the_crown  # noqa: E402
+from chiptune.themes import brokers_club, dry_dock, foundry, lantern_row, menu, pier_nine, ship_hold, the_crown  # noqa: E402,E501
 
 ROOT = HERE.parent.parent
 AUDIO = Path("Resources") / "Audio"
@@ -39,7 +39,7 @@ GAIN = 1.2            # chip output -> 16-bit full scale; same for every file, s
 # One theme per venue (keys are the stage ids in Assets/Data/stages.json -> music),
 # plus the front end's (GameSettings.json -> ui.music).
 THEMES = {"pier_nine": pier_nine, "lantern_row": lantern_row, "the_crown": the_crown, "foundry": foundry,
-          "menu": menu}
+          "dry_dock": dry_dock, "ship_hold": ship_hold, "brokers_club": brokers_club, "menu": menu}
 MUSIC_GAIN = 0.5
 VORBIS_QUALITY = 5
 

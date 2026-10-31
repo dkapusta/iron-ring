@@ -84,7 +84,8 @@ New fighters arrive with procedural placeholder art and their own frame data, mo
 - ✅ CPU: a special that out-ranges every normal (Idris's heel, Greta's lunge) is thrown as a poke; a CPU-vs-CPU win matrix test for tuning frame data
 - ✅ **Jun Arata**, rushdown / feint (the fastest jab, the Lift Step low, the Sleight Feint 236 + P that's +2 on block); placeholder art; he works the Lantern Row crowd. The roster of six is complete
 - ✅ Move list on the character select: heavy punch (pad Y) shows the highlighted fighter's moves in that player's keys
-- ⬜ New venues (dry dock, ship's hold, the Broker's club), layered like the M2 four
+- ✅ New venues with placeholder art, layered like the M2 four, each with its own theme: **Dry Dock 4** ("Low Tide"), **The Hold** ("Below Decks", where Idris waits in the arcade), **The Broker's Club** ("Gilt and Smoke", saved for the Broker)
+- ✅ Arcade ladder of five bouts: Pier 9, Lantern Row, The Hold, The Foundry, The Crown
 - ⬜ The Broker (boss), story intros/endings, win quotes
 - ⬜ Asset streaming: per-stage `sharedassetsN.assets` + `levelN` loaded on demand
 
