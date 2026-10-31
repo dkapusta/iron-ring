@@ -1,0 +1,93 @@
+{
+  "foundry": {
+    "spectators": 42,
+    "rest_movers": 14,
+    "cheering_spectators": 21,
+    "rest_head_top_range": [
+      26,
+      36
+    ],
+    "connected_person_frames": 336,
+    "duplicate_or_mirrored_figures": [],
+    "minimum_visible_head_pixel_fraction": 0.9868,
+    "added_palette_colours": [
+      "#3d2218",
+      "#5c3423",
+      "#7d4a31",
+      "#8a5634"
+    ],
+    "protected_barrier_pixels_per_frame": 18432
+  },
+  "pier_nine": {
+    "spectators": 42,
+    "rest_movers": 14,
+    "cheering_spectators": 21,
+    "rest_head_top_range": [
+      26,
+      36
+    ],
+    "connected_person_frames": 336,
+    "duplicate_or_mirrored_figures": [],
+    "minimum_visible_head_pixel_fraction": 1.0,
+    "added_palette_colours": [
+      "#3d2218",
+      "#5c3423",
+      "#7d4a31",
+      "#8a5634"
+    ],
+    "protected_barrier_pixels_per_frame": 18432
+  },
+  "lantern_row": {
+    "spectators": 42,
+    "rest_movers": 14,
+    "cheering_spectators": 21,
+    "rest_head_top_range": [
+      26,
+      36
+    ],
+    "connected_person_frames": 336,
+    "duplicate_or_mirrored_figures": [],
+    "minimum_visible_head_pixel_fraction": 0.9878,
+    "added_palette_colours": [
+      "#3d2218",
+      "#5c3423",
+      "#7d4a31",
+      "#8a5634"
+    ],
+    "protected_barrier_pixels_per_frame": 16632
+  },
+  "the_crown": {
+    "spectators": 42,
+    "rest_movers": 14,
+    "cheering_spectators": 21,
+    "rest_head_top_range": [
+      26,
+      36
+    ],
+    "connected_person_frames": 336,
+    "duplicate_or_mirrored_figures": [],
+    "minimum_visible_head_pixel_fraction": 1.0,
+    "added_palette_colours": [
+      "#3d2218",
+      "#5c3423",
+      "#7d4a31",
+      "#8a5634"
+    ],
+    "protected_barrier_pixels_per_frame": 18432
+  },
+  "passed_checks": 3559,
+  "errors": [],
+  "delivered_runtime_files": [
+    "Stages/Foundry/foundry.png",
+    "Stages/Foundry/foundry_crowd.png",
+    "Stages/Foundry/foundry_wall.png",
+    "Stages/LanternRow/lantern_row.png",
+    "Stages/LanternRow/lantern_row_crowd.png",
+    "Stages/PierNine/pier_nine.png",
+    "Stages/PierNine/pier_nine_crowd.png",
+    "Stages/TheCrown/the_crown.png",
+    "Stages/TheCrown/the_crown_crowd.png"
+  ],
+  "sign_changed_pixels": 191,
+  "unchanged_other_assets": true
+}

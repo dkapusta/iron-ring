@@ -1,0 +1,1878 @@
+[
+  [
+    {
+      "id": "pier_nine_00",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_01",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_02",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_03",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_04",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_05",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_06",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_07",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_08",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_09",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_10",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_11",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_12",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_13",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_14",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_15",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_16",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_17",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_18",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_19",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_20",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_21",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_22",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_24",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_25",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_26",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_27",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_29",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_30",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_31",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_32",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_33",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_34",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_35",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_36",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_37",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_38",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_39",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_40",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_41",
+      "dy": 0,
+      "raised_sides": []
+    }
+  ],
+  [
+    {
+      "id": "pier_nine_00",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_01",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_02",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_03",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_04",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_05",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_06",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_07",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_08",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_09",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_10",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_11",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_12",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_13",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_14",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_15",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_16",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_17",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_18",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_19",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_20",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_21",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_22",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_24",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_25",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_26",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_27",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_29",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_30",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_31",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_32",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_33",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_34",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_35",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_36",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_37",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_38",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_39",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_40",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_41",
+      "dy": 0,
+      "raised_sides": []
+    }
+  ],
+  [
+    {
+      "id": "pier_nine_00",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_01",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_02",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_03",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_04",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_05",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_06",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_07",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_08",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_09",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_10",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_11",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_12",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_13",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_14",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_15",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_16",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_17",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_18",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_19",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_20",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_21",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_22",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_24",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_25",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_26",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_27",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_29",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_30",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_31",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_32",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_33",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_34",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_35",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_36",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_37",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_38",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_39",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_40",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_41",
+      "dy": 0,
+      "raised_sides": []
+    }
+  ],
+  [
+    {
+      "id": "pier_nine_00",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_01",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_02",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_03",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_04",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_05",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_06",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_07",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_08",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_09",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_10",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_11",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_12",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_13",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_14",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_15",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_16",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_17",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_18",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_19",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_20",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_21",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_22",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_24",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_25",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_26",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_27",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_29",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_30",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_31",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_32",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_33",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_34",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_35",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_36",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_37",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_38",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_39",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_40",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_41",
+      "dy": 0,
+      "raised_sides": []
+    }
+  ],
+  [
+    {
+      "id": "pier_nine_00",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_01",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_02",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_03",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_04",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_05",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_06",
+      "dy": -3,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "pier_nine_07",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_08",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_09",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_10",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_11",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_12",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_13",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_14",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_15",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_16",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_17",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_18",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_19",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_20",
+      "dy": -1,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_21",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "pier_nine_22",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_24",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_25",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_26",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_27",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "pier_nine_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_29",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_30",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_31",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_32",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_33",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_34",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_35",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_36",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_37",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_38",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_39",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "pier_nine_40",
+      "dy": -1,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_41",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    }
+  ],
+  [
+    {
+      "id": "pier_nine_00",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_01",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_02",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_03",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_04",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_05",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_06",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "pier_nine_07",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_08",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_09",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_10",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_11",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_12",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_13",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_14",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_15",
+      "dy": -1,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_16",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_17",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_18",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_19",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_20",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_21",
+      "dy": -3,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "pier_nine_22",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_24",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_25",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_26",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_27",
+      "dy": -1,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "pier_nine_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_29",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_30",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_31",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_32",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_33",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_34",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_35",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_36",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_37",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_38",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_39",
+      "dy": -1,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "pier_nine_40",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_41",
+      "dy": -3,
+      "raised_sides": [
+        -1
+      ]
+    }
+  ],
+  [
+    {
+      "id": "pier_nine_00",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_01",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_02",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_03",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_04",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_05",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_06",
+      "dy": -1,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "pier_nine_07",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_08",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_09",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_10",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_11",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_12",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_13",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_14",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_15",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_16",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_17",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_18",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_19",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_20",
+      "dy": -3,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_21",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "pier_nine_22",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_24",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_25",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_26",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_27",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "pier_nine_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_29",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_30",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_31",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_32",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_33",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_34",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_35",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_36",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_37",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_38",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_39",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "pier_nine_40",
+      "dy": -3,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_41",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    }
+  ],
+  [
+    {
+      "id": "pier_nine_00",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_01",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_02",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_03",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_04",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_05",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_06",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "pier_nine_07",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_08",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_09",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_10",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_11",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_12",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_13",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_14",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_15",
+      "dy": -3,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_16",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_17",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_18",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_19",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_20",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_21",
+      "dy": -1,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "pier_nine_22",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_24",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_25",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_26",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_27",
+      "dy": -3,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "pier_nine_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_29",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_30",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_31",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_32",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_33",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_34",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_35",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_36",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_37",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "pier_nine_38",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_39",
+      "dy": -3,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "pier_nine_40",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "pier_nine_41",
+      "dy": -1,
+      "raised_sides": [
+        -1
+      ]
+    }
+  ]
+]

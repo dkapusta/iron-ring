@@ -4,6 +4,8 @@ Changes made in the repository after adoption ([ADR-0020](../../docs/adr/0020-ad
 
 ## Crowds cut off at the head (2026-10-31)
 
+*Superseded the same day by Art Pack v2.1: the crowds were redrawn ([Pack-v2.1/REVIEW.md](../Pack-v2.1/REVIEW.md)) and `repair_crowds.py` was retired. The self-test still checks that every 128 px strip of a crowd shows heads.*
+
 **Found in play.** All four crowd layers (`Assets/Stages/<Venue>/<venue>_crowd.png`) are 768 × 672: six 128 px spectator groups side by side and 8 frames of 84 px. In every venue and every frame, groups 2, 3 and 5 (counting from 0) were a flat band of shoulders with no heads. Their tops sat at row 38, where the intact groups' heads start at rows 30–34. At The Crown the clipped groups left an empty bench. In the cheer frames, the raised arms of those groups hung over bodies that had no heads. The barrier in front of them (rail, rope, bench) was intact. The pack's validation checks sizes and frame counts, not content, so it didn't catch this.
 
 **Repair.** `Tools/Art/repair_crowds.py` fixes it:

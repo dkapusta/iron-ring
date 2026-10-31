@@ -1,0 +1,1890 @@
+[
+  [
+    {
+      "id": "lantern_row_00",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_01",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_02",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_03",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_04",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_05",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_06",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_07",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_08",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_09",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_10",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_11",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_12",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_13",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_14",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_15",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_16",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_17",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_18",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_19",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_20",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_21",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_22",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_24",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_25",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_26",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_27",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_29",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_30",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_31",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_32",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_33",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_34",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_35",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_36",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_37",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_38",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_39",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_40",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_41",
+      "dy": 0,
+      "raised_sides": []
+    }
+  ],
+  [
+    {
+      "id": "lantern_row_00",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_01",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_02",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_03",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_04",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_05",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_06",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_07",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_08",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_09",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_10",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_11",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_12",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_13",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_14",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_15",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_16",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_17",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_18",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_19",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_20",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_21",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_22",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_24",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_25",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_26",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_27",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_29",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_30",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_31",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_32",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_33",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_34",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_35",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_36",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_37",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_38",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_39",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_40",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_41",
+      "dy": 0,
+      "raised_sides": []
+    }
+  ],
+  [
+    {
+      "id": "lantern_row_00",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_01",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_02",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_03",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_04",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_05",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_06",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_07",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_08",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_09",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_10",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_11",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_12",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_13",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_14",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_15",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_16",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_17",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_18",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_19",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_20",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_21",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_22",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_24",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_25",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_26",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_27",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_29",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_30",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_31",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_32",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_33",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_34",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_35",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_36",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_37",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_38",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_39",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_40",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_41",
+      "dy": 0,
+      "raised_sides": []
+    }
+  ],
+  [
+    {
+      "id": "lantern_row_00",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_01",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_02",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_03",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_04",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_05",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_06",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_07",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_08",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_09",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_10",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_11",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_12",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_13",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_14",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_15",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_16",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_17",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_18",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_19",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_20",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_21",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_22",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_24",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_25",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_26",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_27",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_29",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_30",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_31",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_32",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_33",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_34",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_35",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_36",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_37",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_38",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_39",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_40",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_41",
+      "dy": 0,
+      "raised_sides": []
+    }
+  ],
+  [
+    {
+      "id": "lantern_row_00",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_01",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_02",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_03",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_04",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_05",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_06",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_07",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_08",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_09",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_10",
+      "dy": -3,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_11",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_12",
+      "dy": -1,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_13",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_14",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_15",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_16",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_17",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_18",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_19",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_20",
+      "dy": -1,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_21",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_22",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_24",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_25",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_26",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_27",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_29",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_30",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_31",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_32",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_33",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_34",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_35",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_36",
+      "dy": -1,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_37",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_38",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_39",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_40",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_41",
+      "dy": 0,
+      "raised_sides": []
+    }
+  ],
+  [
+    {
+      "id": "lantern_row_00",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_01",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_02",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_03",
+      "dy": -1,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_04",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_05",
+      "dy": -3,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_06",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_07",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_08",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_09",
+      "dy": -3,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_10",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_11",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_12",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_13",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_14",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_15",
+      "dy": -1,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_16",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_17",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_18",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_19",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_20",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_21",
+      "dy": -3,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_22",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_24",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_25",
+      "dy": -3,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_26",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_27",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_29",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_30",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_31",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_32",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_33",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_34",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_35",
+      "dy": -1,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_36",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_37",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_38",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_39",
+      "dy": -1,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_40",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_41",
+      "dy": 0,
+      "raised_sides": []
+    }
+  ],
+  [
+    {
+      "id": "lantern_row_00",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_01",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_02",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_03",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_04",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_05",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_06",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_07",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_08",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_09",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_10",
+      "dy": -1,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_11",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_12",
+      "dy": -3,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_13",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_14",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_15",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_16",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_17",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_18",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_19",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_20",
+      "dy": -3,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_21",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_22",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_24",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_25",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_26",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_27",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_29",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_30",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_31",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_32",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_33",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_34",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_35",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_36",
+      "dy": -3,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_37",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_38",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_39",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_40",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_41",
+      "dy": 0,
+      "raised_sides": []
+    }
+  ],
+  [
+    {
+      "id": "lantern_row_00",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_01",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_02",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_03",
+      "dy": -3,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_04",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_05",
+      "dy": -1,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_06",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_07",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_08",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_09",
+      "dy": -1,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_10",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_11",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_12",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_13",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_14",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_15",
+      "dy": -3,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_16",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_17",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_18",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_19",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_20",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_21",
+      "dy": -1,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_22",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_24",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_25",
+      "dy": -1,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_26",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_27",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_29",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_30",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_31",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_32",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_33",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_34",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_35",
+      "dy": -3,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_36",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_37",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_38",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "lantern_row_39",
+      "dy": -3,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "lantern_row_40",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "lantern_row_41",
+      "dy": 0,
+      "raised_sides": []
+    }
+  ]
+]

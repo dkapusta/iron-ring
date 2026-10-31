@@ -1,0 +1,1890 @@
+[
+  [
+    {
+      "id": "foundry_00",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_01",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_02",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_03",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_04",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_05",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_06",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_07",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_08",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_09",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_10",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_11",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_12",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_13",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_14",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_15",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_16",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_17",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_18",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_19",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_20",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_21",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_22",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_24",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_25",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_26",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_27",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_29",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_30",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_31",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_32",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_33",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_34",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_35",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_36",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_37",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_38",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_39",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_40",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_41",
+      "dy": 0,
+      "raised_sides": []
+    }
+  ],
+  [
+    {
+      "id": "foundry_00",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_01",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_02",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_03",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_04",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_05",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_06",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_07",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_08",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_09",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_10",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_11",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_12",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_13",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_14",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_15",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_16",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_17",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_18",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_19",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_20",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_21",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_22",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_24",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_25",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_26",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_27",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_29",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_30",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_31",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_32",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_33",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_34",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_35",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_36",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_37",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_38",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_39",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_40",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_41",
+      "dy": 0,
+      "raised_sides": []
+    }
+  ],
+  [
+    {
+      "id": "foundry_00",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_01",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_02",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_03",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_04",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_05",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_06",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_07",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_08",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_09",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_10",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_11",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_12",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_13",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_14",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_15",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_16",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_17",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_18",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_19",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_20",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_21",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_22",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_24",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_25",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_26",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_27",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_29",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_30",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_31",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_32",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_33",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_34",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_35",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_36",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_37",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_38",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_39",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_40",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_41",
+      "dy": 0,
+      "raised_sides": []
+    }
+  ],
+  [
+    {
+      "id": "foundry_00",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_01",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_02",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_03",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_04",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_05",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_06",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_07",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_08",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_09",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_10",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_11",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_12",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_13",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_14",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_15",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_16",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_17",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_18",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_19",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_20",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_21",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_22",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_24",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_25",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_26",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_27",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_29",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_30",
+      "dy": 1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_31",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_32",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_33",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_34",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_35",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_36",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_37",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_38",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_39",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_40",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_41",
+      "dy": 0,
+      "raised_sides": []
+    }
+  ],
+  [
+    {
+      "id": "foundry_00",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_01",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_02",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_03",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_04",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_05",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_06",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_07",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_08",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_09",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "foundry_10",
+      "dy": -3,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_11",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_12",
+      "dy": -1,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "foundry_13",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_14",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_15",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_16",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_17",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_18",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_19",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_20",
+      "dy": -1,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_21",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "foundry_22",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_24",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_25",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_26",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_27",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_29",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_30",
+      "dy": -3,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_31",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_32",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_33",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_34",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_35",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_36",
+      "dy": -1,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "foundry_37",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_38",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_39",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_40",
+      "dy": -1,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_41",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    }
+  ],
+  [
+    {
+      "id": "foundry_00",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_01",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_02",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_03",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_04",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_05",
+      "dy": -3,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_06",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_07",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_08",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_09",
+      "dy": -3,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "foundry_10",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_11",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_12",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "foundry_13",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_14",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_15",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_16",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_17",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_18",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_19",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_20",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_21",
+      "dy": -3,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "foundry_22",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_24",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_25",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_26",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_27",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_29",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_30",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_31",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_32",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_33",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_34",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_35",
+      "dy": -1,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_36",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "foundry_37",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_38",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_39",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_40",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_41",
+      "dy": -3,
+      "raised_sides": [
+        -1
+      ]
+    }
+  ],
+  [
+    {
+      "id": "foundry_00",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_01",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_02",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_03",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_04",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_05",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_06",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_07",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_08",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_09",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "foundry_10",
+      "dy": -1,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_11",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_12",
+      "dy": -3,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "foundry_13",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_14",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_15",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_16",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_17",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_18",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_19",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_20",
+      "dy": -3,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_21",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "foundry_22",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_24",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_25",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_26",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_27",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_29",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_30",
+      "dy": -1,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_31",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_32",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_33",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_34",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_35",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_36",
+      "dy": -3,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "foundry_37",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_38",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_39",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_40",
+      "dy": -3,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_41",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    }
+  ],
+  [
+    {
+      "id": "foundry_00",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_01",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_02",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_03",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_04",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_05",
+      "dy": -1,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_06",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_07",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_08",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_09",
+      "dy": -1,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "foundry_10",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_11",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_12",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "foundry_13",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_14",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_15",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_16",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_17",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_18",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_19",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_20",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_21",
+      "dy": -1,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "foundry_22",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_23",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_24",
+      "dy": -1,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_25",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_26",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_27",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_28",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_29",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_30",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_31",
+      "dy": -3,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_32",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_33",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_34",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_35",
+      "dy": -3,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_36",
+      "dy": -2,
+      "raised_sides": [
+        -1
+      ]
+    },
+    {
+      "id": "foundry_37",
+      "dy": -1,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_38",
+      "dy": -2,
+      "raised_sides": [
+        1
+      ]
+    },
+    {
+      "id": "foundry_39",
+      "dy": 0,
+      "raised_sides": []
+    },
+    {
+      "id": "foundry_40",
+      "dy": -2,
+      "raised_sides": [
+        -1,
+        1
+      ]
+    },
+    {
+      "id": "foundry_41",
+      "dy": -1,
+      "raised_sides": [
+        -1
+      ]
+    }
+  ]
+]
