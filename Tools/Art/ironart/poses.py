@@ -45,6 +45,9 @@ STYLES = {
     # Jun: hunched and low, weight on the balls of the feet; the light kick is a low stepping kick.
     "jun": Style(front=14, back=-14, crouch=9, lean=14, guard_near=(12, -6), guard_far=(8, -2), open_hands=False,
                  jab=(44, 87), straight=(50, 93), kick=(60, 14), sweep=(66, 6)),
+    # The Broker: upright, fists forward, the old prize-ring stance.
+    "broker": Style(front=16, back=-16, crouch=4, lean=2, guard_near=(18, -2), guard_far=(12, 4), open_hands=False,
+                    jab=(52, 94), straight=(62, 98), kick=(62, 48), sweep=(78, 6)),
     "greta": Style(front=15, back=-18, crouch=9, lean=10, guard_near=(12, -2), guard_far=(9, 2), open_hands=False,
                    jab=(46, 94), straight=(54, 100), kick=(62, 40), sweep=(70, 6)),
 }
@@ -257,6 +260,11 @@ class PoseBook:
             a = self.stance(lean=-2, bob=2, near_hand=add(sh, (8, -16)), far_hand=add(sh, (10, -12)),
                             near_foot=(12, b.ankle), far_foot=(-14, b.ankle), head=10)
             return a, replace(a, near_hand=add(sh, (16, 30)), near_open=True, near_elbow=1, head=0)
+        if self.c.id == "broker":
+            # Straightening the tie, then a small wave: next.
+            a = self.stance(lean=0, bob=2, near_hand=add(sh, (8, -6)), far_hand=add(sh, (4, -4)), near_open=True,
+                            far_open=True, near_foot=(12, b.ankle), far_foot=(-14, b.ankle), head=-6)
+            return a, replace(a, near_hand=add(sh, (26, 10)), near_elbow=1, head=0)
         if self.c.id == "jun":
             # A coin walked over the knuckles, then flicked up and caught.
             a = self.stance(lean=6, bob=2, near_hand=add(sh, (14, -8)), far_hand=(-10, hip - 4), far_open=True,
@@ -301,6 +309,8 @@ class PoseBook:
             f.update(self.greta_specials())
         elif self.c.id == "jun":
             f.update(self.jun_specials())
+        elif self.c.id == "broker":
+            f.update(self.broker_specials())
         else:
             # Dock Hoist (63214 + P): reach low, grab; on connect: hoist, slam.
             reach = (6.0, hip * 0.72)
@@ -430,4 +440,27 @@ class PoseBook:
                               near_hand=add(esh, (6, -4)), far_hand=add(esh, (2, -14)), near_elbow=1,
                               expression="shout")
         f["special_3"] = replace(self.stance(lean=s.lean + 6, dx=2), near_foot=(s.front + 4, b.ankle))
+        return f
+
+    def broker_specials(self) -> dict[str, Pose]:
+        """Final Offer (236 + P): the hand drawn back, a long step, an open-palm
+        strike to the chest (active), then a tug at the cuff."""
+        s, b, hip = self.s, self.b, self.hip
+        f: dict[str, Pose] = {}
+        p0 = (-2.0, hip - 5)
+        sh0 = self.shoulders(p0, 4)
+        f["special_0"] = Pose(pelvis=p0, lean=4, near_foot=(s.front, b.ankle), far_foot=(s.back, b.ankle),
+                              near_hand=add(sh0, (-8, -12)), far_hand=add(sh0, (12, -6)), near_open=True)
+        p1 = (8.0, hip - 8)
+        sh1 = self.shoulders(p1, 10)
+        f["special_1"] = Pose(pelvis=p1, lean=10, near_foot=(s.front + 14, b.ankle), far_foot=(s.back + 2, b.ankle),
+                              far_toe=14, near_hand=add(sh1, (-4, -14)), far_hand=add(sh1, (12, -6)), near_open=True)
+        p2 = (10.0, hip - 8)
+        f["special_2"] = Pose(pelvis=p2, lean=16, near_foot=(s.front + 16, b.ankle), far_foot=(s.back + 4, b.ankle),
+                              far_toe=20, near_hand=(54, 96), far_hand=add(self.shoulders(p2, 16), (8, -10)),
+                              near_open=True, expression="shout")
+        p3 = (4.0, hip - 5)
+        sh3 = self.shoulders(p3, 2)
+        f["special_3"] = Pose(pelvis=p3, lean=2, near_foot=(s.front + 4, b.ankle), far_foot=(s.back, b.ankle),
+                              near_hand=add(sh3, (10, -20)), far_hand=add(sh3, (12, -18)), far_open=True)
         return f

@@ -149,7 +149,7 @@ void CharacterSelectScene::drawLadder(SDL_Renderer* r) const {
         const auto& bout = ladder->bouts[i];
         const auto* entry = data.fighter(opponents[i]);
         const auto& stage = data.stages()[data.stageIndex(bout.stage)];
-        const std::string who = player.playable() && entry ? ui::upper(entry->name) : "?";
+        const std::string who = bout.boss ? "???" : player.playable() && entry ? ui::upper(entry->name) : "?";
         data.small().draw(r, std::to_string(i + 1) + ". " + ui::upper(stage.name), right, y,
                           bout.final ? ui::kCoralLight : ui::kChalk, Align::Right, true);
         data.small().draw(r, "VS " + who, right, y + 9, ui::kFog, Align::Right, true);

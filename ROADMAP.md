@@ -86,7 +86,7 @@ New fighters arrive with procedural placeholder art and their own frame data, mo
 - ✅ Move list on the character select: heavy punch (pad Y) shows the highlighted fighter's moves in that player's keys
 - ✅ New venues with placeholder art, layered like the M2 four, each with its own theme: **Dry Dock 4** ("Low Tide"), **The Hold** ("Below Decks", where Idris waits in the arcade), **The Broker's Club** ("Gilt and Smoke", saved for the Broker)
 - ✅ Arcade ladder of five bouts: Pier 9, Lantern Row, The Hold, The Foundry, The Crown
-- ⬜ The Broker (boss), story intros/endings, win quotes
+- ✅ **The Broker**, the boss (placeholder art): after the title bout, by invitation, at his club; not on the select. Every fighter has a story intro, an ending and three win quotes (`story` in the fighter file, checked against the fonts' charset) ([ADR-0022](docs/adr/0022-boss-and-story.md))
 - ⬜ Asset streaming: per-stage `sharedassetsN.assets` + `levelN` loaded on demand
 
 ## M4 — Online

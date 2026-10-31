@@ -6,6 +6,11 @@
   "atlas": "bram_atlas.json",
   "portrait": "bram_portrait.png",
   "selectPortrait": "bram_select.png",
+  "story": {
+    "intro": ["Twelve years on the cranes, then the yard shut.", "Now I'm the gate. Nobody reaches the Crown past me.", "This year I stop guarding it and take it."],
+    "ending": ["Bram turns the Broker's money down.", "He buys the old Pier 9 crane at auction instead.", "Saturday nights, the Ring meets under his hook."],
+    "winQuotes": ["The tide doesn't argue. Neither do I.", "You hit like rain on a hull.", "Get up slow. That's how you stay up."]
+  },
   "physics": {"walkForward": 340, "walkBack": 280, "jumpVelocity": 1750, "gravity": 72},
   "body": {"standHurt": [-20, 0, 40, 128], "crouchHurt": [-22, 0, 44, 100], "pushWidth": 40, "knockdownTicks": 54},
   "moves": {

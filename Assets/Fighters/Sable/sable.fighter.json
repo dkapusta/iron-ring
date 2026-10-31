@@ -5,6 +5,11 @@
   "displayName": "SABLE REYES",
   "atlas": "sable_atlas.json",
   "portrait": "sable_portrait.png",
+  "story": {
+    "intro": ["I know every roof in Grayhaven. Every gutter.", "Packages, messages, the odd favour. All for a fee.", "The Crown's purse is the biggest fee in town."],
+    "ending": ["Sable takes the purse in cash and is gone by midnight.", "Nobody sees her in Grayhaven again.", "Postcards still turn up at the Lantern Row market."],
+    "winQuotes": ["Too slow. I was already gone.", "That's a delivery. Sign here.", "Keep the change."]
+  },
   "physics": {"walkForward": 440, "walkBack": 380, "jumpVelocity": 2000, "gravity": 66},
   "body": {"standHurt": [-15, 0, 30, 124], "crouchHurt": [-17, 0, 36, 90], "pushWidth": 32, "knockdownTicks": 52},
   "moves": {

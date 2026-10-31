@@ -23,6 +23,7 @@ ArcadeLadder parseArcade(const nlohmann::json& j, std::string_view path) {
         }
         bout.level = b.value("level", 1);
         bout.final = b.value("final", false);
+        bout.boss = b.value("boss", false);
         if (bout.level < 0 || bout.level > 4)
             throw ContentError(std::string(path) + ": bout " + std::to_string(ladder.bouts.size() + 1) +
                                ": level must be 0..4");
@@ -43,6 +44,10 @@ std::vector<std::string> arcadeOpponents(const ArcadeLadder& ladder, const std::
         return id != player && std::find(playable.begin(), playable.end(), id) != playable.end();
     };
     for (const auto& bout : ladder.bouts) {
+        if (bout.boss) { // not a roster fighter: always the one named
+            met.push_back(bout.opponents.front());
+            continue;
+        }
         std::string pick;
         const auto listed = [&](bool includeMet) {
             for (const auto& c : bout.opponents)

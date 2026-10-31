@@ -5,6 +5,7 @@
 #include "Content/Stage.h"
 
 #include <algorithm>
+#include <cctype>
 #include <optional>
 #include <set>
 #include <utility>
@@ -61,6 +62,18 @@ std::vector<std::string> validateFighter(const FighterDefinition& d, const Atlas
     const auto err = [&](const std::string& what) { errors.push_back(d.id + ": " + what); };
 
     checkAtlasBounds(atlas, imageSize, d.id, errors);
+    // Story lines are drawn in the bitmap fonts: their charset, and short enough for the screen.
+    constexpr std::string_view kCharset = " ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?:-+/'\"%()#=<>*";
+    for (const auto* lines : {&d.story.intro, &d.story.ending, &d.story.winQuotes})
+        for (const auto& line : *lines) {
+            if (line.size() > 60) err("story line longer than 60 characters: '" + line + "'");
+            for (const char ch : line)
+                if (kCharset.find(static_cast<char>(std::toupper(static_cast<unsigned char>(ch)))) ==
+                    std::string_view::npos) {
+                    err("story line has '" + std::string(1, ch) + "', which the fonts can't draw: '" + line + "'");
+                    break;
+                }
+        }
     for (const auto name : kRequiredAnimations)
         if (!d.hasAnimation(name)) err("missing animation '" + std::string(name) + "'");
     for (const auto frame : kSharedFrames)
@@ -222,7 +235,9 @@ ValidationReport validateProject(const FileReader& read) {
                         if (!known) report.errors.push_back(where + ": unknown opponent '" + candidate + "'");
                     }
                 }
-                if (!ladder.bouts.back().final) report.warnings.push_back(arcadePath + ": the last bout isn't marked final");
+                const auto& last = ladder.bouts.back();
+                if (!last.final && !last.boss)
+                    report.warnings.push_back(arcadePath + ": the last bout isn't marked final or boss");
             }
         }
 

@@ -198,8 +198,9 @@ TEST_CASE("the shipped arcade ladder: no repeats; Jun at Lantern Row, Idris in t
     const std::vector<std::string> playable{"dee", "bram", "sable", "idris", "greta", "jun"};
     for (const auto& player : playable) {
         const auto run = iron::content::arcadeOpponents(ladder, player, playable);
-        REQUIRE(run.size() == 5);
-        for (std::size_t i = 0; i < run.size(); ++i) {
+        REQUIRE(run.size() == 6);
+        CHECK(run[5] == "broker"); // the boss, whoever you are
+        for (std::size_t i = 0; i < 5; ++i) {
             CHECK(run[i] != player);
             for (std::size_t j = 0; j < i; ++j) CHECK(run[i] != run[j]);
         }
@@ -300,6 +301,9 @@ TEST_CASE("arcade ladder: opponents, levels and the run's steps") {
 
     using Step = iron::content::ArcadeRun::Step;
     iron::content::ArcadeRun run;
+    CHECK(run.step == Step::Story);
+    run.begin();
+    CHECK(run.step == Step::Versus);
     run.startFight();
     run.finished(false, 3);
     CHECK(run.step == Step::Continue);
@@ -322,16 +326,17 @@ TEST_CASE("arcade ladder: opponents, levels and the run's steps") {
 // Not a check: a CPU-vs-CPU win matrix at VETERAN for tuning frame data.
 // Run with: IronRingTests -s -tc="balance*" --no-skip. Rows win out of 100 against columns.
 TEST_CASE("balance: CPU win matrix" * doctest::skip()) {
-    const char* ids[]{"dee", "bram", "sable", "idris", "greta", "jun"};
+    const char* ids[]{"dee", "bram", "sable", "idris", "greta", "jun", "broker"};
     const char* paths[]{"Fighters/Dee/dee.fighter.json", "Fighters/Bram/bram.fighter.json",
                         "Fighters/Sable/sable.fighter.json", "Fighters/Idris/idris.fighter.json",
-                        "Fighters/Greta/greta.fighter.json", "Fighters/Jun/jun.fighter.json"};
+                        "Fighters/Greta/greta.fighter.json", "Fighters/Jun/jun.fighter.json",
+                        "Fighters/Broker/broker.fighter.json"};
     std::vector<FighterDefinition> f;
     for (auto* p : paths) f.push_back(shippedFighter(p));
-    MESSAGE("        dee bram sable idris greta jun");
-    for (int i = 0; i < 6; ++i) {
+    MESSAGE("        dee bram sable idris greta jun broker");
+    for (int i = 0; i < 7; ++i) {
         std::string line = ids[i];
-        for (int j = 0; j < 6; ++j) {
+        for (int j = 0; j < 7; ++j) {
             int wins = 0;
             for (std::uint32_t seed = 1; seed <= 100; ++seed) {
                 const bool swap = seed % 2;

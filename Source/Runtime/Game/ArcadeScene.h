@@ -12,9 +12,10 @@
 
 namespace iron {
 
-// One arcade run: the ladder from Data/arcade.json, bout by bout. Between
-// fights it shows the versus card, the continue countdown, game over, or the
-// ending; each fight is pushed on top and reports its winner back.
+// One arcade run: the ladder from Data/arcade.json, bout by bout. It opens on
+// the player's story; between fights it shows the versus card (the boss bout:
+// his greeting), the continue countdown, game over, or the fighter's ending;
+// each fight is pushed on top and reports its winner back.
 class ArcadeScene final : public Scene {
 public:
     ArcadeScene(Services& services, std::string player);
@@ -26,6 +27,7 @@ public:
     void onEnter() override;
 
 private:
+    static constexpr int kStoryTicks = 60 * 8;
     static constexpr int kVersusTicks = 150;
     static constexpr int kContinueSeconds = 9;
     static constexpr int kGameOverTicks = 180;
@@ -34,7 +36,10 @@ private:
     [[nodiscard]] const content::ArcadeBout& bout() const;
     [[nodiscard]] const std::string& opponent() const;
     void loadViews();
+    void begin();
     void startFight();
+    [[nodiscard]] std::size_t titleBouts() const; // the bouts up to and including the title
+    void drawStory(SDL_Renderer* r) const;
     void drawVersus(SDL_Renderer* r) const;
     void drawContinue(SDL_Renderer* r) const;
     void drawEnding(SDL_Renderer* r) const;

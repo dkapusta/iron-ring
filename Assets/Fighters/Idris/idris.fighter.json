@@ -5,6 +5,11 @@
   "displayName": "IDRIS OKAFOR",
   "atlas": "idris_atlas.json",
   "portrait": "idris_portrait.png",
+  "story": {
+    "intro": ["They impounded my ship and left my crew ashore.", "Passage out costs more than a sailor earns.", "So I will earn it here, one long kick at a time."],
+    "ending": ["With the Broker's purse, Idris buys back the Marisol.", "Her engines turn over at first light.", "He sails with the tide and does not look back."],
+    "winQuotes": ["Distance is a choice. You chose wrong.", "Patience. The sea taught me that.", "Mind the rope next time."]
+  },
   "physics": {"walkForward": 380, "walkBack": 320, "jumpVelocity": 1850, "gravity": 70},
   "body": {"standHurt": [-17, 0, 34, 132], "crouchHurt": [-19, 0, 40, 92], "pushWidth": 36, "knockdownTicks": 54},
   "moves": {

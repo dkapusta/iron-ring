@@ -148,6 +148,18 @@ void Hud::drawBanner(SDL_Renderer* r, const sim::Match& match,
         large_.draw(r, text, x, y, {255, 255, 255, 255}, Align::Centre);
         if ((blink_ / 20) % 2 == 0 && match.winner != sim::Outcome::Draw)
             small_.draw(r, "TAKES THE RING", x, y + 30, kChalk, Align::Centre, true);
+        if (match.winner != sim::Outcome::Draw) {
+            // A win quote, the same one for the same match: picked by the loser and the rounds it took.
+            const int w = match.winner == sim::Outcome::Player1 ? 0 : 1;
+            const auto& quotes = fighters[static_cast<std::size_t>(w)]->definition().story.winQuotes;
+            if (!quotes.empty()) {
+                std::size_t pick = static_cast<std::size_t>(match.roundNumber);
+                for (const char ch : fighters[static_cast<std::size_t>(1 - w)]->definition().id)
+                    pick += static_cast<unsigned char>(ch);
+                small_.draw(r, "\"" + ui::upper(quotes[pick % quotes.size()]) + "\"", x, y + 48, kChalk, Align::Centre,
+                            true);
+            }
+        }
         return;
     case sim::Phase::Fight:
         return;

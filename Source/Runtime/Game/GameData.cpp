@@ -92,7 +92,8 @@ void GameData::loadRoster(AssetLibrary& assets) {
                 e.definition = it->second;
                 definitions.erase(it);
             }
-            roster_.push_back(std::move(e));
+            // A boss (the Broker) fights in the arcade but has no slot on the select.
+            (f.value("boss", false) ? bosses_ : roster_).push_back(std::move(e));
         }
     }
     // Defined fighters missing from the roster file still get a slot.
@@ -112,6 +113,8 @@ std::size_t GameData::stageIndex(std::string_view id) const {
 
 const RosterEntry* GameData::fighter(std::string_view id) const {
     for (const auto& e : roster_)
+        if (e.id == id) return &e;
+    for (const auto& e : bosses_)
         if (e.id == id) return &e;
     return nullptr;
 }

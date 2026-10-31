@@ -74,6 +74,19 @@
         "Sleight Feint"
       ],
       "starter_selectable": true
+    },
+    {
+      "id": "broker",
+      "name": "The Broker",
+      "role": "Promoter / boss",
+      "palette_accent": "gold",
+      "identity": "Runs the Iron Ring and owns half of Grayhaven's debts. Waits in his club for whoever takes the Crown.",
+      "signature_concepts": [
+        "Final Offer",
+        "Foreclosure"
+      ],
+      "starter_selectable": false,
+      "boss": true
     }
   ]
 }
