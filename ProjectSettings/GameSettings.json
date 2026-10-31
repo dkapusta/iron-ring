@@ -10,7 +10,9 @@
   "fighters": [
     "Fighters/Dee/dee.fighter.json",
     "Fighters/Bram/bram.fighter.json",
-    "Fighters/Sable/sable.fighter.json"
+    "Fighters/Sable/sable.fighter.json",
+    "Fighters/Idris/idris.fighter.json",
+    "Fighters/Greta/greta.fighter.json"
   ],
   "roster": "Data/roster.json",
   "stages": "Data/stages.json",
@@ -50,7 +52,9 @@
     "draw": "Resources/Audio/Voice/draw.wav",
     "dee_wins": "Resources/Audio/Voice/dee_wins.wav",
     "bram_wins": "Resources/Audio/Voice/bram_wins.wav",
-    "sable_wins": "Resources/Audio/Voice/sable_wins.wav"
+    "sable_wins": "Resources/Audio/Voice/sable_wins.wav",
+    "idris_wins": "Resources/Audio/Voice/idris_wins.wav",
+    "greta_wins": "Resources/Audio/Voice/greta_wins.wav"
   },
   "ui": {
     "logo": "Resources/UI/title_logo.png",

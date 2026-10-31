@@ -80,8 +80,8 @@ New fighters arrive with procedural placeholder art and their own frame data, mo
 - ✅ **Sable Reyes**, mobile kickboxer: a low Calf Kick that cancels, the head-high Wire Kick, the Switch Step flying knee (236 + K); placeholder art; in versus, training and the arcade
 - ✅ Arcade ladder for a growing roster: each bout lists candidates, and a run meets everyone once before anyone twice; Bram still waits at The Crown
 - ✅ `-fighters <p1>,<p2>` for demos, training and tests; the CPU throws kick specials
-- ⬜ Idris Okafor, long-range striker
-- ⬜ Greta Voll, power brawler
+- ✅ **Idris Okafor**, long-range striker (the Mast Kick push kick, the Bowline Heel 214 + K) and **Greta Voll**, power brawler (the Slag Knuckle, the Ladle Drop 623 + P); placeholder art; Greta meets every challenger at her old Foundry
+- ✅ CPU: a special that out-ranges every normal (Idris's heel, Greta's lunge) is thrown as a poke; a CPU-vs-CPU win matrix test for tuning frame data
 - ⬜ Jun Arata, rushdown / feint
 - ⬜ New venues (dry dock, ship's hold, the Broker's club), layered like the M2 four
 - ⬜ The Broker (boss), story intros/endings, win quotes

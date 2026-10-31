@@ -92,15 +92,41 @@ Slow advance, close-range reads, a command throw.
 
 ## Sable Reyes — mobile kickboxer
 
-Fast feet, a high, floaty jump and kicks from odd angles: a low kick that cancels, a head-high roundhouse, and a flying knee that crosses half the ring. Placeholder art for now.
+Fast feet, a high, floaty jump and kicks from odd angles: a quick low kick, a head-high roundhouse, and a flying knee that crosses half the ring. Placeholder art for now.
 
 | Move | Button / motion | Player 1 (facing right) | Player 2 (facing left) | Startup / active / recovery | Damage | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
 | Snap Jab | LP | F | Keypad 1 | 4 / 2 / 10 | 5 | Cancels; 0 to +1 on block |
 | Rear Cross | HP | G | Keypad 2 | 9 / 3 / 19 | 11 | Heavy |
-| Calf Kick | LK | H | Keypad 3 | 5 / 3 / 12 | 6 | Low (crouch-guard it); cancels; −1 to +1 on block |
-| Wire Kick | HK | J | Keypad 0 | 11 / 4 / 21 | 13 | Head-high roundhouse; heavy, long reach |
+| Calf Kick | LK | H | Keypad 3 | 7 / 3 / 13 | 5 | Low (crouch-guard it); −3 to −1 on block |
+| Wire Kick | HK | J | Keypad 0 | 11 / 4 / 21 | 12 | Head-high roundhouse; heavy, long reach |
 | Rooftop Drop | LP + LK, close | F + H | Keypad 1 + 3 | 3 / 2 / 22 | 10 | Throw, techable; lands the opponent far away |
-| **Switch Step** | **236 + K** (↓ ↘ → + either kick) | **S, S+D, D + H or J** | **↓, ↓+←, ← + Keypad 3 or 0** | 7 / 4 / 19 | 13 | Special: a stance switch, a long step and a flying knee; knocks down. Cancels from Snap Jab or Calf Kick. Very punishable on block |
+| **Switch Step** | **236 + K** (↓ ↘ → + either kick) | **S, S+D, D + H or J** | **↓, ↓+←, ← + Keypad 3 or 0** | 7 / 4 / 26 | 10 | Special: a stance switch, a long step and a flying knee; knocks down. Cancels from Snap Jab. Very punishable on block |
+
+## Idris Okafor — long-range striker
+
+Long arms, longer legs, and the patience to wait at the end of them. Everything works at range; up close he's slow to recover. Placeholder art for now.
+
+| Move | Button / motion | Player 1 (facing right) | Player 2 (facing left) | Startup / active / recovery | Damage | Notes |
+| --- | --- | --- | --- | --- | --- | --- |
+| Long Jab | LP | F | Keypad 1 | 5 / 3 / 12 | 6 | Cancels; −2 to 0 on block |
+| Hawser Straight | HP | G | Keypad 2 | 10 / 3 / 22 | 13 | Heavy, long |
+| Mast Kick | LK | H | Keypad 3 | 9 / 4 / 20 | 10 | A push kick at the end of his reach: pushes far back, hit or block |
+| Deck Sweep | HK | J | Keypad 0 | 14 / 5 / 26 | 15 | Low (crouch-guard it), knocks down, the longest sweep |
+| Gangway Heave | LP + LK, close | F + H | Keypad 1 + 3 | 3 / 2 / 24 | 12 | Throw, techable |
+| **Bowline Heel** | **214 + K** (↓ ↙ ← + either kick) | **S, S+A, A + H or J** | **↓, ↓+→, → + Keypad 3 or 0** | 13 / 4 / 22 | 16 | Special: a turning heel kick at head height with a short step; knocks down. Slow to start, so throw it where the opponent will be |
+
+## Greta Voll — power brawler
+
+Square, planted and hard to move: short reach, heavy hands. She waits behind her guard and makes every opening cost. Placeholder art for now.
+
+| Move | Button / motion | Player 1 (facing right) | Player 2 (facing left) | Startup / active / recovery | Damage | Notes |
+| --- | --- | --- | --- | --- | --- | --- |
+| Short Jab | LP | F | Keypad 1 | 5 / 3 / 10 | 7 | Cancels; 0 to +2 on block |
+| Slag Knuckle | HP | G | Keypad 2 | 11 / 3 / 22 | 16 | Heavy, short |
+| Toe-Cap Kick | LK | H | Keypad 3 | 7 / 4 / 15 | 10 | Cancels; −1 to +2 on block |
+| Pig-Iron Sweep | HK | J | Keypad 0 | 15 / 5 / 26 | 18 | Low (crouch-guard it), knocks down |
+| Crucible Toss | LP + LK, close | F + H | Keypad 1 + 3 | 3 / 2 / 24 | 14 | Throw, techable |
+| **Ladle Drop** | **623 + P** (→ ↓ ↘ + either punch) | **D, S, S+D + F or G** | **←, ↓, ↓+← + Keypad 1 or 2** | 12 / 4 / 24 | 18 | Special: both fists locked and brought down like a tipping ladle, lunging in; knocks down. Huge recovery on a miss |
 
 Frame counts are 60 Hz ticks, from the fighter files (`Assets/Fighters/<Name>/<id>.fighter.json`). In training, F3 shows the boxes and the frame advantage of every hit.

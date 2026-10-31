@@ -191,22 +191,44 @@ TEST_CASE("shipped fighters play a deterministic match") {
 
 #include "Simulation/Cpu.h"
 
-TEST_CASE("the CPU uses a kick special (Sable's 236K Switch Step)") {
-    const auto sable = shippedFighter("Fighters/Sable/sable.fighter.json");
-    const auto dee = shippedFighter("Fighters/Dee/dee.fighter.json");
-    REQUIRE(sable.spec.moves[sim::SpecialSlot].motionButtons == (sim::LightKick | sim::HeavyKick));
-    sim::Match m(sable.spec, dee.spec);
-    sim::CpuPlayer a(4, 7), b(2, 11);
-    int specials = 0, lastMove = -1;
-    for (int i = 0; i < 30000 && !m.finished; ++i) {
-        const std::array<sim::Input, 2> in{a.think(m.round, 0), b.think(m.round, 1)};
-        (void)m.step(in);
-        const int move = m.round.fighters[0].move;
-        specials += move == sim::SpecialSlot && lastMove != sim::SpecialSlot;
-        lastMove = move;
+#include "Content/Arcade.h"
+
+TEST_CASE("the shipped arcade ladder: no repeats, Greta at her Foundry, Bram at the Crown") {
+    const auto ladder = iron::content::parseArcade(readJson(projectReader(), "Data/arcade.json"), "arcade.json");
+    const std::vector<std::string> playable{"dee", "bram", "sable", "idris", "greta"};
+    for (const auto& player : playable) {
+        const auto run = iron::content::arcadeOpponents(ladder, player, playable);
+        REQUIRE(run.size() == 4);
+        for (std::size_t i = 0; i < run.size(); ++i) {
+            CHECK(run[i] != player);
+            for (std::size_t j = 0; j < i; ++j) CHECK(run[i] != run[j]);
+        }
+        if (player != "greta") CHECK(run[2] == "greta");
+        if (player != "bram") CHECK(run[3] == "bram");
     }
-    CHECK(m.finished);
-    CHECK(specials > 0);
+}
+
+TEST_CASE("the CPU lands every new fighter's special (236K, 214K, 623P)") {
+    const auto dee = shippedFighter("Fighters/Dee/dee.fighter.json");
+    for (const char* path : {"Fighters/Sable/sable.fighter.json", "Fighters/Idris/idris.fighter.json",
+                             "Fighters/Greta/greta.fighter.json"}) {
+        CAPTURE(path);
+        const auto fighter = shippedFighter(path);
+        int specials = 0;
+        for (std::uint32_t seed = 1; seed <= 4; ++seed) { // a few matches: one can go by without one
+            sim::Match m(fighter.spec, dee.spec);
+            sim::CpuPlayer a(4, seed * 7), b(2, seed * 11);
+            int lastMove = -1;
+            for (int i = 0; i < 30000 && !m.finished; ++i) {
+                (void)m.step({a.think(m.round, 0), b.think(m.round, 1)});
+                const int move = m.round.fighters[0].move;
+                specials += move == sim::SpecialSlot && lastMove != sim::SpecialSlot;
+                lastMove = move;
+            }
+            CHECK(m.finished);
+        }
+        CHECK(specials >= 4);
+    }
 }
 
 #include "Content/Stage.h"
@@ -293,4 +315,32 @@ TEST_CASE("arcade ladder: opponents, levels and the run's steps") {
 
     CHECK_THROWS_AS((void)iron::content::parseArcade(nlohmann::json::parse(R"({"bouts": []})"), "a.json"),
                     iron::content::ContentError);
+}
+
+// Not a check: a CPU-vs-CPU win matrix at VETERAN for tuning frame data.
+// Run with: IronRingTests -s -tc="balance*" --no-skip. Rows win out of 100 against columns.
+TEST_CASE("balance: CPU win matrix" * doctest::skip()) {
+    const char* ids[]{"dee", "bram", "sable", "idris", "greta"};
+    const char* paths[]{"Fighters/Dee/dee.fighter.json", "Fighters/Bram/bram.fighter.json",
+                        "Fighters/Sable/sable.fighter.json", "Fighters/Idris/idris.fighter.json",
+                        "Fighters/Greta/greta.fighter.json"};
+    std::vector<FighterDefinition> f;
+    for (auto* p : paths) f.push_back(shippedFighter(p));
+    MESSAGE("        dee bram sable idris greta");
+    for (int i = 0; i < 5; ++i) {
+        std::string line = ids[i];
+        for (int j = 0; j < 5; ++j) {
+            int wins = 0;
+            for (std::uint32_t seed = 1; seed <= 100; ++seed) {
+                const bool swap = seed % 2;
+                sim::Match m(f[swap ? j : i].spec, f[swap ? i : j].spec);
+                sim::CpuPlayer a(3, seed * 7), b(3, seed * 13 + 1);
+                for (int k = 0; k < 40000 && !m.finished; ++k) (void)m.step({a.think(m.round, 0), b.think(m.round, 1)});
+                const int mine = swap ? 1 : 0;
+                wins += m.winner == (mine ? sim::Outcome::Player2 : sim::Outcome::Player1);
+            }
+            line += " " + std::to_string(wins);
+        }
+        MESSAGE(line);
+    }
 }
