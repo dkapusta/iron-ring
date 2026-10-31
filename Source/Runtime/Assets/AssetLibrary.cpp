@@ -35,6 +35,8 @@ const Texture& AssetLibrary::texture(std::string_view path) {
     return textures_.emplace(key, std::move(t)).first->second;
 }
 
+bool AssetLibrary::unload(std::string_view path) { return textures_.erase(std::string(path)) != 0; }
+
 void AssetLibrary::releaseTextures() {
     for (auto& [_, t] : textures_) t.handle.reset();
 }

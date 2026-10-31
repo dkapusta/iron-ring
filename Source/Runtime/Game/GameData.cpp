@@ -2,12 +2,13 @@
 
 #include <SDL3/SDL.h>
 
+#include <algorithm>
 #include <stdexcept>
 
 namespace iron {
 
-GameData::GameData(AssetLibrary& assets, AudioSystem& audio)
-    : settings_(assets.json("ProjectSettings/GameSettings.json")) {
+GameData::GameData(AssetLibrary& assets, AudioSystem& audio, vfs::StreamingArchives* streaming)
+    : settings_(assets.json("ProjectSettings/GameSettings.json")), assets_(assets), streaming_(streaming) {
     small_ = std::make_unique<BitmapFont>(assets, settings_.at("fonts").at("small").get<std::string>());
     large_ = std::make_unique<BitmapFont>(assets, settings_.at("fonts").at("large").get<std::string>());
     for (const auto& [id, path] : settings_.at("sounds").items()) audio.load(id, assets.bytes(path.get<std::string>()));
@@ -41,7 +42,9 @@ void GameData::loadMusic(AssetLibrary& assets) {
     for (const auto& [id, theme] : catalog.at("themes").items()) {
         AudioSystem::Music music;
         music.id = id;
-        music.encoded = assets.bytes(folder + theme.at("file").get<std::string>());
+        const auto file = folder + theme.at("file").get<std::string>();
+        if (!streaming_ || !streaming_->streams(file)) music.encoded = assets.bytes(file); // else: useStage
+        themeFiles_.emplace(id, file);
         music.loopStartFrame = theme.value("loopStartFrame", std::int64_t{0});
         music.gain = theme.value("gain", 1.0f);
         themes_.emplace(id, std::move(music));
@@ -61,8 +64,7 @@ void GameData::loadStages(AssetLibrary& assets) {
         stage.description = stage.definition.description;
         stage.music = stage.definition.music;
         if (const auto it = themeTitles_.find(stage.music); it != themeTitles_.end()) stage.musicTitle = it->second;
-        stage.image = &assets.texture(stage.definition.image);
-        for (const auto& layer : stage.definition.layers) stage.layers.push_back(&assets.texture(layer.image));
+        stage.image = &assets.texture(stage.definition.image); // previews stay resident
         if (stage.id == start) startStage_ = stages_.size();
         stages_.push_back(std::move(stage));
     }
@@ -127,9 +129,58 @@ std::array<std::string, 2> GameData::defaultPair() const {
     return pair;
 }
 
+std::vector<std::string> GameData::stagePaths(const StageInfo& stage) const {
+    std::vector<std::string> paths;
+    for (const auto& layer : stage.definition.layers) paths.push_back(layer.image);
+    if (const auto it = themeFiles_.find(stage.music); it != themeFiles_.end()) paths.push_back(it->second);
+    return paths;
+}
+
+const StageInfo& GameData::useStage(std::size_t index) {
+    auto& stage = stages_.at(index);
+    if (const auto it = std::find(resident_.begin(), resident_.end(), index); it != resident_.end()) {
+        resident_.erase(it);
+        resident_.push_front(index);
+        return stage;
+    }
+    const auto started = SDL_GetTicksNS();
+    if (streaming_) streaming_->acquire(stage.id, stagePaths(stage));
+    for (const auto& layer : stage.definition.layers) stage.layers.push_back(&assets_.texture(layer.image));
+    if (const auto it = themes_.find(stage.music); it != themes_.end() && it->second.encoded.empty())
+        it->second.encoded = assets_.bytes(themeFiles_.at(stage.music));
+    resident_.push_front(index);
+    while (resident_.size() > kResidentStages) {
+        const auto oldest = resident_.back();
+        resident_.pop_back();
+        evictStage(oldest);
+    }
+    SDL_Log("Stage %s loaded in %.1f ms (%d resident)", stage.id.c_str(),
+            static_cast<double>(SDL_GetTicksNS() - started) / 1e6, static_cast<int>(resident_.size()));
+    return stage;
+}
+
+void GameData::evictStage(std::size_t index) {
+    auto& stage = stages_.at(index);
+    stage.layers.clear();
+    for (const auto& layer : stage.definition.layers) {
+        // A layer image shared with a resident stage stays.
+        bool shared = false;
+        for (const auto r : resident_)
+            for (const auto& other : stages_[r].definition.layers) shared = shared || other.image == layer.image;
+        if (!shared) assets_.unload(layer.image);
+    }
+    if (const auto it = themes_.find(stage.music); it != themes_.end() && streaming_ &&
+                                                     streaming_->streams(themeFiles_.at(stage.music))) {
+        bool shared = false;
+        for (const auto r : resident_) shared = shared || stages_[r].music == stage.music;
+        if (!shared) it->second.encoded = {};
+    }
+    if (streaming_) streaming_->release(stage.id);
+}
+
 void GameData::playTheme(AudioSystem& audio, std::string_view id) const {
     const auto it = themes_.find(std::string(id));
-    if (it == themes_.end()) {
+    if (it == themes_.end() || it->second.encoded.empty()) { // unknown, or a stage theme not loaded
         audio.stopMusic(300);
         return;
     }

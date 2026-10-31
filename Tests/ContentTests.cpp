@@ -9,6 +9,7 @@
 
 #include <filesystem>
 #include <memory>
+#include <set>
 
 using namespace iron;
 using namespace iron::content;
@@ -349,5 +350,60 @@ TEST_CASE("balance: CPU win matrix" * doctest::skip()) {
             line += " " + std::to_string(wins);
         }
         MESSAGE(line);
+    }
+}
+
+// AssetPipeline.json packs each stage's layers into a sharedassetsN.assets and
+// its theme into a levelN of its own (N >= 1), so the player can stream them;
+// the previews stay in sharedassets0 for the menus.
+TEST_CASE("every stage streams from archives of its own") {
+    const auto read = projectReader();
+    const auto pipeline = readJson(read, "ProjectSettings/AssetPipeline.json");
+    // The archive a virtual path (under Assets/) lands in, or "".
+    const auto archiveOf = [&](const std::string& path) {
+        std::string owner;
+        for (const auto& a : pipeline.at("archives")) {
+            if (a.at("root") != "Assets") continue;
+            const auto under = [&](const std::string& prefix) {
+                return path == prefix || path.rfind(prefix + "/", 0) == 0;
+            };
+            bool claimed = false;
+            for (const auto& f : a.value("files", json::array())) claimed = claimed || f == path;
+            for (const auto& inc : a.value("include", json::array())) {
+                const auto ext = std::filesystem::path(path).extension().string();
+                bool excluded = false;
+                for (const auto& ex : a.value("exclude", json::array())) excluded = excluded || under(ex);
+                for (const auto& ex : a.value("excludeExtensions", json::array())) excluded = excluded || ex == ext;
+                claimed = claimed || (under(inc) && !excluded && !a.contains("extensions"));
+                if (a.contains("extensions") && under(inc) && !excluded)
+                    for (const auto& allowed : a.at("extensions")) claimed = claimed || allowed == ext;
+            }
+            if (claimed) {
+                CHECK_MESSAGE(owner.empty(), path << " is claimed by " << owner << " and " << a.at("output"));
+                owner = a.at("output").get<std::string>();
+            }
+        }
+        return owner;
+    };
+    const auto music = readJson(read, "Resources/Audio/music.json");
+    const auto stages = readJson(read, "Data/stages.json"); // a named copy: iterating a temporary's member dangles
+    std::set<std::string> layerArchives, themeArchives;
+    REQUIRE(stages.at("stages").size() >= 7);
+    for (const auto& stage : stages.at("stages")) {
+        const auto id = stage.at("id").get<std::string>();
+        CAPTURE(id);
+        CHECK(archiveOf(stage.at("image")) == "sharedassets0.assets");
+        std::set<std::string> layers;
+        for (const auto& layer : stage.value("layers", json::array())) layers.insert(archiveOf(layer.at("image")));
+        REQUIRE(layers.size() == 1);
+        const auto& layerArchive = *layers.begin();
+        CHECK(layerArchive.rfind("sharedassets", 0) == 0);
+        CHECK(layerArchive != "sharedassets0.assets");
+        CHECK(layerArchives.insert(layerArchive).second);
+        const auto& themeEntry = music.at("themes").at(stage.at("music").get<std::string>());
+        const auto theme = "Resources/Audio/" + themeEntry.at("file").get<std::string>();
+        const auto themeArchive = archiveOf(theme);
+        CHECK(themeArchive.rfind("level", 0) == 0);
+        CHECK(themeArchives.insert(themeArchive).second);
     }
 }

@@ -76,8 +76,10 @@ Player/Release/
     ├── boot.config              player boot options (key=value)
     ├── globalgamemanagers       ProjectSettings/*
     ├── resources.assets         Assets/Resources/** (except audio)
-    ├── resources.resource       Assets/Resources/** audio
-    └── sharedassets0.assets     Assets/Data, Fighters, Stages
+    ├── resources.resource       Assets/Resources/** audio (except stage themes)
+    ├── sharedassets0.assets     Assets/Data, Fighters, stage previews
+    ├── sharedassets1..7.assets  one venue's layers each, mounted while in use
+    └── level1..7                one venue's theme each, mounted while in use
 ```
 
 The folder is self-contained and can be zipped and copied as is. `cmake --install Build/release --prefix ~/.local` installs it, with a desktop entry and icon on Linux ([docs/install.md](docs/install.md)). The player writes `Player.log` (previous run: `Player-prev.log`), `prefs.cfg` (what you chose in Options, plus the last stage picked) and F12 screenshots to the per-user data folder (`%APPDATA%\dkapusta\Iron Ring\` on Windows, `~/.local/share/dkapusta/Iron Ring/` on Linux). Delete `prefs.cfg` to go back to the defaults.

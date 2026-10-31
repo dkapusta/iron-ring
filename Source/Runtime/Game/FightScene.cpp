@@ -61,7 +61,7 @@ void FightScene::playStageMusic() { services_.data.playTheme(audio_, services_.d
 
 void FightScene::setStage(std::size_t index) {
     stage_ = index;
-    stageView_ = std::make_unique<StageView>(services_.data.stages()[stage_]);
+    stageView_ = std::make_unique<StageView>(services_.data.useStage(stage_)); // streams in its layers and theme
 }
 
 void FightScene::followCamera(bool snap) {

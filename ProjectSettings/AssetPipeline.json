@@ -1,27 +1,181 @@
 {
-  "$comment": "Maps source folders to player archives. Read by CMake (output names) and AssetPacker (contents). Virtual path = file path relative to 'root'. See docs/asset-pipeline.md.",
+  "$comment": "Maps source folders to player archives. Read by CMake (output names) and AssetPacker (contents). Virtual path = file path relative to 'root'. Shared archives are mounted at start; sharedassetsN.assets (a stage's layers) and levelN (its theme), N >= 1, are mounted while the stage is in use. See docs/asset-pipeline.md.",
   "archives": [
     {
       "output": "globalgamemanagers",
       "root": ".",
-      "include": ["ProjectSettings"]
+      "include": [
+        "ProjectSettings"
+      ]
     },
     {
       "output": "resources.assets",
       "root": "Assets",
-      "include": ["Resources"],
-      "excludeExtensions": [".wav", ".ogg", ".flac"]
+      "include": [
+        "Resources"
+      ],
+      "excludeExtensions": [
+        ".wav",
+        ".ogg",
+        ".flac"
+      ]
     },
     {
       "output": "resources.resource",
       "root": "Assets",
-      "include": ["Resources"],
-      "extensions": [".wav", ".ogg", ".flac"]
+      "include": [
+        "Resources"
+      ],
+      "extensions": [
+        ".wav",
+        ".ogg",
+        ".flac"
+      ],
+      "exclude": [
+        "Resources/Audio/theme_pier_nine.ogg",
+        "Resources/Audio/theme_lantern_row.ogg",
+        "Resources/Audio/theme_foundry.ogg",
+        "Resources/Audio/theme_the_crown.ogg",
+        "Resources/Audio/theme_dry_dock.ogg",
+        "Resources/Audio/theme_ship_hold.ogg",
+        "Resources/Audio/theme_brokers_club.ogg"
+      ]
     },
     {
       "output": "sharedassets0.assets",
       "root": "Assets",
-      "include": ["Data", "Fighters", "Stages"]
+      "include": [
+        "Data",
+        "Fighters"
+      ],
+      "files": [
+        "Stages/PierNine/pier_nine.png",
+        "Stages/LanternRow/lantern_row.png",
+        "Stages/Foundry/foundry.png",
+        "Stages/TheCrown/the_crown.png",
+        "Stages/DryDock/dry_dock.png",
+        "Stages/ShipHold/ship_hold.png",
+        "Stages/BrokersClub/brokers_club.png"
+      ]
+    },
+    {
+      "output": "sharedassets1.assets",
+      "root": "Assets",
+      "include": [
+        "Stages/PierNine"
+      ],
+      "exclude": [
+        "Stages/PierNine/pier_nine.png"
+      ]
+    },
+    {
+      "output": "sharedassets2.assets",
+      "root": "Assets",
+      "include": [
+        "Stages/LanternRow"
+      ],
+      "exclude": [
+        "Stages/LanternRow/lantern_row.png"
+      ]
+    },
+    {
+      "output": "sharedassets3.assets",
+      "root": "Assets",
+      "include": [
+        "Stages/Foundry"
+      ],
+      "exclude": [
+        "Stages/Foundry/foundry.png"
+      ]
+    },
+    {
+      "output": "sharedassets4.assets",
+      "root": "Assets",
+      "include": [
+        "Stages/TheCrown"
+      ],
+      "exclude": [
+        "Stages/TheCrown/the_crown.png"
+      ]
+    },
+    {
+      "output": "sharedassets5.assets",
+      "root": "Assets",
+      "include": [
+        "Stages/DryDock"
+      ],
+      "exclude": [
+        "Stages/DryDock/dry_dock.png"
+      ]
+    },
+    {
+      "output": "sharedassets6.assets",
+      "root": "Assets",
+      "include": [
+        "Stages/ShipHold"
+      ],
+      "exclude": [
+        "Stages/ShipHold/ship_hold.png"
+      ]
+    },
+    {
+      "output": "sharedassets7.assets",
+      "root": "Assets",
+      "include": [
+        "Stages/BrokersClub"
+      ],
+      "exclude": [
+        "Stages/BrokersClub/brokers_club.png"
+      ]
+    },
+    {
+      "output": "level1",
+      "root": "Assets",
+      "files": [
+        "Resources/Audio/theme_pier_nine.ogg"
+      ]
+    },
+    {
+      "output": "level2",
+      "root": "Assets",
+      "files": [
+        "Resources/Audio/theme_lantern_row.ogg"
+      ]
+    },
+    {
+      "output": "level3",
+      "root": "Assets",
+      "files": [
+        "Resources/Audio/theme_foundry.ogg"
+      ]
+    },
+    {
+      "output": "level4",
+      "root": "Assets",
+      "files": [
+        "Resources/Audio/theme_the_crown.ogg"
+      ]
+    },
+    {
+      "output": "level5",
+      "root": "Assets",
+      "files": [
+        "Resources/Audio/theme_dry_dock.ogg"
+      ]
+    },
+    {
+      "output": "level6",
+      "root": "Assets",
+      "files": [
+        "Resources/Audio/theme_ship_hold.ogg"
+      ]
+    },
+    {
+      "output": "level7",
+      "root": "Assets",
+      "files": [
+        "Resources/Audio/theme_brokers_club.ogg"
+      ]
     }
   ]
 }
