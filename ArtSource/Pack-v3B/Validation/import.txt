@@ -1,0 +1,5 @@
+imported 55 frames at scale 1.0000 into /tmp/ironring-v3b/integrated/Assets/Fighters/Sable
+imported 55 frames at scale 1.0000 into /tmp/ironring-v3b/integrated/Assets/Fighters/Idris
+imported 55 frames at scale 1.0000 into /tmp/ironring-v3b/integrated/Assets/Fighters/Greta
+imported 55 frames at scale 1.0000 into /tmp/ironring-v3b/integrated/Assets/Fighters/Jun
+imported 49 frames at scale 1.0000 into /tmp/ironring-v3b/integrated/Assets/Fighters/Broker
