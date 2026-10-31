@@ -53,7 +53,7 @@ The launcher ↔ engine API (`Public/IronRing/Player.h`) is **C only**: plain C 
 - Never commit franchise material (Fatal Fury or otherwise) — reference images stay outside the repository.
 - Prefer formats SDL can load without extra libraries: PNG, WAV, OGG, FLAC.
 - Art follows [docs/art/asset-spec.md](docs/art/asset-spec.md). Two kinds, listed in `Tools/Art/ironart/ownership.py`:
-  - **External** (fighters, portraits, stages, title logo, menu backdrop): fighter frames live in `ArtSource/` and are repacked with `Tools/Art/import_art.py`; never edit an atlas directly. Stage layers and the other pictures are edited in `Assets/`; recompose a stage's preview after changing a layer ([ArtSource/README.md](ArtSource/README.md)).
+  - **External** (fighters, portraits, stages, title logo, menu backdrop): fighter frames live in `ArtSource/` and are repacked with `Tools/Art/import_art.py`; never edit an atlas directly. Stage layers and the other pictures are edited in `Assets/`; recompose a stage's preview after changing a layer with `Tools/Art/compose_previews.py` ([ArtSource/README.md](ArtSource/README.md)).
   - **Procedural** (palette, effects, fonts, HUD layout, icon): change `Tools/Art/ironart/`, run `python3 Tools/Art/generate.py`, commit code and assets together.
   - `python3 Tools/Art/selftest.py` (CI job *Art and audio tools*) fails when either kind drifts from its source.
 - Audio is generated: change `Tools/Audio/chiptune/` and run `python3 Tools/Audio/generate_audio.py`; never edit the WAV/OGG files ([docs/audio.md](docs/audio.md)). `--check` runs in CI. A sound id the game plays must also be in `GameSettings.json → sounds` and `content::kSounds`; announcer lines in `→ voice` and `content::kVoiceLines`; a stage's theme in `stages.json → music`.
