@@ -8,6 +8,7 @@
 | [art/asset-spec.md](art/asset-spec.md) | you make, generate or review art: sizes, frames, pivots, timing, stage layout |
 | [art/generation-prompts.md](art/generation-prompts.md) | you produce art with an outside image generator |
 | [art/art-pack-v2.1-brief.md](art/art-pack-v2.1-brief.md) | you redraw the crowds (and the Foundry sign) for Art Pack v2.1: the correction brief in one file |
+| [art/art-pack-v3-brief.md](art/art-pack-v3-brief.md) | you make the production art for the M3 fighters (Sable, Idris, Greta, Jun, the Broker) and venues (Dry Dock 4, The Hold, The Broker's Club): Art Pack v3 in one file |
 | [art/vertical-slice-art-brief.md](art/vertical-slice-art-brief.md) | you produce the artwork for the vertical slice (Art Pack v2): the whole brief in one file |
 | [art/frame-review.md](art/frame-review.md) | you plan or check the next fighter art pass |
 | [audio.md](audio.md) | you change a sound effect or the music, or adjust levels |
