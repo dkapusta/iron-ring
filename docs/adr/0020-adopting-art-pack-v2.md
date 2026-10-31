@@ -34,6 +34,7 @@ Review against the brief and in the game found:
 - Every venue is layered, and the four share one stack contract (asset spec §3.1). No flat stages remain in the game, though the engine still supports them.
 - The procedural art now owns effects, fonts, the HUD layout, the icon and the palette files only.
 - The simulation is untouched, so the golden checksum holds.
+- *Later correction (polish pass):* three of the six spectator groups in every crowd layer were cut off at the head. `Tools/Art/repair_crowds.py` rebuilt them from the intact groups, and the art self-test now checks the crowds and that each preview matches its layers ([CORRECTIONS.md](../../ArtSource/Pack-v2/CORRECTIONS.md)).
 - The crouch hurtboxes stay at Dee 92 and Bram 100, the values from ADR-0012. The brief quoted the older 88 and 92; the pack drew to the real values.
 
 ## Alternatives considered

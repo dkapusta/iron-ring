@@ -178,13 +178,14 @@ void ArcadeScene::drawEnding(SDL_Renderer* r) const {
     if (const Texture* picture = views_[0]->ending()) {
         // The fighter's own ending picture: it is the whole scene.
         SDL_RenderTexture(r, picture->handle.get(), nullptr, &all);
-        ui::fill(r, 0, 0, w, 96, {7, 9, 15, 150});  // bands for the text
-        ui::fill(r, 0, 292, w, 68, {7, 9, 15, 150});
     } else {
         SDL_RenderTexture(r, stage.image->handle.get(), nullptr, &all);
-        ui::dim(r, w, services_.height, 150);
-        drawChampion(r, *views_[0], w / 2);
+        ui::dim(r, w, services_.height, 120);
     }
+    // Bands for the text: The Crown's sign sits right behind the title.
+    ui::fill(r, 0, 0, w, 96, {7, 9, 15, 150});
+    ui::fill(r, 0, 292, w, 68, {7, 9, 15, 150});
+    if (!views_[0]->ending()) drawChampion(r, *views_[0], w / 2);
     const auto& name = views_[0]->definition().displayName;
     data.large().draw(r, name, w / 2, 40, ui::kWhite, Align::Centre);
     data.large().draw(r, "TAKES THE CROWN", w / 2, 70, ui::kBrassLight, Align::Centre);

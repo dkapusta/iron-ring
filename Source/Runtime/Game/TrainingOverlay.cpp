@@ -1,6 +1,9 @@
 #include "Game/TrainingOverlay.h"
 
+#include "Render/Ui.h"
+
 #include <cstdio>
+#include <string_view>
 
 namespace iron {
 namespace {
@@ -94,7 +97,11 @@ void TrainingOverlay::draw(SDL_Renderer* r, const sim::Round& round,
                    true);
     }
     font_.draw(r, "ADVANTAGE P1 " + advantage_, 320, 300, {242, 176, 78, 255}, Align::Centre, true);
-    font_.draw(r, "F3 BOXES  HURT  HIT  GRAB  PUSH", 320, 60, {138, 147, 168, 255}, Align::Centre, true);
+    // The legend sits over the venue's upper band (the Foundry's sign, say): give it a backing.
+    constexpr std::string_view kLegend = "F3 BOXES  HURT  HIT  GRAB  PUSH";
+    const float legendW = static_cast<float>(font_.measure(kLegend));
+    ui::fill(r, 320 - legendW / 2 - 4, 57, legendW + 8, 14, {7, 9, 15, 170});
+    font_.draw(r, kLegend, 320, 60, {138, 147, 168, 255}, Align::Centre, true);
 }
 
 } // namespace iron
