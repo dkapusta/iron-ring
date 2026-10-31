@@ -5,6 +5,11 @@
   "displayName": "JUN ARATA",
   "atlas": "jun_atlas.json",
   "portrait": "jun_portrait.png",
+  "story": {
+    "intro": ["The Ring's crowds carry the fattest wallets in town.", "I fight between bouts. It keeps their eyes on me,", "while my hands are on everything else."],
+    "ending": ["Jun picks the Broker's pocket on the way out.", "Inside: every marker the Broker holds in the city.", "By morning, half of Grayhaven is free of debt."],
+    "winQuotes": ["Check your pockets.", "Feint left, feint right, gone.", "Nothing personal. Okay, a little personal."]
+  },
   "physics": {"walkForward": 490, "walkBack": 400, "jumpVelocity": 1760, "gravity": 72},
   "body": {"standHurt": [-14, 0, 28, 112], "crouchHurt": [-16, 0, 34, 82], "pushWidth": 30, "knockdownTicks": 50},
   "moves": {

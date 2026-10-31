@@ -586,7 +586,69 @@ class Jun(Character):
             canvas.pixel(self.local(s, 0.72, -0.45), "eye", 0, HEAD)
 
 
-CHARACTERS = {"dee": Dee(), "bram": Bram(), "sable": Sable(), "idris": Idris(), "greta": Greta(), "jun": Jun()}
+class Broker(Character):
+    """The Broker: tall, lean, sixties. Silver hair combed straight back, a
+    charcoal three-piece suit, white shirt and a burgundy tie, a gold watch
+    chain across the waistcoat, black kid gloves, polished shoes. He fights
+    like the old bare-knuckle prints on his walls: upright, fists forward."""
+
+    def __init__(self) -> None:
+        super().__init__(
+            id="broker",
+            build=Build(ankle=5, shin=35, thigh=35, spine=46, neck=5, upper_arm=25, forearm=23,
+                        head=(7.6, 9.6), thigh_r=(7.6, 5.4), shin_r=(5.0, 3.6), upper_r=(4.6, 3.8),
+                        fore_r=(3.8, 3.2), neck_r=3.8, waist_r=9.0, chest_r=11.4, pelvis=(10.4, 8.0),
+                        fist=(4.2, 3.8), foot=14, deltoid=5.4),
+            skin="broker_skin",
+            materials={"legs": "broker_suit", "boots": "broker_suit", "top": "broker_suit", "pelvis": "broker_suit",
+                       "deltoid": "broker_suit", "hand": "broker_suit", "hand_open": "broker_suit"},
+        )
+
+    def shin_material(self, canvas: Canvas):
+        suit = canvas.material_id("broker_suit")
+        return lambda t, side: np.full(t.shape, suit, dtype=np.int16)
+
+    def upper_arm_material(self, canvas: Canvas):
+        return "broker_suit"
+
+    def forearm_material(self, canvas: Canvas):
+        suit, shirt = canvas.material_id("broker_suit"), canvas.material_id("broker_shirt")
+        return lambda t, side: np.where((t > 0.82) & (t < 0.95), shirt, suit).astype(np.int16)  # cuffs
+
+    def torso_material(self, canvas: Canvas, top: bool = False):
+        suit, shirt = canvas.material_id("broker_suit"), canvas.material_id("broker_shirt")
+        if top:  # the shirt front shows in the V of the lapels
+            return lambda t, side: np.where((np.abs(side) < 0.22 * t) & (t > 0.35), shirt, suit).astype(np.int16)
+        return "broker_suit"
+
+    def head_material(self, canvas: Canvas):
+        skin, hair = canvas.material_id("broker_skin"), canvas.material_id("broker_hair")
+        return lambda ux, uy: np.where(uy > 0.40 + 0.20 * ux, hair, skin).astype(np.int16)  # combed straight back
+
+    def torso_details(self, canvas: Canvas, s: Skeleton) -> None:
+        b = self.build
+        up = normalise(sub(s.chest, s.pelvis))
+        fwd = (up[1], -up[0])
+        collar = add(s.neck_base, scale(up, -2))
+        knot = add(collar, scale(fwd, 3))
+        canvas.capsule(knot, add(add(s.chest, scale(fwd, b.chest_r * 0.55)), scale(up, -8)), 1.6, 1.0,
+                       "broker_tie", TORSO)
+        waist = add(s.pelvis, scale(up, b.pelvis[1] * 1.3))
+        canvas.capsule(add(waist, scale(fwd, b.waist_r * 0.6)), add(add(waist, scale(fwd, -2)), scale(up, 3)), 0.8,
+                       0.8, "broker_gold", TORSO)  # the watch chain
+
+    def face(self, canvas: Canvas, s: Skeleton, pose: Pose) -> None:
+        canvas.ellipse(self.local(s, -0.20, 0.02), 1.4, 2.0, 0.0, "broker_skin", HEAD, 0.2)  # ear
+        canvas.pixel(self.local(s, 0.52, 0.14), "eye", 0, HEAD)
+        for dx in (-1, 0, 1):
+            canvas.pixel(add(self.local(s, 0.50, 0.30), (dx, 0)), "broker_hair", 2, HEAD)  # silver brows
+        canvas.pixel(self.local(s, 1.04, -0.02), "broker_skin", 3, HEAD)  # nose
+        if pose.expression == "shout":
+            canvas.pixel(self.local(s, 0.72, -0.45), "eye", 0, HEAD)
+
+
+CHARACTERS = {"dee": Dee(), "bram": Bram(), "sable": Sable(), "idris": Idris(), "greta": Greta(), "jun": Jun(),
+              "broker": Broker()}
 
 
 def mirrored(pose: Pose, **changes) -> Pose:

@@ -6,6 +6,11 @@
   "atlas": "dee_atlas.json",
   "portrait": "dee_portrait.png",
   "selectPortrait": "dee_select.png",
+  "story": {
+    "intro": ["My brother owes the Broker more than he'll ever earn.", "The Ring pays in cash, and the Broker keeps his word.", "Win the Crown, and the debt is gone."],
+    "ending": ["The Broker tears up the marker in front of her.", "Her brother is free. Dee walks out into the dawn.", "The gloves stay on: someone has to keep him honest."],
+    "winQuotes": ["Hands up, chin down. You forgot both.", "Every opening you gave me, I took.", "Go home. Ice it. Learn something."]
+  },
   "physics": {"walkForward": 420, "walkBack": 340, "jumpVelocity": 1900, "gravity": 70},
   "body": {"standHurt": [-16, 0, 32, 124], "crouchHurt": [-18, 0, 38, 92], "pushWidth": 34, "knockdownTicks": 54},
   "moves": {

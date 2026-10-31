@@ -1,0 +1,49 @@
+{
+  "$comment": "Fighter definition (docs/adr/0010-fighter-content-format.md). The arcade's boss: not on the character select (roster.json: boss). Placeholder art: Tools/Art/generate.py fighters.",
+  "id": "broker",
+  "name": "The Broker",
+  "displayName": "THE BROKER",
+  "atlas": "broker_atlas.json",
+  "portrait": "broker_portrait.png",
+  "story": {
+    "intro": ["So. You're the one who took my Crown.", "Everything in this city has a price.", "Let's find yours."],
+    "winQuotes": ["The house always wins.", "Put it on my account.", "You were a good investment. Briefly."]
+  },
+  "physics": {"walkForward": 400, "walkBack": 340, "jumpVelocity": 1850, "gravity": 70},
+  "body": {"standHurt": [-17, 0, 34, 132], "crouchHurt": [-19, 0, 40, 92], "pushWidth": 36, "knockdownTicks": 54},
+  "moves": {
+    "lightPunch": { "name": "Cufflink Jab", "animation": "light_punch", "startup": 4, "active": 3, "recovery": 10, "hitbox": [36, 88, 24, 16], "damage": 7, "hitstun": 15, "blockstun": 12, "cancel": true, "knockback": 5,
+      "hurt": {"active": [[-17, 0, 34, 132], [16, 88, 38, 14]]} },
+    "heavyPunch": { "name": "Signet Cross", "animation": "heavy_punch", "startup": 9, "active": 3, "recovery": 20, "hitbox": [40, 90, 30, 18], "damage": 15, "hitstun": 24, "blockstun": 13, "knockback": 11, "heavy": true, "hitstopOnHit": 9,
+      "hurt": {"active": [[-17, 0, 34, 132], [18, 90, 46, 16]]} },
+    "lightKick": { "name": "Oxford Kick", "animation": "light_kick", "startup": 6, "active": 4, "recovery": 14, "hitbox": [44, 40, 32, 20], "damage": 9, "hitstun": 18, "blockstun": 16, "knockback": 8,
+      "hurt": {"active": [[-17, 0, 34, 132], [16, 40, 56, 22]]} },
+    "heavyKick": { "name": "Collection Sweep", "animation": "heavy_kick", "startup": 13, "active": 5, "recovery": 24, "hitbox": [48, 0, 40, 14], "damage": 16, "hitstun": 26, "blockstun": 10, "knockback": 14, "low": true, "knockdown": true, "heavy": true, "hitstopOnHit": 8,
+      "hurt": {"startup": [[-19, 0, 42, 98]], "active": [[-19, 0, 40, 86], [24, 0, 60, 14]], "recovery": [[-19, 0, 40, 92]]} },
+    "throw": { "name": "Foreclosure", "kind": "throw", "animation": "throw", "holdAnimation": "throw_hold", "startup": 3, "active": 2, "recovery": 22, "hitbox": [8, 40, 26, 60], "damage": 15, "throwDuration": 44, "throwDistance": 50, "techable": true, "hitstopOnHit": 8 },
+    "special": { "name": "Final Offer", "input": "236P", "animation": "special", "startup": 9, "active": 4, "recovery": 20, "hitbox": [20, 80, 40, 30], "advance": 512, "damage": 16, "hitstun": 30, "blockstun": 12, "knockback": 16, "knockdown": true, "heavy": true, "hitstopOnHit": 12,
+      "hurt": {"startup": [[-17, 0, 34, 128]], "active": [[-13, 0, 34, 126], [16, 84, 40, 20]], "recovery": [[-17, 0, 34, 130]]} }
+  },
+  "animations": {
+    "idle": {"loop": true, "frames": [["idle_0", 10], ["idle_1", 10], ["idle_2", 10], ["idle_3", 10]]},
+    "walk": {"loop": true, "frames": [["walk_0", 6], ["walk_1", 6], ["walk_2", 6], ["walk_3", 6], ["walk_4", 6], ["walk_5", 6]]},
+    "crouch": {"frames": [["crouch", 1]]},
+    "guard": {"frames": [["guard", 1]]},
+    "guard_crouch": {"frames": [["guard_crouch", 1]]},
+    "jump_rise": {"frames": [["jump_rise", 10], ["jump_apex", 1]]},
+    "jump_fall": {"frames": [["jump_apex", 8], ["jump_fall", 1]]},
+    "light_punch": {"frames": [["lp_0", 4], ["lp_1", 3], ["lp_2", 10]]},
+    "heavy_punch": {"frames": [["hp_0", 9], ["hp_1", 3], ["hp_2", 10], ["hp_3", 10]]},
+    "light_kick": {"frames": [["lk_0", 6], ["lk_1", 4], ["lk_2", 14]]},
+    "heavy_kick": {"frames": [["hk_0", 13], ["hk_1", 5], ["hk_2", 12], ["hk_3", 12]]},
+    "throw": {"frames": [["throw_0", 3], ["throw_1", 2], ["throw_0", 22]]},
+    "throw_hold": {"frames": [["throw_hold_0", 24, "held_0"], ["throw_hold_1", 20, "held_1"]]},
+    "special": {"frames": [["special_0", 5], ["special_1", 4], ["special_2", 4], ["special_3", 20]]},
+    "hit": {"frames": [["hit_0", 4], ["hit_1", 1]]},
+    "hit_crouch": {"frames": [["hit_crouch", 1]]},
+    "held": {"frames": [["held_0", 1]]},
+    "knockdown": {"frames": [["down_0", 8], ["down_1", 30], ["down_2", 10], ["down_3", 6]]},
+    "ko": {"frames": [["down_0", 8], ["down_1", 1]]},
+    "win": {"loop": true, "frames": [["win_0", 24], ["win_1", 24]]}
+  }
+}

@@ -5,6 +5,11 @@
   "displayName": "GRETA VOLL",
   "atlas": "greta_atlas.json",
   "portrait": "greta_portrait.png",
+  "story": {
+    "intro": ["The Broker's money bought the Voll Works and shut it.", "Four hundred jobs, gone with one signature.", "I'll look him in the eye. Then I'll hit him."],
+    "ending": ["Greta walks out with the deed to the Voll Works.", "On Monday the furnaces are lit again.", "The night shift comes back. So does the crowd."],
+    "winQuotes": ["Iron bends. You broke.", "That's forty years of shifts talking.", "Clock out."]
+  },
   "physics": {"walkForward": 330, "walkBack": 290, "jumpVelocity": 1700, "gravity": 74},
   "body": {"standHurt": [-20, 0, 40, 116], "crouchHurt": [-22, 0, 44, 86], "pushWidth": 40, "knockdownTicks": 54},
   "moves": {

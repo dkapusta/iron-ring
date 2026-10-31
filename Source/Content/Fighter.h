@@ -45,6 +45,14 @@ struct MoveInfo {
     std::string holdAnimation;    // throws: played while holding the opponent
 };
 
+// Arcade story and win quotes (optional): short lines (60 characters at most)
+// in the fonts' charset once upper-cased (letters, digits, . , ! ? : - + / ' " % ( ) # = < > *).
+struct Story {
+    std::vector<std::string> intro;     // why they enter: before the first bout (the boss: his greeting)
+    std::vector<std::string> ending;    // after the last bout
+    std::vector<std::string> winQuotes; // one after each match won
+};
+
 struct FighterDefinition {
     std::string id;
     std::string name;
@@ -56,6 +64,7 @@ struct FighterDefinition {
     sim::FighterSpec spec;
     std::array<MoveInfo, sim::kSlotCount> moves;
     std::map<std::string, Animation, std::less<>> animations;
+    Story story;
 
     [[nodiscard]] const Animation& animation(std::string_view name) const;
     [[nodiscard]] bool hasAnimation(std::string_view name) const;

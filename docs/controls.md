@@ -143,4 +143,17 @@ Small, quick and always in your face: the fastest jab in the game, a stepping lo
 | Purse Snatch | LP + LK, close | F + H | Keypad 1 + 3 | 3 / 2 / 20 | 9 | Throw, techable; lands them close |
 | **Sleight Feint** | **236 + P** (↓ ↘ → + either punch) | **S, S+D, D + F or G** | **↓, ↓+←, ← + Keypad 1 or 2** | 8 / 3 / 10 | 8 | Special: a low dash into a quick elbow; +2 to +4 on block, so it resets the pressure. Cancels from Pick Jab or Lift Step |
 
+## The Broker — boss (arcade only)
+
+Not on the character select: he waits at the end of the arcade. Listed for reference.
+
+| Move | Button / motion | Startup / active / recovery | Damage | Notes |
+| --- | --- | --- | --- | --- |
+| Cufflink Jab | LP | 4 / 3 / 10 | 7 | Cancels |
+| Signet Cross | HP | 9 / 3 / 20 | 15 | Heavy |
+| Oxford Kick | LK | 6 / 4 / 14 | 9 | |
+| Collection Sweep | HK | 13 / 5 / 24 | 16 | Low, knocks down |
+| Foreclosure | LP + LK, close | 3 / 2 / 22 | 15 | Throw, techable |
+| **Final Offer** | **236 + P** | 9 / 4 / 20 | 16 | A long step into an open-palm strike; knocks down |
+
 Frame counts are 60 Hz ticks, from the fighter files (`Assets/Fighters/<Name>/<id>.fighter.json`). In training, F3 shows the boxes and the frame advantage of every hit.

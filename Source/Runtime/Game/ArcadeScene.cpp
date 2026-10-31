@@ -39,6 +39,11 @@ void ArcadeScene::onEnter() {
     if (run_.step != Step::Ending) services_.data.playTheme(services_.audio, services_.data.menuTheme());
 }
 
+void ArcadeScene::begin() {
+    run_.begin();
+    ticks_ = 0;
+}
+
 void ArcadeScene::startFight() {
     FightSetup setup;
     setup.control = Control::VsCpu;
@@ -54,6 +59,9 @@ void ArcadeScene::handleMenu(const MenuEvent& event) {
     const bool confirm = event.action == MenuAction::Confirm || event.action == MenuAction::Pause;
     const bool back = event.action == MenuAction::Back;
     switch (run_.step) {
+    case Step::Story:
+        if (confirm && ticks_ > 30) begin();
+        break;
     case Step::Versus:
         if (confirm && ticks_ > 30) startFight(); // skip the card
         break;
@@ -79,6 +87,9 @@ void ArcadeScene::handleMenu(const MenuEvent& event) {
 void ArcadeScene::fixedUpdate() {
     ++ticks_;
     switch (run_.step) {
+    case Step::Story:
+        if (ticks_ >= (services_.settings.autoplay ? 60 : kStoryTicks)) begin();
+        break;
     case Step::Versus:
         if (ticks_ == 1) services_.audio.play("round_bell");
         if (ticks_ >= kVersusTicks) startFight();
@@ -137,11 +148,18 @@ void ArcadeScene::drawVersus(SDL_Renderer* r) const {
     drawFighter(r, *views_[0], 150 - slide, false, false);
     drawFighter(r, *views_[1], w - 150 + slide, true, false);
 
-    const std::string count = bout().final ? "FINAL BOUT" : "BOUT " + std::to_string(run_.bout + 1) + " OF " +
-                                                                std::to_string(ladder_.bouts.size());
+    const std::string count = bout().boss    ? "BY INVITATION"
+                              : bout().final ? "FINAL BOUT"
+                                             : "BOUT " + std::to_string(run_.bout + 1) + " OF " + std::to_string(titleBouts());
     data.large().draw(r, count, w / 2, 26, ui::kWhite, Align::Centre);
     data.small().draw(r, ui::upper(stage.name), w / 2, 56, ui::kBrassLight, Align::Centre, true);
     if ((ticks_ / 6) % 2 == 0 || ticks_ > 40) data.large().draw(r, "VS", w / 2, 150, ui::kBrassLight, Align::Centre);
+    if (bout().boss) { // the Broker's greeting, a line at a time
+        const auto& lines = views_[1]->definition().story.intro;
+        for (std::size_t i = 0; i < lines.size() && ticks_ > 30 + static_cast<int>(i) * 30; ++i)
+            data.small().draw(r, "\"" + ui::upper(lines[i]) + "\"", w / 2, 196 + static_cast<float>(i) * 11, ui::kChalk,
+                              Align::Centre, true);
+    }
     data.large().draw(r, views_[0]->definition().displayName, 16, 296, ui::kWhite, Align::Left);
     data.large().draw(r, views_[1]->definition().displayName, w - 16, 296, ui::kWhite, Align::Right);
     const int level = content::arcadeLevel(bout(), services_.settings.cpuDifficulty);
@@ -149,6 +167,36 @@ void ArcadeScene::drawVersus(SDL_Renderer* r) const {
     data.small().draw(r, "PLAYER 1", 16, 322, ui::kTeal, Align::Left, true);
     if (run_.continuesUsed > 0)
         data.small().draw(r, "CONTINUES " + std::to_string(run_.continuesUsed), w / 2, 340, ui::kFog, Align::Centre, true);
+}
+
+std::size_t ArcadeScene::titleBouts() const {
+    // The count shown on the cards runs to the title bout; a boss bout comes as a surprise.
+    std::size_t n = 0;
+    for (const auto& b : ladder_.bouts) n += !b.boss;
+    return n;
+}
+
+void ArcadeScene::drawStory(SDL_Renderer* r) const {
+    // Why they're here: the player's fighter and their intro, before the first bout.
+    const auto& data = services_.data;
+    const float w = services_.width;
+    const SDL_FRect all{0, 0, w, services_.height};
+    SDL_RenderTexture(r, data.backdrop().handle.get(), nullptr, &all);
+    ui::dim(r, w, services_.height, 120);
+    const auto& def = views_[0]->definition();
+    drawFighter(r, *views_[0], 150, false, false);
+    data.large().draw(r, def.displayName, 260, 90, ui::kWhite, Align::Left);
+    const auto* entry = data.fighter(def.id);
+    if (entry) data.small().draw(r, ui::upper(entry->role), 260, 120, ui::kTeal, Align::Left, true);
+    const auto& lines = def.story.intro;
+    for (std::size_t i = 0; i < lines.size(); ++i)
+        if (ticks_ > 20 + static_cast<int>(i) * 40)
+            data.small().draw(r, ui::upper(lines[i]), 260, 144 + static_cast<float>(i) * 14, ui::kChalk, Align::Left,
+                              true);
+    data.small().draw(r, "THE IRON RING - " + std::to_string(titleBouts()) + " BOUTS TO THE CROWN", w / 2, 316,
+                      ui::kBrassLight, Align::Centre, true);
+    if (ticks_ > 60 && (ticks_ / 30) % 2 == 0)
+        data.small().draw(r, "PRESS START", w / 2, 340, ui::kFog, Align::Centre, true);
 }
 
 void ArcadeScene::drawContinue(SDL_Renderer* r) const {
@@ -188,11 +236,17 @@ void ArcadeScene::drawEnding(SDL_Renderer* r) const {
     const auto& name = views_[0]->definition().displayName;
     data.large().draw(r, name, w / 2, 40, ui::kWhite, Align::Centre);
     data.large().draw(r, "TAKES THE CROWN", w / 2, 70, ui::kBrassLight, Align::Centre);
-    if (ticks_ > 90) {
-        data.small().draw(r, "THE IRON RING HAS A NEW CHAMPION", w / 2, 300, ui::kChalk, Align::Centre, true);
+    // The fighter's ending, a line at a time; without one, the plain title.
+    auto lines = views_[0]->definition().story.ending;
+    if (lines.empty()) lines = {"THE IRON RING HAS A NEW CHAMPION"};
+    for (std::size_t i = 0; i < lines.size() && i < 3; ++i)
+        if (ticks_ > 90 + static_cast<int>(i) * 60)
+            data.small().draw(r, ui::upper(lines[i]), w / 2, 296 + static_cast<float>(i) * 10, ui::kChalk, Align::Centre,
+                              true);
+    if (ticks_ > 90 + static_cast<int>(lines.size()) * 60) {
         const std::string continues = run_.continuesUsed == 0 ? "NO CONTINUES" :
                                       std::to_string(run_.continuesUsed) + " CONTINUE" + (run_.continuesUsed > 1 ? "S" : "");
-        data.small().draw(r, continues, w / 2, 314, ui::kFog, Align::Centre, true);
+        data.small().draw(r, continues, w / 2, 328, ui::kFog, Align::Centre, true);
     }
     if (ticks_ > 120 && (ticks_ / 30) % 2 == 0)
         data.small().draw(r, "PRESS START", w / 2, 340, ui::kFog, Align::Centre, true);
@@ -201,6 +255,7 @@ void ArcadeScene::drawEnding(SDL_Renderer* r) const {
 void ArcadeScene::render(const RenderContext& context) {
     SDL_Renderer* r = context.renderer;
     switch (run_.step) {
+    case Step::Story: drawStory(r); break;
     case Step::Versus:
     case Step::Fight: drawVersus(r); break;
     case Step::Continue:
@@ -210,7 +265,7 @@ void ArcadeScene::render(const RenderContext& context) {
 }
 
 std::string ArcadeScene::status() const {
-    const char* steps[]{"versus", "fight", "continue", "game over", "ending"};
+    const char* steps[]{"story", "versus", "fight", "continue", "game over", "ending"};
     return "arcade: bout " + std::to_string(run_.bout + 1) + "/" + std::to_string(ladder_.bouts.size()) + " vs " +
            opponent() + " (" + steps[static_cast<int>(run_.step)] + ")";
 }

@@ -17,7 +17,7 @@ The **Iron Ring** is an illegal, invitation-only fighting tournament run by a pr
 | **Heat** | 0–100 meter built by hitting, getting hit and blocking — the crowd's attention; it lasts the whole match | `Fighter::meter`, HUD label `meterName` |
 | **Breakaway** | Guard + heavy punch + heavy kick for 50 Heat while blocking: a guard cancel that staggers the attacker, no damage ([heat.md](heat.md)). The only thing Heat pays for | `Effect::Breakaway`, `sim::kBreakCost` |
 | **Desperation moves** | None, by decision (2026-10-29). Low health gives no super; comebacks come from Heat and reads | — |
-| **The Broker** | Unseen promoter; final-boss candidate | — |
+| **The Broker** | The promoter, and the arcade's boss: he waits at his club for whoever takes the Crown | `broker` (`roster.json`: `boss`) |
 
 ## Roster
 
@@ -72,7 +72,26 @@ Moves and frame data live in `Assets/Fighters/<Name>/<id>.fighter.json`.
 - Purse Snatch (throw, LP + LK)
 - **Sleight Feint** (236 + P): a low dash into a quick elbow that leaves him ahead on block, so the pressure starts over
 
-The colour coding stays with the characters: teal for Dee, rust/coral for Bram, violet for Sable, muted blue for Idris, brass for Greta, jade for Jun.
+**The Broker**: tall and lean, sixties. Silver hair combed straight back, a charcoal three-piece suit, a white shirt and a burgundy tie, a gold watch chain across the waistcoat, black kid gloves, polished shoes. Nobody knows his name. He owns half of Grayhaven's debts, and he fights like the bare-knuckle prints on his walls: upright, fists forward, never in a hurry. Not on the select screen: he's the last bout of the arcade, by invitation, at his club.
+
+- Cufflink Jab (LP), Signet Cross (HP), Oxford Kick (LK), Collection Sweep (HK, low, knockdown)
+- Foreclosure (throw, LP + LK)
+- **Final Offer** (236 + P): a long step into an open-palm strike that knocks down
+
+### Story
+
+The arcade opens on the player's fighter and why they entered; after the title bout at The Crown, the Broker invites the new champion to his club; beat him and the fighter's ending plays. Every fighter also has three win quotes, one shown after each match won. The lines live in each fighter file's `story` (`intro`, `ending`, `winQuotes`); in short:
+
+| Fighter | Enters because | Ending |
+| --- | --- | --- |
+| Dee | Her brother's debt to the Broker | The Broker tears up the marker; she keeps fighting to keep him honest |
+| Bram | Twelve years the gatekeeper; this year he takes the Crown | He buys the old Pier 9 crane; the Ring meets under his hook |
+| Sable | The biggest fee in town | Gone by midnight; postcards turn up at Lantern Row |
+| Idris | Passage home for himself and his crew | Buys back the *Marisol* and sails with the tide |
+| Greta | The Broker shut her foundry | Walks out with the deed; the furnaces are lit on Monday |
+| Jun | The crowds' wallets | Picks the Broker's pocket: every marker he holds in the city |
+
+The colour coding stays with the characters: teal for Dee, rust/coral for Bram, violet for Sable, muted blue for Idris, brass for Greta, jade for Jun, gold and charcoal for the Broker.
 
 ## Venues
 

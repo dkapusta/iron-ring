@@ -54,7 +54,7 @@ public:
     [[nodiscard]] const std::vector<StageInfo>& stages() const { return stages_; }
     // Index of a stage by id; the start stage when the id is empty or unknown.
     [[nodiscard]] std::size_t stageIndex(std::string_view id) const;
-    [[nodiscard]] const std::vector<RosterEntry>& roster() const { return roster_; }
+    [[nodiscard]] const std::vector<RosterEntry>& roster() const { return roster_; } // selectable fighters
     [[nodiscard]] const RosterEntry* fighter(std::string_view id) const;
     // The first two playable fighters (the default pairing).
     [[nodiscard]] std::array<std::string, 2> defaultPair() const;
@@ -76,7 +76,8 @@ private:
     std::unique_ptr<BitmapFont> small_, large_;
     std::vector<StageInfo> stages_;
     std::size_t startStage_ = 0;
-    std::vector<RosterEntry> roster_;
+    std::vector<RosterEntry> roster_;  // the character select's slots
+    std::vector<RosterEntry> bosses_;  // "boss": true in roster.json: arcade only
     std::unordered_map<std::string, AudioSystem::Music> themes_;
     std::unordered_map<std::string, std::string> themeTitles_;
     std::string menuTheme_;

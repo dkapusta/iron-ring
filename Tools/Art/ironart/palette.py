@@ -101,6 +101,13 @@ RAMPS: dict[str, list[str]] = {
     "jun_trousers":   ["#060607", "#121316", "#1f2126", "#2f323a", "#454a55"],
     "jun_shoes":      ["#200707", "#4a1010", "#741a18", "#9c2a22", "#c44a38"],
     "jun_tape":       ["#36322b", "#948b76", "#c2b9a0", "#e2dbc6", "#f8f4e8"],
+    # The Broker
+    "broker_skin":    ["#2a1a14", "#6e4c3e", "#9a7060", "#bf9480", "#dcb8a2"],
+    "broker_hair":    ["#2a2a30", "#6e7078", "#9a9ca4", "#c4c6cc", "#e8e9ec"],
+    "broker_suit":    ["#050507", "#101118", "#1b1d28", "#2a2d3c", "#3e4256"],
+    "broker_shirt":   ["#3a3832", "#a8a294", "#ccc6b6", "#e6e0d0", "#faf6ec"],
+    "broker_tie":     ["#1a0508", "#4a0e16", "#701822", "#962632", "#b84048"],
+    "broker_gold":    ["#2a1a06", "#6e4a12", "#a07020", "#d0a038", "#f2d070"],
     # Shared
     "metal":        ["#0b0d12", "#3d4a66", "#5a6782", "#8a93a8", "#d5dbe6"],
     "eye":          ["#05060a", "#05060a", "#05060a", "#f1ead8", "#ffffff"],

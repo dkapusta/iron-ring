@@ -1,10 +1,11 @@
 {
-  "$comment": "The arcade ladder (Source/Content/Arcade.h). opponent: a fighter id, rival, mirror, or a list of them: the first who is playable, isn't the player and hasn't been met in this run. level: CPU level at NORMAL difficulty, 0 ROOKIE .. 4 CHAMPION; EASY plays one lower, HARD one higher.",
+  "$comment": "The arcade ladder (Source/Content/Arcade.h). opponent: a fighter id, rival, mirror, or a list of them: the first who is playable, isn't the player and hasn't been met in this run. final: the title bout; boss: a bout after it against the named fighter, who is on no select screen. level: CPU level at NORMAL difficulty, 0 ROOKIE .. 4 CHAMPION; EASY plays one lower, HARD one higher.",
   "bouts": [
     { "stage": "pier_nine", "opponent": ["sable", "dee", "jun"], "level": 1 },
     { "stage": "lantern_row", "opponent": ["jun", "sable", "dee"], "level": 1 },
     { "stage": "ship_hold", "opponent": ["idris", "rival"], "level": 2 },
     { "stage": "foundry", "opponent": ["greta", "rival"], "level": 2 },
-    { "stage": "the_crown", "opponent": ["bram", "dee"], "level": 3, "final": true }
+    { "stage": "the_crown", "opponent": ["bram", "dee"], "level": 3, "final": true },
+    { "stage": "brokers_club", "opponent": "broker", "level": 4, "boss": true }
   ]
 }

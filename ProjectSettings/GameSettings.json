@@ -13,7 +13,8 @@
     "Fighters/Sable/sable.fighter.json",
     "Fighters/Idris/idris.fighter.json",
     "Fighters/Greta/greta.fighter.json",
-    "Fighters/Jun/jun.fighter.json"
+    "Fighters/Jun/jun.fighter.json",
+    "Fighters/Broker/broker.fighter.json"
   ],
   "roster": "Data/roster.json",
   "stages": "Data/stages.json",
@@ -56,7 +57,8 @@
     "sable_wins": "Resources/Audio/Voice/sable_wins.wav",
     "idris_wins": "Resources/Audio/Voice/idris_wins.wav",
     "greta_wins": "Resources/Audio/Voice/greta_wins.wav",
-    "jun_wins": "Resources/Audio/Voice/jun_wins.wav"
+    "jun_wins": "Resources/Audio/Voice/jun_wins.wav",
+    "broker_wins": "Resources/Audio/Voice/broker_wins.wav"
   },
   "ui": {
     "logo": "Resources/UI/title_logo.png",

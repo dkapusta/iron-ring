@@ -218,6 +218,36 @@ Columns: 8
 194 185 160	jun_tape_2
 226 219 198	jun_tape_3
 248 244 232	jun_tape_4
+ 42  26  20	broker_skin_0
+110  76  62	broker_skin_1
+154 112  96	broker_skin_2
+191 148 128	broker_skin_3
+220 184 162	broker_skin_4
+ 42  42  48	broker_hair_0
+110 112 120	broker_hair_1
+154 156 164	broker_hair_2
+196 198 204	broker_hair_3
+232 233 236	broker_hair_4
+  5   5   7	broker_suit_0
+ 16  17  24	broker_suit_1
+ 27  29  40	broker_suit_2
+ 42  45  60	broker_suit_3
+ 62  66  86	broker_suit_4
+ 58  56  50	broker_shirt_0
+168 162 148	broker_shirt_1
+204 198 182	broker_shirt_2
+230 224 208	broker_shirt_3
+250 246 236	broker_shirt_4
+ 26   5   8	broker_tie_0
+ 74  14  22	broker_tie_1
+112  24  34	broker_tie_2
+150  38  50	broker_tie_3
+184  64  72	broker_tie_4
+ 42  26   6	broker_gold_0
+110  74  18	broker_gold_1
+160 112  32	broker_gold_2
+208 160  56	broker_gold_3
+242 208 112	broker_gold_4
  11  13  18	metal_0
  61  74 102	metal_1
  90 103 130	metal_2

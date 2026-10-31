@@ -84,7 +84,7 @@ The folder is self-contained and can be zipped and copied as is. `cmake --instal
 
 ### Playing
 
-The game opens on the title screen: press Start (Return, or a pad's Start) for the menu: **Arcade** (five bouts, venue by venue, up to the final bout at The Crown, with continues), **Versus CPU**, **2 Players**, **Training**, **Options**. The CPU has five levels, ROOKIE to CHAMPION; *Options → CPU level* (Easy / Normal / Hard) picks the Versus CPU opponent and shifts the arcade ladder. Pick fighters on the character select (all six fighters are playable), then a venue. Start or Escape pauses a fight (resume, restart, character select, options, quit to title); after a match you get a rematch menu. Left alone, the title runs a CPU-vs-CPU demo, like an arcade cabinet.
+The game opens on the title screen: press Start (Return, or a pad's Start) for the menu: **Arcade** (each fighter's story, five bouts venue by venue up to the title at The Crown, then an invitation from the Broker, with continues and an ending per fighter; win quotes after every match), **Versus CPU**, **2 Players**, **Training**, **Options**. The CPU has five levels, ROOKIE to CHAMPION; *Options → CPU level* (Easy / Normal / Hard) picks the Versus CPU opponent and shifts the arcade ladder. Pick fighters on the character select (all six fighters are playable), then a venue. Start or Escape pauses a fight (resume, restart, character select, options, quit to title); after a match you get a rematch menu. Left alone, the title runs a CPU-vs-CPU demo, like an arcade cabinet.
 
 ### Controls
 

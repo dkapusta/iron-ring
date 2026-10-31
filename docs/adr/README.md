@@ -25,3 +25,4 @@ One file per decision, numbered, never renumbered. Supersede rather than rewrite
 | [0019](0019-cpu-levels-and-arcade.md) | A stateful CPU with five levels; an arcade ladder as data | Accepted |
 | [0020](0020-adopting-art-pack-v2.md) | Adopt Art Pack v2 as delivered, with animated champion endings | Accepted |
 | [0021](0021-adding-fighters.md) | Add fighters as data with procedural placeholder art; resolve the arcade ladder per run | Accepted |
+| [0022](0022-boss-and-story.md) | A boss bout after the title, and the arcade story as fighter data | Accepted |
