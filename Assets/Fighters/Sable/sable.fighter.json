@@ -1,10 +1,11 @@
 {
-  "$comment": "Fighter definition (docs/adr/0010-fighter-content-format.md). Lengths in logical pixels, speeds in 1/256 px per tick, times in 60 Hz ticks. Boxes are [x, y, w, h] from the feet, x forward, y up. Placeholder art: Tools/Art/generate.py fighters.",
+  "$comment": "Fighter definition (docs/adr/0010-fighter-content-format.md). Lengths in logical pixels, speeds in 1/256 px per tick, times in 60 Hz ticks. Boxes are [x, y, w, h] from the feet, x forward, y up. Art: Iron Ring Art Pack v3A (ArtSource/Fighters/Sable/frames).",
   "id": "sable",
   "name": "Sable Reyes",
   "displayName": "SABLE REYES",
   "atlas": "sable_atlas.json",
   "portrait": "sable_portrait.png",
+  "selectPortrait": "sable_select.png",
   "story": {
     "intro": ["I know every roof in Grayhaven. Every gutter.", "Packages, messages, the odd favour. All for a fee.", "The Crown's purse is the biggest fee in town."],
     "ending": ["Sable takes the purse in cash and is gone by midnight.", "Nobody sees her in Grayhaven again.", "Postcards still turn up at the Lantern Row market."],

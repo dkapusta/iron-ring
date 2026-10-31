@@ -1,0 +1,82 @@
+{
+  "jun_hk_0": {
+    "native_pose_source": "lk_0",
+    "upper_body_integer_offset": [
+      0,
+      -1
+    ],
+    "reason": "loaded chamber, re-chamber or rising set-down, replacing a softened extended-kick placeholder interpretation"
+  },
+  "jun_hk_2": {
+    "native_pose_source": "lk_2",
+    "upper_body_integer_offset": [
+      0,
+      1
+    ],
+    "reason": "loaded chamber, re-chamber or rising set-down, replacing a softened extended-kick placeholder interpretation"
+  },
+  "jun_hk_3": {
+    "native_pose_source": "hp_3",
+    "upper_body_integer_offset": [
+      0,
+      -1
+    ],
+    "reason": "loaded chamber, re-chamber or rising set-down, replacing a softened extended-kick placeholder interpretation"
+  },
+  "greta_hk_0": {
+    "native_pose_source": "guard_crouch",
+    "upper_body_integer_offset": [
+      0,
+      -1
+    ],
+    "reason": "loaded chamber, re-chamber or rising set-down, replacing a softened extended-kick placeholder interpretation"
+  },
+  "greta_hk_2": {
+    "native_pose_source": "crouch",
+    "upper_body_integer_offset": [
+      0,
+      1
+    ],
+    "reason": "loaded chamber, re-chamber or rising set-down, replacing a softened extended-kick placeholder interpretation"
+  },
+  "greta_hk_3": {
+    "native_pose_source": "down_3",
+    "upper_body_integer_offset": [
+      0,
+      -1
+    ],
+    "reason": "loaded chamber, re-chamber or rising set-down, replacing a softened extended-kick placeholder interpretation"
+  },
+  "broker_hk_0": {
+    "native_pose_source": "crouch",
+    "upper_body_integer_offset": [
+      0,
+      -1
+    ],
+    "reason": "loaded chamber, re-chamber or rising set-down, replacing a softened extended-kick placeholder interpretation"
+  },
+  "broker_hk_2": {
+    "native_pose_source": "guard_crouch",
+    "upper_body_integer_offset": [
+      0,
+      1
+    ],
+    "reason": "loaded chamber, re-chamber or rising set-down, replacing a softened extended-kick placeholder interpretation"
+  },
+  "broker_hk_3": {
+    "native_pose_source": "down_3",
+    "upper_body_integer_offset": [
+      0,
+      -1
+    ],
+    "reason": "loaded chamber, re-chamber or rising set-down, replacing a softened extended-kick placeholder interpretation"
+  },
+  "idris_lp_1": {
+    "arm_rotation_degrees": 19,
+    "pivot": [
+      140,
+      123
+    ],
+    "reason": "include the entire open hand and fingers in the registered jab edit"
+  }
+}

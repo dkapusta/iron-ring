@@ -1,0 +1,248 @@
+{
+  "scope": "Characters only: F1-F5, P1-P2; no venue files",
+  "recovered_from": {
+    "archive": "IronRing_ArtPack_v3.zip",
+    "sha256": "e3680637ca9cc6eed726dc09dc262f5bfd099f44ce942eabef698d95f6c87432"
+  },
+  "current_inputs": {
+    "art-pack-v3-brief(1).md": "0a0ba72625ad886c27826802c60232b4ef68b5667013fc165b58d5bf3bfb426f",
+    "iron-ring-main(4).zip": "055502d87ceb9883e2303d88687b7e8d6c3db7a18d314215b3ab1f758a622363"
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "Pillow": "12.3.0",
+    "numpy": "2.3.5",
+    "cmake": null,
+    "ctest": null,
+    "in_game_tests": "not run; no built SDL player or CMake toolchain available"
+  },
+  "fighters": {
+    "sable": {
+      "frames": 55,
+      "portraits": 2,
+      "palette_colors_including_portraits": 37,
+      "standing_height": 132,
+      "idle_heights": [
+        132,
+        131,
+        130,
+        131
+      ],
+      "max_y": 232,
+      "origin": [
+        128,
+        232
+      ],
+      "frame_review_findings": [],
+      "exact_recovery": true,
+      "atlas_roundtrip": "exact",
+      "partner_offsets": {
+        "throw_hold_0": {
+          "partner": [
+            30,
+            0
+          ]
+        },
+        "throw_hold_1": {
+          "partner": [
+            40,
+            86
+          ]
+        }
+      }
+    },
+    "idris": {
+      "frames": 55,
+      "portraits": 2,
+      "palette_colors_including_portraits": 37,
+      "standing_height": 139,
+      "idle_heights": [
+        139,
+        138,
+        137,
+        138
+      ],
+      "max_y": 232,
+      "origin": [
+        128,
+        232
+      ],
+      "frame_review_findings": [],
+      "exact_recovery": true,
+      "atlas_roundtrip": "exact",
+      "partner_offsets": {
+        "throw_hold_0": {
+          "partner": [
+            30,
+            0
+          ]
+        },
+        "throw_hold_1": {
+          "partner": [
+            54,
+            91
+          ]
+        }
+      }
+    },
+    "greta": {
+      "frames": 55,
+      "portraits": 2,
+      "palette_colors_including_portraits": 37,
+      "standing_height": 121,
+      "idle_heights": [
+        121,
+        120,
+        119,
+        120
+      ],
+      "max_y": 232,
+      "origin": [
+        128,
+        232
+      ],
+      "frame_review_findings": [],
+      "exact_recovery": true,
+      "atlas_roundtrip": "exact",
+      "partner_offsets": {
+        "throw_hold_0": {
+          "partner": [
+            30,
+            0
+          ]
+        },
+        "throw_hold_1": {
+          "partner": [
+            35,
+            77
+          ]
+        }
+      }
+    },
+    "jun": {
+      "frames": 55,
+      "portraits": 2,
+      "palette_colors_including_portraits": 37,
+      "standing_height": 118,
+      "idle_heights": [
+        118,
+        117,
+        116,
+        117
+      ],
+      "max_y": 232,
+      "origin": [
+        128,
+        232
+      ],
+      "frame_review_findings": [],
+      "exact_recovery": true,
+      "atlas_roundtrip": "exact",
+      "partner_offsets": {
+        "throw_hold_0": {
+          "partner": [
+            30,
+            0
+          ]
+        },
+        "throw_hold_1": {
+          "partner": [
+            41,
+            65
+          ]
+        }
+      }
+    },
+    "broker": {
+      "frames": 49,
+      "portraits": 1,
+      "palette_colors_including_portraits": 38,
+      "standing_height": 140,
+      "idle_heights": [
+        140,
+        139,
+        138,
+        139
+      ],
+      "max_y": 232,
+      "origin": [
+        128,
+        232
+      ],
+      "frame_review_findings": [],
+      "exact_recovery": true,
+      "atlas_roundtrip": "exact",
+      "partner_offsets": {
+        "throw_hold_0": {
+          "partner": [
+            30,
+            0
+          ]
+        },
+        "throw_hold_1": {
+          "partner": [
+            42,
+            88
+          ]
+        }
+      }
+    }
+  },
+  "errors": [],
+  "art_selftest": {
+    "exit_code": 0,
+    "ownership": "five character folders classified as external in this validation process only; on-disk project code unchanged",
+    "pre_adoption_expected_differences": [
+      "Fighters/Broker/broker_atlas.json: differs from generate.py output (regenerate)",
+      "Fighters/Broker/broker_atlas.png: pixels differ from generate.py output (regenerate)",
+      "Fighters/Broker/broker_portrait.png: pixels differ from generate.py output (regenerate)",
+      "Fighters/Greta/greta_atlas.json: differs from generate.py output (regenerate)",
+      "Fighters/Greta/greta_atlas.png: pixels differ from generate.py output (regenerate)",
+      "Fighters/Greta/greta_portrait.png: pixels differ from generate.py output (regenerate)",
+      "Fighters/Idris/idris_atlas.json: differs from generate.py output (regenerate)",
+      "Fighters/Idris/idris_atlas.png: pixels differ from generate.py output (regenerate)",
+      "Fighters/Idris/idris_portrait.png: pixels differ from generate.py output (regenerate)",
+      "Fighters/Jun/jun_atlas.json: differs from generate.py output (regenerate)",
+      "Fighters/Jun/jun_atlas.png: pixels differ from generate.py output (regenerate)",
+      "Fighters/Jun/jun_portrait.png: pixels differ from generate.py output (regenerate)",
+      "Fighters/Sable/sable_atlas.json: differs from generate.py output (regenerate)",
+      "Fighters/Sable/sable_atlas.png: pixels differ from generate.py output (regenerate)",
+      "Fighters/Sable/sable_portrait.png: pixels differ from generate.py output (regenerate)"
+    ]
+  },
+  "integration": {
+    "changed_existing_asset_paths": [
+      "Fighters/Broker/broker_atlas.json",
+      "Fighters/Broker/broker_atlas.png",
+      "Fighters/Broker/broker_portrait.png",
+      "Fighters/Greta/greta_atlas.json",
+      "Fighters/Greta/greta_atlas.png",
+      "Fighters/Greta/greta_portrait.png",
+      "Fighters/Idris/idris_atlas.json",
+      "Fighters/Idris/idris_atlas.png",
+      "Fighters/Idris/idris_portrait.png",
+      "Fighters/Jun/jun_atlas.json",
+      "Fighters/Jun/jun_atlas.png",
+      "Fighters/Jun/jun_portrait.png",
+      "Fighters/Sable/sable_atlas.json",
+      "Fighters/Sable/sable_atlas.png",
+      "Fighters/Sable/sable_portrait.png"
+    ],
+    "unchanged_asset_file_count": 117,
+    "new_select_portraits": 4,
+    "source_archive_modified": false,
+    "gameplay_data_modified": false,
+    "venue_assets_modified": false,
+    "source_archive_entries_verified_unchanged": 552
+  },
+  "checks_run": 2781,
+  "limitations": [
+    "CMake build, AssetPacker, ctest and live training/select/ending playback were not run in this environment.",
+    "Python dependency versions differ from Tools/Art/requirements.txt; the pixel and art self-tests passed with the reported installed versions.",
+    "Visual previews are offline views of the native sprites, not in-game screenshots."
+  ],
+  "validation_notes": [
+    "Frame contract includes shared held_0/held_1 victim frames, as defined by Content/Validation.h and importer.required_frames().",
+    "All nine delivered portraits were verified against the final staging Assets directory."
+  ]
+}

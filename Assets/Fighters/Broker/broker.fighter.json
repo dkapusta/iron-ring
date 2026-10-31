@@ -1,5 +1,5 @@
 {
-  "$comment": "Fighter definition (docs/adr/0010-fighter-content-format.md). The arcade's boss: not on the character select (roster.json: boss). Placeholder art: Tools/Art/generate.py fighters.",
+  "$comment": "Fighter definition (docs/adr/0010-fighter-content-format.md). The arcade's boss: not on the character select (roster.json: boss). Art: Iron Ring Art Pack v3A (ArtSource/Fighters/Broker/frames).",
   "id": "broker",
   "name": "The Broker",
   "displayName": "THE BROKER",

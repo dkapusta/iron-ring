@@ -27,3 +27,4 @@ One file per decision, numbered, never renumbered. Supersede rather than rewrite
 | [0021](0021-adding-fighters.md) | Add fighters as data with procedural placeholder art; resolve the arcade ladder per run | Accepted |
 | [0022](0022-boss-and-story.md) | A boss bout after the title, and the arcade story as fighter data | Accepted |
 | [0023](0023-stage-streaming.md) | Stream each venue's layers and theme from archives of its own; keep two stages loaded | Accepted |
+| [0024](0024-adopting-art-pack-v3a.md) | Adopt Art Pack v3A (the M3 fighters) as delivered, with a correction round | Accepted |

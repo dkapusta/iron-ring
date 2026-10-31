@@ -1,10 +1,11 @@
 {
-  "$comment": "Fighter definition (docs/adr/0010-fighter-content-format.md). Lengths in logical pixels, speeds in 1/256 px per tick, times in 60 Hz ticks. Boxes are [x, y, w, h] from the feet, x forward, y up. Placeholder art: Tools/Art/generate.py fighters.",
+  "$comment": "Fighter definition (docs/adr/0010-fighter-content-format.md). Lengths in logical pixels, speeds in 1/256 px per tick, times in 60 Hz ticks. Boxes are [x, y, w, h] from the feet, x forward, y up. Art: Iron Ring Art Pack v3A (ArtSource/Fighters/Idris/frames).",
   "id": "idris",
   "name": "Idris Okafor",
   "displayName": "IDRIS OKAFOR",
   "atlas": "idris_atlas.json",
   "portrait": "idris_portrait.png",
+  "selectPortrait": "idris_select.png",
   "story": {
     "intro": ["They impounded my ship and left my crew ashore.", "Passage out costs more than a sailor earns.", "So I will earn it here, one long kick at a time."],
     "ending": ["With the Broker's purse, Idris buys back the Marisol.", "Her engines turn over at first light.", "He sails with the tide and does not look back."],

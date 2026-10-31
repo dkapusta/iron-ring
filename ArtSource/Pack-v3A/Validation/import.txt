@@ -1,0 +1,5 @@
+imported 55 frames at scale 1.0000 into /workspace/scratch/228cc08f25fc/work/validation/Assets/Fighters/Sable
+imported 55 frames at scale 1.0000 into /workspace/scratch/228cc08f25fc/work/validation/Assets/Fighters/Idris
+imported 55 frames at scale 1.0000 into /workspace/scratch/228cc08f25fc/work/validation/Assets/Fighters/Greta
+imported 55 frames at scale 1.0000 into /workspace/scratch/228cc08f25fc/work/validation/Assets/Fighters/Jun
+imported 49 frames at scale 1.0000 into /workspace/scratch/228cc08f25fc/work/validation/Assets/Fighters/Broker
