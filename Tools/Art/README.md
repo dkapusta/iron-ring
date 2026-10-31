@@ -12,6 +12,7 @@ pip install -r Tools/Art/requirements.txt        # pinned Pillow, numpy, scipy (
 | `import_art.py` | Brings in art made elsewhere: `refs` exports pose references, `fighter` imports frames into an atlas, `image` fits a stage or portrait. |
 | `selftest.py` | Checks that procedural assets match `generate.py`, external atlases match their `ArtSource/` frames, and export→import round-trips losslessly. Runs in CI. |
 | `review_frames.py` | Measures frames against the animation rules (asset spec §2.6) and writes review sheets with boxes. Findings are notes, not errors. |
+| `repair_crowds.py` | One-off: rebuilds the clipped spectator groups in Art Pack v2's crowd layers from intact ones and recomposes the stage previews; `--check` reports only. The self-test fails if a group is clipped again. |
 | `adopt_art_pack.py` | One-off: re-registers Art Pack v1's raw sprites into `ArtSource/` at one scale per fighter ([ADR-0012](../../docs/adr/0012-adopting-external-art.md)). |
 
 The contract every asset follows (sizes, frame names, pivots, timing, layout) is [docs/art/asset-spec.md](../../docs/art/asset-spec.md). Prompts for image generators are in [docs/art/generation-prompts.md](../../docs/art/generation-prompts.md). Background: [ADR-0011](../../docs/adr/0011-procedural-interim-art.md).
@@ -36,6 +37,7 @@ Fighters, stages (The Foundry included) and the title logo and menu backdrop are
 | `effects.py`, `font.py`, `icon.py` | Hit effects, the two bitmap fonts, the app icon. |
 | `atlas.py` | Shared trimming, shelf packing and atlas JSON writing (also used by the importer). |
 | `importer.py` | Background keying, consistent downscaling, palette snapping, fringe cleanup, reference export. |
+| `preview.py` | Composes a layered stage's 640 × 360 preview from its layers, as the game draws them; the self-test compares it with the committed preview. |
 | `ownership.py` | Which `Assets/` folders and files are externally authored, and where their sources live. |
 
 ## Replacing art with outside art

@@ -69,6 +69,8 @@ Goal: two characters that feel good in local play on one stage. Target platforms
   - ✅ Engine ready for it: champion animations, optional select portraits and ending pictures, procedural pose references for new frames (`import_art.py refs`)
   - ✅ Art Pack v2 delivered, reviewed and imported: corrected frames and six champion frames per fighter, select portraits, four layered venues on an 800 px world, title logo and menu backdrop; animated champion endings ([ADR-0020](docs/adr/0020-adopting-art-pack-v2.md))
   - ⬜ Polish pass: a full playthrough at release quality (both fighters, every venue, the arcade loop), fixing what it turns up
+    - ✅ Crowds: the spectator groups the pack cut off at the head are rebuilt from intact ones, in every venue and frame; stage previews recomposed; the art self-test guards both ([ADR-0020](docs/adr/0020-adopting-art-pack-v2.md))
+    - ✅ Text over busy art: a backing behind the training-box legend, dark bands behind the arcade ending's lines
 
 ## M3 — Roster and world
 

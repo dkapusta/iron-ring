@@ -196,13 +196,13 @@ A stage can be wider than the screen and drawn as layers that scroll at differen
 - the HUD bands stay calm;
 - spectators stay behind the barrier.
 
-The `image` field is a 640 × 360 preview, the layers composed at the centre; it is used on the stage select and the title.
+The `image` field is a 640 × 360 preview: frame 0 of every layer, composed at the middle camera position without drift (`Tools/Art/ironart/preview.py`). It is used on the stage select, the title and the arcade ending. After changing a layer, recompose it; the art self-test fails while preview and layers disagree.
 
 Suggested stack, back to front:
 1. back wall or sky (0.2–0.3);
 2. structures (0.5–0.6);
 3. optional drifting haze;
-4. crowd and barrier (0.8; 8 frames, about 84 px tall);
+4. crowd and barrier (0.8; 8 frames, about 84 px tall). Every spectator shows head and shoulders above the barrier, in every frame and along the whole width: no group may be cut off at the top;
 5. floor (1.0, from about y 262);
 6. optional foreground frame (1.2–1.3, `front`).
 

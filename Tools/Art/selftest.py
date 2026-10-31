@@ -116,11 +116,41 @@ def check_round_trip(work: Path) -> list[str]:
     return errors
 
 
+def check_crowds() -> list[str]:
+    """Every spectator group in the crowd layers has its heads (repair_crowds.py)."""
+    import numpy as np
+    from PIL import Image
+
+    import repair_crowds
+
+    errors = []
+    for relative, barrier in repair_crowds.BARRIER.items():
+        pixels = np.array(Image.open(ASSETS / relative).convert("RGBA"))
+        if repair_crowds.repair(pixels, barrier)[1]:
+            errors.append(f"{relative}: clipped spectator groups (run Tools/Art/repair_crowds.py)")
+    return errors
+
+
+def check_previews() -> list[str]:
+    """Every layered stage's preview is its layers composed at the middle camera."""
+    import numpy as np
+    from PIL import Image
+
+    from ironart import preview
+
+    errors = []
+    for stage in preview.layered_stages(ASSETS):
+        committed = np.array(Image.open(ASSETS / stage["image"]).convert("RGB"))
+        if not np.array_equal(committed, np.array(preview.compose(ASSETS, stage))):
+            errors.append(f"{stage['image']}: preview differs from its layers (see ironart/preview.py)")
+    return errors
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tmp:
         work = Path(tmp)
         errors = (check_generated(work / "generated") + check_sources(work / "sources")
-                  + check_round_trip(work / "roundtrip"))
+                  + check_round_trip(work / "roundtrip") + check_crowds() + check_previews())
     for e in errors:
         print("FAIL: " + e)
     print("art selftest: " + ("FAILED" if errors else "ok"))

@@ -20,7 +20,7 @@ Editable sources of externally authored art. The game never reads this folder; `
 
 3. Build, then check in `IronRing -training -stage <id>` (F3 shows boxes). `python3 Tools/Art/selftest.py` fails if `Assets/` and these frames disagree.
 
-Stage layers, previews, portraits (32 × 32 HUD, 48 × 48 select), the title logo and the menu backdrop are final images; edit them directly in `Assets/`. Stage layer sizes follow the width rule in [asset spec §3.1](../docs/art/asset-spec.md#31-layered-stages); the build checks it.
+Stage layers, previews, portraits (32 × 32 HUD, 48 × 48 select), the title logo and the menu backdrop are final images; edit them directly in `Assets/`. Stage layer sizes follow the width rule in [asset spec §3.1](../docs/art/asset-spec.md#31-layered-stages); the build checks it. A stage's 640 × 360 preview is composed from its layers (`Tools/Art/ironart/preview.py`); recompose it after editing a layer, or the art self-test fails.
 
 ## Art Pack v1
 
@@ -28,4 +28,4 @@ Delivered 2026-10-30, generated with an image model from [docs/art/generation-pr
 
 ## Art Pack v2
 
-Delivered 2026-10-31 against the [vertical-slice art brief](../docs/art/vertical-slice-art-brief.md), under the project's zlib licence. It replaces both fighters' frame sets (the brief's corrections, a dark outline pass, six champion frames each), adds select portraits, makes all four venues layered and final (The Foundry replaces its procedural placeholder), and supplies the title logo and menu backdrop. Adopted as delivered ([ADR-0020](../docs/adr/0020-adopting-art-pack-v2.md)); the arcade ending animates the champion, so the pack's still ending pictures are kept in `Pack-v2/Endings/` only. Generation originals (about 44 MB) and the pack's previews and rebuild scripts stay outside the repository.
+Delivered 2026-10-31 against the [vertical-slice art brief](../docs/art/vertical-slice-art-brief.md), under the project's zlib licence. It replaces both fighters' frame sets (the brief's corrections, a dark outline pass, six champion frames each), adds select portraits, makes all four venues layered and final (The Foundry replaces its procedural placeholder), and supplies the title logo and menu backdrop. Adopted as delivered ([ADR-0020](../docs/adr/0020-adopting-art-pack-v2.md)), with one later correction: in every crowd layer, three of the six spectator groups were cut off at the head; `Tools/Art/repair_crowds.py` rebuilt them from the intact groups of the same frame and recomposed the previews ([Pack-v2/CORRECTIONS.md](Pack-v2/CORRECTIONS.md)); the arcade ending animates the champion, so the pack's still ending pictures are kept in `Pack-v2/Endings/` only. Generation originals (about 44 MB) and the pack's previews and rebuild scripts stay outside the repository.
