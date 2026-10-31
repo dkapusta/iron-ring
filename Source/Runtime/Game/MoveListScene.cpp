@@ -3,6 +3,8 @@
 #include "Game/FightScene.h"
 #include "Render/Ui.h"
 
+#include <cmath>
+
 namespace iron {
 namespace {
 
@@ -18,32 +20,49 @@ std::pair<std::string, std::string> splitInput(const std::string& input) {
 
 } // namespace
 
-MoveListScene::MoveListScene(Services& services, const FightScene& fight) : services_(services), fight_(fight) {}
+MoveListScene::MoveListScene(Services& services, std::vector<MoveListPanel> panels, std::string footer)
+    : services_(services), panels_(std::move(panels)), footer_(std::move(footer)) {}
+
+MoveListScene::MoveListScene(Services& services, const FightScene& fight)
+    : MoveListScene(services, {}, "ARROWS AS EACH SIDE FACES NOW - HOLD BACK OR GUARD TO BLOCK") {
+    for (int side = 0; side < 2; ++side) {
+        const bool human = fight.human(side);
+        panels_.push_back({&fight.view(side).definition(), fight.facing(side), human ? side : -1,
+                           human ? (side == 0 ? "PLAYER 1" : "PLAYER 2") : "CPU"});
+    }
+}
+
+std::string MoveListScene::status() const {
+    std::string s = "move list:";
+    for (const auto& p : panels_) s += " " + p.fighter->id;
+    return s;
+}
 
 void MoveListScene::handleMenu(const MenuEvent& event) {
-    if (event.action == MenuAction::Confirm || event.action == MenuAction::Back || event.action == MenuAction::Pause) {
+    if (event.action == MenuAction::Confirm || event.action == MenuAction::Back || event.action == MenuAction::Pause ||
+        event.action == MenuAction::Info) {
         services_.audio.play("menu_back");
         services_.scenes.pop(Transition::Cut);
     }
 }
 
-std::string MoveListScene::button(int side, int action) const {
-    if (!fight_.human(side)) return kButtonNames[action];
-    return services_.controls.keyLabel(side, action);
+std::string MoveListScene::button(const MoveListPanel& panel, int action) const {
+    if (panel.player < 0) return kButtonNames[action];
+    return services_.controls.keyLabel(panel.player, action);
 }
 
-void MoveListScene::drawSide(SDL_Renderer* r, int side, float x) const {
+void MoveListScene::drawPanel(SDL_Renderer* r, const MoveListPanel& panel, int colour, float x) const {
     const auto& data = services_.data;
     const auto& font = data.small();
-    const auto& def = fight_.view(side).definition();
-    const int facing = fight_.facing(side);
+    const auto& def = *panel.fighter;
+    const int facing = panel.facing;
     const float width = 296, right = x + width;
+    const auto key = [&](int action) { return button(panel, action); };
 
     ui::frame(r, {x, 44, width, 270});
     ui::fill(r, x, 44, width, 270, ui::kNight);
-    font.draw(r, def.displayName, x + 6, 50, ui::kSide[side], Align::Left, true);
-    font.draw(r, fight_.human(side) ? (side == 0 ? "PLAYER 1" : "PLAYER 2") : "CPU", right - 6, 50, ui::kFog,
-              Align::Right, true);
+    font.draw(r, def.displayName, x + 6, 50, ui::kSide[colour], Align::Left, true);
+    font.draw(r, panel.label, right - 6, 50, ui::kFog, Align::Right, true);
     ui::fill(r, x + 4, 61, width - 8, 1, ui::kBrass);
 
     float y = 68;
@@ -66,36 +85,40 @@ void MoveListScene::drawSide(SDL_Renderer* r, int side, float x) const {
         std::string input;
         if (slot == sim::SpecialSlot) {
             const auto [motion, buttons] = splitInput(info.input);
-            const std::string punch = button(side, kLP) + "/" + button(side, kHP);
-            const std::string kick = button(side, kLK) + "/" + button(side, kHK);
+            const std::string punch = key(kLP) + "/" + key(kHP);
+            const std::string kick = key(kLK) + "/" + key(kHK);
             const std::string press = buttons == "P" ? punch : buttons == "K" ? kick
-                                    : buttons == "LP" ? button(side, kLP) : buttons == "HP" ? button(side, kHP)
-                                    : buttons == "LK" ? button(side, kLK) : button(side, kHK);
+                                    : buttons == "LP" ? key(kLP) : buttons == "HP" ? key(kHP)
+                                    : buttons == "LK" ? key(kLK) : key(kHK);
             input = ui::motionArrows(motion, facing) + " + " + press;
         } else if (slot == sim::ThrowSlot) {
-            input = button(side, kLP) + " + " + button(side, kLK);
+            input = key(kLP) + " + " + key(kLK);
             tags = tags.empty() ? "CLOSE" : "CLOSE, " + tags;
         } else {
-            input = button(side, slotAction[slot]);
+            input = key(slotAction[slot]);
         }
         row(info.name, tags, input, slot == sim::SpecialSlot);
     }
     ui::fill(r, x + 4, y + 2, width - 8, 1, ui::kSteel);
     y += 8;
-    row("Throw tech", "WHEN GRABBED", button(side, kLP) + " + " + button(side, kLK), false);
+    row("Throw tech", "WHEN GRABBED", key(kLP) + " + " + key(kLK), false);
     row("Breakaway", "50 HEAT, WHILE GUARDING",
-        button(side, kGuard) + " + " + button(side, kHP) + " + " + button(side, kHK), false);
+        key(kGuard) + " + " + key(kHP) + " + " + key(kHK), false);
 }
 
 void MoveListScene::render(const RenderContext& context) {
     SDL_Renderer* r = context.renderer;
     const auto& data = services_.data;
     ui::dim(r, services_.width, services_.height, 200);
+    ui::fill(r, 0, 0, services_.width, 40, {7, 9, 15, 230}); // the title sits over whatever title is behind
     data.large().draw(r, "MOVE LIST", services_.width / 2, 12, ui::kWhite, Align::Centre);
-    drawSide(r, 0, 16);
-    drawSide(r, 1, services_.width - 16 - 296);
-    data.small().draw(r, "ARROWS AS EACH SIDE FACES NOW - HOLD BACK OR GUARD TO BLOCK", services_.width / 2, 324,
-                      ui::kFog, Align::Centre, true);
+    if (panels_.size() == 1) {
+        drawPanel(r, panels_[0], panels_[0].player > 0 ? 1 : 0, std::floor((services_.width - 296) / 2));
+    } else {
+        for (std::size_t i = 0; i < panels_.size() && i < 2; ++i)
+            drawPanel(r, panels_[i], static_cast<int>(i), i == 0 ? 16 : services_.width - 16 - 296);
+    }
+    data.small().draw(r, footer_, services_.width / 2, 324, ui::kFog, Align::Centre, true);
     data.small().draw(r, "ANY BUTTON TO RETURN", services_.width / 2, 340, ui::kFog, Align::Centre, true);
 }
 

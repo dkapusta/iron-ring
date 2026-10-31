@@ -29,6 +29,7 @@ MenuResult navigate(Menu& menu, const MenuEvent& event, AudioSystem& audio) {
     case MenuAction::Pause:
         audio.play("menu_back");
         return MenuResult::Back;
+    case MenuAction::Info: return MenuResult::None; // menus have nothing more to show
     }
     return MenuResult::None;
 }

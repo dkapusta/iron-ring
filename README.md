@@ -88,7 +88,7 @@ The game opens on the title screen: press Start (Return, or a pad's Start) for t
 
 ### Controls
 
-The full scheme for both players, the menus and pads, with each fighter's moves written for either side of the screen, is in **[docs/controls.md](docs/controls.md)**. Rebind keys and pad buttons in **Options → Controls**; the pause menu's **Move list** shows every move in the keys you use.
+The full scheme for both players, the menus and pads, with each fighter's moves written for either side of the screen, is in **[docs/controls.md](docs/controls.md)**. Rebind keys and pad buttons in **Options → Controls**; the pause menu's **Move list**, or heavy punch on the character select, shows every move in the keys you use.
 
 | Action | Player 1 | Player 2 |
 | --- | --- | --- |
@@ -130,7 +130,7 @@ Unity-compatible names where they exist:
 | `-training` | Training mode: the clock stops, nobody is K.O.'d, health and Heat refill after a second; player 2 is a dummy; the overlay and an input display are on |
 | `-dummy <mode>` | Training dummy: `stand`, `crouch`, `jump`, `guard`, `guard-all` (crouches against lows), `cpu` |
 | `-stage <id>` | Straight into a fight on a stage: `pier_nine`, `lantern_row`, `foundry`, `the_crown` |
-| `-fighters <p1>,<p2>` | With `-demo`, `-training` or `-stage`: who fights, by fighter id (`dee`, `bram`, `sable`, `idris`, `greta`); default the first two |
+| `-fighters <p1>,<p2>` | With `-demo`, `-training` or `-stage`: who fights, by fighter id (`dee`, `bram`, `sable`, `idris`, `greta`, `jun`); default the first two |
 | `-scene <name>` | Open `title`, `select`, `stage` or `options` (screenshots, testing) |
 | `-keys "<frame>:<key>,..."` | Batch tests: tap keys (SDL key names) at the given frames, e.g. `"10:Return,30:Down"`; `"30-90:D"` holds a key, `"40:S+D"` presses keys together |
 | `-music-volume 0..1`, `-sfx-volume 0..1`, `-voice-volume 0..1` | Mix-group volumes (also in `boot.config` and Options) |

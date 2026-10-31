@@ -33,7 +33,7 @@ M3 grows the roster from two fighters to six: Sable first, then Idris, Greta and
 ## Consequences
 
 - Adding Idris, Greta and Jun is content plus their pose code: no engine change unless a fighter needs a new mechanic.
-- The shipped ladder (`Pier 9: [idris, sable, dee]`, `Lantern Row: [sable, dee, idris]`, `Foundry: [greta, dee, sable]`, `The Crown: [bram, dee]`) gives every fighter four different opponents. Greta meets every challenger at her old Foundry, and Bram, the gatekeeper, waits at The Crown for everyone but himself; a content test pins both.
+- The shipped ladder (`Pier 9: [idris, sable, dee]`, `Lantern Row: [jun, sable, dee, idris]`, `Foundry: [greta, dee, sable]`, `The Crown: [bram, dee]`) gives every fighter four different opponents. Jun works the Lantern Row crowd, Greta meets every challenger at her old Foundry, and Bram, the gatekeeper, waits at The Crown for everyone but himself; a content test pins both.
 - Placeholder fighters look visibly simpler than Dee and Bram. This is accepted until their art pack: the slice standard applies to Dee vs Bram.
 - Content tests pin the ladder rules, and that the CPU lands Sable's 236 + K.
 

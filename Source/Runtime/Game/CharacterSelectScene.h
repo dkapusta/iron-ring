@@ -36,6 +36,7 @@ private:
     [[nodiscard]] int sideFor(const MenuEvent& event) const; // which side an event steers
     void pick(int side);
     void unpick(int side);
+    void showMoves(int side); // the move list of the fighter under this side's cursor
     [[nodiscard]] SDL_FRect cellRect(int index) const;
     void drawGrid(SDL_Renderer* r) const;
     void drawSide(SDL_Renderer* r, int side) const;

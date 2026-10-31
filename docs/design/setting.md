@@ -66,7 +66,13 @@ Moves and frame data live in `Assets/Fighters/<Name>/<id>.fighter.json`.
 - Crucible Toss (throw, LP + LK)
 - **Ladle Drop** (623 + P): both fists brought down like a tipping ladle, lunging in; it knocks down, and misses are very expensive
 
-The colour coding stays with the characters: teal for Dee, rust/coral for Bram, violet for Sable, muted blue for Idris, brass for Greta.
+**Jun Arata**: small and wiry, early twenties. Messy black hair, a faded jade track jacket with the sleeves shoved up, loose black trousers, red high-tops, taped wrists. Hunched and light on his feet, never still. He works the crowd's pockets between bouts and fights like he steals: quick, close, gone before you react.
+
+- Pick Jab (LP), Pocket Hook (HP), Lift Step (LK, a stepping low kick), Turnstile Kick (HK)
+- Purse Snatch (throw, LP + LK)
+- **Sleight Feint** (236 + P): a low dash into a quick elbow that leaves him ahead on block, so the pressure starts over
+
+The colour coding stays with the characters: teal for Dee, rust/coral for Bram, violet for Sable, muted blue for Idris, brass for Greta, jade for Jun.
 
 ## Venues
 

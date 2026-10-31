@@ -40,6 +40,7 @@ void StageSelectScene::handleMenu(const MenuEvent& event) {
         services_.audio.play("menu_back");
         services_.scenes.pop();
         break;
+    case MenuAction::Info: break;
     }
 }
 

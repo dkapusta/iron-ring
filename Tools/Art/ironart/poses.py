@@ -42,6 +42,9 @@ STYLES = {
     "idris": Style(front=18, back=-18, crouch=5, lean=4, guard_near=(16, -4), guard_far=(8, 0), open_hands=True,
                    jab=(56, 96), straight=(64, 100), kick=(80, 66), sweep=(86, 6)),
     # Greta: square, low and planted, fists close to the chin.
+    # Jun: hunched and low, weight on the balls of the feet; the light kick is a low stepping kick.
+    "jun": Style(front=14, back=-14, crouch=9, lean=14, guard_near=(12, -6), guard_far=(8, -2), open_hands=False,
+                 jab=(44, 87), straight=(50, 93), kick=(60, 14), sweep=(66, 6)),
     "greta": Style(front=15, back=-18, crouch=9, lean=10, guard_near=(12, -2), guard_far=(9, 2), open_hands=False,
                    jab=(46, 94), straight=(54, 100), kick=(62, 40), sweep=(70, 6)),
 }
@@ -224,7 +227,7 @@ class PoseBook:
                                       near_open=False, far_open=False, **feet)
         f["champion_1"] = self.stance(lean=-2, bob=3, near_hand=add(sh, (18, 6)), far_hand=add(sh, (-12, 4)),
                                       near_elbow=1, far_elbow=1, **feet)
-        if self.c.id in ("dee", "sable", "idris"):
+        if self.c.id in ("dee", "sable", "idris", "jun"):
             # Both fists overhead, the chain stretched between them.
             high = {"near_hand": add(sh, (12, 46)), "far_hand": add(sh, (-10, 46)), "near_elbow": 1, "far_elbow": 1}
         else:
@@ -254,6 +257,11 @@ class PoseBook:
             a = self.stance(lean=-2, bob=2, near_hand=add(sh, (8, -16)), far_hand=add(sh, (10, -12)),
                             near_foot=(12, b.ankle), far_foot=(-14, b.ankle), head=10)
             return a, replace(a, near_hand=add(sh, (16, 30)), near_open=True, near_elbow=1, head=0)
+        if self.c.id == "jun":
+            # A coin walked over the knuckles, then flicked up and caught.
+            a = self.stance(lean=6, bob=2, near_hand=add(sh, (14, -8)), far_hand=(-10, hip - 4), far_open=True,
+                            near_foot=(12, b.ankle), far_foot=(-12, b.ankle))
+            return a, replace(a, near_hand=add(sh, (12, 30)), near_open=True, near_elbow=1, head=-10)
         if self.c.id == "greta":
             # Fist into palm, then the fist raised for the Foundry.
             a = self.stance(lean=4, bob=1, near_hand=add(sh, (16, -12)), far_hand=add(sh, (18, -10)),
@@ -291,6 +299,8 @@ class PoseBook:
             f.update(self.idris_specials())
         elif self.c.id == "greta":
             f.update(self.greta_specials())
+        elif self.c.id == "jun":
+            f.update(self.jun_specials())
         else:
             # Dock Hoist (63214 + P): reach low, grab; on connect: hoist, slam.
             reach = (6.0, hip * 0.72)
@@ -388,4 +398,36 @@ class PoseBook:
         p3 = (6.0, hip - 12)
         f["special_3"] = Pose(pelvis=p3, lean=28, near_foot=(s.front + 10, b.ankle), far_foot=(s.back + 2, b.ankle),
                               far_toe=16, near_hand=(36, 46), far_hand=(32, 50))
+        return f
+
+    def jun_specials(self) -> dict[str, Pose]:
+        """Jun's Turnstile Kick (HK: a mid spinning kick in place of the sweep)
+        and Sleight Feint (236 + P: a low dash that ends in a quick elbow, safe
+        on block, to start the pressure again)."""
+        s, b, hip = self.s, self.b, self.hip
+        f: dict[str, Pose] = {}
+        guard = lambda pelvis, lean: dict(near_hand=add(self.shoulders(pelvis, lean), (10, -6)),  # noqa: E731
+                                          far_hand=add(self.shoulders(pelvis, lean), (6, -2)),
+                                          near_open=False, far_open=False)
+        p0 = (-2.0, hip - 6)
+        f["hk_0"] = Pose(pelvis=p0, lean=4, near_foot=(14, 40), far_foot=(s.back + 2, b.ankle), near_toe=-10,
+                         far_toe=20, **guard(p0, 4))
+        p1 = (-6.0, hip - 4)
+        f["hk_1"] = Pose(pelvis=p1, lean=-18, near_foot=(52, 76), far_foot=(s.back + 4, b.ankle), near_toe=10,
+                         far_toe=30, near_knee=1, **guard(p1, -18), expression="shout")
+        f["hk_2"] = Pose(pelvis=(-4.0, hip - 5), lean=-8, near_foot=(26, 52), far_foot=(s.back + 3, b.ankle),
+                         near_toe=-10, far_toe=24, **guard((-4.0, hip - 5), -8))
+        f["hk_3"] = self.stance(lean=s.lean - 2, near_foot=(s.front - 4, b.ankle + 4))
+        d0 = (0.0, hip * 0.7)
+        f["special_0"] = Pose(pelvis=d0, lean=30, near_foot=(s.front + 6, b.ankle), far_foot=(s.back - 4, b.ankle),
+                              far_toe=16, **guard(d0, 30))
+        d1 = (10.0, hip * 0.66)
+        f["special_1"] = Pose(pelvis=d1, lean=36, near_foot=(30, b.ankle), far_foot=(-14, b.ankle + 4), far_toe=30,
+                              **guard(d1, 36))
+        d2 = (12.0, hip * 0.72)
+        esh = self.shoulders(d2, 28)
+        f["special_2"] = Pose(pelvis=d2, lean=28, near_foot=(32, b.ankle), far_foot=(-10, b.ankle), far_toe=20,
+                              near_hand=add(esh, (6, -4)), far_hand=add(esh, (2, -14)), near_elbow=1,
+                              expression="shout")
+        f["special_3"] = replace(self.stance(lean=s.lean + 6, dx=2), near_foot=(s.front + 4, b.ankle))
         return f
