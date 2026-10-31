@@ -54,7 +54,19 @@ Moves and frame data live in `Assets/Fighters/<Name>/<id>.fighter.json`.
 - Rooftop Drop (throw, LP + LK)
 - **Switch Step** (236 + K): a stance switch, a step and a flying knee that knocks down; it gets her past a jab, but it's wide open if blocked
 
-The colour coding stays with the characters: teal for Dee, rust/coral for Bram, violet for Sable.
+**Idris Okafor**: tall and rangy, forties. Close-cropped hair going grey and a short beard, a faded blue work shirt with the sleeves rolled to the elbow, canvas trousers rolled at the shin, a length of rope for a belt (tied in a bowline), deck shoes. Upright and side-on, open hands. Stranded when his ship was impounded; he fights to buy passage out.
+
+- Long Jab (LP), Hawser Straight (HP), Mast Kick (LK, a push kick), Deck Sweep (HK, low, knockdown)
+- Gangway Heave (throw, LP + LK)
+- **Bowline Heel** (214 + K): a turning heel kick at head height that knocks down; slow, so it's thrown at where the opponent is going
+
+**Greta Voll**: broad and solid, fifties. Iron-grey hair in a tight bun, a khaki work shirt with rolled sleeves under a brass-brown leather foundry apron, dark work trousers, heavy leather gloves, steel-toe boots. A square, low stance, fists at the chin. She ran the Voll Works floor until the Broker's money shut it; she fights at The Foundry like it's still hers.
+
+- Short Jab (LP), Slag Knuckle (HP), Toe-Cap Kick (LK), Pig-Iron Sweep (HK, low, knockdown)
+- Crucible Toss (throw, LP + LK)
+- **Ladle Drop** (623 + P): both fists brought down like a tipping ladle, lunging in; it knocks down, and misses are very expensive
+
+The colour coding stays with the characters: teal for Dee, rust/coral for Bram, violet for Sable, muted blue for Idris, brass for Greta.
 
 ## Venues
 

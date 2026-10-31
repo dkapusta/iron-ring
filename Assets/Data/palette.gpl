@@ -128,6 +128,66 @@ Columns: 8
  69  74  85	sable_shoes_2
 102 108 120	sable_shoes_3
 144 151 163	sable_shoes_4
+ 20  10   6	idris_skin_0
+ 46  26  16	idris_skin_1
+ 74  44  27	idris_skin_2
+102  65  42	idris_skin_3
+134  89  59	idris_skin_4
+  8   8  10	idris_hair_0
+ 26  26  30	idris_hair_1
+ 46  46  52	idris_hair_2
+ 74  74  82	idris_hair_3
+110 110 120	idris_hair_4
+ 11  20  32	idris_shirt_0
+ 26  42  64	idris_shirt_1
+ 44  66  96	idris_shirt_2
+ 67  96 126	idris_shirt_3
+102 132 160	idris_shirt_4
+ 20  19  15	idris_trousers_0
+ 46  44  37	idris_trousers_1
+ 72  69  58	idris_trousers_2
+102  98  81	idris_trousers_3
+134 129 108	idris_trousers_4
+ 42  29  14	idris_rope_0
+107  83  48	idris_rope_1
+147 117  70	idris_rope_2
+184 154  98	idris_rope_3
+216 191 136	idris_rope_4
+  6   6   6	idris_shoes_0
+ 22  19  15	idris_shoes_1
+ 38  33  25	idris_shoes_2
+ 58  50  38	idris_shoes_3
+ 82  71  55	idris_shoes_4
+ 42  24  16	greta_skin_0
+106  64  48	greta_skin_1
+148  96  74	greta_skin_2
+184 132 104	greta_skin_3
+214 168 138	greta_skin_4
+ 26  26  28	greta_hair_0
+ 74  74  80	greta_hair_1
+110 110 116	greta_hair_2
+148 148 154	greta_hair_3
+192 192 196	greta_hair_4
+ 30  26  16	greta_shirt_0
+ 74  66  40	greta_shirt_1
+110  99  64	greta_shirt_2
+146 134  88	greta_shirt_3
+182 170 122	greta_shirt_4
+ 28  15   6	greta_apron_0
+ 74  42  18	greta_apron_1
+112  66  28	greta_apron_2
+154  98  40	greta_apron_3
+196 137  58	greta_apron_4
+ 10  12  16	greta_trousers_0
+ 28  32  40	greta_trousers_1
+ 46  52  64	greta_trousers_2
+ 68  76  92	greta_trousers_3
+ 94 104 124	greta_trousers_4
+  5   5   5	greta_boots_0
+ 20  18  16	greta_boots_1
+ 34  31  27	greta_boots_2
+ 53  48  42	greta_boots_3
+ 77  70  61	greta_boots_4
  11  13  18	metal_0
  61  74 102	metal_1
  90 103 130	metal_2

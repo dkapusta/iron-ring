@@ -49,7 +49,7 @@
         "Bowline Heel",
         "Mast Kick"
       ],
-      "starter_selectable": false
+      "starter_selectable": true
     },
     {
       "id": "greta",
@@ -61,7 +61,7 @@
         "Slag Knuckle",
         "Ladle Drop"
       ],
-      "starter_selectable": false
+      "starter_selectable": true
     },
     {
       "id": "jun",

@@ -27,11 +27,13 @@ M3 grows the roster from two fighters to six: Sable first, then Idris, Greta and
   5. the player's own fighter, for a roster of one.
 - **The CPU fits the button to the special.** It keeps asking for a light or a heavy, and takes the kick of the same strength when the special wants a kick.
 - **`-fighters p1,p2`** picks who fights in `-demo`, `-training` and `-stage`.
+- **The CPU pokes with long specials.** A strike special that out-ranges every normal once its lunge is counted (Sable's knee, Idris's heel, Greta's Ladle Drop) is thrown in neutral at that range, so those fighters use their specials without a cancel. Dee's uppercut and Bram's grab are unaffected.
+- **Tuning with a win matrix.** A skipped content test (`IronRingTests -s -tc="balance*" --no-skip`) plays 100 CPU-vs-CPU matches per pairing at VETERAN. It measures how well the CPU plays each fighter as much as the fighters themselves, so it guides frame data rather than deciding it.
 
 ## Consequences
 
 - Adding Idris, Greta and Jun is content plus their pose code: no engine change unless a fighter needs a new mechanic.
-- The shipped ladder (`Pier 9: [sable, dee]`, `Lantern Row: [dee, sable]`, `Foundry: rival`, `The Crown: [bram, dee]`) gives each fighter both others before any repeat. Bram, the gatekeeper, waits at The Crown for everyone but himself.
+- The shipped ladder (`Pier 9: [idris, sable, dee]`, `Lantern Row: [sable, dee, idris]`, `Foundry: [greta, dee, sable]`, `The Crown: [bram, dee]`) gives every fighter four different opponents. Greta meets every challenger at her old Foundry, and Bram, the gatekeeper, waits at The Crown for everyone but himself; a content test pins both.
 - Placeholder fighters look visibly simpler than Dee and Bram. This is accepted until their art pack: the slice standard applies to Dee vs Bram.
 - Content tests pin the ladder rules, and that the CPU lands Sable's 236 + K.
 

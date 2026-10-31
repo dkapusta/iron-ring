@@ -216,6 +216,18 @@ Input CpuPlayer::think(const Round& r, int side) {
         }
         return LightPunch | LightKick;
     }
+    // A special that out-ranges every normal (a lunge, a long heel kick) is a poke too.
+    if (special.enabled && special.kind == MoveKind::Strike && special.motionLength > 0) {
+        const int lunge = special.advance * (special.startup + special.active) / kFixed;
+        const int reach = reachOf(r, self, SpecialSlot) + lunge;
+        int normals = 0;
+        for (int slot = 0; slot < 4; ++slot) normals = std::max(normals, reachOf(r, self, slot));
+        const int half = r.spec(other).standHurt.w / 2;
+        if (reach > normals && distance <= reach + half && distance > normals && chance(p.aggression / 3)) {
+            planSpecial(r, self, HeavyPunch);
+            return plan_[static_cast<std::size_t>(planAt_++)];
+        }
+    }
     const int poke = bestStrikeFor(r, self, distance, true);
     // A grappler mostly walks in under the opponent's pokes instead of trading them.
     const bool wantsPoke = !grappler || distance <= preferred + 8 || chance(25);

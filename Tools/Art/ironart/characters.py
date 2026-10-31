@@ -431,7 +431,112 @@ class Sable(Character):
             canvas.pixel(self.local(s, 0.72, -0.45), "eye", 0, HEAD)
 
 
-CHARACTERS = {"dee": Dee(), "bram": Bram(), "sable": Sable()}
+class Idris(Character):
+    """Idris Okafor: tall and rangy, forties. Close-cropped grey-flecked hair and a
+    short beard, a faded blue work shirt with the sleeves rolled, canvas trousers
+    rolled at the shin, a rope belt, deck shoes."""
+
+    def __init__(self) -> None:
+        super().__init__(
+            id="idris",
+            build=Build(ankle=5, shin=36, thigh=36, spine=44, neck=5, upper_arm=26, forearm=24,
+                        head=(7.6, 9.8), thigh_r=(7.2, 5.2), shin_r=(4.9, 3.4), upper_r=(4.4, 3.6),
+                        fore_r=(3.7, 3.1), neck_r=3.7, waist_r=8.4, chest_r=11.2, pelvis=(10.2, 7.8),
+                        fist=(4.4, 4.0), foot=14, deltoid=5.0),
+            skin="idris_skin",
+            materials={"legs": "idris_trousers", "boots": "idris_shoes", "top": "idris_shirt",
+                       "pelvis": "idris_trousers", "deltoid": "idris_shirt", "hand": "idris_skin",
+                       "hand_open": "idris_skin"},
+        )
+
+    def shin_material(self, canvas: Canvas):
+        cloth, skin, shoes = (canvas.material_id("idris_trousers"), canvas.material_id("idris_skin"),
+                              canvas.material_id("idris_shoes"))
+        return lambda t, side: np.where(t > 0.86, shoes, np.where(t > 0.55, skin, cloth)).astype(np.int16)
+
+    def upper_arm_material(self, canvas: Canvas):
+        return "idris_shirt"
+
+    def forearm_material(self, canvas: Canvas):
+        shirt, skin = canvas.material_id("idris_shirt"), canvas.material_id("idris_skin")
+        return lambda t, side: np.where(t < 0.18, shirt, skin).astype(np.int16)  # rolled sleeve
+
+    def torso_material(self, canvas: Canvas, top: bool = False):
+        shirt, cloth, rope = (canvas.material_id("idris_shirt"), canvas.material_id("idris_trousers"),
+                              canvas.material_id("idris_rope"))
+        if top:
+            return "idris_shirt"
+        return lambda t, side: np.where(t < 0.12, cloth, np.where(t < 0.19, rope, shirt)).astype(np.int16)
+
+    def head_material(self, canvas: Canvas):
+        skin, hair = canvas.material_id("idris_skin"), canvas.material_id("idris_hair")
+        return lambda ux, uy: np.where(uy > 0.48 + 0.30 * ux, hair, skin).astype(np.int16)
+
+    def jaw_material(self, canvas: Canvas):
+        skin, hair = canvas.material_id("idris_skin"), canvas.material_id("idris_hair")
+        return lambda ux, uy: np.where(uy < 0.35, hair, skin).astype(np.int16)  # short beard
+
+    def face(self, canvas: Canvas, s: Skeleton, pose: Pose) -> None:
+        canvas.ellipse(self.local(s, -0.20, 0.02), 1.4, 2.0, 0.0, "idris_skin", HEAD, 0.2)  # ear
+        canvas.pixel(self.local(s, 0.52, 0.14), "eye", 0, HEAD)
+        canvas.pixel(self.local(s, 1.02, -0.02), "idris_skin", 3, HEAD)  # nose
+        if pose.expression == "shout":
+            canvas.pixel(self.local(s, 0.72, -0.45), "eye", 0, HEAD)
+
+
+class Greta(Character):
+    """Greta Voll: broad and solid, fifties. Iron-grey hair in a tight bun, a khaki
+    work shirt with rolled sleeves under a brass-brown leather foundry apron,
+    dark work trousers, heavy leather gloves, steel-toe boots."""
+
+    def __init__(self) -> None:
+        super().__init__(
+            id="greta",
+            build=Build(ankle=5, shin=30, thigh=30, spine=44, neck=3, upper_arm=24, forearm=22,
+                        head=(8.4, 9.8), thigh_r=(9.0, 6.6), shin_r=(6.2, 4.4), upper_r=(5.6, 4.6),
+                        fore_r=(4.8, 4.0), neck_r=4.4, waist_r=11.0, chest_r=13.0, pelvis=(12.5, 9.0),
+                        fist=(5.2, 4.8), foot=14, deltoid=6.0),
+            skin="greta_skin",
+            materials={"legs": "greta_trousers", "boots": "greta_boots", "top": "greta_shirt",
+                       "pelvis": "greta_apron", "deltoid": "greta_shirt", "hand": "greta_apron",
+                       "hand_open": "greta_apron"},
+        )
+
+    def thigh_material(self, canvas: Canvas, near: bool):
+        cloth, apron = canvas.material_id("greta_trousers"), canvas.material_id("greta_apron")
+        if not near:
+            return lambda t, side: np.full(t.shape, cloth, dtype=np.int16)
+        return lambda t, side: np.where((t < 0.75) & (side > -0.2), apron, cloth).astype(np.int16)  # apron front
+
+    def upper_arm_material(self, canvas: Canvas):
+        shirt, skin = canvas.material_id("greta_shirt"), canvas.material_id("greta_skin")
+        return lambda t, side: np.where(t < 0.6, shirt, skin).astype(np.int16)
+
+    def forearm_material(self, canvas: Canvas):
+        skin, glove = canvas.material_id("greta_skin"), canvas.material_id("greta_apron")
+        return lambda t, side: np.where(t > 0.62, glove, skin).astype(np.int16)  # gauntlet cuffs
+
+    def torso_material(self, canvas: Canvas, top: bool = False):
+        shirt, apron = canvas.material_id("greta_shirt"), canvas.material_id("greta_apron")
+        if top:
+            return lambda t, side: np.where(side > 0.15, apron, shirt).astype(np.int16)  # apron bib
+        return lambda t, side: np.where(side > -0.1, apron, shirt).astype(np.int16)
+
+    def head_material(self, canvas: Canvas):
+        skin, hair = canvas.material_id("greta_skin"), canvas.material_id("greta_hair")
+        return lambda ux, uy: np.where(uy > 0.36 + 0.40 * ux, hair, skin).astype(np.int16)
+
+    def face(self, canvas: Canvas, s: Skeleton, pose: Pose) -> None:
+        canvas.ellipse(self.local(s, -0.75, 0.45), 3.4, 3.0, 0.0, "greta_hair", HEAD)  # bun
+        canvas.pixel(self.local(s, 0.50, 0.14), "eye", 0, HEAD)
+        for dx in (-1, 0, 1):  # set brow
+            canvas.pixel(add(self.local(s, 0.48, 0.30), (dx, 0)), "greta_hair", 1, HEAD)
+        canvas.pixel(self.local(s, 1.02, -0.04), "greta_skin", 3, HEAD)  # nose
+        if pose.expression == "shout":
+            canvas.pixel(self.local(s, 0.70, -0.45), "eye", 0, HEAD)
+
+
+CHARACTERS = {"dee": Dee(), "bram": Bram(), "sable": Sable(), "idris": Idris(), "greta": Greta()}
 
 
 def mirrored(pose: Pose, **changes) -> Pose:
