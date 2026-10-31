@@ -200,6 +200,137 @@
           "front": true
         }
       ]
+    },
+    {
+      "id": "dry_dock",
+      "name": "Dry Dock 4",
+      "image": "Stages/DryDock/dry_dock.png",
+      "size": [
+        640,
+        360
+      ],
+      "floor_y_logical": 316,
+      "description": "A flooded dry dock under a laid-up freighter's bow; the ring on wet concrete, dockers behind the chain.",
+      "parallax_status": "Layered, 800 px wide (placeholder art from Tools/Art/generate.py venues)",
+      "music": "dry_dock",
+      "width": 800,
+      "layers": [
+        {
+          "image": "Stages/DryDock/dry_dock_back.png",
+          "parallax": 0.25
+        },
+        {
+          "image": "Stages/DryDock/dry_dock_mid.png",
+          "parallax": 0.55
+        },
+        {
+          "image": "Stages/DryDock/dry_dock_crowd.png",
+          "parallax": 0.8,
+          "y": 186,
+          "frames": 8,
+          "frameTicks": 14,
+          "crowd": true
+        },
+        {
+          "image": "Stages/DryDock/dry_dock_floor.png",
+          "parallax": 1.0,
+          "y": 262
+        },
+        {
+          "image": "Stages/DryDock/dry_dock_front.png",
+          "parallax": 1.25,
+          "x": -10,
+          "front": true
+        }
+      ]
+    },
+    {
+      "id": "ship_hold",
+      "name": "The Hold",
+      "image": "Stages/ShipHold/ship_hold.png",
+      "size": [
+        640,
+        360
+      ],
+      "floor_y_logical": 316,
+      "description": "The hold of an impounded freighter: steel ribs, stacked crates, a work lamp swinging under the open hatch.",
+      "parallax_status": "Layered, 800 px wide (placeholder art from Tools/Art/generate.py venues)",
+      "music": "ship_hold",
+      "width": 800,
+      "layers": [
+        {
+          "image": "Stages/ShipHold/ship_hold_back.png",
+          "parallax": 0.25
+        },
+        {
+          "image": "Stages/ShipHold/ship_hold_mid.png",
+          "parallax": 0.55,
+          "frames": 2,
+          "frameTicks": 30
+        },
+        {
+          "image": "Stages/ShipHold/ship_hold_crowd.png",
+          "parallax": 0.8,
+          "y": 186,
+          "frames": 8,
+          "frameTicks": 14,
+          "crowd": true
+        },
+        {
+          "image": "Stages/ShipHold/ship_hold_floor.png",
+          "parallax": 1.0,
+          "y": 262
+        },
+        {
+          "image": "Stages/ShipHold/ship_hold_front.png",
+          "parallax": 1.25,
+          "x": -10,
+          "front": true
+        }
+      ]
+    },
+    {
+      "id": "brokers_club",
+      "name": "The Broker's Club",
+      "image": "Stages/BrokersClub/brokers_club.png",
+      "size": [
+        640,
+        360
+      ],
+      "floor_y_logical": 316,
+      "description": "The Broker's private club: velvet, brass and gilt frames, the city's money watching from behind the rope.",
+      "parallax_status": "Layered, 800 px wide (placeholder art from Tools/Art/generate.py venues)",
+      "music": "brokers_club",
+      "width": 800,
+      "layers": [
+        {
+          "image": "Stages/BrokersClub/brokers_club_back.png",
+          "parallax": 0.25
+        },
+        {
+          "image": "Stages/BrokersClub/brokers_club_mid.png",
+          "parallax": 0.55
+        },
+        {
+          "image": "Stages/BrokersClub/brokers_club_crowd.png",
+          "parallax": 0.8,
+          "y": 186,
+          "frames": 8,
+          "frameTicks": 14,
+          "crowd": true
+        },
+        {
+          "image": "Stages/BrokersClub/brokers_club_floor.png",
+          "parallax": 1.0,
+          "y": 262
+        },
+        {
+          "image": "Stages/BrokersClub/brokers_club_front.png",
+          "parallax": 1.25,
+          "x": -10,
+          "front": true
+        }
+      ]
     }
   ]
 }

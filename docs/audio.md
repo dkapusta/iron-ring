@@ -42,6 +42,9 @@ Each stage names its theme in `Assets/Data/stages.json → music`. The theme sta
 | Lantern Row | **"Curfew Market"** (`theme_lantern_row.ogg`) | A harmonic minor, ~129 BPM shuffle | Sneaky: lantern-chime intro, off-beat chord stabs, shuffled root-fifth bass, ticks on the off-beats. |
 | The Foundry | **"Slag and Sparks"** (`theme_foundry.ogg`) | G minor, ~129 BPM | Mechanical: a drop-hammer ostinato on pulse 2, a lead rising in fourths, octave-pounding triangle, the metallic tick as an anvil on the off-beats. |
 | The Crown | **"Crown at Dawn"** (`theme_the_crown.ogg`) | E minor, 180 BPM | The final bout: power-chord hits, galloping bass, shimmering arpeggios, the lead doubled a fifth below, a climbing finale. |
+| Dry Dock 4 | **"Low Tide"** (`theme_dry_dock.ogg`) | D minor, ~112 BPM | A swell: a 3 + 3 + 2 rolling bass, a sour shanty lead, chord pads, a buoy-bell intro. |
+| The Hold | **"Below Decks"** (`theme_ship_hold.ogg`) | E minor, 150 BPM | Tense and driving: eighth-note bass, off-beat stabs like a ringing hull, creaking-hull intro. |
+| The Broker's Club | **"Gilt and Smoke"** (`theme_brokers_club.ogg`) | C minor, ~112 BPM swung | A lounge tune with teeth: walking bass, swung hi-hat, chord comps on the off-beats, a too-smooth lead. |
 
 `music.json` lists the themes by id with their loop point, level and a hash of the rendered PCM.
 

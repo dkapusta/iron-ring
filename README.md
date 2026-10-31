@@ -84,7 +84,7 @@ The folder is self-contained and can be zipped and copied as is. `cmake --instal
 
 ### Playing
 
-The game opens on the title screen: press Start (Return, or a pad's Start) for the menu: **Arcade** (four bouts, venue by venue, up to the final bout at The Crown, with continues), **Versus CPU**, **2 Players**, **Training**, **Options**. The CPU has five levels, ROOKIE to CHAMPION; *Options → CPU level* (Easy / Normal / Hard) picks the Versus CPU opponent and shifts the arcade ladder. Pick fighters on the character select (locked slots are the fighters still to come), then a venue. Start or Escape pauses a fight (resume, restart, character select, options, quit to title); after a match you get a rematch menu. Left alone, the title runs a CPU-vs-CPU demo, like an arcade cabinet.
+The game opens on the title screen: press Start (Return, or a pad's Start) for the menu: **Arcade** (five bouts, venue by venue, up to the final bout at The Crown, with continues), **Versus CPU**, **2 Players**, **Training**, **Options**. The CPU has five levels, ROOKIE to CHAMPION; *Options → CPU level* (Easy / Normal / Hard) picks the Versus CPU opponent and shifts the arcade ladder. Pick fighters on the character select (all six fighters are playable), then a venue. Start or Escape pauses a fight (resume, restart, character select, options, quit to title); after a match you get a rematch menu. Left alone, the title runs a CPU-vs-CPU demo, like an arcade cabinet.
 
 ### Controls
 
@@ -129,7 +129,7 @@ Unity-compatible names where they exist:
 | `-demo` | Skip the menus: a CPU vs CPU match (with `-training` or `-stage`, also straight into a fight) |
 | `-training` | Training mode: the clock stops, nobody is K.O.'d, health and Heat refill after a second; player 2 is a dummy; the overlay and an input display are on |
 | `-dummy <mode>` | Training dummy: `stand`, `crouch`, `jump`, `guard`, `guard-all` (crouches against lows), `cpu` |
-| `-stage <id>` | Straight into a fight on a stage: `pier_nine`, `lantern_row`, `foundry`, `the_crown` |
+| `-stage <id>` | Straight into a fight on a stage: `pier_nine`, `lantern_row`, `foundry`, `the_crown`, `dry_dock`, `ship_hold`, `brokers_club` |
 | `-fighters <p1>,<p2>` | With `-demo`, `-training` or `-stage`: who fights, by fighter id (`dee`, `bram`, `sable`, `idris`, `greta`, `jun`); default the first two |
 | `-scene <name>` | Open `title`, `select`, `stage` or `options` (screenshots, testing) |
 | `-keys "<frame>:<key>,..."` | Batch tests: tap keys (SDL key names) at the given frames, e.g. `"10:Return,30:Down"`; `"30-90:D"` holds a key, `"40:S+D"` presses keys together |
