@@ -23,7 +23,7 @@ python3 Tools/Art/generate.py                       # every part it still owns: 
 python3 Tools/Art/generate.py fighters stages --assets build/procedural --sheet build/sheet.png
 ```
 
-Fighters and stages are external now (`ironart/ownership.py`); their procedural versions remain as pose references and can only be written outside `Assets/` (or with `--overwrite-external`). After changing anything under `ironart/`, regenerate and commit the changed assets together with the code; `selftest.py` fails otherwise.
+Fighters, stages (The Foundry included) and the title logo and menu backdrop are external now (`ironart/ownership.py`); their procedural versions remain as references and can only be written outside `Assets/` (or with `--overwrite-external`). After changing anything under `ironart/`, regenerate and commit the changed assets together with the code; `selftest.py` fails otherwise.
 
 | Module | Content |
 | --- | --- |
@@ -36,7 +36,7 @@ Fighters and stages are external now (`ironart/ownership.py`); their procedural 
 | `effects.py`, `font.py`, `icon.py` | Hit effects, the two bitmap fonts, the app icon. |
 | `atlas.py` | Shared trimming, shelf packing and atlas JSON writing (also used by the importer). |
 | `importer.py` | Background keying, consistent downscaling, palette snapping, fringe cleanup, reference export. |
-| `ownership.py` | Which `Assets/` folders are externally authored, and where their sources live. |
+| `ownership.py` | Which `Assets/` folders and files are externally authored, and where their sources live. |
 
 ## Replacing art with outside art
 

@@ -23,3 +23,4 @@ One file per decision, numbered, never renumbered. Supersede rather than rewrite
 | [0017](0017-layered-stages-and-camera.md) | Layered stages wider than the screen, a follow camera, no zoom | Accepted |
 | [0018](0018-hit-feel-and-heat.md) | Counter hits, combos and cancels; the Breakaway as a guard cancel; Heat for the match | Accepted |
 | [0019](0019-cpu-levels-and-arcade.md) | A stateful CPU with five levels; an arcade ladder as data | Accepted |
+| [0020](0020-adopting-art-pack-v2.md) | Adopt Art Pack v2 as delivered, with animated champion endings | Accepted |

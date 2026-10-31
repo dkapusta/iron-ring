@@ -5,6 +5,7 @@
   "displayName": "BRAM HOLLIS",
   "atlas": "bram_atlas.json",
   "portrait": "bram_portrait.png",
+  "selectPortrait": "bram_select.png",
   "physics": {"walkForward": 340, "walkBack": 280, "jumpVelocity": 1750, "gravity": 72},
   "body": {"standHurt": [-20, 0, 40, 128], "crouchHurt": [-22, 0, 44, 100], "pushWidth": 40, "knockdownTicks": 54},
   "moves": {
@@ -42,7 +43,7 @@
     "knockdown": {"frames": [["down_0", 8], ["down_1", 30], ["down_2", 10], ["down_3", 6]]},
     "ko": {"frames": [["down_0", 8], ["down_1", 1]]},
     "win": {"loop": true, "frames": [["win_0", 22], ["win_1", 22]]},
-    "champion_intro": {"frames": [["win_0", 20], ["win_1", 16], ["win_0", 14]]},
-    "champion": {"loop": true, "frames": [["win_0", 18], ["win_1", 18], ["win_0", 18]]}
+    "champion_intro": {"frames": [["champion_0", 20], ["champion_1", 16], ["champion_2", 14]]},
+    "champion": {"loop": true, "frames": [["champion_3", 18], ["champion_4", 18], ["champion_5", 18]]}
   }
 }

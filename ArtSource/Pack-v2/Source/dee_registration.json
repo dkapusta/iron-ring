@@ -1,0 +1,344 @@
+[
+  {
+    "frame": "champion_0",
+    "source": "Source/Generated/dee_champion_0.png",
+    "canvas_source_size": [
+      1254,
+      1254
+    ],
+    "logical_canvas": [
+      256,
+      256
+    ],
+    "canvas_scale": 0.20414673046251994,
+    "integer_registration": [
+      0,
+      0
+    ],
+    "waist_pixel_translation": 0,
+    "bounding_box_fitting": false
+  },
+  {
+    "frame": "champion_1",
+    "source": "Source/Generated/dee_champion_1.png",
+    "canvas_source_size": [
+      1254,
+      1254
+    ],
+    "logical_canvas": [
+      256,
+      256
+    ],
+    "canvas_scale": 0.20414673046251994,
+    "integer_registration": [
+      0,
+      0
+    ],
+    "waist_pixel_translation": 0,
+    "bounding_box_fitting": false
+  },
+  {
+    "frame": "champion_2",
+    "source": "Source/Generated/dee_champion_2.png",
+    "canvas_source_size": [
+      1254,
+      1254
+    ],
+    "logical_canvas": [
+      256,
+      256
+    ],
+    "canvas_scale": 0.20414673046251994,
+    "integer_registration": [
+      0,
+      1
+    ],
+    "waist_pixel_translation": 0,
+    "bounding_box_fitting": false
+  },
+  {
+    "frame": "champion_3",
+    "source": "Source/Generated/dee_champion_3.png",
+    "canvas_source_size": [
+      1254,
+      1254
+    ],
+    "logical_canvas": [
+      256,
+      256
+    ],
+    "canvas_scale": 0.20414673046251994,
+    "integer_registration": [
+      0,
+      -1
+    ],
+    "waist_pixel_translation": 0,
+    "bounding_box_fitting": false
+  },
+  {
+    "frame": "hit_0",
+    "source": "Source/Generated/dee_hit_0.png",
+    "canvas_source_size": [
+      1254,
+      1254
+    ],
+    "logical_canvas": [
+      256,
+      256
+    ],
+    "canvas_scale": 0.20414673046251994,
+    "integer_registration": [
+      0,
+      0
+    ],
+    "waist_pixel_translation": 0,
+    "bounding_box_fitting": false
+  },
+  {
+    "frame": "hit_1",
+    "source": "Source/Generated/dee_hit_1.png",
+    "canvas_source_size": [
+      1254,
+      1254
+    ],
+    "logical_canvas": [
+      256,
+      256
+    ],
+    "canvas_scale": 0.20414673046251994,
+    "integer_registration": [
+      0,
+      0
+    ],
+    "waist_pixel_translation": 0,
+    "bounding_box_fitting": false
+  },
+  {
+    "frame": "lp_0",
+    "source": "Source/Generated/dee_lp_0.png",
+    "canvas_source_size": [
+      1254,
+      1254
+    ],
+    "logical_canvas": [
+      256,
+      256
+    ],
+    "canvas_scale": 0.20414673046251994,
+    "integer_registration": [
+      0,
+      0
+    ],
+    "waist_pixel_translation": 0,
+    "bounding_box_fitting": false
+  },
+  {
+    "frame": "special_2",
+    "source": "Source/Generated/dee_special_2.png",
+    "canvas_source_size": [
+      1254,
+      1254
+    ],
+    "logical_canvas": [
+      256,
+      256
+    ],
+    "canvas_scale": 0.20414673046251994,
+    "integer_registration": [
+      0,
+      2
+    ],
+    "waist_pixel_translation": 0,
+    "bounding_box_fitting": false
+  },
+  {
+    "frame": "throw_0",
+    "source": "Source/Generated/dee_throw_0.png",
+    "canvas_source_size": [
+      1254,
+      1254
+    ],
+    "logical_canvas": [
+      256,
+      256
+    ],
+    "canvas_scale": 0.20414673046251994,
+    "integer_registration": [
+      0,
+      0
+    ],
+    "waist_pixel_translation": 0,
+    "bounding_box_fitting": false
+  },
+  {
+    "frame": "throw_1",
+    "source": "Source/Generated/dee_throw_1.png",
+    "canvas_source_size": [
+      1254,
+      1254
+    ],
+    "logical_canvas": [
+      256,
+      256
+    ],
+    "canvas_scale": 0.20414673046251994,
+    "integer_registration": [
+      0,
+      -1
+    ],
+    "waist_pixel_translation": 0,
+    "bounding_box_fitting": false
+  },
+  {
+    "frame": "throw_hold_0",
+    "source": "Source/Generated/dee_throw_hold_0.png",
+    "canvas_source_size": [
+      1254,
+      1254
+    ],
+    "logical_canvas": [
+      256,
+      256
+    ],
+    "canvas_scale": 0.20414673046251994,
+    "integer_registration": [
+      0,
+      -1
+    ],
+    "waist_pixel_translation": 0,
+    "bounding_box_fitting": false
+  },
+  {
+    "frame": "walk_0",
+    "source": "Source/Generated/dee_walk_0.png",
+    "canvas_source_size": [
+      1254,
+      1254
+    ],
+    "logical_canvas": [
+      256,
+      256
+    ],
+    "canvas_scale": 0.20414673046251994,
+    "integer_registration": [
+      0,
+      1
+    ],
+    "waist_pixel_translation": 1,
+    "bounding_box_fitting": false
+  },
+  {
+    "frame": "walk_1",
+    "source": "Source/Generated/dee_walk_1.png",
+    "canvas_source_size": [
+      1254,
+      1254
+    ],
+    "logical_canvas": [
+      256,
+      256
+    ],
+    "canvas_scale": 0.20414673046251994,
+    "integer_registration": [
+      1,
+      0
+    ],
+    "waist_pixel_translation": 0,
+    "bounding_box_fitting": false
+  },
+  {
+    "frame": "walk_2",
+    "source": "Source/Generated/dee_walk_2.png",
+    "canvas_source_size": [
+      1254,
+      1254
+    ],
+    "logical_canvas": [
+      256,
+      256
+    ],
+    "canvas_scale": 0.20414673046251994,
+    "integer_registration": [
+      1,
+      1
+    ],
+    "waist_pixel_translation": -1,
+    "bounding_box_fitting": false
+  },
+  {
+    "frame": "walk_3",
+    "source": "Source/Generated/dee_walk_3.png",
+    "canvas_source_size": [
+      1254,
+      1254
+    ],
+    "logical_canvas": [
+      256,
+      256
+    ],
+    "canvas_scale": 0.20414673046251994,
+    "integer_registration": [
+      -1,
+      1
+    ],
+    "waist_pixel_translation": -4,
+    "bounding_box_fitting": false
+  },
+  {
+    "frame": "walk_4",
+    "source": "Source/Generated/dee_walk_4.png",
+    "canvas_source_size": [
+      1254,
+      1254
+    ],
+    "logical_canvas": [
+      256,
+      256
+    ],
+    "canvas_scale": 0.20414673046251994,
+    "integer_registration": [
+      0,
+      1
+    ],
+    "waist_pixel_translation": -1,
+    "bounding_box_fitting": false
+  },
+  {
+    "frame": "walk_5",
+    "source": "Source/Generated/dee_walk_5.png",
+    "canvas_source_size": [
+      1254,
+      1254
+    ],
+    "logical_canvas": [
+      256,
+      256
+    ],
+    "canvas_scale": 0.20414673046251994,
+    "integer_registration": [
+      0,
+      0
+    ],
+    "waist_pixel_translation": 0,
+    "bounding_box_fitting": false
+  },
+  {
+    "frame": "win_1",
+    "source": "Source/Generated/dee_win_1.png",
+    "canvas_source_size": [
+      1254,
+      1254
+    ],
+    "logical_canvas": [
+      256,
+      256
+    ],
+    "canvas_scale": 0.20414673046251994,
+    "integer_registration": [
+      0,
+      0
+    ],
+    "waist_pixel_translation": 0,
+    "bounding_box_fitting": false
+  }
+]

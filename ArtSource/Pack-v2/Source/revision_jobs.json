@@ -1,0 +1,28 @@
+[
+  {
+    "id": "bram_hp_1",
+    "ref": "Source/References/bram_hook_arm_correction.png",
+    "prompt": "Edit this registered single fighting sprite. Preserve EXACT entire square canvas and full transparent padding, same head, costume, anatomy, lighting, lower-body stance and absolute body size. Figure must remain small in the lower half, ground origin (512,928) on 1024 canvas. Do NOT zoom, crop or reframe. Facing right. Sharp early-1990s pixel art, dark material-colored outline, no background, no ground shadow, no lettering. Only alter the specified arms and slight weight/torso action. Image 1 has an intentionally rough L-shaped near-arm paintover. Finish that arm with convincing thick anatomy matching image 2, the original. KEEP the L geometry: upper arm from logical shoulder (151,139) diagonally down-right to elbow (184,155), forearm goes UP to fist (190,130). Elbow is bent a full 90 degrees, elbow points DOWN, fist faces RIGHT at x190..198. This is a sweeping bent-arm HOOK, NOT a straight punch. Back hand remains by jaw. Torso twisted into strike, rear heel raised. Preserve whole canvas including empty upper half.",
+    "ref2": "Source/Generated/bram_hp_1.png"
+  },
+  {
+    "id": "bram_lp_1",
+    "ref": "Source/Generated/bram_lp_1.png",
+    "prompt": "Edit this registered single fighting sprite. Preserve EXACT entire square canvas and full transparent padding, same head, costume, anatomy, lighting, lower-body stance and absolute body size. Figure must remain small in the lower half, ground origin (512,928) on 1024 canvas. Do NOT zoom, crop or reframe. Facing right. Sharp early-1990s pixel art, dark material-colored outline, no background, no ground shadow, no lettering. Only alter the specified arms and slight weight/torso action. Both palms PUSH straight forward at FULL arm length, fingers UP. Correct hand registration: heels of BOTH palms at logical x186 (=origin128+58), y132 and y139. Fingers rise to y121 and y128. There must be two visibly separate vertical open palms side by side vertically; FAR palm should NOT extend farther right. Shorten only the currently overlong extended forearms to align both palms at the same x186. Keep shoulders forward."
+  },
+  {
+    "id": "bram_throw_1",
+    "ref": "Source/Generated/bram_throw_0.png",
+    "prompt": "Edit this registered single fighting sprite. Preserve EXACT entire square canvas and full transparent padding, same head, costume, anatomy, lighting, lower-body stance and absolute body size. Figure must remain small in the lower half, ground origin (512,928) on 1024 canvas. Do NOT zoom, crop or reframe. Facing right. Sharp early-1990s pixel art, dark material-colored outline, no background, no ground shadow, no lettering. Only alter the specified arms and slight weight/torso action. Change this wide-open reach to the NEXT pose: both huge hands now CLAMP onto an invisible opponent's shoulders at logical x163 and x171, y134 and y143. Elbows spread OUT and bent 90 degrees, hands in FRONT of sternum. Clearly C-shaped curled fingers with thumb opposing, fingers wrap AROUND shoulder-sized empty spaces. Not boxing fists by the jaw. Hands grasp ahead of chest, no hand at face. Pull weight forward, bent knees and rear heel braced."
+  },
+  {
+    "id": "dee_throw_1",
+    "ref": "Source/Generated/dee_throw_0.png",
+    "prompt": "Edit this registered single fighting sprite. Preserve EXACT entire square canvas and full transparent padding, same head, costume, anatomy, lighting, lower-body stance and absolute body size. Figure must remain small in the lower half, ground origin (512,928) on 1024 canvas. Do NOT zoom, crop or reframe. Facing right. Sharp early-1990s pixel art, dark material-colored outline, no background, no ground shadow, no lettering. Only alter the specified arms and slight weight/torso action. Change this full reach to NEXT pose with both elbows BENT and flared sideways: left wrapped hand gripping imaginary COLLAR at logical x164,y137; right wrapped hand gripping imaginary UPPER ARM at x173,y149. Both hands clearly ahead of torso, C-shaped curled fingers and opposing thumb around imaginary cloth. No crossed forearms, no blocking guard, no fists at chin. Weight forward, slight hip turn, elbows point left/down with hands pointing right."
+  },
+  {
+    "id": "dee_throw_hold_0",
+    "ref": "Source/Generated/dee_throw_0.png",
+    "prompt": "Edit this registered single fighting sprite. Preserve EXACT entire square canvas and full transparent padding, same head, costume, anatomy, lighting, lower-body stance and absolute body size. Figure must remain small in the lower half, ground origin (512,928) on 1024 canvas. Do NOT zoom, crop or reframe. Facing right. Sharp early-1990s pixel art, dark material-colored outline, no background, no ground shadow, no lettering. Only alter the specified arms and slight weight/torso action. Replace straight-reaching arms with close two-handed CLINCH. Imaginary opponent is chest-to-chest at logical x154. Her upper wrapped hand is a C grip hooked around neck at logical (159,128), lower wrapped hand C grips upper arm at (163,145). Bent elbows flare to left and down, forearms nearly vertical. Both gripping hands clearly visible to RIGHT of her chest. Pull shoulders back slightly to lock clinch, weight behind it, rear foot braced. No crossed-arm block, no fists by jaw, no normal boxing guard."
+  }
+]

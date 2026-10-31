@@ -12,19 +12,26 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 ART_SOURCE = ROOT / "ArtSource"
 
-# Folders under Assets/ whose art is externally authored (Iron Ring Art Pack v1).
+# Folders under Assets/ whose art is externally authored (Iron Ring Art Packs v1 and v2).
 EXTERNAL = {
     ("Fighters", "Dee"),
     ("Fighters", "Bram"),
     ("Stages", "PierNine"),
     ("Stages", "LanternRow"),
     ("Stages", "TheCrown"),
+    ("Stages", "Foundry"),
+}
+
+# Protect only the two external front-end pictures; fonts and HUD stay procedural.
+EXTERNAL_FILES = {
+    ("Resources", "UI", "title_logo.png"),
+    ("Resources", "UI", "menu_backdrop.png"),
 }
 
 
 def is_external(relative: Path) -> bool:
     """True for a path relative to Assets/ inside an externally authored folder."""
-    return tuple(relative.parts[:2]) in EXTERNAL
+    return tuple(relative.parts[:2]) in EXTERNAL or tuple(relative.parts) in EXTERNAL_FILES
 
 
 def fighter_frames(fighter: str) -> Path:

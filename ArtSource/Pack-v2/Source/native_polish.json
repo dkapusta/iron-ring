@@ -1,0 +1,70 @@
+[
+  {
+    "fighter": "bram",
+    "frame": "walk_0",
+    "integer_translation": [
+      -1,
+      0
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "walk_1",
+    "integer_translation": [
+      -1,
+      0
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "walk_2",
+    "integer_translation": [
+      1,
+      0
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "walk_3",
+    "integer_translation": [
+      1,
+      0
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "walk_4",
+    "integer_translation": [
+      -1,
+      0
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "walk_5",
+    "integer_translation": [
+      1,
+      0
+    ]
+  },
+  {
+    "fighter": "bram",
+    "frame": "hit_crouch",
+    "waist_translation_y": 5
+  },
+  {
+    "fighter": "bram",
+    "frame": "lp_1",
+    "pixel_edit": "two staggered original-art palms, reconnected original forearm texture, heels approximately x183/x190"
+  },
+  {
+    "fighter": "dee",
+    "frame": "special_2",
+    "arm_row_translation": "x-=min(12,round((126-y)*0.34)), y<126, x>=143"
+  },
+  {
+    "fighter": "dee",
+    "frame": "throw_hold_0",
+    "pixel_edit": "two C-shaped gripping hands, neck and upper-arm heights"
+  }
+]

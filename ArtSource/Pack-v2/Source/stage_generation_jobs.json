@@ -1,0 +1,306 @@
+[
+  {
+    "id": "foundry_wall",
+    "stage": "foundry",
+    "part": "wall",
+    "width": 680,
+    "height": 360,
+    "transparent": false,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: The Foundry, shut-down Voll Works in Grayhaven 1992: soot-dark brick, steel roof trusses, cold teal industrial windows, rusted furnaces with residual coral-orange glow, dusty sodium atmosphere. Night.\nNative target canvas 680x360, aspect 680:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nThis layer is fully OPAQUE across the entire canvas.\nLayer content: The foundry's BACK WALL ONLY: soot-dark brick with 4 tall arched windows whose broken panes admit cold teal light, riveted steel girders between the windows, old conduits, paint flaking. Painted in-world lettering VOLL WORKS around logical y56 with a few faded letters. Windows occupy y86\u2013225, lower wall is very dark behind other layers. Top y0\u201352 dark almost featureless brick/ceiling. Do NOT add furnaces, ladle, gantry, people, rail, floor or chain.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/Foundry/foundry.png"
+    ]
+  },
+  {
+    "id": "foundry_furnace",
+    "stage": "foundry",
+    "part": "furnace",
+    "width": 728,
+    "height": 360,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: The Foundry, shut-down Voll Works in Grayhaven 1992: soot-dark brick, steel roof trusses, cold teal industrial windows, rusted furnaces with residual coral-orange glow, dusty sodium atmosphere. Night.\nNative target canvas 728x360, aspect 728:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: Four separate brick furnace structures across the width, with coral-orange glowing mouths centered at logical y215. Their bases end at y262. A heavy horizontal steel GANTRY BEAM only at y86\u201393, cables descending from it to a large steel LADLE in the middle hanging at y110\u2013182, rim faintly still glowing. Rivets, soot, refractory bricks, detailed worn metal. Space above, between and around these objects is transparent. No back wall/windows, no people, no floor or chain.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/Foundry/foundry.png"
+    ]
+  },
+  {
+    "id": "foundry_steam",
+    "stage": "foundry",
+    "part": "steam",
+    "width": 640,
+    "height": 360,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: The Foundry, shut-down Voll Works in Grayhaven 1992: soot-dark brick, steel roof trusses, cold teal industrial windows, rusted furnaces with residual coral-orange glow, dusty sodium atmosphere. Night.\nNative target canvas 640x360, aspect 640:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: Only 4 sparse thin industrial steam puffs between logical y110 and y230, heavily broken into ordered 1px dither clusters, dark blue steel and muted grey, almost transparent overall. Clear alpha gaps. Keep the first and last 16 columns completely transparent so the strip tiles horizontally without a seam. No environment or objects.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/Foundry/foundry.png"
+    ]
+  },
+  {
+    "id": "foundry_crowd",
+    "stage": "foundry",
+    "part": "crowd",
+    "width": 384,
+    "height": 168,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: The Foundry, shut-down Voll Works in Grayhaven 1992: soot-dark brick, steel roof trusses, cold teal industrial windows, rusted furnaces with residual coral-orange glow, dusty sodium atmosphere. Night.\nNative target canvas 384x168, aspect 384:168; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: A CHARACTER GROUP SOURCE BOARD, 2 columns by 2 rows of equal 192x84 logical panels, no dividers. Each panel contains a row of 7 DIFFERENT dock/foundry workers as heads and shoulders only, facing toward a fight. 28 total spectators, different caps, flat caps, shaved heads, work jackets, one bookmaker with a blank chalk board. The SAME scale in all 4 panels: heads 8\u201311 logical pixels high, shoulders ~18px wide. Top of heads around panel y10, torsos end by panel y60. No legs, no ground, NO RAIL (it is authored later), no writing, no faces/eyes/mouths. People are deep navy silhouettes with just a thin warm coral/sodium rim from furnaces behind. Each group fills its panel left-to-right; no figure crosses into another panel. Genuine transparent space around and between people. This board will be split and joined into ONE wide crowd frame.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/Foundry/foundry.png"
+    ],
+    "board": true
+  },
+  {
+    "id": "foundry_floor",
+    "stage": "foundry",
+    "part": "floor",
+    "width": 800,
+    "height": 360,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: The Foundry, shut-down Voll Works in Grayhaven 1992: soot-dark brick, steel roof trusses, cold teal industrial windows, rusted furnaces with residual coral-orange glow, dusty sodium atmosphere. Night.\nNative target canvas 800x360, aspect 800:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: ONLY the dark riveted STEEL DECK FLOOR in logical y262\u2013359, transparent everywhere y0\u2013261. Long horizontal worn deck plates with rivets, subtle slag stains, low contrast desaturated dark navy and blue steel, faint furnace-light pooling near the BACK at y270. Empty playable floor; NO chain, ring, people, objects or scenery. The chain will be drawn precisely in the engine asset by the artist. Bottom y330\u2013359 must be very dark and quiet.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/Foundry/foundry.png"
+    ]
+  },
+  {
+    "id": "foundry_front",
+    "stage": "foundry",
+    "part": "front",
+    "width": 850,
+    "height": 360,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: The Foundry, shut-down Voll Works in Grayhaven 1992: soot-dark brick, steel roof trusses, cold teal industrial windows, rusted furnaces with residual coral-orange glow, dusty sodium atmosphere. Night.\nNative target canvas 850x360, aspect 850:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: ONLY TWO dark riveted steel foreground columns at the EXTREME ends of the canvas: left x0\u201318 and right x832\u2013849. Full height with corroded rivets and dark steel texture, subtle warm side edge. Entire middle x19\u2013831 is completely TRANSPARENT, no beam connecting columns, no crossbars, no floor or other objects. Dark silhouette values.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/Foundry/foundry.png"
+    ]
+  },
+  {
+    "id": "pier_nine_sky",
+    "stage": "pier_nine",
+    "part": "sky",
+    "width": 672,
+    "height": 360,
+    "transparent": false,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: Pier 9 cargo dock in Grayhaven 1992: rust-red crane structures, deep navy night sky, teal harbor water, moored black freighter, distant lit rust-belt skyline, warm sodium lamps and wet dark timber.\nNative target canvas 672x360, aspect 672:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nThis layer is fully OPAQUE across the entire canvas.\nLayer content: ONLY deep navy night sky with a few dim stars, distant city skyline and far-shore lights concentrated below y160\u2013220. The far skyline has industrial stacks and low blocks but no foreground buildings. Area below y230 is nearly uniform dark navy to be covered by harbor/floor. Top y0\u201352 dark and still. No water, freighter, large crane, lamps, foreground people, floor or chain.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/PierNine/pier_nine.png"
+    ]
+  },
+  {
+    "id": "pier_nine_harbour",
+    "stage": "pier_nine",
+    "part": "harbour",
+    "width": 672,
+    "height": 360,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: Pier 9 cargo dock in Grayhaven 1992: rust-red crane structures, deep navy night sky, teal harbor water, moored black freighter, distant lit rust-belt skyline, warm sodium lamps and wet dark timber.\nNative target canvas 672x360, aspect 672:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: ONLY a horizontal band of dark TEAL HARBOR WATER at logical y205\u2013264. Tiny low-contrast amber and teal pixel reflections, dark ripples, calm water. Transparent everywhere else; first and last edge reflections quiet. No skyline, buildings, ship, people, floor or ring.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/PierNine/pier_nine.png"
+    ]
+  },
+  {
+    "id": "pier_nine_ship",
+    "stage": "pier_nine",
+    "part": "ship",
+    "width": 720,
+    "height": 360,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: Pier 9 cargo dock in Grayhaven 1992: rust-red crane structures, deep navy night sky, teal harbor water, moored black freighter, distant lit rust-belt skyline, warm sodium lamps and wet dark timber.\nNative target canvas 720x360, aspect 720:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: ONLY the moored freighter on the RIGHT half: dark hull whose lower edge is at y262, layered wheelhouse and deck structures mostly y135\u2013222, one warm floodlight at y95\u2013115 casting a DITHERED muted beam. A few distant crane silhouettes and sodium lampposts behind, NONE in the middle top HUD band. Do not add sky, sea, city, big foreground gantry legs, spectators or floor. All surrounding space transparent.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/PierNine/pier_nine.png"
+    ]
+  },
+  {
+    "id": "pier_nine_crowd",
+    "stage": "pier_nine",
+    "part": "crowd",
+    "width": 384,
+    "height": 168,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: Pier 9 cargo dock in Grayhaven 1992: rust-red crane structures, deep navy night sky, teal harbor water, moored black freighter, distant lit rust-belt skyline, warm sodium lamps and wet dark timber.\nNative target canvas 384x168, aspect 384:168; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: A CHARACTER GROUP SOURCE BOARD, 2 columns by 2 rows of equal 192x84 panels, no dividers. Each panel contains 7 DIFFERENT dockers/bookmakers as heads and shoulders; 28 total. Caps, wool hats, working coats, one broad docker, a slim bookmaker and a blank chalk board, occasional crate or bollard low at a side. Same scale all panels: heads 8\u201311 logical pixels high, shoulders ~18px wide, heads start around local y10, torsos stop by local y60. Deep navy/black-blue faceless silhouettes with restrained amber and teal rim only, no eyes or faces. NO RAIL, no ground or lettering. Four complete groups do not overlap panel borders. Genuine transparent space. Board is joined into one 768px crowd frame.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/PierNine/pier_nine.png"
+    ],
+    "board": true
+  },
+  {
+    "id": "pier_nine_floor",
+    "stage": "pier_nine",
+    "part": "floor",
+    "width": 800,
+    "height": 360,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: Pier 9 cargo dock in Grayhaven 1992: rust-red crane structures, deep navy night sky, teal harbor water, moored black freighter, distant lit rust-belt skyline, warm sodium lamps and wet dark timber.\nNative target canvas 800x360, aspect 800:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: ONLY a wide dark weathered timber PIER FLOOR covering logical y262\u2013359, everything above transparent. Horizontal wet planks with nail heads, dark sodium/teal reflections, worn seams, restrained wear, low contrast, no bright gold glints. NO chain, ring, people, crates or scenery. Empty floor. The chain is authored separately. Bottom y330\u2013359 extra dark.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/PierNine/pier_nine.png"
+    ]
+  },
+  {
+    "id": "pier_nine_front",
+    "stage": "pier_nine",
+    "part": "front",
+    "width": 850,
+    "height": 360,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: Pier 9 cargo dock in Grayhaven 1992: rust-red crane structures, deep navy night sky, teal harbor water, moored black freighter, distant lit rust-belt skyline, warm sodium lamps and wet dark timber.\nNative target canvas 850x360, aspect 850:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: ONLY the big rust-red riveted gantry crane LEGS as foreground silhouettes at the extreme ends: left x0\u201318 and right x832\u2013849, complete height. Subtle corroded orange edge, deep navy body, cables or ladder wholly inside the narrow end columns. Entire middle x19\u2013831 fully transparent, no beam joining legs, no dock/floor/sky/people. Do not put any object in the centre.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/PierNine/pier_nine.png"
+    ]
+  },
+  {
+    "id": "lantern_row_facade",
+    "stage": "lantern_row",
+    "part": "facade",
+    "width": 688,
+    "height": 360,
+    "transparent": false,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: Lantern Row night market after curfew in Grayhaven 1992: soot-dark brick station facade, old station clock, shuttered stalls under red-and-white and teal-and-white awnings, half-lit amber lantern strings, red rope and worn dark tiled pavement.\nNative target canvas 688x360, aspect 688:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nThis layer is fully OPAQUE across the entire canvas.\nLayer content: ONLY the old brick station BACK FACADE: upper band y0\u201352 dark unlit brick and sky, big old STATION CLOCK centered at x344 and y100, brick arches below, subtle lit windows BELOW y60, old pipes and crumbling masonry. Warm amber and dark navy. Bottom y260\u2013359 almost uniform dark blue to be covered. Do not add stall awnings, shutters, hanging lanterns, crowd, ropes, floor or chain.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/LanternRow/lantern_row.png"
+    ]
+  },
+  {
+    "id": "lantern_row_lanterns",
+    "stage": "lantern_row",
+    "part": "lanterns",
+    "width": 712,
+    "height": 360,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: Lantern Row night market after curfew in Grayhaven 1992: soot-dark brick station facade, old station clock, shuttered stalls under red-and-white and teal-and-white awnings, half-lit amber lantern strings, red rope and worn dark tiled pavement.\nNative target canvas 712x360, aspect 712:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: ONLY two crossing strings of paper LANTERNS below logical y65 and above y155. Roughly 20 lanterns, half unlit; amber paper, dark rust and blue shadows, a few warm muted dither glow pixels. Thin sagging wires. Empty transparent canvas elsewhere. Nothing inside top y0\u201352. No facade, clock, stalls, people, floor or chain.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/LanternRow/lantern_row.png"
+    ]
+  },
+  {
+    "id": "lantern_row_stalls",
+    "stage": "lantern_row",
+    "part": "stalls",
+    "width": 736,
+    "height": 360,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: Lantern Row night market after curfew in Grayhaven 1992: soot-dark brick station facade, old station clock, shuttered stalls under red-and-white and teal-and-white awnings, half-lit amber lantern strings, red rope and worn dark tiled pavement.\nNative target canvas 736x360, aspect 736:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: ONLY a row of shuttered market STALLS from logical y170 to y270, red-and-white and teal-and-white STRIPED AWNINGS at y170\u2013184, worn blue metal shutters, unlettered pasted posters and padlocks. Dark low clutter, few crates at far ends. Space above/around/under is transparent. No building facade, clock, lantern strings, people, ropes, floor or chain.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/LanternRow/lantern_row.png"
+    ]
+  },
+  {
+    "id": "lantern_row_crowd",
+    "stage": "lantern_row",
+    "part": "crowd",
+    "width": 384,
+    "height": 168,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: Lantern Row night market after curfew in Grayhaven 1992: soot-dark brick station facade, old station clock, shuttered stalls under red-and-white and teal-and-white awnings, half-lit amber lantern strings, red rope and worn dark tiled pavement.\nNative target canvas 384x168, aspect 384:168; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: A CHARACTER GROUP SOURCE BOARD with 2 columns by 2 rows of equal 192x84 panels, no panel lines. Each panel has 7 different night-market spectators as head/shoulder silhouettes: traders, older workmen in caps, a few well-dressed strangers in coats and hats. 28 people total, deep navy with a fine amber rim, no faces/eyes/mouths. Same head scale 8\u201311 logical pixels, torso width ~18px; heads around panel y10, torsos end by y60. NO rope/rail (artist adds it), no legs, no ground or text. Each group fills its panel horizontally, no crossover across panels, all surrounding pixels transparent.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/LanternRow/lantern_row.png"
+    ],
+    "board": true
+  },
+  {
+    "id": "lantern_row_floor",
+    "stage": "lantern_row",
+    "part": "floor",
+    "width": 800,
+    "height": 360,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: Lantern Row night market after curfew in Grayhaven 1992: soot-dark brick station facade, old station clock, shuttered stalls under red-and-white and teal-and-white awnings, half-lit amber lantern strings, red rope and worn dark tiled pavement.\nNative target canvas 800x360, aspect 800:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: ONLY worn dark TILE PAVEMENT in logical y262\u2013359, everything above fully transparent. Muted brick/steel blue square tile seams, uneven weathering, a few dim amber lantern reflections near back. Empty low-contrast fighting floor. NO people, chain/ring, props, ropes or scenery. Chain is drawn separately. Dark quiet bottom y330\u2013359.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/LanternRow/lantern_row.png"
+    ]
+  },
+  {
+    "id": "lantern_row_front",
+    "stage": "lantern_row",
+    "part": "front",
+    "width": 850,
+    "height": 360,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: Lantern Row night market after curfew in Grayhaven 1992: soot-dark brick station facade, old station clock, shuttered stalls under red-and-white and teal-and-white awnings, half-lit amber lantern strings, red rope and worn dark tiled pavement.\nNative target canvas 850x360, aspect 850:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: ONLY a dark timber stall corner POST at each extreme end, left x0\u201318 and right x832\u2013849, with a small dim hanging lantern wholly inside each narrow end zone below y75. Full-height posts with worn wood grain, tiny brass hooks. Entire central x19\u2013831 fully transparent, no connecting beams, roof, stalls, crowd, ground or chain. Very dark framing silhouettes.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/LanternRow/lantern_row.png"
+    ]
+  },
+  {
+    "id": "the_crown_sky",
+    "stage": "the_crown",
+    "part": "sky",
+    "width": 640,
+    "height": 360,
+    "transparent": false,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: The Crown derelict hotel rooftop at first light in Grayhaven 1992: coral and amber dawn horizon, dark blue upper sky, silhouetted city, half-dead CROWN HOTEL bulb sign on a steel truss, old wooden water tower, brick parapet, tar and gravel.\nNative target canvas 640x360, aspect 640:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nThis layer is fully OPAQUE across the entire canvas.\nLayer content: ONLY the DAWN SKY: almost uniform dark navy top y0\u201352, ordered dithered transition through muted blue to coral/amber at the horizon y160\u2013222, dark navy below y250. Broad clear color fields, no bright sun disc. No clouds (separate layer), no city, sign, tower, spectators or floor.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/TheCrown/the_crown.png"
+    ]
+  },
+  {
+    "id": "the_crown_clouds",
+    "stage": "the_crown",
+    "part": "clouds",
+    "width": 640,
+    "height": 360,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: The Crown derelict hotel rooftop at first light in Grayhaven 1992: coral and amber dawn horizon, dark blue upper sky, silhouetted city, half-dead CROWN HOTEL bulb sign on a steel truss, old wooden water tower, brick parapet, tar and gravel.\nNative target canvas 640x360, aspect 640:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: ONLY 3 thin long sparse dawn CLOUD wisps between logical y85 and y155, muted violet-blue with coral/amber undersides, broken into ordered pixel dither. Very sparse. First and last 16 columns fully transparent so horizontal drift tiles seamlessly. Nothing else, no sky rectangle, buildings, signs or birds.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/TheCrown/the_crown.png"
+    ]
+  },
+  {
+    "id": "the_crown_city",
+    "stage": "the_crown",
+    "part": "city",
+    "width": 680,
+    "height": 360,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: The Crown derelict hotel rooftop at first light in Grayhaven 1992: coral and amber dawn horizon, dark blue upper sky, silhouetted city, half-dead CROWN HOTEL bulb sign on a steel truss, old wooden water tower, brick parapet, tar and gravel.\nNative target canvas 680x360, aspect 680:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: ONLY layered rust-belt CITY SKYLINE SILHOUETTES, building tops between y145 and y215 and bases ending at y262, a few dim lit windows. Factories, old high-rises, roof tanks, tiny distant cranes; navy and muted steel, atmospheric depth in pixel clusters. Transparent above buildings and below y262. NO sky, clouds, hotel sign, foreground tower, people or floor.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/TheCrown/the_crown.png"
+    ]
+  },
+  {
+    "id": "the_crown_sign",
+    "stage": "the_crown",
+    "part": "sign",
+    "width": 720,
+    "height": 360,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: The Crown derelict hotel rooftop at first light in Grayhaven 1992: coral and amber dawn horizon, dark blue upper sky, silhouetted city, half-dead CROWN HOTEL bulb sign on a steel truss, old wooden water tower, brick parapet, tar and gravel.\nNative target canvas 720x360, aspect 720:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: ONLY old steel TRUSS and bulb sign reading exactly CROWN HOTEL, CROWN above and HOTEL below, some bulbs dead, warm subdued amber. CROWN lettering starts BELOW y60, HOTEL near y135. The supporting truss extends x170\u2013580 at y96; thin supports down to y262. Also an old wooden WATER TOWER on stilts at LEFT x35\u2013145, top at y90, bottom of stilts at y262. Rust, rivets, weathered wood. No skyline, sky, clouds, floor or spectators. Space between letters, girders and stilts fully transparent. No other text.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/TheCrown/the_crown.png"
+    ]
+  },
+  {
+    "id": "the_crown_crowd",
+    "stage": "the_crown",
+    "part": "crowd",
+    "width": 384,
+    "height": 168,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: The Crown derelict hotel rooftop at first light in Grayhaven 1992: coral and amber dawn horizon, dark blue upper sky, silhouetted city, half-dead CROWN HOTEL bulb sign on a steel truss, old wooden water tower, brick parapet, tar and gravel.\nNative target canvas 384x168, aspect 384:168; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: A CHARACTER GROUP SOURCE BOARD, 2 columns by 2 rows of equal 192x84 panels, no grid. Each panel has just 4 DIFFERENT wealthy rooftop spectators, sparse silhouettes in coats and hats, same scale heads 8\u201311 logical pixels high, tops around local y10, shoulder ends at local y60. Deep navy faceless silhouettes with small coral dawn rim; no eyes/faces. Include a tiny rooftop vent at ONE panel edge only. NO parapet (artist draws it), no legs, floor or writing. Four groups fit entirely in their own equal panel, transparent gaps everywhere around them. This will form ONE sparse 768px crowd frame.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/TheCrown/the_crown.png"
+    ],
+    "board": true
+  },
+  {
+    "id": "the_crown_floor",
+    "stage": "the_crown",
+    "part": "floor",
+    "width": 800,
+    "height": 360,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: The Crown derelict hotel rooftop at first light in Grayhaven 1992: coral and amber dawn horizon, dark blue upper sky, silhouetted city, half-dead CROWN HOTEL bulb sign on a steel truss, old wooden water tower, brick parapet, tar and gravel.\nNative target canvas 800x360, aspect 800:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: ONLY the dark tar-and-gravel ROOF FLOOR at logical y262\u2013359, transparent above. Weathered low-contrast navy/steel tar paper seams, few gravel clusters, tiny shallow puddles with muted coral dawn reflections. Empty fight floor, NO ring/chain, people or objects. Artist adds chain later. Bottom y330\u2013359 very dark and still.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/TheCrown/the_crown.png"
+    ]
+  },
+  {
+    "id": "the_crown_front",
+    "stage": "the_crown",
+    "part": "front",
+    "width": 850,
+    "height": 360,
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type: ONE production PARALLAX LAYER for Iron Ring, a 1990s side-view arcade fighting game. This is separate pixel art, NOT a flattened scene. Reference image is the approved stage's LOOK and COLOR KEY only; render ONLY the layer contents specified below. Extend newly drawn detail at the left and right edges; never stretch the reference picture. Scene: The Crown derelict hotel rooftop at first light in Grayhaven 1992: coral and amber dawn horizon, dark blue upper sky, silhouetted city, half-dead CROWN HOTEL bulb sign on a steel truss, old wooden water tower, brick parapet, tar and gravel.\nNative target canvas 850x360, aspect 850:360; draw pixel clusters suitable for exactly this logical resolution, show full canvas without frame or border. Side-on chest-height camera, horizontal horizon, no angled perspective camera. Authentic early-90s handcrafted pixel art, hard edges, limited navy/steel/rust/teal/amber/coral palette, about four tones per material with ordered dithering. NO smooth gradients, painterly rendering, 3D rendering, photorealism, blurry microtexture, lens flare, watermark or UI. Warm upper-left key light, restrained cool ambient fill. Top 0\u201352 logical pixels stay calm and dark. All visible objects have convincing structure, texture and wear but keep a clear fighting-game read. No fighters, gore, logos or brands. No lettering unless explicitly named below.\nEverything outside the specified objects MUST be genuinely TRANSPARENT. Do not bake a sky, dark rectangle, checkerboard, scenery from other layers, or floor behind them. No cast shadows on a background.\nLayer content: ONLY narrow dark roof chimney/vent silhouettes at the extreme left x0\u201318 and right x832\u2013849, rising from y200 down to360. A few dark bricks/metal flanges, almost-black navy. Entire middle x19\u2013831 and top centre completely transparent, no rooftop floor, people, skyline or other objects.",
+    "refs": [
+      "Source/References/Project/Assets/Stages/TheCrown/the_crown.png"
+    ]
+  }
+]
