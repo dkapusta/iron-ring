@@ -7,9 +7,11 @@ Source content → `AssetPacker` → archives in `IronRing_Data/` → virtual fi
 | You add | Put it in | Packed into | Virtual path |
 | --- | --- | --- | --- |
 | UI art, fonts, effects, HUD data | `Assets/Resources/...` | `resources.assets` | `Resources/...` |
-| Sound effects, music (WAV/OGG/FLAC) | `Assets/Resources/Audio/...` | `resources.resource` | `Resources/Audio/...` |
+| Sound effects, menu music (WAV/OGG/FLAC) | `Assets/Resources/Audio/...` | `resources.resource` | `Resources/Audio/...` |
+| A stage's theme | `Assets/Resources/Audio/theme_<id>.ogg` | `levelN` (streamed) | `Resources/Audio/...` |
 | Fighter definition, atlas, portrait | `Assets/Fighters/<Name>/` | `sharedassets0.assets` | `Fighters/<Name>/...` |
-| Stage art | `Assets/Stages/<Name>/` | `sharedassets0.assets` | `Stages/<Name>/...` |
+| Stage preview (`image` in `stages.json`) | `Assets/Stages/<Name>/<id>.png` | `sharedassets0.assets` | `Stages/<Name>/...` |
+| Stage layers | `Assets/Stages/<Name>/` | `sharedassetsN.assets` (streamed) | `Stages/<Name>/...` |
 | Content tables (roster, stages, palette) | `Assets/Data/` | `sharedassets0.assets` | `Data/...` |
 | Game-wide settings, input bindings | `ProjectSettings/` | `globalgamemanagers` | `ProjectSettings/...` |
 
@@ -22,12 +24,25 @@ A new top-level folder under `Assets/` needs a rule in `ProjectSettings/AssetPip
   "output": "resources.resource",   // file name in IronRing_Data
   "root": "Assets",                 // virtual paths are relative to this
   "include": ["Resources"],         // folders under root, scanned recursively
+  "files": [],                      // single files under root
+  "exclude": [],                    // files or folders under root to skip while scanning
   "extensions": [".wav", ".ogg"],   // optional allow-list
   "excludeExtensions": []           // optional deny-list
 }
 ```
 
-CMake reads only the `output` names (to declare build outputs); AssetPacker reads everything. A virtual path claimed by two archives fails the build. Dotfiles, `Thumbs.db`, `desktop.ini` and `*.lnk` are ignored.
+A rule needs `include`, `files` or both. CMake reads only the `output` names (to declare build outputs); AssetPacker reads everything. A virtual path claimed by two archives fails the build. Dotfiles, `Thumbs.db`, `desktop.ini` and `*.lnk` are ignored.
+
+## Streamed stage archives
+
+Stage art and stage themes are most of the data, and a fight needs one venue at a time, so each venue gets two archives of its own, numbered in `stages.json` order:
+
+- `sharedassetsN.assets` (N ≥ 1): the venue's folder under `Assets/Stages/`, without its preview;
+- `levelN`: the venue's theme, excluded from `resources.resource`.
+
+At start the player mounts `globalgamemanagers`, `resources.*` and `sharedassets0.assets` (data, fighters, the stage previews the menus show). It opens each streamed archive once to index its files, then closes it. When a fight uses a stage (`GameData::useStage`, called by `FightScene`), the player mounts that stage's archives, decodes its layers and reads its theme. The two most recently used stages stay loaded; when a third is needed, the oldest one's textures and theme bytes are freed and its archives unmounted (`vfs::StreamingArchives`). Streamed archives are inserted below the loose `-assets-folder` mount, so overrides still win. [ADR-0023](adr/0023-stage-streaming.md) has the reasons.
+
+**Adding a stage:** add its two rules (`sharedassetsN.assets` with `include: ["Stages/<Name>"]` and `exclude` of its preview; `levelN` with `files` of its theme), its preview to `sharedassets0.assets → files` and its theme to `resources.resource → exclude`. `ContentTests` ("every stage streams from archives of its own") fails until the rules are in place; without them AssetPacker prints `not packed: ...` for the stage's files.
 
 ## Building and inspecting
 

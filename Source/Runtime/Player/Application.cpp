@@ -15,6 +15,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cctype>
 #include <cstdio>
 #include <stdexcept>
 
@@ -24,9 +25,24 @@ namespace {
 constexpr Uint64 kTickNs = SDL_NS_PER_SECOND / 60;
 constexpr Uint64 kMaxFrameNs = SDL_NS_PER_SECOND / 4; // avoid a spiral of death after a stall
 
+bool hasNumberSuffix(const std::string& name, std::string_view prefix) {
+    return name.size() > prefix.size() && name.compare(0, prefix.size(), prefix) == 0 &&
+           std::all_of(name.begin() + static_cast<std::ptrdiff_t>(prefix.size()), name.end(),
+                       [](unsigned char c) { return std::isdigit(c) != 0; });
+}
+
 bool isArchiveName(const std::filesystem::path& p) {
     const auto ext = p.extension();
-    return ext == ".assets" || ext == ".resource" || p.filename() == "globalgamemanagers";
+    return ext == ".assets" || ext == ".resource" || p.filename() == "globalgamemanagers" ||
+           hasNumberSuffix(p.filename().string(), "level");
+}
+
+// Per-stage archives, mounted on demand: sharedassetsN.assets (N >= 1) and levelN.
+bool isStreamedArchive(const std::filesystem::path& p) {
+    const auto name = p.filename().string();
+    if (hasNumberSuffix(name, "level")) return true;
+    return p.extension() == ".assets" && hasNumberSuffix(p.stem().string(), "sharedassets") &&
+           p.stem().string() != "sharedassets0";
 }
 
 } // namespace
@@ -55,7 +71,7 @@ Application::Application(const PlayerSettings& settings, PlayerPrefs prefs, cons
     assets_ = std::make_unique<AssetLibrary>(vfs_, display_->renderer(), filter);
     controls_ = std::make_unique<Controls>(assets_->json("ProjectSettings/InputManager.json"));
     controls_->loadBindings(prefs_); // remapped keys and per-pad layouts
-    data_ = std::make_unique<GameData>(*assets_, *audio_);
+    data_ = std::make_unique<GameData>(*assets_, *audio_, streaming_.get());
     logicalWidth_ = logical[0];
     logicalHeight_ = logical[1];
     services_ = std::make_unique<Services>(Services{*assets_, *audio_, *display_, *controls_, settings_, prefs_, *data_,
@@ -182,7 +198,13 @@ void Application::mountData() {
         if (entry.is_regular_file() && isArchiveName(entry.path())) archives.push_back(entry.path());
     std::sort(archives.begin(), archives.end());
 
-    for (const auto& archive : archives) vfs_.mount(std::make_unique<vfs::ZipMount>(archive));
+    for (const auto& archive : archives)
+        if (!isStreamedArchive(archive)) vfs_.mount(std::make_unique<vfs::ZipMount>(archive));
+    streaming_ = std::make_unique<vfs::StreamingArchives>(vfs_); // inserts below the loose folder
+    for (const auto& archive : archives)
+        if (isStreamedArchive(archive)) streaming_->add(archive);
+    if (streaming_->archiveCount() > 0)
+        SDL_Log("Streaming %d stage archives on demand", static_cast<int>(streaming_->archiveCount()));
     if (!settings_.assetsFolder.empty()) vfs_.mount(std::make_unique<vfs::DirectoryMount>(settings_.assetsFolder));
     for (const auto& m : vfs_.mounts()) SDL_Log("Mounted %s", m->describe().c_str());
 }

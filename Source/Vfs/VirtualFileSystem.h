@@ -14,6 +14,11 @@ namespace iron::vfs {
 class VirtualFileSystem {
 public:
     void mount(std::unique_ptr<Mount> mount);
+    // Inserts at a position in the stack (0 = searched last), for archives
+    // mounted on demand below an override folder. Returns the mount.
+    Mount& insert(std::size_t position, std::unique_ptr<Mount> mount);
+    // Removes a mount (and closes it). False if it isn't mounted.
+    bool unmount(const Mount& mount);
 
     [[nodiscard]] bool exists(std::string_view path) const;
     [[nodiscard]] std::optional<Bytes> tryRead(std::string_view path) const;

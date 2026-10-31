@@ -56,7 +56,11 @@ PipelineConfig loadPipeline(const fs::path& jsonFile) {
         ArchiveRule rule;
         rule.output = a.at("output").get<std::string>();
         rule.root = a.at("root").get<std::string>();
-        for (const auto& folder : a.at("include")) rule.include.emplace_back(folder.get<std::string>());
+        for (const auto& folder : a.value("include", nlohmann::json::array())) rule.include.emplace_back(folder.get<std::string>());
+        for (const auto& file : a.value("files", nlohmann::json::array())) rule.files.emplace_back(file.get<std::string>());
+        for (const auto& skip : a.value("exclude", nlohmann::json::array())) rule.exclude.emplace_back(skip.get<std::string>());
+        if (rule.include.empty() && rule.files.empty())
+            throw std::runtime_error(rule.output + ": needs 'include' folders or 'files'");
         rule.extensions = a.value("extensions", std::vector<std::string>{});
         rule.excludeExtensions = a.value("excludeExtensions", std::vector<std::string>{});
         if (rule.output.empty() || rule.output.find_first_of("/\\") != std::string::npos)
@@ -75,6 +79,24 @@ PackPlan planPack(const PipelineConfig& config, const fs::path& projectDir) {
     for (std::size_t i = 0; i < config.archives.size(); ++i) {
         const auto& rule = config.archives[i];
         const auto root = fs::weakly_canonical(projectDir / rule.root);
+        std::vector<std::string> skipped;
+        for (const auto& e : rule.exclude) skipped.push_back(toVirtualPath(e));
+        const auto excluded = [&](const std::string& virtualPath) {
+            return std::any_of(skipped.begin(), skipped.end(), [&](const std::string& s) {
+                return virtualPath == s || (virtualPath.size() > s.size() && virtualPath.compare(0, s.size(), s) == 0 &&
+                                            virtualPath[s.size()] == '/');
+            });
+        };
+        const auto add = [&](const fs::path& file) {
+            const auto virtualPath = toVirtualPath(file.lexically_relative(root));
+            if (virtualPath.empty()) throw std::runtime_error("Cannot map '" + file.string() + "' to a virtual path");
+            const auto [it, inserted] = owner.emplace(virtualPath, rule.output);
+            if (!inserted)
+                throw std::runtime_error("'" + virtualPath + "' is claimed by both " + it->second + " and " +
+                                         rule.output);
+            claimed.insert(fs::weakly_canonical(file));
+            plan.archives[i].push_back({file, virtualPath});
+        };
         for (const auto& folder : rule.include) {
             const auto dir = root / folder;
             if (!fs::is_directory(dir))
@@ -82,17 +104,15 @@ PackPlan planPack(const PipelineConfig& config, const fs::path& projectDir) {
 
             for (const auto& entry : fs::recursive_directory_iterator(dir)) {
                 if (!entry.is_regular_file() || isIgnored(entry.path()) || !rule.accepts(entry.path())) continue;
-                const auto virtualPath = toVirtualPath(entry.path().lexically_relative(root));
-                if (virtualPath.empty())
-                    throw std::runtime_error("Cannot map '" + entry.path().string() + "' to a virtual path");
-
-                const auto [it, inserted] = owner.emplace(virtualPath, rule.output);
-                if (!inserted)
-                    throw std::runtime_error("'" + virtualPath + "' is claimed by both " + it->second +
-                                             " and " + rule.output);
-                claimed.insert(fs::weakly_canonical(entry.path()));
-                plan.archives[i].push_back({entry.path(), virtualPath});
+                if (excluded(toVirtualPath(entry.path().lexically_relative(root)))) continue;
+                add(entry.path());
             }
+        }
+        for (const auto& file : rule.files) {
+            const auto path = root / file;
+            if (!fs::is_regular_file(path))
+                throw std::runtime_error(rule.output + ": file not found: " + path.string());
+            add(path);
         }
         std::sort(plan.archives[i].begin(), plan.archives[i].end(),
                   [](const PlannedFile& a, const PlannedFile& b) { return a.virtualPath < b.virtualPath; });

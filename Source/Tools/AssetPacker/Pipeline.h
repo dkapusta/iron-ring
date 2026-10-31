@@ -11,6 +11,8 @@ struct ArchiveRule {
     std::string output;                      // file name inside <name>_Data
     std::filesystem::path root;              // virtual paths are relative to this
     std::vector<std::filesystem::path> include; // folders (relative to root) to scan
+    std::vector<std::filesystem::path> files;   // single files (relative to root)
+    std::vector<std::filesystem::path> exclude; // files or folders (relative to root) to skip while scanning
     std::vector<std::string> extensions;        // if non-empty: only these
     std::vector<std::string> excludeExtensions;
 

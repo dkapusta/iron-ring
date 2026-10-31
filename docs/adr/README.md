@@ -26,3 +26,4 @@ One file per decision, numbered, never renumbered. Supersede rather than rewrite
 | [0020](0020-adopting-art-pack-v2.md) | Adopt Art Pack v2 as delivered, with animated champion endings | Accepted |
 | [0021](0021-adding-fighters.md) | Add fighters as data with procedural placeholder art; resolve the arcade ladder per run | Accepted |
 | [0022](0022-boss-and-story.md) | A boss bout after the title, and the arcade story as fighter data | Accepted |
+| [0023](0023-stage-streaming.md) | Stream each venue's layers and theme from archives of its own; keep two stages loaded | Accepted |

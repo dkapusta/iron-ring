@@ -4,6 +4,7 @@
 #include "Core/PlayerSettings.h"
 #include "Game/SceneStack.h"
 #include "Platform/Display.h"
+#include "Vfs/StreamingArchives.h"
 #include "Vfs/VirtualFileSystem.h"
 
 #include <filesystem>
@@ -51,6 +52,7 @@ private:
     PlayerPrefs prefs_;
     std::filesystem::path screenshotFolder_;
     vfs::VirtualFileSystem vfs_;
+    std::unique_ptr<vfs::StreamingArchives> streaming_;
     std::unique_ptr<Display> display_;
     std::unique_ptr<AudioSystem> audio_;
     std::unique_ptr<AssetLibrary> assets_;

@@ -3,6 +3,7 @@ add_library(IronRingVfs STATIC
     ArchiveWriter.h      ArchiveWriter.cpp
     DirectoryMount.h     DirectoryMount.cpp
     Mount.h
+    StreamingArchives.h  StreamingArchives.cpp
     VirtualFileSystem.h  VirtualFileSystem.cpp
     ZipMount.h           ZipMount.cpp)
 target_include_directories(IronRingVfs PUBLIC "${PROJECT_SOURCE_DIR}/Source")

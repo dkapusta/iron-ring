@@ -17,7 +17,7 @@ struct Texture {
 };
 
 // Turns virtual paths into engine objects. Textures are decoded once and
-// cached for the lifetime of the library.
+// cached until unloaded (streamed stage art) or the library goes.
 class AssetLibrary {
 public:
     AssetLibrary(const vfs::VirtualFileSystem& vfs, SDL_Renderer* renderer, SDL_ScaleMode filter);
@@ -25,6 +25,10 @@ public:
     [[nodiscard]] nlohmann::json json(std::string_view path) const;
     [[nodiscard]] vfs::Bytes bytes(std::string_view path) const { return vfs_.read(path); }
     const Texture& texture(std::string_view path);
+    // Frees a cached texture; references to it become invalid. False if it wasn't loaded.
+    bool unload(std::string_view path);
+    [[nodiscard]] bool loaded(std::string_view path) const { return textures_.count(std::string(path)) != 0; }
+    [[nodiscard]] std::size_t textureCount() const { return textures_.size(); }
 
     // Renderer recreation (HDR on/off): textures belong to a renderer, so they
     // are released before it goes and decoded again for the new one. Texture

@@ -1,6 +1,7 @@
 #include "Vfs/ArchiveFormat.h"
 #include "Vfs/ArchiveWriter.h"
 #include "Vfs/DirectoryMount.h"
+#include "Vfs/StreamingArchives.h"
 #include "Vfs/VirtualFileSystem.h"
 #include "Vfs/ZipMount.h"
 
@@ -119,4 +120,86 @@ TEST_CASE("later mounts override earlier ones") {
     CHECK(vfs.exists("UI\\title.txt"));
     CHECK_FALSE(vfs.exists("../Loose/UI/title.txt"));
     CHECK_THROWS_AS((void)vfs.read("UI/missing.txt"), std::runtime_error);
+}
+
+TEST_CASE("insert and unmount keep the stack order") {
+    TempDir dir;
+    ArchiveWriter a("a.assets");
+    a.add("x.txt", bytesOf("a"));
+    a.write(dir.path / "a.assets");
+    fs::create_directories(dir.path / "Loose");
+    std::ofstream(dir.path / "Loose/x.txt") << "loose";
+
+    VirtualFileSystem vfs;
+    vfs.mount(std::make_unique<DirectoryMount>(dir.path / "Loose"));
+    auto& inserted = vfs.insert(0, std::make_unique<ZipMount>(dir.path / "a.assets"));
+    CHECK(vfs.readText("x.txt") == "loose"); // the loose folder still wins
+    CHECK(vfs.mounts().front().get() == &inserted);
+    CHECK(vfs.unmount(inserted));
+    CHECK_FALSE(vfs.unmount(inserted));
+    CHECK(vfs.mounts().size() == 1);
+}
+
+TEST_CASE("streamed archives mount while a key needs them") {
+    TempDir dir;
+    ArchiveWriter base("sharedassets0.assets");
+    base.add("Stages/A/preview.png", bytesOf("pa"));
+    base.write(dir.path / "sharedassets0.assets");
+    ArchiveWriter s1("sharedassets1.assets");
+    s1.add("Stages/A/sky.png", bytesOf("a-sky"));
+    s1.write(dir.path / "sharedassets1.assets");
+    ArchiveWriter l1("level1");
+    l1.add("Audio/Music/a.ogg", bytesOf("a-theme"));
+    l1.write(dir.path / "level1");
+    ArchiveWriter s2("sharedassets2.assets");
+    s2.add("Stages/B/sky.png", bytesOf("b-sky"));
+    s2.write(dir.path / "sharedassets2.assets");
+    fs::create_directories(dir.path / "Loose/Stages/B");
+    std::ofstream(dir.path / "Loose/Stages/B/sky.png") << "loose-b";
+
+    VirtualFileSystem vfs;
+    vfs.mount(std::make_unique<ZipMount>(dir.path / "sharedassets0.assets"));
+    StreamingArchives streaming(vfs);
+    for (const auto* name : {"sharedassets1.assets", "level1", "sharedassets2.assets"}) streaming.add(dir.path / name);
+    vfs.mount(std::make_unique<DirectoryMount>(dir.path / "Loose"));
+
+    CHECK(streaming.archiveCount() == 3);
+    CHECK(streaming.mountedCount() == 0);
+    CHECK(streaming.streams("Stages/A/sky.png"));
+    CHECK_FALSE(streaming.streams("Stages/A/preview.png"));
+    CHECK_FALSE(vfs.exists("Stages/A/sky.png"));
+
+    streaming.acquire("a", {"Stages/A/sky.png", "Audio/Music/a.ogg", "Stages/A/preview.png"});
+    CHECK(streaming.mountedCount() == 2);
+    CHECK(vfs.readText("Stages/A/sky.png") == "a-sky");
+    CHECK(vfs.readText("Audio/Music/a.ogg") == "a-theme");
+
+    streaming.acquire("b", {"Stages/B/sky.png"});
+    CHECK(streaming.mountedCount() == 3);
+    CHECK(vfs.readText("Stages/B/sky.png") == "loose-b"); // streamed archives stay below the loose folder
+
+    streaming.acquire("again", {"Stages/A/sky.png"});
+    streaming.release("a");
+    CHECK(streaming.mountedCount() == 2); // sharedassets1 is still held by "again"
+    CHECK(vfs.exists("Stages/A/sky.png"));
+    CHECK_FALSE(vfs.exists("Audio/Music/a.ogg"));
+
+    streaming.release("again");
+    streaming.release("b");
+    streaming.release("unknown");
+    CHECK(streaming.mountedCount() == 0);
+    CHECK(vfs.mounts().size() == 2);
+}
+
+TEST_CASE("a path in two streamed archives is rejected") {
+    TempDir dir;
+    for (const auto* name : {"level1", "level2"}) {
+        ArchiveWriter w(name);
+        w.add("Audio/Music/same.ogg", bytesOf("x"));
+        w.write(dir.path / name);
+    }
+    VirtualFileSystem vfs;
+    StreamingArchives streaming(vfs);
+    streaming.add(dir.path / "level1");
+    CHECK_THROWS_AS(streaming.add(dir.path / "level2"), std::runtime_error);
 }

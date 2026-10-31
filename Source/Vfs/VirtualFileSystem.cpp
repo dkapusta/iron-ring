@@ -2,6 +2,7 @@
 
 #include "Vfs/ArchiveFormat.h"
 
+#include <algorithm>
 #include <ranges>
 #include <stdexcept>
 #include <string>
@@ -10,6 +11,19 @@ namespace iron::vfs {
 
 void VirtualFileSystem::mount(std::unique_ptr<Mount> mount) {
     mounts_.push_back(std::move(mount));
+}
+
+Mount& VirtualFileSystem::insert(std::size_t position, std::unique_ptr<Mount> mount) {
+    Mount& m = *mount;
+    mounts_.insert(mounts_.begin() + static_cast<std::ptrdiff_t>(std::min(position, mounts_.size())), std::move(mount));
+    return m;
+}
+
+bool VirtualFileSystem::unmount(const Mount& mount) {
+    const auto it = std::find_if(mounts_.begin(), mounts_.end(), [&](const auto& m) { return m.get() == &mount; });
+    if (it == mounts_.end()) return false;
+    mounts_.erase(it);
+    return true;
 }
 
 bool VirtualFileSystem::exists(std::string_view path) const {
