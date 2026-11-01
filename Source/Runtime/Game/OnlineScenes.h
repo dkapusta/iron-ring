@@ -57,6 +57,7 @@ class OnlineScene final : public Scene {
 
   private:
     void connect(const std::string& address);
+    void join(); // the INVITE field: a whole invite, or a room code on the SERVER
     void paste();
     void finishEdit(FieldEditor::Result result);
     void refreshLabels();
@@ -64,7 +65,7 @@ class OnlineScene final : public Scene {
     Services& services_;
     Menu menu_;
     FieldEditor editor_;
-    TextInput name_, server_;
+    TextInput name_, server_, invite_;
     std::vector<std::string> history_;
     int historyIndex_ = -1;
     std::string message_;

@@ -34,12 +34,15 @@ A new item between VERSUS CPU and TRAINING.
             ONLINE
   NAME      DMITRY_______
   SERVER    203.0.113.5:7727        < RECENT >
-  PASTE INVITE
   CONNECT
+  INVITE    203.0.113.5:7727/K7M2QX
+  PASTE INVITE
   BACK
 
   PASTE AN INVITE (SERVER/CODE) OR TYPE A SERVER ADDRESS
 ```
+
+- **Invite** (added after the first play-test): a field for a friend's invite, typed or pasted (Ctrl+V). Return joins. A bare six-character code joins on the server in SERVER. PASTE INVITE fills the field from the clipboard and joins.
 
 - **Name:**
   - 1–12 characters from the font: A–Z, 0–9, `.` and `-`.
