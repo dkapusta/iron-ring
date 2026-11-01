@@ -27,3 +27,8 @@ It left three polish notes: Dry Dock 4's floodlight beam, a dither band in its s
 - No procedural placeholder art is left in the game. The procedural generator now owns only the palette, effects, fonts, the HUD layout and the icon, all of them final by decision.
 - Every M3 roadmap item is done.
 - The simulation is untouched; the golden checksum and the balance matrix hold.
+- *Later (Art Pack v3.1, final polish):* the polish notes and a whole-set review were answered:
+  - Greta's and Jun's skin out of their apron and shoe ramps;
+  - lit chain rings on the M3 floors;
+  - Dry Dock 4's beam and sky softened, and The Hold's lamp;
+  - one shared portrait backdrop, applied by the project and checked by the art self-test ([Pack-v3.1/REVIEW.md](../../ArtSource/Pack-v3.1/REVIEW.md)).

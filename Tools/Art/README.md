@@ -12,6 +12,7 @@ pip install -r Tools/Art/requirements.txt        # pinned Pillow, numpy, scipy (
 | `import_art.py` | Brings in art made elsewhere: `refs` exports pose references, `fighter` imports frames into an atlas, `image` fits a stage or portrait. |
 | `selftest.py` | Checks that procedural assets match `generate.py`, external atlases match their `ArtSource/` frames, and export→import round-trips losslessly. Runs in CI. |
 | `review_frames.py` | Measures frames against the animation rules (asset spec §2.6) and writes review sheets with boxes. Findings are notes, not errors. |
+| `portrait_backdrop.py` | Puts HUD and select portraits on the shared backdrop (`docs/art/templates/`); `--all` for every portrait, `--check` for the self-test's corner check. |
 | `compose_previews.py` | Recomposes each layered stage's 640 × 360 preview from its layers; run it after editing a layer. |
 | `adopt_art_pack.py` | One-off: re-registers Art Pack v1's raw sprites into `ArtSource/` at one scale per fighter ([ADR-0012](../../docs/adr/0012-adopting-external-art.md)). |
 

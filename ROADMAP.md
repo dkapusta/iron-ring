@@ -92,7 +92,7 @@ New fighters arrive with procedural placeholder art and their own frame data, mo
 - ✅ Art Pack v3A (characters): final frames, champion poses and portraits for Sable, Idris, Greta, Jun and the Broker; adopted as delivered ([ADR-0024](docs/adr/0024-adopting-art-pack-v3a.md), [review](ArtSource/Pack-v3A/REVIEW.md))
   - ✅ v3A.1 corrections: the Broker's skin colour, two of Sable's walk frames, Idris's Mast Kick and Bowline Heel heights, Sable's Wire Kick ([brief](docs/art/art-pack-v3a.1-brief.md))
 - ✅ Art Pack v3B (venues): final layered art for Dry Dock 4, The Hold and The Broker's Club; no placeholder art is left in the game ([ADR-0025](docs/adr/0025-adopting-art-pack-v3b.md), [review](ArtSource/Pack-v3B/REVIEW.md))
-- 🔜 Final art polish (Art Pack v3.1): one portrait backdrop for all fourteen portraits, Greta's and Jun's skin out of their apron and shoe ramps, the chain ring on the three M3 floors, Dry Dock 4's beam and sky, The Hold's lamp ([brief](docs/art/final-polish-brief.md))
+- ✅ Final art polish (Art Pack v3.1): one portrait backdrop for all fourteen portraits, Greta's and Jun's skin out of their apron and shoe ramps, the chain ring on the three M3 floors, Dry Dock 4's beam and sky, The Hold's lamp ([brief](docs/art/final-polish-brief.md), [review](ArtSource/Pack-v3.1/REVIEW.md))
 
 ## M4 — Online
 

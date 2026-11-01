@@ -230,7 +230,7 @@ The three venues: **Pier 9** (closed cargo pier, crane legs, freighter floodligh
 | Font charset | both | `␠ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?:-+/'"%()#=<>*` in that order, then eight direction arrows at the control codes 0x11–0x19 (0x10 + the numpad digit: 0x11 ↙, 0x12 ↓, 0x13 ↘, 0x14 ←, 0x16 →, 0x17 ↖, 0x18 ↑, 0x19 ↗) for move lists. Uppercase only. |
 | HUD layout | `Resources/UI/hud_layout.json` | Rects/points on the 640 × 360 canvas; edit to move elements, no art change. |
 | Icon | `Resources/UI/icon.png` | 256 × 256 RGBA: a chain ring around the letters IR, designed on a 32 × 32 grid so it reads at 16 × 16. Also the Windows `.ico` (`Source/Launcher/Resources/IronRing.ico`, 16–256 px). |
-| Portraits | per fighter | 32 × 32, see §2. Also drawn at 1.5× (48 × 48) in the character-select grid, so keep the outline clean. |
+| Portraits | per fighter | 32 × 32, see §2. Every portrait (HUD and select) sits on the shared backdrop in `docs/art/templates/`; `Tools/Art/portrait_backdrop.py` applies it and the art self-test checks it. Also drawn at 1.5× (48 × 48) in the character-select grid, so keep the outline clean. |
 | Title logo | `Resources/UI/title_logo.png` | 432 × 96 RGBA, transparent background. "IRON RING" in brass block letters with a dark outline, over (or through) a ring of welded chain. Drawn at 1× centred on the title screen, top edge at y 34, over a dimmed venue; must read on both dark and lit backgrounds. |
 | Menu backdrop | `Resources/UI/menu_backdrop.png` | 640 × 360, opaque. Behind the character select, stage select and options. Dark and calm from y 60 to 336, where menus, fighter previews and text sit; detail only at the edges (a header band above y 60, a crowd silhouette below y 336). No text. |
 
