@@ -54,6 +54,9 @@ class Rollback {
     // Re-simulates any mispredicted ticks, then simulates the next one (which
     // needs its local input: add it first).
     Advance advance();
+    // Re-simulates any mispredicted ticks without running a new one: after the
+    // match ends, while the last remote inputs come in to confirm the result.
+    Advance settle();
 
     [[nodiscard]] const Match& state() const { return match_; }
     [[nodiscard]] int side() const { return side_; }
@@ -81,6 +84,7 @@ class Rollback {
 
   private:
     [[nodiscard]] Input remoteFor(int t) const; // the known input, or the prediction
+    void correct(Advance& result);              // re-runs from the earliest mispredicted tick
     MatchStep simulate(int t);                  // one tick from the current match_ (which is the state before t)
     void recordConfirmed();
     Match& snapshot(int t) { return snapshots_[static_cast<std::size_t>(t) % snapshots_.size()]; }

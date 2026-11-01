@@ -60,9 +60,11 @@ void put(ByteWriter&, const Rematch&) {}
 void put(ByteWriter& w, const Checksum& m) {
     w.i32(m.tick);
     w.u64(m.sum);
+    w.u32(m.match);
 }
 void put(ByteWriter& w, const Result& m) {
     w.i32(static_cast<std::int32_t>(m.winner));
+    w.u32(m.match);
 }
 void put(ByteWriter& w, const Inputs& m) {
     w.i32(m.from);
@@ -70,6 +72,7 @@ void put(ByteWriter& w, const Inputs& m) {
     for (const auto in : m.inputs)
         w.u16(in);
     w.i32(m.ack);
+    w.u32(m.match);
 }
 void put(ByteWriter& w, const Welcome& m) {
     w.str(m.serverName);
@@ -93,6 +96,7 @@ void put(ByteWriter& w, const RoomState& m) {
     for (const auto& p : m.members) {
         w.str(p.name);
         w.boolean(p.picked);
+        w.str(p.fighter);
         w.u16(p.ping);
     }
 }
@@ -156,12 +160,13 @@ std::optional<Message> get(std::uint8_t tag, ByteReader& r) {
         Checksum m;
         m.tick = r.i32();
         m.sum = r.u64();
+        m.match = r.u32();
         return m;
     }
     case kTag<Result>: {
         const auto v = r.i32();
         if (v < 1 || v > 3) r.fail();
-        return Result{static_cast<sim::Outcome>(v)};
+        return Result{static_cast<sim::Outcome>(v), r.u32()};
     }
     case kTag<Inputs>: {
         Inputs m;
@@ -172,6 +177,7 @@ std::optional<Message> get(std::uint8_t tag, ByteReader& r) {
             m.inputs.push_back(static_cast<sim::Input>(r.u16() & sim::kInputMask));
         m.ack = r.i32();
         if (m.ack < 0) r.fail();
+        m.match = r.u32();
         return m;
     }
     case kTag<Welcome>: {
@@ -201,6 +207,7 @@ std::optional<Message> get(std::uint8_t tag, ByteReader& r) {
             RoomMember p;
             p.name = text(r);
             p.picked = r.boolean();
+            p.fighter = text(r);
             p.ping = r.u16();
             m.members.push_back(p);
         }

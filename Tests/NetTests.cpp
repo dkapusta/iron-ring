@@ -93,13 +93,13 @@ TEST_CASE("every message round-trips") {
         SetOpen{true},
         Pick{"dee", "pier_nine"},
         Rematch{},
-        Checksum{29, 0xDEADBEEF},
-        Result{sim::Outcome::Player2},
-        Inputs{100, {1, 2, 3, 511}, 98},
+        Checksum{29, 0xDEADBEEF, 3},
+        Result{sim::Outcome::Player2, 3},
+        Inputs{100, {1, 2, 3, 511}, 98, 3},
         Welcome{"RING", "HELLO", 3, 1},
         Refused{Refusal::Version, "0.2.0"},
         Failed{Problem::RoomFull},
-        RoomState{"K7QX2M", false, RoomPhase::Selecting, 1, {{"A", true, 40}, {"B", false, 55}}},
+        RoomState{"K7QX2M", false, RoomPhase::Selecting, 1, {{"A", true, "dee", 40}, {"B", false, "", 55}}},
         RoomList{{{"K7QX2M", "A", 12}}},
         MatchStart{3, {"dee", "bram"}, "pier_nine", 800, 1},
         MatchEnd{EndReason::Desync, sim::Outcome::Running, 1},
@@ -124,7 +124,7 @@ TEST_CASE("random and truncated bytes never decode into nonsense") {
         if (decodeMessage(bytes)) ++decoded; // allowed, but must be a well-formed message
     }
     CHECK(decoded < 2000);
-    const auto bytes = encodeMessage(RoomState{"K7QX2M", false, RoomPhase::Waiting, 0, {{"A", false, 1}}});
+    const auto bytes = encodeMessage(RoomState{"K7QX2M", false, RoomPhase::Waiting, 0, {{"A", false, "", 1}}});
     for (std::size_t n = 0; n < bytes.size(); ++n)
         CHECK_FALSE(decodeMessage({bytes.data(), n}));
     CHECK_FALSE(decodeMessage(encodeMessage(Inputs{-1, {1}, 0})));
@@ -194,7 +194,7 @@ struct Bot {
                     if constexpr (std::is_same_v<T, MatchStart>) begin(m);
                     if constexpr (std::is_same_v<T, MatchEnd>) end = m;
                     if constexpr (std::is_same_v<T, Inputs>) {
-                        if (session) {
+                        if (session && start && m.match == start->match) {
                             for (std::size_t k = 0; k < m.inputs.size(); ++k)
                                 session->addRemoteInput(m.from + static_cast<int>(k), m.inputs[k]);
                             acked = std::max(acked, m.ack);
@@ -228,13 +228,14 @@ struct Bot {
             session->addLocalInput(cpu->think(session->state().round, session->side()));
             (void)session->advance();
         }
-        client.send(Inputs{acked, session->localInputsFrom(acked), session->remoteTicks()});
+        client.send(Inputs{acked, session->localInputsFrom(acked), session->remoteTicks(), start->match});
         const auto& sums = session->checksums();
         for (; sentSums < sums.size(); ++sentSums)
-            client.send(Checksum{sums[sentSums].first, sums[sentSums].second ^ (corruptChecksums ? 1u : 0u)});
+            client.send(
+                Checksum{sums[sentSums].first, sums[sentSums].second ^ (corruptChecksums ? 1u : 0u), start->match});
         const auto& m = session->state();
         if (sendResult && !sentResult && m.finished && session->confirmedTicks() == session->tick()) {
-            client.send(Result{m.winner});
+            client.send(Result{m.winner, start->match});
             sentResult = true;
         }
     }

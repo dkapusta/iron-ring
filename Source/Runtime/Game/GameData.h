@@ -78,6 +78,11 @@ public:
     // Plays a theme by id (no-op if it is already playing); empty or unknown stops the music.
     void playTheme(AudioSystem& audio, std::string_view id) const;
     [[nodiscard]] const std::string& menuTheme() const { return menuTheme_; }
+    // net::gameDataHash() of every fighter's gameplay data and every stage's
+    // width: what IronRingServer compares before letting this game in.
+    [[nodiscard]] std::uint64_t simulationHash() const { return simulationHash_; }
+    // GameSettings.json -> defaultServer: what the ONLINE server field starts with (usually empty).
+    [[nodiscard]] std::string defaultServer() const { return settings_.value("defaultServer", std::string{}); }
 
 private:
     void loadStages(AssetLibrary& assets);
@@ -99,6 +104,7 @@ private:
     std::unordered_map<std::string, std::string> themeFiles_;   // theme id -> virtual path
     std::unordered_map<std::string, std::string> themeTitles_;
     std::string menuTheme_;
+    std::uint64_t simulationHash_ = 0;
     std::optional<content::ArcadeLadder> arcade_;
     const Texture* logo_ = nullptr;
     const Texture* backdrop_ = nullptr;

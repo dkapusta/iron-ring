@@ -117,6 +117,12 @@ Options gain an **ONLINE** section:
 - the input delay, AUTO or 0–4 frames;
 - SHOW PING.
 
+**As built (M4.3–M4.4):**
+- the ping and delay are always shown, in the HUD's stage line (`ONLINE - PING 48 - DELAY 2`), so there is no SHOW PING option; Options has **ONLINE DELAY** (AUTO, 0–4);
+- Escape (Start) once shows `PRESS START AGAIN TO LEAVE THE MATCH`; a second press within two seconds leaves;
+- a stopped match holds its message for 3 seconds, not 5;
+- sparks from a predicted hit that a rollback undoes are not cancelled yet (sounds and sparks of re-simulated ticks never repeat).
+
 ## 3. The dedicated server
 
 ### 3.1 What it is

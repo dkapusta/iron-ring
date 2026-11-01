@@ -3,6 +3,8 @@
 #include "Game/ArcadeScene.h"
 #include "Game/MenuView.h"
 #include "Game/MoveListScene.h"
+#include "Game/OnlineScenes.h"
+#include "Game/OnlineSession.h"
 #include "Game/StageSelectScene.h"
 #include "Render/Ui.h"
 
@@ -17,6 +19,7 @@ const char* title(SelectMode mode) {
     case SelectMode::TwoPlayers: return "2 PLAYERS";
     case SelectMode::Training: return "TRAINING";
     case SelectMode::Arcade: return "ARCADE";
+    case SelectMode::Online: return "ONLINE";
     }
     return "";
 }
@@ -32,11 +35,17 @@ CharacterSelectScene::CharacterSelectScene(Services& services, SelectMode mode) 
     for (std::size_t side = 0; side < 2; ++side)
         for (std::size_t i = 0; i < roster.size(); ++i)
             if (roster[i].id == pair[side]) cursor_[side] = static_cast<int>(i);
+    if (mode_ == SelectMode::Online) {
+        localSide_ = services_.online->side();
+        services_.online->pickSent = false;
+    }
 }
 
 void CharacterSelectScene::onEnter() {
     // Back from the stage select or a match: pick again, the cursors stay.
+    // Online, a pick the server has is kept (the host's stage went with it).
     picked_ = {};
+    if (mode_ == SelectMode::Online) picked_[static_cast<std::size_t>(localSide_)] = services_.online->pickSent;
     ready_ = 0;
     services_.data.playTheme(services_.audio, services_.data.menuTheme());
 }
@@ -48,6 +57,7 @@ const FighterView* CharacterSelectScene::view(int index) const {
 }
 
 int CharacterSelectScene::sideFor(const MenuEvent& event) const {
+    if (mode_ == SelectMode::Online) return localSide_; // any keys steer this player's side
     if (mode_ == SelectMode::TwoPlayers) return event.player;
     if (mode_ == SelectMode::Arcade) return 0;
     // One player picks both, their own side first, then the opponent; either
@@ -64,6 +74,20 @@ void CharacterSelectScene::pick(int side) {
     picked_[s] = true;
     pickedAt_[s] = clock_;
     services_.audio.play("menu_confirm");
+    if (mode_ == SelectMode::Online) {
+        const auto& id = services_.data.roster()[static_cast<std::size_t>(cursor_[s])].id;
+        auto& online = *services_.online;
+        if (online.hosting() && !services_.settings.autoplay) {
+            // The host also picks the venue; the stage select sends both.
+            FightSetup setup;
+            setup.control = Control::Online;
+            setup.fighters[s] = id;
+            services_.scenes.push(std::make_unique<StageSelectScene>(services_, std::move(setup)));
+        } else {
+            online.send(net::Pick{id, ""}); // a guest's stage doesn't count; autoplay: a random venue
+            online.pickSent = true;
+        }
+    }
 }
 
 void CharacterSelectScene::showMoves(int side) {
@@ -92,6 +116,14 @@ void CharacterSelectScene::handleMenu(const MenuEvent& event) {
     if (ready_ > 0) return; // both picked: on to the stage select
     const int side = sideFor(event);
     const auto count = static_cast<int>(services_.data.roster().size());
+    if (mode_ == SelectMode::Online && (event.action == MenuAction::Back || event.action == MenuAction::Pause)) {
+        // A pick the server has stands; before that, Back leaves the room.
+        if (services_.online->pickSent) return;
+        services_.audio.play("menu_back");
+        services_.online->leaveRoom();
+        services_.scenes.pop();
+        return;
+    }
     if (event.action == MenuAction::Back || event.action == MenuAction::Pause) {
         // Step back: undo this side's pick, then (one player) the first pick, then leave.
         if (side >= 0 && picked_[static_cast<std::size_t>(side)]) return unpick(side);
@@ -115,8 +147,31 @@ void CharacterSelectScene::handleMenu(const MenuEvent& event) {
     if (cursor != before) services_.audio.play("menu_move");
 }
 
+void CharacterSelectScene::onlineUpdate() {
+    auto& online = *services_.online;
+    if (!online.online() || !online.inRoom() || !online.hasOpponent()) {
+        services_.scenes.pop(); // the room (or the lobby) takes it from here
+        return;
+    }
+    if (followMatchStart(services_, true)) return;
+    // The opponent's side shows their pick once they have made it.
+    const auto remote = static_cast<std::size_t>(1 - localSide_);
+    const auto& member = online.room()->members[remote];
+    const auto& roster = services_.data.roster();
+    if (member.picked && !picked_[remote]) {
+        for (std::size_t i = 0; i < roster.size(); ++i)
+            if (roster[i].id == member.fighter) cursor_[remote] = static_cast<int>(i);
+        picked_[remote] = true;
+        pickedAt_[remote] = clock_;
+    }
+    if (!member.picked) picked_[remote] = false;
+    // -autoplay (soak tests): pick this side's default fighter after a beat.
+    if (services_.settings.autoplay && !picked_[static_cast<std::size_t>(localSide_)] && clock_ > 40) pick(localSide_);
+}
+
 void CharacterSelectScene::fixedUpdate() {
     ++clock_;
+    if (mode_ == SelectMode::Online) return onlineUpdate();
     if (!ready()) return;
     if (++ready_ < kReadyTicks) return;
     ready_ = kReadyTicks;
@@ -196,8 +251,12 @@ void CharacterSelectScene::drawGrid(SDL_Renderer* r) const {
         const float inset = shared && picked_[0] && picked_[1] ? static_cast<float>(side * 3) : 0;
         ui::outline(r, {cell.x - 2 + inset, cell.y - 2 + inset, cell.w + 4 - 2 * inset, cell.h + 4 - 2 * inset},
                     ui::kSide[side], 2);
-        const bool cpu = mode_ != SelectMode::TwoPlayers && side == 1;
-        const std::string tag = cpu ? (mode_ == SelectMode::Training ? "DUMMY" : "CPU") : side == 0 ? "1P" : "2P";
+        if (mode_ == SelectMode::Online && side != localSide_ && !picked_[s]) continue; // their cursor isn't shared
+        const bool cpu = mode_ != SelectMode::TwoPlayers && mode_ != SelectMode::Online && side == 1;
+        const std::string tag = mode_ == SelectMode::Online ? (side == localSide_ ? "YOU" : "THEM")
+                                : cpu                       ? (mode_ == SelectMode::Training ? "DUMMY" : "CPU")
+                                : side == 0                 ? "1P"
+                                                            : "2P";
         const float tagX = side == 0 ? cell.x : cell.x + cell.w;
         services_.data.small().draw(r, tag, tagX, cell.y - 12, ui::kSide[side], side == 0 ? Align::Left : Align::Right,
                                     true);
@@ -213,7 +272,15 @@ void CharacterSelectScene::drawSide(SDL_Renderer* r, int side) const {
     const float edge = side == 0 ? 12.0f : services_.width - 12.0f;
 
     // The one-player flow shows the opponent's side only once it is being chosen.
-    const bool waiting = mode_ != SelectMode::TwoPlayers && side == 1 && !picked_[0];
+    if (mode_ == SelectMode::Online && side != localSide_ && !picked_[s]) {
+        const auto& room = services_.online->room();
+        const auto name =
+            room && room->members.size() == 2 ? ui::upper(room->members[s].name) : std::string("OPPONENT");
+        data.small().draw(r, name, centre, 186, ui::kSide[side], Align::Centre, true);
+        if ((clock_ / 30) % 2 == 0) data.small().draw(r, "IS CHOOSING...", centre, 198, ui::kFog, Align::Centre, true);
+        return;
+    }
+    const bool waiting = mode_ != SelectMode::TwoPlayers && mode_ != SelectMode::Online && side == 1 && !picked_[0];
     if (waiting) {
         if ((clock_ / 30) % 2 == 0)
             data.small().draw(r, mode_ == SelectMode::Training ? "THEN THE DUMMY" : "THEN THE OPPONENT", centre, 200,
@@ -251,7 +318,9 @@ void CharacterSelectScene::render(const RenderContext& context) {
     if (mode_ == SelectMode::Arcade) drawLadder(r);
     else drawSide(r, 1);
     drawGrid(r);
-    if (ready() && mode_ != SelectMode::Arcade) {
+    if (mode_ == SelectMode::Online && picked_[static_cast<std::size_t>(localSide_)] && !ready()) {
+        data.small().draw(r, "WAITING FOR THE OPPONENT", services_.width / 2, 346, ui::kFog, Align::Centre, true);
+    } else if (ready() && mode_ != SelectMode::Arcade) {
         if ((clock_ / 6) % 2 == 0) data.large().draw(r, "VS", services_.width / 2, 110, ui::kBrassLight, Align::Centre);
     } else {
         data.small().draw(r, "LIGHT PUNCH: PICK - LIGHT KICK: BACK - HEAVY PUNCH: MOVE LIST", services_.width / 2, 346,

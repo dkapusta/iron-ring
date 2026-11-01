@@ -10,14 +10,17 @@
 #include "Game/StageView.h"
 #include "Game/TrainingOverlay.h"
 #include "Core/Camera.h"
+#include "Net/Protocol.h"
 #include "Render/BitmapFont.h"
 #include "Simulation/Cpu.h"
 #include "Simulation/Match.h"
 #include "Simulation/Replay.h"
+#include "Simulation/Rollback.h"
 #include "Simulation/Training.h"
 
 #include <array>
 #include <functional>
+#include <map>
 #include <optional>
 #include <memory>
 #include <string>
@@ -25,7 +28,7 @@
 
 namespace iron {
 
-enum class Control { VsCpu, TwoPlayers, Demo };
+enum class Control { VsCpu, TwoPlayers, Demo, Online };
 
 // What the front end chose: who fights where, and how.
 struct FightSetup {
@@ -42,6 +45,9 @@ struct FightSetup {
     std::function<void(sim::Outcome)> onFinished;
     // Playback: the inputs come from this recording (fighters and stage must match it).
     std::shared_ptr<const sim::Replay> replay;
+    // Online (Control::Online): the server's start of this match; the other
+    // side's inputs come from the session.
+    std::optional<net::MatchStart> online;
 };
 
 // Versus screen: a best-of-3 sim::Match between two fighters on one of the
@@ -69,6 +75,10 @@ public:
     [[nodiscard]] const FighterView& view(int side) const { return *views_[static_cast<std::size_t>(side)]; }
     [[nodiscard]] int facing(int side) const { return match_->round.fighters[static_cast<std::size_t>(side)].facing; }
     [[nodiscard]] bool human(int side) const; // a player (not the CPU or the dummy) controls this side
+    // Online: move inputs and checksums to and from the server without
+    // advancing (the post-match menu keeps the last confirmations flowing).
+    void pumpOnline();
+    [[nodiscard]] bool online() const { return control_ == Control::Online; }
 
 private:
     void openMenu(bool postMatch);
@@ -87,6 +97,14 @@ private:
     void playEvents(const sim::MatchStep& step);
     void saveReplay();
     void finishPlayback();
+    // Online (M4.4).
+    void startOnline();  // a rollback session for the match setup_.online describes
+    void onlineUpdate(); // one frame of an online fight
+    void settleOnline(); // after the end, until the result is confirmed
+    void playReconciled(const sim::Rollback::TickStep& step); // events of a re-simulated tick play once
+    void endOnline(std::string why);                          // the match can't go on: say why, then back to the room
+    void present(int events, const std::array<sim::Input, 2>& inputs); // per-tick presentation after a step
+    [[nodiscard]] int inputDelay() const;
     void drawShadow(SDL_Renderer* r, float x, float groundY, float height) const;
     [[nodiscard]] std::array<const FighterView*, 2> views() const { return {views_[0].get(), views_[1].get()}; }
 
@@ -105,6 +123,13 @@ private:
     unsigned matches_ = 0;                             // seeds the CPUs: each rematch plays differently
     std::vector<std::array<sim::Input, 2>> recorded_;  // this match's inputs, for its replay file
     std::size_t playback_ = 0;                         // next input of setup_.replay
+    std::unique_ptr<sim::Rollback> rollback_;          // online: this match's session
+    int acked_ = 0;                                    // online: our inputs the opponent has
+    std::size_t sentChecksums_ = 0;
+    bool resultSent_ = false, finishedOnline_ = false;
+    std::map<int, std::vector<std::uint64_t>> played_; // online: events already shown, by tick
+    std::string banner_;                               // online: why the match stopped, or the leave prompt
+    int bannerTicks_ = 0, leaveTicks_ = 0, frames_ = 0;
     float shakeAmplitude_ = 0;
     int shakeTicks_ = 0, shakeTotal_ = 0, flashTicks_ = 0;
     bool training_ = false;

@@ -29,6 +29,26 @@ The first gamepad connected is player 1, the second player 2; the keyboard works
 
 On the character select, heavy punch opens the move list of the fighter under your cursor, in your keys and written as your side faces at the start of a round; any button closes it. Menus follow your bindings: if you move light punch to another key, that key confirms. On screens one player drives (title, Versus CPU and Training select, options), either player's keys work; on the 2 Players select each side moves its own cursor.
 
+### Text fields (ONLINE)
+
+Choose a field (your name, the server, a room code) to edit it. On a keyboard, type, use Backspace, and paste with Ctrl+V; Return keeps the text and Escape restores it. On a pad, Up/Down change the last character, Right adds one, Left removes one, A keeps and B restores. Names and codes are in the font's capitals; lower case is raised as you type.
+
+## Playing online
+
+You need an Iron Ring server to meet on. Anyone can run one ([server.md](server.md)), and the game ships with none unless `GameSettings.json` names a `defaultServer`.
+
+1. **ONLINE** on the title menu. Enter your **NAME** (up to 12 characters) and the **SERVER** as `address:port` (the port defaults to 7727). Left/Right on SERVER steps through the servers you used before. **CONNECT**.
+2. In the lobby, one of you chooses **CREATE ROOM**. The room shows a six-character code, such as `K7M2QX`, and **COPY INVITE** puts `address:port/K7M2QX` in the clipboard. Send that to your friend however you like.
+3. Your friend copies the invite and chooses **ONLINE → PASTE INVITE**: that connects and joins in one step. Typing the invite into SERVER does the same, and someone already in the lobby can use **JOIN WITH CODE**.
+4. With two players in the room, both go to the character select. Each of you steers only your own side, with any keys or pad. The room's host (who created it) also picks the venue. The fight starts when both have picked.
+5. After a match: **REMATCH** (when both choose it), **CHANGE FIGHTERS** (back to the select) or **LEAVE ROOM**.
+
+Rooms are private: only someone with the code can join. A host can choose **MAKE OPEN** to list the room under **OPEN ROOMS** in the lobby, for anyone on that server to join.
+
+**In an online fight** nothing pauses: Start (or Escape) once shows *PRESS START AGAIN TO LEAVE THE MATCH*, and a second press within two seconds leaves. The line under the timers shows the ping and the input delay. If the opponent leaves, the connection drops or the two games disagree (a desync, caught by the server's referee), the fight stops with a message and you're back in the room after three seconds. Every finished online match is saved to `Replays/` like any other.
+
+**Input delay** (Options → ONLINE DELAY): AUTO picks one to three frames from the ping. A higher delay means fewer rollbacks (corrections when the opponent's input arrives late); 0 feels most like playing offline on a good connection.
+
 ### Anywhere
 
 F11 or Alt+Enter: fullscreen · F12: screenshot. In a fight: F3 training overlay (hit and hurt boxes, frame data, frame advantage); in training F4 resets positions and F6 changes what the dummy does. Developer keys: Tab (vs CPU → 2 players → CPU vs CPU), F2 (next stage), F5 (new match), F1 (debug overlay).

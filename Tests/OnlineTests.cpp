@@ -299,3 +299,24 @@ TEST_CASE("rollback: a misprediction re-simulates from the wrong tick") {
     CHECK_FALSE(result.steps[3].resimulated);
     CHECK(peer.tick() == 6);
 }
+
+TEST_CASE("rollback: settle corrects the past without running a new tick") {
+    Match start;
+    start.reset();
+    Rollback peer(start, 0, 1);
+    for (int t = 0; t < 4; ++t) {
+        peer.addLocalInput(0);
+        (void)peer.advance();
+    }
+    CHECK(peer.tick() == 4);
+    CHECK(peer.confirmedTicks() == 0);
+    for (int t = 0; t < 4; ++t)
+        peer.addRemoteInput(t, t == 2 ? Right : 0);
+    const auto result = peer.settle();
+    CHECK(result.rolledBack == 2);
+    CHECK(result.steps.size() == 2);
+    CHECK_FALSE(result.advanced);
+    CHECK(peer.tick() == 4);
+    CHECK(peer.confirmedTicks() == 4);
+    CHECK(peer.settle().steps.empty());
+}

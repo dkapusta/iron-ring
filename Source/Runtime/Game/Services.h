@@ -14,6 +14,8 @@
 
 namespace iron {
 
+class OnlineSession;
+
 // What every scene can reach. Owned by the Application; scenes keep a reference.
 struct Services {
     AssetLibrary& assets;
@@ -28,6 +30,7 @@ struct Services {
     // A new renderer for the current settings (the HDR option); textures reload.
     std::function<void()> resetRenderer;
     std::filesystem::path userFolder; // Player.log, prefs.cfg, screenshots, Replays/
+    OnlineSession* online = nullptr;  // the connection to an IronRingServer (Game/OnlineSession.h)
 };
 
 } // namespace iron

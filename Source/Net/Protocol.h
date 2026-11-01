@@ -62,9 +62,11 @@ struct Rematch {}; // after a match: both send it to fight again with the same p
 struct Checksum {  // Match::checksum() after a confirmed tick (sim::Rollback::checksums())
     std::int32_t tick = 0;
     std::uint64_t sum = 0;
+    std::uint32_t match = 0; // MatchStart::match: a late message from the last match is ignored
 };
 struct Result { // the match's outcome as this client saw it; decides only when the server doesn't referee
     sim::Outcome winner = sim::Outcome::Draw;
+    std::uint32_t match = 0;
 };
 
 // ---- both ways (the server relays it to the other fighter) ----
@@ -72,6 +74,7 @@ struct Inputs {
     std::int32_t from = 0;          // tick of inputs[0]
     std::vector<sim::Input> inputs; // the sender's inputs for from, from + 1, ...
     std::int32_t ack = 0;           // ticks of the other side's input the sender has received
+    std::uint32_t match = 0;        // MatchStart::match: inputs still in flight from the last match are dropped
 };
 
 // ---- server -> client ----
@@ -91,6 +94,7 @@ struct Failed {
 struct RoomMember {
     std::string name;
     bool picked = false;
+    std::string fighter;    // the pick, once picked (the select shows the opponent's choice)
     std::uint16_t ping = 0; // ms, server <-> that player
 };
 struct RoomState {

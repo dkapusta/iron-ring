@@ -158,6 +158,24 @@ std::vector<std::string> applyCommandLine(PlayerSettings& settings, std::span<co
                                                  : settings.keys;
                 target = std::string(*v);
             }
+        } else if (arg == "-connect" || arg == "-online-name") {
+            const auto v = next(i);
+            ok = v && !v->empty();
+            if (ok) (arg == "-connect" ? settings.connect : settings.onlineName) = std::string(*v);
+        } else if (arg == "-netsim") {
+            // "80" or "80,10": 80 ms more one way, 10 % of input packets lost.
+            const auto v = next(i);
+            ok = v.has_value();
+            if (ok) {
+                const auto comma = v->find(',');
+                const auto latency = toInt(v->substr(0, comma));
+                const auto loss = comma == std::string_view::npos ? std::optional<int>(0) : toInt(v->substr(comma + 1));
+                ok = latency && loss && *latency >= 0 && *latency <= 1000 && *loss >= 0 && *loss <= 90;
+                if (ok) {
+                    settings.netsimLatencyMs = *latency;
+                    settings.netsimLossPercent = *loss;
+                }
+            }
         } else if (arg == "-replay") {
             const auto v = next(i);
             ok = v && !v->empty();

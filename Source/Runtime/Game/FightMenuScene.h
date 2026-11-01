@@ -15,7 +15,7 @@ public:
     FightMenuScene(Services& services, FightScene& fight, bool postMatch);
 
     void handleMenu(const MenuEvent& event) override;
-    void fixedUpdate() override { ++blink_; }
+    void fixedUpdate() override;
     void render(const RenderContext& context) override;
     [[nodiscard]] std::string status() const override;
     [[nodiscard]] bool opaque() const override { return false; }
@@ -28,6 +28,7 @@ private:
     bool postMatch_;
     Menu menu_;
     int blink_ = 0;
+    bool rematchSent_ = false; // online: waiting for the opponent's answer
 };
 
 } // namespace iron

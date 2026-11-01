@@ -108,15 +108,15 @@ Two players anywhere fight over the internet with rollback netcode. They meet on
   - the `IronRingServer` target: lobby, rooms, relay, referee, `server.cfg`, logs, clean shutdown;
   - the deployment guide `docs/server.md`, with a systemd unit and a Dockerfile;
   - server binaries as CI artifacts.
-- 🔜 **M4.3 Online front end:**
+- ✅ **M4.3 Online front end:**
   - the ONLINE menu, and a text field with keyboard, pad grid, paste and history;
   - the player name, the server lobby and rooms (private by default, OPEN ROOMS opt-in);
   - COPY / PASTE INVITE and `-connect`.
-- ⬜ **M4.4 Online fights:**
+- ✅ **M4.4 Online fights:**
   - online character and stage select, rollback fights through the relay, rematch;
   - event reconciliation, so sounds and effects never fire twice on re-simulation;
   - disconnect and desync handling, the ping and delay HUD, the ONLINE options, `-netsim`.
-- ⬜ **M4.5 Soak and hardening:**
+- 🔜 **M4.5 Soak and hardening:**
   - CI runs a server and two headless clients through a match, plus a load test of 100 rooms and checks of the abuse limits;
   - **HOST ON THIS PC**.
 

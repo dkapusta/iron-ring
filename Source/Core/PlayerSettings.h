@@ -39,7 +39,11 @@ struct PlayerSettings {
     std::string scene;        // -scene <name>: open title, select, stage or options (screenshots, testing)
     bool autoplay = false;    // -autoplay: a CHAMPION CPU plays player 1 (soak tests of the arcade ladder)
     std::filesystem::path replay; // -replay <file>: play a recorded match back (and verify it)
-    std::string keys;         // -keys "30:Return,45:Down": key taps at given frames (batch testing)
+    std::string connect;          // -connect <server[:port][/code]>: open ONLINE and connect (and join)
+    std::string onlineName;       // -online-name <name>: the online name for this run
+    int netsimLatencyMs = 0;      // -netsim <ms>[,<loss %>]: hold the opponent's inputs this long and drop
+    int netsimLossPercent = 0;    //   some of them (testing rollback over a fast link)
+    std::string keys;             // -keys "30:Return,45:Down": key taps at given frames (batch testing)
     int batchFrames = 180;
     std::filesystem::path screenshotPath;
     std::filesystem::path logFile;

@@ -3,6 +3,7 @@
 #include "Game/CharacterSelectScene.h"
 #include "Game/FightScene.h"
 #include "Game/MenuView.h"
+#include "Game/OnlineScenes.h"
 #include "Game/OptionsScene.h"
 #include "Render/Ui.h"
 
@@ -14,6 +15,7 @@ TitleScene::TitleScene(Services& services) : services_(services) {
     menu_.add(MenuItem::action("arcade", "ARCADE", services_.data.arcade() != nullptr));
     menu_.add(MenuItem::action("versus", "VERSUS CPU"));
     menu_.add(MenuItem::action("2p", "2 PLAYERS"));
+    menu_.add(MenuItem::action("online", "ONLINE"));
     menu_.add(MenuItem::action("training", "TRAINING"));
     menu_.add(MenuItem::action("options", "OPTIONS"));
     menu_.add(MenuItem::action("quit", "QUIT"));
@@ -46,12 +48,20 @@ void TitleScene::startAttract() {
 
 void TitleScene::choose(const std::string& id) {
     auto& scenes = services_.scenes;
-    if (id == "arcade") scenes.push(std::make_unique<CharacterSelectScene>(services_, SelectMode::Arcade));
-    else if (id == "versus") scenes.push(std::make_unique<CharacterSelectScene>(services_, SelectMode::VsCpu));
-    else if (id == "2p") scenes.push(std::make_unique<CharacterSelectScene>(services_, SelectMode::TwoPlayers));
-    else if (id == "training") scenes.push(std::make_unique<CharacterSelectScene>(services_, SelectMode::Training));
-    else if (id == "options") scenes.push(std::make_unique<OptionsScene>(services_));
-    else if (id == "quit") scenes.quit();
+    if (id == "arcade")
+        scenes.push(std::make_unique<CharacterSelectScene>(services_, SelectMode::Arcade));
+    else if (id == "versus")
+        scenes.push(std::make_unique<CharacterSelectScene>(services_, SelectMode::VsCpu));
+    else if (id == "2p")
+        scenes.push(std::make_unique<CharacterSelectScene>(services_, SelectMode::TwoPlayers));
+    else if (id == "online")
+        scenes.push(std::make_unique<OnlineScene>(services_));
+    else if (id == "training")
+        scenes.push(std::make_unique<CharacterSelectScene>(services_, SelectMode::Training));
+    else if (id == "options")
+        scenes.push(std::make_unique<OptionsScene>(services_));
+    else if (id == "quit")
+        scenes.quit();
 }
 
 void TitleScene::handleMenu(const MenuEvent& event) {

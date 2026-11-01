@@ -88,7 +88,7 @@ Online play runs through `IronRingServer`, the dedicated server: one UDP port, n
 
 ### Playing
 
-The game opens on the title screen: press Start (Return, or a pad's Start) for the menu: **Arcade** (each fighter's story, five bouts venue by venue up to the title at The Crown, then an invitation from the Broker, with continues and an ending per fighter; win quotes after every match), **Versus CPU**, **2 Players**, **Training**, **Options**. The CPU has five levels, ROOKIE to CHAMPION; *Options → CPU level* (Easy / Normal / Hard) picks the Versus CPU opponent and shifts the arcade ladder. Pick fighters on the character select (all six fighters are playable), then a venue. Start or Escape pauses a fight (resume, restart, character select, options, quit to title); after a match you get a rematch menu. Left alone, the title runs a CPU-vs-CPU demo, like an arcade cabinet.
+The game opens on the title screen: press Start (Return, or a pad's Start) for the menu: **Arcade** (each fighter's story, five bouts venue by venue up to the title at The Crown, then an invitation from the Broker, with continues and an ending per fighter; win quotes after every match), **Versus CPU**, **2 Players**, **Training**, **Options**. The CPU has five levels, ROOKIE to CHAMPION; *Options → CPU level* (Easy / Normal / Hard) picks the Versus CPU opponent and shifts the arcade ladder. Pick fighters on the character select (all six fighters are playable), then a venue. Start or Escape pauses a fight (resume, restart, character select, options, quit to title); after a match you get a rematch menu. **Online** plays a friend over the internet through an Iron Ring server: create a room, send the invite it gives you (`server:port/CODE`), and your friend pastes it ([docs/controls.md](docs/controls.md#playing-online)). Left alone, the title runs a CPU-vs-CPU demo, like an arcade cabinet.
 
 ### Controls
 
@@ -140,7 +140,10 @@ Unity-compatible names where they exist:
 | `-music-volume 0..1`, `-sfx-volume 0..1`, `-voice-volume 0..1` | Mix-group volumes (also in `boot.config` and Options) |
 | `-cpu-level easy\|normal\|hard` | CPU difficulty (also in Options) |
 | `-replay <file>` | Plays a replay file back and checks that it reproduces the match (the log says `Replay verified` or `Replay MISMATCH`) |
-| `-autoplay` | A CHAMPION CPU plays player 1 (soak tests: `-batchmode -autoplay` runs the whole arcade ladder) |
+| `-autoplay` | A CHAMPION CPU plays player 1 (soak tests: `-batchmode -autoplay` runs the whole arcade ladder); online, it plays your side, joins or creates an open room, picks and asks for rematches |
+| `-connect <server[:port][/code]>` | Open ONLINE and connect at once; with a room code, also join that room |
+| `-online-name <name>` | The online name for this run (otherwise the one saved in `prefs.cfg`) |
+| `-netsim <ms>[,<loss %>]` | Testing: the opponent's inputs arrive this many milliseconds later, and that share of input packets is lost |
 | `-screen-effects full\|reduced` | Reduced: a gentle shake and no full-screen flashes (also in Options) |
 | `-hdr auto\|on\|off`, `-vsync 0\|1`, `-presentation integer\|letterbox`, `-render-driver <name>` | Override `boot.config` |
 | `-data-folder <path>` | Use another `<name>_Data` folder |
@@ -148,7 +151,7 @@ Unity-compatible names where they exist:
 
 Settings come from defaults, then `boot.config`, then `prefs.cfg`, then the command line; batch runs ignore `prefs.cfg`.
 
-Smoke tests used by CI: `IronRing.x86_64 -batchmode -demo -screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -frames 420 -screenshot shot.png`, the front end driven by key taps: `-batchmode -frames 450 -keys "10:Return,20:Down,30:Return,60:Return,80:Return,160:Right,175:Return,430:Escape"` (title → Versus CPU → both picks → next stage → fight → pause), and the arcade soak: `-batchmode -autoplay -frames 14000 -keys "10:Return,30:Return,60:Return"` (the whole ladder to the ending, which autoplay holds).
+Smoke tests used by CI: `IronRing.x86_64 -batchmode -demo -screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -frames 420 -screenshot shot.png`, the front end driven by key taps: `-batchmode -frames 450 -keys "10:Return,20:Down,30:Return,60:Return,80:Return,160:Right,175:Return,430:Escape"` (title → Versus CPU → both picks → next stage → fight → pause), and the arcade soak: `-batchmode -autoplay -frames 14000 -keys "10:Return,30:Return,60:Return"` (the whole ladder to the ending, which autoplay holds). An online soak, with a server on port 7727: run `IronRing -batchmode -frames 20000 -connect 127.0.0.1 -online-name BOT1 -autoplay` twice (the second as BOT2); they meet in an open room and fight match after match. Batch mode keeps to real time while connected.
 
 ## Repository layout
 
