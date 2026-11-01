@@ -133,7 +133,7 @@ bool followMatchStart(Services& services, bool replaceTop) {
 
 OnlineScene::OnlineScene(Services& services)
     : services_(services), name_(std::string(kNameChars), net::kMaxNameLength),
-      server_(std::string(kAddressChars), kAddressLength) {
+      server_(std::string(kAddressChars), kAddressLength), invite_(std::string(kAddressChars), kAddressLength) {
     auto& prefs = services_.prefs;
     name_.set(services_.settings.onlineName.empty() ? prefs.get("online-name").value_or("")
                                                     : services_.settings.onlineName);
@@ -143,8 +143,9 @@ OnlineScene::OnlineScene(Services& services)
     autoConnect_ = !services_.settings.connect.empty();
     menu_.add(MenuItem::action("name", ""));
     menu_.add(MenuItem::action("server", ""));
-    menu_.add(MenuItem::action("paste", "PASTE INVITE"));
     menu_.add(MenuItem::action("connect", "CONNECT"));
+    menu_.add(MenuItem::action("invite", ""));
+    menu_.add(MenuItem::action("paste", "PASTE INVITE"));
     menu_.add(MenuItem::action("back", "BACK"));
     menu_.focusOn(name_.empty() ? "name" : "connect");
     refreshLabels();
@@ -160,7 +161,12 @@ void OnlineScene::refreshLabels() {
     server->note = serverEdit            ? "ADDRESS:PORT, OR A WHOLE INVITE - CTRL+V PASTES"
                    : history_.size() > 1 ? "LEFT/RIGHT: RECENT SERVERS"
                                          : "CONFIRM TO TYPE AN ADDRESS";
-    menu_.find("paste")->note = "AN INVITE (SERVER/CODE) FROM A FRIEND: CONNECT AND JOIN";
+    const bool inviteEdit = editor_.field() == &invite_;
+    auto* invite = menu_.find("invite");
+    invite->label = "INVITE  " + withCursor(invite_.empty() && !inviteEdit ? "-" : invite_.text(), inviteEdit, blink_);
+    invite->note = inviteEdit ? "SERVER:PORT/CODE, OR JUST THE CODE - ENTER: JOIN"
+                              : "TYPE A FRIEND'S INVITE TO CONNECT AND JOIN";
+    menu_.find("paste")->note = "THE INVITE FROM THE CLIPBOARD: CONNECT AND JOIN";
 }
 
 void OnlineScene::onEnter() {
@@ -196,23 +202,47 @@ void OnlineScene::connect(const std::string& address) {
     if (!services_.online->connect(*invite, name)) message_ = services_.online->takeMessage();
 }
 
+void OnlineScene::join() {
+    std::string text = invite_.text();
+    // A code on its own joins on the server in the SERVER field.
+    if (text.size() == net::kCodeLength && text.find_first_of(":/.") == std::string::npos) {
+        const auto server = net::parseInvite(server_.text());
+        if (!server) {
+            message_ = "ENTER THE SERVER FIRST, OR THE WHOLE INVITE";
+            return;
+        }
+        text = net::formatInvite({server->host, server->port, text});
+    }
+    const auto invite = net::parseInvite(text);
+    if (!invite || invite->code.empty()) {
+        message_ = invite_.empty() ? "TYPE OR PASTE AN INVITE FIRST" : "NOT AN INVITE (SERVER:PORT/CODE)";
+        return;
+    }
+    invite_.set(text);
+    connect(text);
+}
+
 void OnlineScene::paste() {
     const auto text = clipboard();
     const auto invite = net::parseInvite(text);
-    if (!invite) {
+    if (!invite || invite->code.empty()) {
         message_ = text.empty() ? "THE CLIPBOARD IS EMPTY" : "NO INVITE IN THE CLIPBOARD";
         return;
     }
-    connect(text);
+    invite_.set(text); // shown in the INVITE field, to edit if it needs it
+    join();
 }
 
 void OnlineScene::finishEdit(FieldEditor::Result result) {
     if (result == FieldEditor::Result::None) return;
     services_.audio.play(result == FieldEditor::Result::Done ? "menu_confirm" : "menu_back");
-    // An invite pasted into the server field connects and joins at once.
-    if (result == FieldEditor::Result::Done && menu_.focused().id == "server") {
+    if (result != FieldEditor::Result::Done) return;
+    // An invite typed into the server field connects and joins at once, as the INVITE field does.
+    if (menu_.focused().id == "server") {
         const auto invite = net::parseInvite(server_.text());
         if (invite && !invite->code.empty()) connect(server_.text());
+    } else if (menu_.focused().id == "invite" && !invite_.empty()) {
+        join();
     }
 }
 
@@ -246,6 +276,8 @@ void OnlineScene::handleMenu(const MenuEvent& event) {
             editor_.start(name_, services_.display.window());
         else if (id == "server")
             editor_.start(server_, services_.display.window());
+        else if (id == "invite")
+            editor_.start(invite_, services_.display.window());
         else if (id == "paste")
             paste();
         else if (id == "connect")
@@ -278,7 +310,7 @@ void OnlineScene::fixedUpdate() {
 void OnlineScene::render(const RenderContext& context) {
     SDL_Renderer* r = context.renderer;
     backdrop(services_, r, "ONLINE");
-    const auto box = panel(r, 80, 96);
+    const auto box = panel(r, 80, 112);
     MenuStyle style;
     style.y = box.y + 14;
     style.width = 300;
@@ -292,7 +324,7 @@ void OnlineScene::render(const RenderContext& context) {
         small.draw(r, line, 320, 236, connecting ? ui::kBrassLight : ui::kCoralLight, Align::Centre, true);
     small.draw(r, "PLAY A FRIEND ON ANY IRON RING SERVER. ONE OF YOU CREATES A ROOM", 320, 300, ui::kFog, Align::Centre,
                true);
-    small.draw(r, "AND SENDS THE INVITE; THE OTHER PASTES IT HERE.", 320, 310, ui::kFog, Align::Centre, true);
+    small.draw(r, "AND SENDS THE INVITE. THE OTHER TYPES OR PASTES IT HERE.", 320, 310, ui::kFog, Align::Centre, true);
 }
 
 std::string OnlineScene::status() const {

@@ -155,6 +155,7 @@ Two players anywhere fight over the internet with rollback netcode. They meet on
 | 2026-10-31 | Art Pack v2 | Adopted as delivered; the arcade ending animates the champion, the still ending pictures are kept as key art ([ADR-0020](docs/adr/0020-adopting-art-pack-v2.md)) |
 | 2026-10-31 | Art Pack v2.1 | Redrawn crowds and the Foundry sign adopted as delivered; the vertical slice and M2 are complete |
 | 2026-11-01 | Online (M4) | Through a dedicated server, with rollback; private rooms with codes and an opt-in open list; the server referees; no default server unless `GameSettings.json` ships one; HOST ON THIS PC in M4.5; no spectators, rankings, accounts, server browser or voice ([ADR-0026](docs/adr/0026-online-play.md)) |
+| 2026-11-01 | Version numbers | `0.<milestone>.<patch>` until 1.0: the minor number is the milestone the build delivers (0.4.0 brings M4's online play), the patch counts fixes on it; **1.0.0** when M5 (release hardening) is done. The version is informational: online compatibility is decided by the protocol number and the game-data hash, replays by their content hash. Set once, in the top-level `CMakeLists.txt` |
 
 ## Open questions for the project owner
 
