@@ -2,13 +2,17 @@
 #include "Content/Fighter.h"
 #include "Content/Paths.h"
 #include "Content/Validation.h"
+#include "Simulation/Cpu.h"
 #include "Simulation/Match.h"
+#include "Simulation/Replay.h"
 #include "Vfs/DirectoryMount.h"
 
 #include <doctest/doctest.h>
 
 #include <filesystem>
 #include <memory>
+#include <cctype>
+#include <cstdio>
 #include <set>
 
 using namespace iron;
@@ -405,5 +409,63 @@ TEST_CASE("every stage streams from archives of its own") {
         const auto themeArchive = archiveOf(theme);
         CHECK(themeArchive.rfind("level", 0) == 0);
         CHECK(themeArchives.insert(themeArchive).second);
+    }
+}
+
+// Determinism across compilers (ADR-0026): every shipped fighter against the
+// next one (and the Broker against Dee), a full CPU-vs-CPU match on an 800 px
+// venue, pinned to its final checksum. CI runs this on GCC, Clang, MSVC and
+// MinGW, so online peers built by any of them simulate identically. The pins
+// are keyed by the pairing's data hash: after a deliberate frame-data change
+// the test says which pins to replace (and prints the new table); a checksum
+// that moves while the hash stays put is a determinism bug.
+TEST_CASE("every fighter pairing simulates identically on every compiler") {
+    struct Pin {
+        const char* p1;
+        const char* p2;
+        std::uint64_t contentHash;
+        std::uint64_t checksum;
+    };
+    // Regenerate: run this test and paste the table it prints.
+    static constexpr Pin kPins[] = {
+#include "DeterminismPins.inc"
+    };
+    const std::vector<std::pair<std::string, std::string>> pairings{
+        {"dee", "bram"}, {"bram", "sable"}, {"sable", "idris"}, {"idris", "greta"},
+        {"greta", "jun"}, {"jun", "broker"}, {"broker", "dee"}, {"dee", "dee"}};
+    const auto path = [](const std::string& id) {
+        std::string name = id;
+        name[0] = static_cast<char>(std::toupper(static_cast<unsigned char>(name[0])));
+        return "Fighters/" + name + "/" + id + ".fighter.json";
+    };
+    std::string table;
+    bool changedData = false;
+    for (const auto& [a, b] : pairings) {
+        const auto fa = shippedFighter(path(a)), fb = shippedFighter(path(b));
+        const auto hash = sim::replayContentHash(fa.spec, fb.spec, 800);
+        sim::Match m(fa.spec, fb.spec);
+        m.round.stageWidth = 800;
+        m.round.reset();
+        sim::CpuPlayer cpuA(3, 0xA11CE), cpuB(3, 0xB0B);
+        int ticks = 0;
+        for (; ticks < 40000 && !m.finished; ++ticks) (void)m.step({cpuA.think(m.round, 0), cpuB.think(m.round, 1)});
+        CHECK(m.finished);
+        char line[160];
+        std::snprintf(line, sizeof line, "        {\"%s\", \"%s\", 0x%016llxULL, 0x%016llxULL},\n", a.c_str(), b.c_str(),
+                      static_cast<unsigned long long>(hash), static_cast<unsigned long long>(m.checksum()));
+        table += line;
+        const Pin* pin = nullptr;
+        for (const auto& p : kPins)
+            if (a == p.p1 && b == p.p2) pin = &p;
+        CAPTURE(a);
+        CAPTURE(b);
+        if (!pin || pin->contentHash != hash) {
+            changedData = true; // a deliberate data change, or a new pairing: re-pin
+            continue;
+        }
+        CHECK_MESSAGE(m.checksum() == pin->checksum, "same frame data, different result: a determinism bug");
+    }
+    if (changedData) {
+        FAIL_CHECK("frame data changed since the pins were made: replace Tests/DeterminismPins.inc with\n" << table);
     }
 }

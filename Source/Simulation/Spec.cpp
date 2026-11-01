@@ -68,4 +68,37 @@ const FighterSpec& kitGrappler() {
     return spec;
 }
 
+std::uint64_t specHash(const FighterSpec& spec) {
+    std::uint64_t h = 14695981039346656037ULL;
+    const auto add = [&h](std::int64_t v) {
+        const auto u = static_cast<std::uint64_t>(v);
+        for (int j = 0; j < 8; ++j) {
+            h ^= (u >> (8 * j)) & 255U;
+            h *= 1099511628211ULL;
+        }
+    };
+    const auto box = [&add](const Box& b) {
+        add(b.x); add(b.y); add(b.w); add(b.h);
+    };
+    for (const auto& m : spec.moves) {
+        add(m.enabled); add(static_cast<std::int64_t>(m.kind));
+        add(m.startup); add(m.active); add(m.recovery);
+        box(m.hitbox);
+        add(m.damage); add(m.hitstun); add(m.blockstun); add(m.knockback); add(m.blockPush);
+        add(m.hitstopOnHit); add(m.hitstopOnBlock);
+        add(m.low); add(m.heavy); add(m.knockdown); add(m.cancel); add(m.advance);
+        for (const auto& phase : m.hurt)
+            for (const auto& b : phase) box(b);
+        add(m.throwDuration); add(m.throwDistance); add(m.techable);
+        for (const auto d : m.motion) add(d);
+        add(m.motionLength); add(m.motionButtons);
+    }
+    add(spec.walkForward); add(spec.walkBack); add(spec.jumpVelocity); add(spec.gravity);
+    box(spec.standHurt);
+    box(spec.crouchHurt);
+    add(spec.pushWidth); add(spec.knockdownTicks);
+    return h;
+}
+
 } // namespace iron::sim
+

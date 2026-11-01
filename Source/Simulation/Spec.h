@@ -94,6 +94,11 @@ struct FighterSpec {
     int knockdownTicks = 54;                // on the floor (invulnerable) incl. getting up
 };
 
+// FNV-1a over every gameplay field, in a fixed order: two builds with equal
+// hashes simulate a fighter identically. Replays and online peers compare it
+// (ADR-0026). Every FighterSpec / MoveSpec field must appear in it.
+[[nodiscard]] std::uint64_t specHash(const FighterSpec& spec);
+
 // The concept kit prototype's two archetypes, kept bit-exact for regression
 // tests (the golden checksum) and as a fallback when no content is loaded.
 [[nodiscard]] const FighterSpec& kitBoxer();

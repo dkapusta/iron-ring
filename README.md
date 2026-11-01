@@ -82,7 +82,7 @@ Player/Release/
     └── level1..7                one venue's theme each, mounted while in use
 ```
 
-The folder is self-contained and can be zipped and copied as is. `cmake --install Build/release --prefix ~/.local` installs it, with a desktop entry and icon on Linux ([docs/install.md](docs/install.md)). The player writes `Player.log` (previous run: `Player-prev.log`), `prefs.cfg` (what you chose in Options, plus the last stage picked) and F12 screenshots to the per-user data folder (`%APPDATA%\dkapusta\Iron Ring\` on Windows, `~/.local/share/dkapusta/Iron Ring/` on Linux). Delete `prefs.cfg` to go back to the defaults.
+The folder is self-contained and can be zipped and copied as is. `cmake --install Build/release --prefix ~/.local` installs it, with a desktop entry and icon on Linux ([docs/install.md](docs/install.md)). The player writes `Player.log` (previous run: `Player-prev.log`), `prefs.cfg` (what you chose in Options, plus the last stage picked) F12 screenshots and `Replays/` (the last 50 finished matches outside training, as `.irr` files for `-replay`) to the per-user data folder (`%APPDATA%\dkapusta\Iron Ring\` on Windows, `~/.local/share/dkapusta/Iron Ring/` on Linux). Delete `prefs.cfg` to go back to the defaults.
 
 ### Playing
 
@@ -137,6 +137,7 @@ Unity-compatible names where they exist:
 | `-keys "<frame>:<key>,..."` | Batch tests: tap keys (SDL key names) at the given frames, e.g. `"10:Return,30:Down"`; `"30-90:D"` holds a key, `"40:S+D"` presses keys together |
 | `-music-volume 0..1`, `-sfx-volume 0..1`, `-voice-volume 0..1` | Mix-group volumes (also in `boot.config` and Options) |
 | `-cpu-level easy\|normal\|hard` | CPU difficulty (also in Options) |
+| `-replay <file>` | Plays a replay file back and checks that it reproduces the match (the log says `Replay verified` or `Replay MISMATCH`) |
 | `-autoplay` | A CHAMPION CPU plays player 1 (soak tests: `-batchmode -autoplay` runs the whole arcade ladder) |
 | `-screen-effects full\|reduced` | Reduced: a gentle shake and no full-screen flashes (also in Options) |
 | `-hdr auto\|on\|off`, `-vsync 0\|1`, `-presentation integer\|letterbox`, `-render-driver <name>` | Override `boot.config` |
@@ -155,7 +156,7 @@ ProjectSettings/     GameSettings, InputManager, AssetPipeline (→ globalgamema
 Source/
   Core/              settings (boot.config, prefs.cfg, command line), bindings, menu model — no SDL
   Vfs/               archive format, writer, ZIP/folder mounts, VFS         — no SDL
-  Simulation/        deterministic combat core                              — no SDL
+  Simulation/        deterministic combat core, serialization, replays, rollback — no SDL
   Content/           fighter/atlas parsing and content validation           — no SDL
   Runtime/           engine module (UnityPlayer): display, HDR, audio, scenes
   Launcher/          player executable

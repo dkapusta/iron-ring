@@ -17,6 +17,8 @@
 #include <array>
 #include <cctype>
 #include <cstdio>
+#include <fstream>
+#include <iterator>
 #include <stdexcept>
 
 namespace iron {
@@ -76,7 +78,8 @@ Application::Application(const PlayerSettings& settings, PlayerPrefs prefs, cons
     logicalHeight_ = logical[1];
     services_ = std::make_unique<Services>(Services{*assets_, *audio_, *display_, *controls_, settings_, prefs_, *data_,
                                                     scenes_, static_cast<float>(logical[0]),
-                                                    static_cast<float>(logical[1]), [this] { resetRenderer(); }});
+                                                    static_cast<float>(logical[1]), [this] { resetRenderer(); },
+                                                    screenshotFolder_});
     openFirstScene();
 
     // "30:Return,45:Down": a one-frame tap at that frame; "30-90:D": held from
@@ -131,10 +134,43 @@ void Application::resetRenderer() {
     assets_->recreateTextures(display_->renderer());
 }
 
+std::optional<FightSetup> Application::replaySetup(const std::filesystem::path& file) const {
+    std::ifstream in(file, std::ios::binary);
+    const std::vector<std::uint8_t> bytes((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
+    std::string error;
+    auto replay = in || in.eof() ? sim::decodeReplay(bytes, &error) : std::nullopt;
+    if (!replay) {
+        SDL_Log("Replay %s: %s", file.string().c_str(), error.empty() ? "cannot read the file" : error.c_str());
+        return std::nullopt;
+    }
+    for (const auto& id : replay->fighters) {
+        const auto* entry = data_->fighter(id);
+        if (!entry || !entry->playable()) {
+            SDL_Log("Replay %s: fighter '%s' is not in this build", file.string().c_str(), id.c_str());
+            return std::nullopt;
+        }
+    }
+    SDL_Log("Replay %s: %s vs %s at %s, %d ticks, recorded by %s", file.string().c_str(), replay->fighters[0].c_str(),
+            replay->fighters[1].c_str(), replay->stage.c_str(), static_cast<int>(replay->inputs.size()),
+            replay->gameVersion.c_str());
+    FightSetup setup;
+    setup.control = Control::Demo;
+    setup.fighters = replay->fighters;
+    setup.stage = replay->stage;
+    setup.replay = std::make_shared<const sim::Replay>(std::move(*replay));
+    return setup;
+}
+
 void Application::openFirstScene() {
     // The title is always at the bottom; -demo, -training and -stage go straight into a fight above it.
     scenes_.push(std::make_unique<TitleScene>(*services_), Transition::Cut);
     scenes_.flush(); // applies the push, so the next one lands on top
+    if (!settings_.replay.empty()) {
+        if (auto setup = replaySetup(settings_.replay)) {
+            scenes_.push(std::make_unique<FightScene>(*services_, std::move(*setup)), Transition::Cut);
+            return;
+        }
+    }
     if (settings_.demo || settings_.training || !settings_.stage.empty()) {
         FightSetup setup;
         setup.control = settings_.demo ? Control::Demo : Control::VsCpu;

@@ -38,6 +38,7 @@ struct PlayerSettings {
     std::string fighters;     // -fighters <p1>,<p2>: fighter ids for -demo / -training / -stage (default: the first two)
     std::string scene;        // -scene <name>: open title, select, stage or options (screenshots, testing)
     bool autoplay = false;    // -autoplay: a CHAMPION CPU plays player 1 (soak tests of the arcade ladder)
+    std::filesystem::path replay; // -replay <file>: play a recorded match back (and verify it)
     std::string keys;         // -keys "30:Return,45:Down": key taps at given frames (batch testing)
     int batchFrames = 180;
     std::filesystem::path screenshotPath;
