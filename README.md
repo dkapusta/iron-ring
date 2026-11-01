@@ -92,7 +92,7 @@ The game opens on the title screen: press Start (Return, or a pad's Start) for t
 
 ### Controls
 
-The full scheme for both players, the menus and pads, with each fighter's moves written for either side of the screen, is in **[docs/controls.md](docs/controls.md)**. Rebind keys and pad buttons in **Options → Controls**; the pause menu's **Move list**, or heavy punch on the character select, shows every move in the keys you use.
+The full scheme for both players, the menus and pads, with each fighter's moves written for either side of the screen, is in **[docs/controls.md](docs/controls.md)**. Rebind keys and pad buttons in **Options → Controls**; the pause menu's **Move list**, or heavy punch on the character select, shows every move in the keys or pad buttons you used last.
 
 | Action | Player 1 | Player 2 |
 | --- | --- | --- |

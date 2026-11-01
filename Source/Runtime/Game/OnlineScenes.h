@@ -16,9 +16,10 @@
 namespace iron {
 
 // Edits one TextInput in place: typing, Backspace, Ctrl+V and Enter/Escape on
-// a keyboard; Up/Down/Left/Right/Confirm/Back on a pad. While editing, the
-// menu action a typed key would also produce (W is Up for player 1) is
-// swallowed.
+// a keyboard; Up/Down/Left/Right/Confirm/Back on a pad. A key press reaches the
+// scene twice, as a key (onEvent) and as the menu action it also means (W is
+// Up, Return is Confirm): that menu action is swallowed, also for the Return or
+// Escape that ends the edit, so it doesn't reopen the field or leave the screen.
 class FieldEditor {
   public:
     enum class Result { None, Done, Cancelled };
@@ -28,12 +29,15 @@ class FieldEditor {
     [[nodiscard]] const TextInput* field() const { return field_; }
     Result onEvent(const SDL_Event& event);
     Result onMenu(const MenuEvent& event);
+    // Call first in the scene's handleMenu: true if this menu action is the
+    // echo of a key the editor already took (the scene ignores it).
+    bool swallow();
 
   private:
     void stop();
     TextInput* field_ = nullptr;
     SDL_Window* window_ = nullptr;
-    bool swallow_ = false;
+    bool keyEcho_ = false; // the event just seen was a key press the editor took
 };
 
 // Puts a fight on the stack if the server started one (from the room or the

@@ -62,6 +62,15 @@ public:
     // Labels for screens ("F", "KP 1", "RB"); "-" when unbound.
     [[nodiscard]] std::string keyLabel(int player, int action) const;
     [[nodiscard]] std::string padLabel(int player, int action) const;
+    // Whether the player last pressed something on their pad rather than one of
+    // their keys; screens that show buttons (the move list) follow it.
+    [[nodiscard]] bool usingPad(int player) const {
+        return padActive_[static_cast<std::size_t>(player)] && hasPad(player);
+    }
+    // keyLabel or padLabel, for the device the player used last.
+    [[nodiscard]] std::string label(int player, int action) const {
+        return usingPad(player) ? padLabel(player, action) : keyLabel(player, action);
+    }
     // What a raw event would bind: a key that may be bound, or a pad button or
     // trigger, and whose pad it is. Empty for anything else (Escape, F-keys, Start).
     [[nodiscard]] static bool bindableKey(SDL_Scancode key);
@@ -97,6 +106,7 @@ private:
     std::array<SDL_Gamepad*, 2> pads_{};
     std::array<std::array<int, 2>, 2> stick_{}; // last menu direction per player and axis (-1, 0, 1)
     std::array<sim::Input, 2> latched_{};
+    std::array<bool, 2> padActive_{}; // usingPad()
     // Keys held according to key events, alongside SDL's keyboard state (which
     // events pushed by -keys scripts don't update).
     std::array<bool, SDL_SCANCODE_COUNT> held_{};

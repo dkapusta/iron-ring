@@ -249,6 +249,7 @@ void Controls::removePad(SDL_JoystickID id) {
     SDL_Log("Gamepad: player %d disconnected", p + 1);
     SDL_CloseGamepad(pad);
     pad = nullptr;
+    padActive_[static_cast<std::size_t>(p)] = false;
     rebuild();
 }
 
@@ -279,10 +280,14 @@ std::optional<MenuEvent> Controls::onEvent(const SDL_Event& event) {
         const auto& key = event.key;
         if (key.scancode < SDL_SCANCODE_COUNT) held_[key.scancode] = true;
         std::optional<MenuEvent> menu;
-        if (const auto action = keyAction(key.scancode)) menu = MenuEvent{0, *action};
+        if (const auto action = keyAction(key.scancode)) {
+            menu = MenuEvent{0, *action};
+            padActive_[0] = false; // Return, Backspace, Escape: player 1 is at the keyboard
+        }
         for (std::size_t p = 0; p < keys_.size(); ++p) {
             for (const auto& k : keys_[p]) {
                 if (k.scancode != key.scancode) continue;
+                padActive_[p] = false;
                 if (!key.repeat) latched_[p] = static_cast<sim::Input>(latched_[p] | k.bit);
                 if (const auto action = bitAction(k.bit); action && !menu)
                     menu = MenuEvent{static_cast<int>(p), *action};
@@ -298,6 +303,7 @@ std::optional<MenuEvent> Controls::onEvent(const SDL_Event& event) {
         const int p = padPlayer(event.gbutton.which);
         if (p < 0) return std::nullopt;
         const auto button = static_cast<SDL_GamepadButton>(event.gbutton.button);
+        padActive_[static_cast<std::size_t>(p)] = true;
         for (const auto& b : padLayouts_[static_cast<std::size_t>(p)].buttons)
             if (b.button == button)
                 latched_[static_cast<std::size_t>(p)] = static_cast<sim::Input>(latched_[static_cast<std::size_t>(p)] | b.bit);
@@ -307,6 +313,8 @@ std::optional<MenuEvent> Controls::onEvent(const SDL_Event& event) {
     case SDL_EVENT_GAMEPAD_AXIS_MOTION: {
         const int p = padPlayer(event.gaxis.which);
         if (p < 0) return std::nullopt;
+        if (event.gaxis.value > kStickHeld || event.gaxis.value < -kStickHeld)
+            padActive_[static_cast<std::size_t>(p)] = true; // a stick or a trigger, well past its rest
         return stickEdge(p, static_cast<SDL_GamepadAxis>(event.gaxis.axis), event.gaxis.value);
     }
     default: return std::nullopt;
