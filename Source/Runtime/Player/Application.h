@@ -2,6 +2,7 @@
 
 #include "Core/PlayerPrefs.h"
 #include "Core/PlayerSettings.h"
+#include "Game/FightScene.h"
 #include "Game/SceneStack.h"
 #include "Platform/Display.h"
 #include "Vfs/StreamingArchives.h"
@@ -9,6 +10,7 @@
 
 #include <filesystem>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -42,6 +44,8 @@ private:
     void setWindowIcon();
     void handleEvent(const SDL_Event& event);
     void openFirstScene();
+    // A fight that plays a replay file back, or nullopt (logged) if it can't be read or played here.
+    [[nodiscard]] std::optional<FightSetup> replaySetup(const std::filesystem::path& file) const;
     void resetRenderer();
     void playKeyScript(int frame);
     void render(const std::filesystem::path& capturePath);

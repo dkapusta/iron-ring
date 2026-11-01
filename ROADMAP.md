@@ -73,7 +73,7 @@ Goal: two characters that feel good in local play on one stage. Target platforms
     - ✅ Text over busy art: a backing behind the training-box legend, dark bands behind the arcade ending's lines
   - ✅ Art Pack v2.1: redrawn crowds for the four venues (42 distinct spectators each, heads in every frame, cheering arms with hands) and a legible Foundry sign ([brief](docs/art/art-pack-v2.1-brief.md), [review](ArtSource/Pack-v2.1/REVIEW.md))
 
-## M3 — Roster and world 🔜
+## M3 — Roster and world ✅
 
 New fighters arrive with procedural placeholder art and their own frame data, move list and announcer line; final art for them comes in a later art pack, as it did for Dee and Bram ([ADR-0021](docs/adr/0021-adding-fighters.md)).
 
@@ -94,12 +94,31 @@ New fighters arrive with procedural placeholder art and their own frame data, mo
 - ✅ Art Pack v3B (venues): final layered art for Dry Dock 4, The Hold and The Broker's Club; no placeholder art is left in the game ([ADR-0025](docs/adr/0025-adopting-art-pack-v3b.md), [review](ArtSource/Pack-v3B/REVIEW.md))
 - ✅ Final art polish (Art Pack v3.1): one portrait backdrop for all fourteen portraits, Greta's and Jun's skin out of their apron and shoe ramps, the chain ring on the three M3 floors, Dry Dock 4's beam and sky, The Hold's lamp ([brief](docs/art/final-polish-brief.md), [review](ArtSource/Pack-v3.1/REVIEW.md))
 
-## M4 — Online
+## M4 — Online 🔜
 
-- ⬜ Versioned, explicit state serialization (no struct copies); replay files
-- ⬜ Rollback netcode: input prediction, resimulation, input delay, desync detection via checksums
-- ⬜ Event reconciliation so sounds/VFX never double-fire on resimulation (`StepEvents` is the hook)
-- ⬜ Cross-platform determinism tests (Windows/Linux, MSVC/GCC/Clang/MinGW produce identical checksums)
+Two players anywhere fight over the internet with rollback netcode. They meet on an Iron Ring Dedicated Server: a room code, or one pasted invite string, puts a friend in your room. Design: [docs/design/online.md](docs/design/online.md); decisions: [ADR-0026](docs/adr/0026-online-play.md).
+
+- ✅ **M4.1 Foundations:**
+  - versioned, explicit serialization of the match state (no struct copies on the wire);
+  - replay files, saved after every match, and `-replay`;
+  - `sim::Rollback` (prediction, re-simulation, input delay, checksums), tested against a simulated network;
+  - pinned checksums for every fighter pairing, so all four compilers must agree.
+- 🔜 **M4.2 Server:**
+  - `IronRingNet`: ENet, the protocol, room codes, invites;
+  - the `IronRingServer` target: lobby, rooms, relay, referee, `server.cfg`, logs, clean shutdown;
+  - the deployment guide `docs/server.md`, with a systemd unit and a Dockerfile;
+  - server binaries as CI artifacts.
+- ⬜ **M4.3 Online front end:**
+  - the ONLINE menu, and a text field with keyboard, pad grid, paste and history;
+  - the player name, the server lobby and rooms (private by default, OPEN ROOMS opt-in);
+  - COPY / PASTE INVITE and `-connect`.
+- ⬜ **M4.4 Online fights:**
+  - online character and stage select, rollback fights through the relay, rematch;
+  - event reconciliation, so sounds and effects never fire twice on re-simulation;
+  - disconnect and desync handling, the ping and delay HUD, the ONLINE options, `-netsim`.
+- ⬜ **M4.5 Soak and hardening:**
+  - CI runs a server and two headless clients through a match, plus a load test of 100 rooms and checks of the abuse limits;
+  - **HOST ON THIS PC**.
 
 ## M5 — Release hardening
 
@@ -135,6 +154,7 @@ New fighters arrive with procedural placeholder art and their own frame data, mo
 | 2026-10-30 | Final art | Art Pack v1 adopted; frames re-registered at one scale, 48 colours per fighter ([ADR-0012](docs/adr/0012-adopting-external-art.md)) |
 | 2026-10-31 | Art Pack v2 | Adopted as delivered; the arcade ending animates the champion, the still ending pictures are kept as key art ([ADR-0020](docs/adr/0020-adopting-art-pack-v2.md)) |
 | 2026-10-31 | Art Pack v2.1 | Redrawn crowds and the Foundry sign adopted as delivered; the vertical slice and M2 are complete |
+| 2026-11-01 | Online (M4) | Through a dedicated server, with rollback; private rooms with codes and an opt-in open list; the server referees; no default server unless `GameSettings.json` ships one; HOST ON THIS PC in M4.5; no spectators, rankings, accounts, server browser or voice ([ADR-0026](docs/adr/0026-online-play.md)) |
 
 ## Open questions for the project owner
 

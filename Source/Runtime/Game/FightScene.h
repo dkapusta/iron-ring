@@ -13,6 +13,7 @@
 #include "Render/BitmapFont.h"
 #include "Simulation/Cpu.h"
 #include "Simulation/Match.h"
+#include "Simulation/Replay.h"
 #include "Simulation/Training.h"
 
 #include <array>
@@ -39,6 +40,8 @@ struct FightSetup {
     // Arcade: called once with the match's winner when it is decided; the
     // fight then leaves the stack by itself instead of offering a rematch.
     std::function<void(sim::Outcome)> onFinished;
+    // Playback: the inputs come from this recording (fighters and stage must match it).
+    std::shared_ptr<const sim::Replay> replay;
 };
 
 // Versus screen: a best-of-3 sim::Match between two fighters on one of the
@@ -82,6 +85,8 @@ private:
     void playCues();
     [[nodiscard]] std::string controlName() const;
     void playEvents(const sim::MatchStep& step);
+    void saveReplay();
+    void finishPlayback();
     void drawShadow(SDL_Renderer* r, float x, float groundY, float height) const;
     [[nodiscard]] std::array<const FighterView*, 2> views() const { return {views_[0].get(), views_[1].get()}; }
 
@@ -98,6 +103,8 @@ private:
     Camera camera_;
     std::array<std::optional<sim::CpuPlayer>, 2> cpu_; // per side, for CPU-controlled sides
     unsigned matches_ = 0;                             // seeds the CPUs: each rematch plays differently
+    std::vector<std::array<sim::Input, 2>> recorded_;  // this match's inputs, for its replay file
+    std::size_t playback_ = 0;                         // next input of setup_.replay
     float shakeAmplitude_ = 0;
     int shakeTicks_ = 0, shakeTotal_ = 0, flashTicks_ = 0;
     bool training_ = false;

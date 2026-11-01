@@ -29,3 +29,4 @@ One file per decision, numbered, never renumbered. Supersede rather than rewrite
 | [0023](0023-stage-streaming.md) | Stream each venue's layers and theme from archives of its own; keep two stages loaded | Accepted |
 | [0024](0024-adopting-art-pack-v3a.md) | Adopt Art Pack v3A (the M3 fighters) as delivered, with a correction round | Accepted |
 | [0025](0025-adopting-art-pack-v3b.md) | Adopt Art Pack v3B (the M3 venues) and the v3A.1 corrections | Accepted |
+| [0026](0026-online-play.md) | Online play through a dedicated server, with rollback and room codes | Accepted |

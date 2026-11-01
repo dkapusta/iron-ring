@@ -22,7 +22,7 @@ flowchart LR
     AP --> VFS
 ```
 
-Static libraries without SDL (`Core`, `Vfs`, `Simulation`, `Content`) carry everything that can be unit-tested (the simulation also holds the training rules and the deterministic training dummy, `Simulation/Training`, and the CPU opponent with its five levels, `Simulation/Cpu`); `Content` turns JSON into the simulation's plain `FighterSpec` and checks the timing contract ([ADR-0010](adr/0010-fighter-content-format.md)), so the simulation never sees JSON; the engine module adds the platform. The launcher knows only `Public/IronRing/Player.h`.
+Static libraries without SDL (`Core`, `Vfs`, `Simulation`, `Content`) carry everything that can be unit-tested (the simulation also holds the training rules and the deterministic training dummy, `Simulation/Training`, the CPU opponent with its five levels, `Simulation/Cpu`, and, for online play and replays, the versioned state encoding `Simulation/Serialize`, the replay format `Simulation/Replay` and the rollback session `Simulation/Rollback`, [ADR-0026](adr/0026-online-play.md)); `Content` turns JSON into the simulation's plain `FighterSpec` and checks the timing contract ([ADR-0010](adr/0010-fighter-content-format.md)), so the simulation never sees JSON; the engine module adds the platform. The launcher knows only `Public/IronRing/Player.h`.
 
 ## Engine internals (`Source/Runtime`)
 

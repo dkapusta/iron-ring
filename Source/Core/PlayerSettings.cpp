@@ -158,6 +158,10 @@ std::vector<std::string> applyCommandLine(PlayerSettings& settings, std::span<co
                                                  : settings.keys;
                 target = std::string(*v);
             }
+        } else if (arg == "-replay") {
+            const auto v = next(i);
+            ok = v && !v->empty();
+            if (ok) settings.replay = std::filesystem::path(std::string(*v));
         } else if (arg == "-screen-fullscreen") {
             const auto v = next(i);
             const auto b = v ? toBool(*v) : std::nullopt;

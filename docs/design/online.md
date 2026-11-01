@@ -1,6 +1,6 @@
-# M4 Online: proposal
+# M4 Online: design
 
-- **Status:** Proposed, for the owner's review. When accepted, it becomes the M4 section of the ROADMAP and an ADR.
+- **Status:** Accepted 2026-11-01, with the decisions in §6 ([ADR-0026](../adr/0026-online-play.md)). The M4 section of the [ROADMAP](../../ROADMAP.md) follows §5.
 - **Date:** 2026-11-01
 
 ## 1. What players get
@@ -265,11 +265,11 @@ The server is SDL-free by construction. It builds on Linux and Windows, and in C
 
 Each step is one or two PRs, as in M3.
 
-## 6. Decisions for the owner
+## 6. Decisions (accepted 2026-11-01)
 
-1. **Relay through the server, not direct peer-to-peer** (§4.1). Recommended, for no port forwarding and private IPs. Direct can come later.
-2. **Rooms are private by default, with an opt-in OPEN ROOMS list.** Alternatively, private only, or also a QUICK MATCH that pairs any two waiting players. QUICK MATCH is cheap to add once open rooms exist.
-3. **The server referees by default (`verify=1`).** This needs the game data on the server. With it off, the server compares the clients' checksums only.
-4. **A default server.** None, so players type an address. Alternatively, a server address shipped in `GameSettings.json` for a community server, if you plan to run one.
-5. **HOST ON THIS PC:** the same server code run inside the game, for LAN parties or friends with port forwarding. Proposed as a small M4.5 extra, or later.
-6. **Not in M4:** spectators, rankings, accounts, a server browser across servers, and voice. Candidates for later.
+1. **Fights go through the server, not peer-to-peer** (§4.1): players need no port forwarding, and their IPs stay private. Direct connections may come later, behind the same protocol.
+2. **Rooms are private by default.** Joining takes the code or an invite; the host can opt in to the OPEN ROOMS list. Quick match is not planned.
+3. **The server referees by default** (`verify=1`, which needs the game data on the server). With `verify=0`, it compares the two clients' checksums only.
+4. **No default server.** Players type or paste an address. If `GameSettings.json` ships a `defaultServer` value, the SERVER field starts with it; none is shipped today.
+5. **HOST ON THIS PC** is a small extra in M4.5: the same server code, run inside the game.
+6. **Not planned:** spectators, rankings, accounts, a server browser and voice.

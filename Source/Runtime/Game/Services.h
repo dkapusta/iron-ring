@@ -9,6 +9,7 @@
 #include "Game/SceneStack.h"
 #include "Platform/Display.h"
 
+#include <filesystem>
 #include <functional>
 
 namespace iron {
@@ -26,6 +27,7 @@ struct Services {
     float width = 640, height = 360; // logical resolution
     // A new renderer for the current settings (the HDR option); textures reload.
     std::function<void()> resetRenderer;
+    std::filesystem::path userFolder; // Player.log, prefs.cfg, screenshots, Replays/
 };
 
 } // namespace iron

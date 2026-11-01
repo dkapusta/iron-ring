@@ -8,6 +8,8 @@
 #include <algorithm>
 #include <cmath>
 #include <cstdio>
+#include <ctime>
+#include <fstream>
 #include <stdexcept>
 
 namespace iron {
@@ -49,6 +51,13 @@ FightScene::FightScene(Services& services, FightSetup setup)
     dummy_ = setup_.dummy;
     if (training_) overlay_->toggle();
     newMatch();
+    if (setup_.replay) {
+        const auto expected = sim::replayContentHash(views_[0]->definition().spec, views_[1]->definition().spec,
+                                                     match_->round.stageWidth);
+        if (expected != setup_.replay->contentHash)
+            SDL_Log("Replay: recorded with different game data (build %s); it may not play back the same",
+                    setup_.replay->gameVersion.c_str());
+    }
 }
 
 void FightScene::onEnter() {
@@ -111,11 +120,13 @@ void FightScene::newMatch() {
     effects_->clear();
     inputDisplay_->clear();
     cues_.clear();
+    recorded_.clear();
+    playback_ = 0;
     if (entered_) playStageMusic(); // a rematch: the theme stopped at the end of the match
 }
 
 bool FightScene::human(int side) const {
-    if (control_ == Control::Demo) return false;
+    if (control_ == Control::Demo || setup_.replay) return false;
     return side == 0 || control_ == Control::TwoPlayers;
 }
 
@@ -261,12 +272,23 @@ void FightScene::fixedUpdate() {
                         : training_ && !dummyCpu         ? sim::dummyInput(round, 1, dummy_)
                                                           : cpu(1);
     const bool autoplay = services_.settings.autoplay && control_ != Control::TwoPlayers;
-    const std::array<sim::Input, 2> inputs{demo || autoplay ? cpu(0) : controls.sample(0), p2};
+    std::array<sim::Input, 2> inputs{demo || autoplay ? cpu(0) : controls.sample(0), p2};
+    if (setup_.replay) {
+        const auto& recording = setup_.replay->inputs;
+        inputs = playback_ < recording.size() ? recording[playback_++] : std::array<sim::Input, 2>{};
+    } else {
+        recorded_.push_back(inputs);
+    }
 
     const auto step = match_->step(inputs);
     playEvents(step);
     playCues();
+    if (step.flow == sim::FlowEvent::Finished && setup_.replay) {
+        finishPlayback();
+        return;
+    }
     if (step.flow == sim::FlowEvent::Finished) {
+        saveReplay();
         if (setup_.onFinished) {
             setup_.onFinished(match_->winner);
             services_.scenes.pop();
@@ -348,7 +370,62 @@ void FightScene::render(const RenderContext& context) {
     hud_->draw(r, *match_, views(), ui::upper(line));
 }
 
+void FightScene::saveReplay() {
+    // Every finished match except training and the title's attract demo.
+    if (training_ || setup_.attract || services_.userFolder.empty() || recorded_.empty()) return;
+    sim::Replay replay;
+    replay.gameVersion = IR_VERSION_STRING;
+    replay.fighters = setup_.fighters;
+    replay.stage = services_.data.stages()[stage_].id;
+    replay.stageWidth = match_->round.stageWidth;
+    replay.contentHash = sim::replayContentHash(views_[0]->definition().spec, views_[1]->definition().spec,
+                                                replay.stageWidth);
+    replay.recordedAt = static_cast<std::int64_t>(std::time(nullptr));
+    replay.inputs = recorded_;
+    replay.finalChecksum = match_->checksum();
+
+    namespace fs = std::filesystem;
+    const auto folder = services_.userFolder / "Replays";
+    std::error_code ec;
+    fs::create_directories(folder, ec);
+    char stamp[32];
+    const std::time_t now = std::time(nullptr);
+    std::tm local{};
+#ifdef _WIN32
+    localtime_s(&local, &now);
+#else
+    localtime_r(&now, &local);
+#endif
+    std::strftime(stamp, sizeof stamp, "%Y%m%d-%H%M%S", &local);
+    const auto path = folder / (std::string(stamp) + "_" + replay.fighters[0] + "-vs-" + replay.fighters[1] + ".irr");
+    const auto bytes = sim::encodeReplay(replay);
+    std::ofstream out(path, std::ios::binary);
+    out.write(reinterpret_cast<const char*>(bytes.data()), static_cast<std::streamsize>(bytes.size()));
+    if (!out) {
+        SDL_Log("Replay: cannot write %s", path.string().c_str());
+        return;
+    }
+    SDL_Log("Replay saved: %s (%d ticks)", path.string().c_str(), static_cast<int>(replay.inputs.size()));
+
+    // Keep the newest kKeptReplays (the names sort by time).
+    constexpr std::size_t kKeptReplays = 50;
+    std::vector<fs::path> files;
+    for (const auto& e : fs::directory_iterator(folder, ec))
+        if (e.path().extension() == ".irr") files.push_back(e.path());
+    std::sort(files.begin(), files.end());
+    for (std::size_t i = 0; i + kKeptReplays < files.size(); ++i) fs::remove(files[i], ec);
+}
+
+void FightScene::finishPlayback() {
+    const bool same = match_->checksum() == setup_.replay->finalChecksum && playback_ == setup_.replay->inputs.size();
+    const int played = static_cast<int>(playback_), total = static_cast<int>(setup_.replay->inputs.size());
+    if (same) SDL_Log("Replay verified: %d ticks, identical result", played);
+    else SDL_Log("Replay MISMATCH: the match did not play back the same (%d of %d ticks)", played, total);
+    services_.scenes.pop();
+}
+
 std::string FightScene::controlName() const {
+    if (setup_.replay) return "REPLAY";
     if (training_ && control_ == Control::VsCpu) return "TRAINING - DUMMY " + std::string(sim::dummyName(dummy_));
     switch (control_) {
     case Control::VsCpu: return "VS CPU - " + std::string(sim::cpuLevelName(setup_.cpuLevel));
