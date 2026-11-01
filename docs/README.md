@@ -8,6 +8,7 @@
 | [art/asset-spec.md](art/asset-spec.md) | you make, generate or review art: sizes, frames, pivots, timing, stage layout |
 | [art/generation-prompts.md](art/generation-prompts.md) | you produce art with an outside image generator |
 | [art/art-pack-v2.1-brief.md](art/art-pack-v2.1-brief.md) | you redraw the crowds (and the Foundry sign) for Art Pack v2.1: the correction brief in one file |
+| [art/final-polish-brief.md](art/final-polish-brief.md) | you make the final art polish pass (Art Pack v3.1): portrait backdrops, Greta's and Jun's skin, the M3 chain rings, two venue touch-ups |
 | [art/art-pack-v3a.1-brief.md](art/art-pack-v3a.1-brief.md) | you correct four items of Art Pack v3A (the Broker's skin, Sable's walk, Idris's two kicks) |
 | [art/art-pack-v3-brief.md](art/art-pack-v3-brief.md) | you make the production art for the M3 fighters (Sable, Idris, Greta, Jun, the Broker) and venues (Dry Dock 4, The Hold, The Broker's Club): Art Pack v3 in one file |
 | [art/vertical-slice-art-brief.md](art/vertical-slice-art-brief.md) | you produce the artwork for the vertical slice (Art Pack v2): the whole brief in one file |
