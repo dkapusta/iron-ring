@@ -143,6 +143,12 @@ def check_crowds() -> list[str]:
     return errors
 
 
+def check_portraits() -> list[str]:
+    """Every HUD and select portrait sits on the shared backdrop (docs/art/templates)."""
+    from portrait_backdrop import check
+    return check()
+
+
 def check_previews() -> list[str]:
     """Every layered stage's preview is its layers composed at the middle camera."""
     import numpy as np
@@ -162,7 +168,7 @@ def main() -> int:
     with tempfile.TemporaryDirectory() as tmp:
         work = Path(tmp)
         errors = (check_generated(work / "generated") + check_sources(work / "sources")
-                  + check_round_trip(work / "roundtrip") + check_crowds() + check_previews())
+                  + check_round_trip(work / "roundtrip") + check_crowds() + check_previews() + check_portraits())
     for e in errors:
         print("FAIL: " + e)
     print("art selftest: " + ("FAILED" if errors else "ok"))

@@ -7,6 +7,7 @@ Editable sources of externally authored art. The game never reads this folder; `
 | `Fighters/<Name>/frames/` | One PNG per frame: 256 × 256 RGBA, character facing right, origin (feet on the ground) at **(128, 232)**, hard alpha, 48-colour palette per fighter. `manifest.json` holds the throw partner offsets. |
 | `Pack-v1/` | Provenance of Iron Ring Art Pack v1: production notes, art review, the generation prompts and the original per-frame registration. |
 | `Pack-v2.1/` | Provenance of Iron Ring Art Pack v2.1 (redrawn crowds, Foundry sign): the pack's README, the review, its registration, motion and validation records (`Source/`). |
+| `Pack-v3.1/` | Provenance of Iron Ring Art Pack v3.1 (final polish): the pack's README, provenance, licence, checks and the review. |
 | `Pack-v3B/` | Provenance of Iron Ring Art Pack v3B (Dry Dock 4, The Hold, The Broker's Club) and the v3A.1 corrections: the pack's README, provenance, review, validation, authoring notes and prompts, and the separable people, barrier and spectator masters (`Source/`). |
 | `Pack-v3A/` | Provenance of Iron Ring Art Pack v3A (Sable, Idris, Greta, Jun, the Broker): the pack's README and provenance, the review, validation reports, palettes and source records (`Source/`). |
 | `Pack-v2/` | Provenance of Iron Ring Art Pack v2: the pack's README, art review, integration notes and validation reports; its palettes, registration and generation records (`Source/`); the still ending pictures, not used by the game (`Endings/`). |
@@ -49,3 +50,14 @@ Delivered 2026-11-01. It holds final layered art for Dry Dock 4, The Hold and Th
 - Idris's Mast Kick and Bowline Heel brought into their hitboxes.
 
 Adopted as delivered ([ADR-0025](../docs/adr/0025-adopting-art-pack-v3b.md), [Pack-v3B/REVIEW.md](Pack-v3B/REVIEW.md)). With it, no procedural placeholder art is left in `Assets/`. The pack's 20 MB of generated studies and its previews stay outside the repository.
+
+## Art Pack v3.1
+
+Delivered 2026-11-01 against the [final polish brief](../docs/art/final-polish-brief.md):
+- Greta's and Jun's skin (and Jun's hair) recoloured in all their frames and portraits;
+- the chain ring redrawn on the three M3 floors;
+- Dry Dock 4's beam and sky softened;
+- a caged lamp and light pool for The Hold;
+- three specks removed.
+
+Adopted, with two project-side edits: the shared portrait backdrop (P1) applied to all thirteen portraits with `Tools/Art/portrait_backdrop.py`, and a radial falloff on The Hold's light pool ([Pack-v3.1/REVIEW.md](Pack-v3.1/REVIEW.md)).

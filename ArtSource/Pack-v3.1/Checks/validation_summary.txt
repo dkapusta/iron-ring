@@ -1,0 +1,4 @@
+Offline validation: 1384 assertions; 0 errors.
+Art selftest exit code: 0
+P1 exact backdrop diff: NOT RUN; project templates absent.
+CMake / ctest / AssetPacker / live game: NOT RUN.
