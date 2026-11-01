@@ -97,8 +97,11 @@ void CharacterSelectScene::showMoves(int side) {
         return;
     }
     // Written as this side will face at the start of a round, in the keys of whoever picks it.
-    const int keys = mode_ == SelectMode::TwoPlayers || side == 0 ? side : -1;
-    const std::string label = keys < 0 ? "CPU" : side == 0 ? "PLAYER 1" : "PLAYER 2";
+    // Online, this PC's player plays either side with player 1's keys or pad.
+    const bool online = mode_ == SelectMode::Online;
+    const int keys = online ? (side == localSide_ ? 0 : -1) : mode_ == SelectMode::TwoPlayers || side == 0 ? side : -1;
+    const std::string label = online ? (keys < 0 ? "OPPONENT" : "YOU")
+                            : keys < 0 ? "CPU" : side == 0 ? "PLAYER 1" : "PLAYER 2";
     services_.audio.play("menu_confirm");
     services_.scenes.push(std::make_unique<MoveListScene>(
                               services_, std::vector<MoveListPanel>{{&fighter->definition(), side == 0 ? 1 : -1, keys, label}},

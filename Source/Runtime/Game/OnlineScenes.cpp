@@ -50,7 +50,7 @@ void FieldEditor::start(TextInput& field, SDL_Window* window) {
     field_ = &field;
     window_ = window;
     field.begin();
-    swallow_ = true; // the Confirm that started editing came from the same key press
+    keyEcho_ = false; // the press that started editing has done its job
     if (window_) SDL_StartTextInput(window_);
 }
 
@@ -59,14 +59,23 @@ void FieldEditor::stop() {
     field_ = nullptr;
 }
 
+bool FieldEditor::swallow() {
+    const bool echo = keyEcho_;
+    keyEcho_ = false;
+    return echo;
+}
+
 FieldEditor::Result FieldEditor::onEvent(const SDL_Event& event) {
+    // Every SDL event comes here before its menu action (Application::handleEvent),
+    // so this marks whether the next menu action belongs to a key the editor took.
+    if (event.type != SDL_EVENT_TEXT_INPUT) keyEcho_ = false;
     if (!field_) return Result::None;
     if (event.type == SDL_EVENT_TEXT_INPUT) {
         field_->type(event.text.text);
         return Result::None;
     }
     if (event.type != SDL_EVENT_KEY_DOWN) return Result::None;
-    swallow_ = true; // a keyboard key: its menu action (if any) is not for us
+    keyEcho_ = true; // a keyboard key: its menu action (if any) is not for the menu
     const auto key = event.key.scancode;
     if (key == SDL_SCANCODE_BACKSPACE)
         field_->backspace();
@@ -86,10 +95,6 @@ FieldEditor::Result FieldEditor::onEvent(const SDL_Event& event) {
 
 FieldEditor::Result FieldEditor::onMenu(const MenuEvent& event) {
     if (!field_) return Result::None;
-    if (swallow_) {
-        swallow_ = false;
-        return Result::None;
-    }
     // A pad: arcade name entry.
     switch (event.action) {
     case MenuAction::Up: field_->cycle(1); break;
@@ -216,6 +221,7 @@ void OnlineScene::handleEvent(const SDL_Event& event) {
 }
 
 void OnlineScene::handleMenu(const MenuEvent& event) {
+    if (editor_.swallow()) return;
     if (editor_.editing()) return finishEdit(editor_.onMenu(event));
     if (services_.online->status() == OnlineSession::Status::Connecting) {
         if (event.action == MenuAction::Back || event.action == MenuAction::Pause) {
@@ -340,6 +346,7 @@ void LobbyScene::handleEvent(const SDL_Event& event) {
 
 void LobbyScene::handleMenu(const MenuEvent& event) {
     auto& online = *services_.online;
+    if (editor_.swallow()) return;
     if (editor_.editing()) {
         if (editor_.onMenu(event) == FieldEditor::Result::Done && code_.text().size() == net::kCodeLength)
             online.send(net::JoinRoom{code_.text()});

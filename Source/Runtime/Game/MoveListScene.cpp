@@ -48,7 +48,7 @@ void MoveListScene::handleMenu(const MenuEvent& event) {
 
 std::string MoveListScene::button(const MoveListPanel& panel, int action) const {
     if (panel.player < 0) return kButtonNames[action];
-    return services_.controls.keyLabel(panel.player, action);
+    return services_.controls.label(panel.player, action); // keys or pad, whichever was used last
 }
 
 void MoveListScene::drawPanel(SDL_Renderer* r, const MoveListPanel& panel, int colour, float x) const {
@@ -113,7 +113,7 @@ void MoveListScene::render(const RenderContext& context) {
     ui::fill(r, 0, 0, services_.width, 40, {7, 9, 15, 230}); // the title sits over whatever title is behind
     data.large().draw(r, "MOVE LIST", services_.width / 2, 12, ui::kWhite, Align::Centre);
     if (panels_.size() == 1) {
-        drawPanel(r, panels_[0], panels_[0].player > 0 ? 1 : 0, std::floor((services_.width - 296) / 2));
+        drawPanel(r, panels_[0], panels_[0].facing < 0 ? 1 : 0, std::floor((services_.width - 296) / 2));
     } else {
         for (std::size_t i = 0; i < panels_.size() && i < 2; ++i)
             drawPanel(r, panels_[i], static_cast<int>(i), i == 0 ? 16 : services_.width - 16 - 296);

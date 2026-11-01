@@ -1,6 +1,6 @@
 # Controls and move lists
 
-These are the default bindings. You can change them in **Options → Controls** (they are saved to `prefs.cfg`); the defaults live in [`ProjectSettings/InputManager.json`](../ProjectSettings/InputManager.json). The in-game **Move list** shows each side's moves with the keys that side currently uses: heavy punch on the character select, or **Move list** in the pause menu.
+These are the default bindings. You can change them in **Options → Controls** (they are saved to `prefs.cfg`); the defaults live in [`ProjectSettings/InputManager.json`](../ProjectSettings/InputManager.json). The in-game **Move list** shows each side's moves with the buttons that side currently uses, on the keyboard or the pad, whichever that player pressed last: heavy punch on the character select, or **Move list** in the pause menu.
 
 ## Both players at a glance
 
@@ -27,7 +27,7 @@ The first gamepad connected is player 1, the second player 2; the keyboard works
 | Back | H (light kick) | Keypad 3 (light kick) | B (east) | Backspace, Escape |
 | Move list (character select) | G (heavy punch) | Keypad 2 (heavy punch) | Y (north) | — |
 
-On the character select, heavy punch opens the move list of the fighter under your cursor, in your keys and written as your side faces at the start of a round; any button closes it. Menus follow your bindings: if you move light punch to another key, that key confirms. On screens one player drives (title, Versus CPU and Training select, options), either player's keys work; on the 2 Players select each side moves its own cursor.
+On the character select, heavy punch opens the move list of the fighter under your cursor, in your keys (or your pad's buttons, if you used the pad last) and written as your side faces at the start of a round; any button closes it. Menus follow your bindings: if you move light punch to another key, that key confirms. On screens one player drives (title, Versus CPU and Training select, options), either player's keys work; on the 2 Players select each side moves its own cursor.
 
 ### Text fields (ONLINE)
 
