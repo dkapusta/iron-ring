@@ -1,0 +1,7 @@
+# Only sources, Assets and ProjectSettings go into the server image build.
+Build/
+ArtSource/
+docs/
+.git/
+.github/
+**/__pycache__/

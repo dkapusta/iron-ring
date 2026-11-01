@@ -10,6 +10,7 @@ Iron Ring itself is licensed under the [zlib License](LICENSE). It builds on the
 | dr_flac (via SDL_mixer) | bundled | MIT-0 or public domain (Unlicense) | player | https://github.com/mackron/dr_libs |
 | miniz | 3.1.2 | MIT | player, AssetPacker | https://github.com/richgel999/miniz |
 | nlohmann/json | 3.12.0 | MIT | player, AssetPacker | https://github.com/nlohmann/json |
+| ENet | 1.3.18 | MIT | IronRingServer, online play | https://github.com/lsalzman/enet |
 | doctest | 2.5.3 | MIT | unit tests only (not shipped) | https://github.com/doctest/doctest |
 
 **Tools whose output ships** (not linked or distributed with the game):

@@ -24,6 +24,7 @@ set(IR_SDL3_MIXER_TAG  "release-3.2.4"  CACHE STRING "SDL3_mixer git tag")
 set(IR_MINIZ_TAG       "3.1.2"          CACHE STRING "miniz git tag")
 set(IR_JSON_TAG        "v3.12.0"        CACHE STRING "nlohmann/json git tag")
 set(IR_DOCTEST_TAG     "v2.5.3"         CACHE STRING "doctest git tag")
+set(IR_ENET_TAG        "v1.3.18"        CACHE STRING "ENet git tag")
 
 # Helper: dependencies are always built as static libraries with their own
 # tests, examples and install rules disabled.
@@ -53,8 +54,36 @@ set(BUILD_FUZZERS    OFF CACHE INTERNAL "")
 set(BUILD_NO_STDIO   OFF CACHE INTERNAL "")
 set(INSTALL_PROJECT  OFF CACHE INTERNAL "")
 
+# --- ENet: reliable / unreliable UDP for online play (ADR-0026). MIT licence.
+# Sources only (no SOURCE_SUBDIR CMakeLists): its own CMake script would add
+# install rules to ours, so the target is defined here.
+FetchContent_Declare(enet
+    GIT_REPOSITORY https://github.com/lsalzman/enet.git
+    GIT_TAG        ${IR_ENET_TAG}
+    GIT_SHALLOW    ON
+    SOURCE_SUBDIR  no-cmake)
+
 ir_quiet_static()
-FetchContent_MakeAvailable(nlohmann_json miniz)
+FetchContent_MakeAvailable(nlohmann_json miniz enet)
+
+add_library(enet STATIC
+    ${enet_SOURCE_DIR}/callbacks.c ${enet_SOURCE_DIR}/compress.c ${enet_SOURCE_DIR}/host.c
+    ${enet_SOURCE_DIR}/list.c ${enet_SOURCE_DIR}/packet.c ${enet_SOURCE_DIR}/peer.c
+    ${enet_SOURCE_DIR}/protocol.c ${enet_SOURCE_DIR}/unix.c ${enet_SOURCE_DIR}/win32.c)
+target_include_directories(enet SYSTEM PUBLIC "${enet_SOURCE_DIR}/include")
+if(WIN32)
+    target_link_libraries(enet PUBLIC ws2_32 winmm)
+    target_compile_definitions(enet PRIVATE _WINSOCK_DEPRECATED_NO_WARNINGS _CRT_SECURE_NO_WARNINGS)
+else()
+    # What ENet's configure step detects; every supported Unix has these.
+    target_compile_definitions(enet PRIVATE HAS_FCNTL=1 HAS_POLL=1 HAS_GETADDRINFO=1 HAS_GETNAMEINFO=1
+        HAS_INET_PTON=1 HAS_INET_NTOP=1 HAS_MSGHDR_FLAGS=1 HAS_SOCKLEN_T=1)
+endif()
+if(MSVC)
+    target_compile_options(enet PRIVATE /W0)
+else()
+    target_compile_options(enet PRIVATE -w)
+endif()
 
 if(IR_BUILD_PLAYER)
     # --- SDL3: window, renderer, input, audio device, PNG decoding

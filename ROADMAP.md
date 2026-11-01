@@ -103,12 +103,12 @@ Two players anywhere fight over the internet with rollback netcode. They meet on
   - replay files, saved after every match, and `-replay`;
   - `sim::Rollback` (prediction, re-simulation, input delay, checksums), tested against a simulated network;
   - pinned checksums for every fighter pairing, so all four compilers must agree.
-- 🔜 **M4.2 Server:**
+- ✅ **M4.2 Server:**
   - `IronRingNet`: ENet, the protocol, room codes, invites;
   - the `IronRingServer` target: lobby, rooms, relay, referee, `server.cfg`, logs, clean shutdown;
   - the deployment guide `docs/server.md`, with a systemd unit and a Dockerfile;
   - server binaries as CI artifacts.
-- ⬜ **M4.3 Online front end:**
+- 🔜 **M4.3 Online front end:**
   - the ONLINE menu, and a text field with keyboard, pad grid, paste and history;
   - the player name, the server lobby and rooms (private by default, OPEN ROOMS opt-in);
   - COPY / PASTE INVITE and `-connect`.
