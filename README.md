@@ -84,6 +84,8 @@ Player/Release/
 
 The folder is self-contained and can be zipped and copied as is. `cmake --install Build/release --prefix ~/.local` installs it, with a desktop entry and icon on Linux ([docs/install.md](docs/install.md)). The player writes `Player.log` (previous run: `Player-prev.log`), `prefs.cfg` (what you chose in Options, plus the last stage picked) F12 screenshots and `Replays/` (the last 50 finished matches outside training, as `.irr` files for `-replay`) to the per-user data folder (`%APPDATA%\dkapusta\Iron Ring\` on Windows, `~/.local/share/dkapusta/Iron Ring/` on Linux). Delete `prefs.cfg` to go back to the defaults.
 
+Online play runs through `IronRingServer`, the dedicated server: one UDP port, no SDL, built with the rest (`Build/release/Server/Release/`). Deploying it, on Linux with systemd, in Docker or on Windows: [docs/server.md](docs/server.md).
+
 ### Playing
 
 The game opens on the title screen: press Start (Return, or a pad's Start) for the menu: **Arcade** (each fighter's story, five bouts venue by venue up to the title at The Crown, then an invitation from the Broker, with continues and an ending per fighter; win quotes after every match), **Versus CPU**, **2 Players**, **Training**, **Options**. The CPU has five levels, ROOKIE to CHAMPION; *Options → CPU level* (Easy / Normal / Hard) picks the Versus CPU opponent and shifts the arcade ladder. Pick fighters on the character select (all six fighters are playable), then a venue. Start or Escape pauses a fight (resume, restart, character select, options, quit to title); after a match you get a rematch menu. Left alone, the title runs a CPU-vs-CPU demo, like an arcade cabinet.
@@ -158,12 +160,15 @@ Source/
   Vfs/               archive format, writer, ZIP/folder mounts, VFS         — no SDL
   Simulation/        deterministic combat core, serialization, replays, rollback — no SDL
   Content/           fighter/atlas parsing and content validation           — no SDL
+  Net/               online protocol, room codes, invites, ENet transport    — no SDL
+  Server/            IronRingServer, the dedicated server (docs/server.md)  — no SDL
   Runtime/           engine module (UnityPlayer): display, HDR, audio, scenes
   Launcher/          player executable
   Tools/AssetPacker/ asset baking tool
 Tests/               doctest unit tests + packer smoke test
 Tools/Art/           art importer, procedural generator, art self-test (Python)
 Tools/Audio/         NES sound-chip model, sound effects, venue themes, announcer (Python)
+Tools/Server/        server Dockerfile and systemd unit
 ArtSource/           editable sources of the external art (not packed)
 cmake/               dependencies, compiler options, player layout, asset pipeline
 docs/                ADRs, architecture, asset pipeline, research, concept art

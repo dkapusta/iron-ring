@@ -20,7 +20,17 @@ flowchart LR
     ENG --> CON
     AP -->|validates with| CON
     AP --> VFS
+    subgraph Dedicated server
+        SRV[IronRingServer] --> SRVCORE[IronRingServerCore\nlobby, rooms, relay, referee]
+        SRVCORE --> NET[IronRingNet\nprotocol, codes, ENet]
+        SRVCORE -->|referee| SIM
+        SRVCORE -->|loads| CON
+        SRVCORE -->|mounts| DATA
+    end
+    NET --> SIM
 ```
+
+The dedicated server shares the SDL-free libraries with the game: it loads the same fighter data, runs the same `sim::Match` as a referee and speaks the protocol in `IronRingNet` ([ADR-0026](adr/0026-online-play.md), [docs/server.md](server.md)). The `core` preset builds it without SDL.
 
 Static libraries without SDL (`Core`, `Vfs`, `Simulation`, `Content`) carry everything that can be unit-tested (the simulation also holds the training rules and the deterministic training dummy, `Simulation/Training`, the CPU opponent with its five levels, `Simulation/Cpu`, and, for online play and replays, the versioned state encoding `Simulation/Serialize`, the replay format `Simulation/Replay` and the rollback session `Simulation/Rollback`, [ADR-0026](adr/0026-online-play.md)); `Content` turns JSON into the simulation's plain `FighterSpec` and checks the timing contract ([ADR-0010](adr/0010-fighter-content-format.md)), so the simulation never sees JSON; the engine module adds the platform. The launcher knows only `Public/IronRing/Player.h`.
 

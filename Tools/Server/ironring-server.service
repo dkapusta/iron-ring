@@ -1,0 +1,24 @@
+# systemd unit for the Iron Ring dedicated server (docs/server.md).
+# Install: sudo cp ironring-server.service /etc/systemd/system/
+#          sudo systemctl daemon-reload && sudo systemctl enable --now ironring-server
+[Unit]
+Description=Iron Ring dedicated server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=ironring
+Group=ironring
+WorkingDirectory=/opt/ironring-server
+ExecStart=/opt/ironring-server/IronRingServer
+Restart=on-failure
+RestartSec=5
+# Hardening: the server only needs its own folder and one UDP port.
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/opt/ironring-server
+
+[Install]
+WantedBy=multi-user.target

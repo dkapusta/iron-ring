@@ -23,6 +23,7 @@ set(IR_APP_ID "io.github.${IR_COMPANY_NAME}.${IR_PRODUCT_NAME}" CACHE STRING
 
 option(IR_BUILD_TESTS          "Build unit tests"                  ON)
 option(IR_BUILD_PLAYER         "Build the SDL3 player (engine + launcher + data)" ON)
+option(IR_BUILD_SERVER         "Build IronRingServer, the dedicated server (no SDL)" ON)
 option(IR_WARNINGS_AS_ERRORS   "Treat project warnings as errors"  OFF)
 
 if(WIN32)
@@ -46,9 +47,14 @@ add_subdirectory(Source/Core)
 add_subdirectory(Source/Vfs)
 add_subdirectory(Source/Simulation)
 add_subdirectory(Source/Content)
+add_subdirectory(Source/Net)
 
 # Host tool that bakes Assets/ and ProjectSettings/ into <name>_Data archives.
 add_subdirectory(Source/Tools/AssetPacker)
+
+if(IR_BUILD_SERVER)
+    add_subdirectory(Source/Server)
+endif()
 
 if(IR_BUILD_PLAYER)
     add_subdirectory(Source/Runtime)

@@ -151,7 +151,7 @@ log=server.log           # also printed to stdout, for journald / docker logs
 
 It handles SIGINT and SIGTERM, or Ctrl+C on Windows, cleanly: players get `SERVER SHUTTING DOWN`.
 
-### 3.3 Deployment guide (to ship as `docs/server.md`)
+### 3.3 Deployment guide (now [docs/server.md](../server.md))
 
 1. **Build:** `cmake --build --preset release --target IronRingServer`. CI also uploads the server binaries for Linux and Windows.
 2. **Copy to the server:**

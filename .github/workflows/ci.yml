@@ -33,6 +33,19 @@ jobs:
       # Generated audio is current (effects byte-exact, theme by PCM hash).
       - run: python3 Tools/Audio/generate_audio.py --check
 
+  server-core:
+    # The dedicated server needs no SDL: the core preset builds it, the
+    # simulation, the tools and the tests alone (what the Dockerfile does).
+    name: Server (core build, no SDL)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - run: sudo apt-get update && sudo apt-get install -y ninja-build
+      - run: cmake --preset core -DIR_WARNINGS_AS_ERRORS=ON
+      - run: cmake --build --preset core
+      - run: ctest --preset core
+      - run: Build/core/Server/Debug/IronRingServer --check --verify 0 --port 0
+
   linux:
     name: Linux (${{ matrix.compiler }})
     runs-on: ubuntu-24.04
@@ -88,6 +101,22 @@ jobs:
           -screen-width 640 -screen-height 360 -frames 20000 -keys "10:Return,30:Return,60:Return"
           -screenshot arcade-linux-${{ matrix.compiler }}.png
 
+      - name: Server package
+        if: matrix.compiler == 'gcc'
+        # The dedicated server with the game data it referees with (docs/server.md).
+        run: |
+          mkdir -p server-linux
+          cp Build/release/Server/Release/IronRingServer server-linux/
+          cp Source/Server/server.cfg server-linux/server.cfg
+          cp -r Build/release/Player/Release/IronRing_Data server-linux/
+          server-linux/IronRingServer --check --port 0
+
+      - uses: actions/upload-artifact@v7
+        if: matrix.compiler == 'gcc'
+        with:
+          name: server-linux
+          path: server-linux/
+
       - uses: actions/upload-artifact@v7
         with:
           name: smoke-linux-${{ matrix.compiler }}
@@ -132,6 +161,21 @@ jobs:
                -ArgumentList "$env:SMOKE_ARGS -screenshot smoke-windows-msvc.png".Split(' ')
           if ($p.ExitCode -ne 0) { throw "IronRing.exe exited with $($p.ExitCode)" }
 
+      - name: Server package
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force server-windows | Out-Null
+          Copy-Item Build/release/Server/Release/IronRingServer.exe server-windows/
+          Copy-Item Source/Server/server.cfg server-windows/server.cfg
+          Copy-Item -Recurse Build/release/Player/Release/IronRing_Data server-windows/
+          & server-windows/IronRingServer.exe --check --port 0
+          if ($LASTEXITCODE -ne 0) { throw "IronRingServer --check failed" }
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: server-windows
+          path: server-windows/
+
       - uses: actions/upload-artifact@v7
         with:
           name: player-windows-msvc
@@ -167,7 +211,8 @@ jobs:
         run: |
           status=0
           for f in Build/release/Player/Release/IronRing.exe Build/release/Player/Release/UnityPlayer.dll \
-                   Build/release/Tests/IronRingTests.exe Build/release/Tools/Release/AssetPacker.exe; do
+                   Build/release/Tests/IronRingTests.exe Build/release/Tools/Release/AssetPacker.exe \
+                   Build/release/Server/Release/IronRingServer.exe; do
             imports=$(objdump -p "$f" | grep "DLL Name" | awk '{print $3}' | sort -u | tr '\n' ' ')
             echo "$f: $imports"
             if echo "$imports" | grep -qiE 'libgcc|libstdc\+\+|libwinpthread'; then
