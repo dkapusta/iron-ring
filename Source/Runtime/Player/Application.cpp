@@ -6,6 +6,8 @@
 #include "Game/Controls.h"
 #include "Game/FightScene.h"
 #include "Game/GameData.h"
+#include "Game/OnlineScenes.h"
+#include "Game/OnlineSession.h"
 #include "Game/OptionsScene.h"
 #include "Game/Services.h"
 #include "Game/StageSelectScene.h"
@@ -76,10 +78,12 @@ Application::Application(const PlayerSettings& settings, PlayerPrefs prefs, cons
     data_ = std::make_unique<GameData>(*assets_, *audio_, streaming_.get());
     logicalWidth_ = logical[0];
     logicalHeight_ = logical[1];
-    services_ = std::make_unique<Services>(Services{*assets_, *audio_, *display_, *controls_, settings_, prefs_, *data_,
-                                                    scenes_, static_cast<float>(logical[0]),
-                                                    static_cast<float>(logical[1]), [this] { resetRenderer(); },
-                                                    screenshotFolder_});
+    services_ = std::make_unique<Services>(Services{
+        *assets_, *audio_, *display_, *controls_, settings_, prefs_, *data_, scenes_, static_cast<float>(logical[0]),
+        static_cast<float>(logical[1]), [this] { resetRenderer(); }, screenshotFolder_});
+    online_ = std::make_unique<OnlineSession>(IR_VERSION_STRING, data_->simulationHash());
+    services_->online = online_.get();
+    online_->simulate(settings_.netsimLatencyMs, settings_.netsimLossPercent);
     openFirstScene();
 
     // "30:Return,45:Down": a one-frame tap at that frame; "30-90:D": held from
@@ -189,6 +193,11 @@ void Application::openFirstScene() {
         scenes_.push(std::make_unique<FightScene>(*services_, std::move(setup)), Transition::Cut);
         return;
     }
+    if (!settings_.connect.empty()) {
+        // -connect SERVER[:PORT][/CODE]: straight to ONLINE, which connects at once.
+        scenes_.push(std::make_unique<OnlineScene>(*services_), Transition::Cut);
+        return;
+    }
     const auto& scene = settings_.scene;
     if (scene.empty() || scene == "title") return;
     if (scene == "select") {
@@ -207,6 +216,8 @@ void Application::openFirstScene() {
 Application::~Application() {
     scenes_.popTo(0, Transition::Cut);
     scenes_.flush();
+    if (online_) online_->disconnect();
+    online_.reset();
     services_.reset();
     data_.reset();
     controls_.reset();
@@ -263,6 +274,7 @@ int Application::run() {
         if (settings_.batchMode) accumulator = kTickNs; // deterministic: one tick per frame
 
         while (accumulator >= kTickNs) {
+            online_->poll(); // the network first: the fight reads the opponent's inputs this tick
             scenes_.fixedUpdate();
             controls_->endTick();
             accumulator -= kTickNs;
@@ -282,6 +294,12 @@ int Application::run() {
             fpsFrames = 0;
         }
         if (lastBatchFrame) running_ = false;
+        // Batch mode runs flat out, but an online fight runs on the wall clock: the other
+        // player can't be hurried, so a soak test keeps to 60 frames a second while connected.
+        if (settings_.batchMode && online_->status() != OnlineSession::Status::Offline) {
+            const Uint64 spent = SDL_GetTicksNS() - now;
+            if (spent < kTickNs) SDL_DelayNS(kTickNs - spent);
+        }
     }
     SDL_Log("Player exiting after %d frames", frame);
     return 0;

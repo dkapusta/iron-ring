@@ -76,19 +76,29 @@ void Rollback::recordConfirmed() {
     recorded_ = std::max(recorded_, confirmed);
 }
 
+void Rollback::correct(Advance& result) {
+    if (rollbackFrom_ < 0) return;
+    const int from = rollbackFrom_;
+    rollbackFrom_ = -1;
+    match_ = snapshot(from);
+    for (int t = from; t < tick_; ++t)
+        result.steps.push_back({t, simulate(t), true});
+    result.rolledBack = tick_ - from;
+    ++rollbacks_;
+    deepest_ = std::max(deepest_, result.rolledBack);
+}
+
+Rollback::Advance Rollback::settle() {
+    Advance result;
+    correct(result);
+    recordConfirmed();
+    return result;
+}
+
 Rollback::Advance Rollback::advance() {
     Advance result;
     if (!canAdvance() || tick_ >= localTicks()) return result;
-    if (rollbackFrom_ >= 0) {
-        const int from = rollbackFrom_;
-        rollbackFrom_ = -1;
-        match_ = snapshot(from);
-        for (int t = from; t < tick_; ++t)
-            result.steps.push_back({t, simulate(t), true});
-        result.rolledBack = tick_ - from;
-        ++rollbacks_;
-        deepest_ = std::max(deepest_, result.rolledBack);
-    }
+    correct(result);
     result.steps.push_back({tick_, simulate(tick_), false});
     ++tick_;
     result.advanced = true;

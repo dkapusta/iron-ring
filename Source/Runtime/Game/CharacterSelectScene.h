@@ -10,7 +10,7 @@
 
 namespace iron {
 
-enum class SelectMode { VsCpu, TwoPlayers, Training, Arcade };
+enum class SelectMode { VsCpu, TwoPlayers, Training, Arcade, Online };
 
 // Character select: the roster grid with every planned fighter (the ones not
 // built yet are locked), a full-size preview of each side's choice, then the
@@ -37,6 +37,7 @@ private:
     void pick(int side);
     void unpick(int side);
     void showMoves(int side); // the move list of the fighter under this side's cursor
+    void onlineUpdate();      // Online: the opponent's pick, the server's start, leaving
     [[nodiscard]] SDL_FRect cellRect(int index) const;
     void drawGrid(SDL_Renderer* r) const;
     void drawSide(SDL_Renderer* r, int side) const;
@@ -51,6 +52,7 @@ private:
     std::array<bool, 2> picked_{};
     std::array<int, 2> pickedAt_{}; // clock tick of the pick (the win pose plays from there)
     int ready_ = 0;
+    int localSide_ = 0; // Online: the side this player picks (the host is side 0)
     int clock_ = 0;
 };
 

@@ -1,5 +1,8 @@
 #include "Game/GameData.h"
 
+#include "Content/Fighter.h"
+#include "Net/Net.h"
+
 #include <SDL3/SDL.h>
 
 #include <algorithm>
@@ -74,13 +77,20 @@ void GameData::loadStages(AssetLibrary& assets) {
 void GameData::loadRoster(AssetLibrary& assets) {
     std::unordered_map<std::string, std::string> definitions; // fighter id -> definition path
     std::vector<std::string> order;
+    std::vector<std::pair<std::string, std::uint64_t>> specs; // for the online data hash
     for (const auto& item : settings_.at("fighters")) {
         const auto path = item.get<std::string>();
-        const auto id = assets.json(path).at("id").get<std::string>();
+        const auto json = assets.json(path);
+        const auto id = json.at("id").get<std::string>();
+        specs.emplace_back(id, sim::specHash(content::parseFighter(json, path).spec));
         definitions.emplace(id, path);
         order.push_back(id);
     }
     if (definitions.size() < 2) throw std::runtime_error("GameSettings.json: two fighters are required");
+    std::vector<std::pair<std::string, int>> widths;
+    for (const auto& stage : stages_)
+        widths.emplace_back(stage.id, stage.definition.width);
+    simulationHash_ = net::gameDataHash(std::move(specs), std::move(widths));
 
     if (settings_.contains("roster")) {
         const auto roster = assets.json(settings_.at("roster").get<std::string>());

@@ -1,5 +1,6 @@
 #include "Game/StageSelectScene.h"
 
+#include "Game/OnlineSession.h"
 #include "Render/Ui.h"
 
 #include <cmath>
@@ -9,6 +10,15 @@ namespace iron {
 StageSelectScene::StageSelectScene(Services& services, FightSetup setup)
     : services_(services), setup_(std::move(setup)) {
     stage_ = services_.data.stageIndex(services_.prefs.get("last-stage").value_or(""));
+}
+
+void StageSelectScene::fixedUpdate() {
+    ++clock_;
+    // Online: the opponent left, or the connection went: the select (and the room) take it from here.
+    if (setup_.control == Control::Online) {
+        const auto& online = *services_.online;
+        if (!online.online() || !online.hasOpponent()) services_.scenes.pop();
+    }
 }
 
 void StageSelectScene::handleMenu(const MenuEvent& event) {
@@ -31,6 +41,14 @@ void StageSelectScene::handleMenu(const MenuEvent& event) {
         services_.prefs.set("last-stage", id);
         if (!services_.settings.batchMode) (void)services_.prefs.save();
         setup_.stage = id;
+        if (setup_.control == Control::Online) {
+            // Online: the host's fighter and venue go to the server; the select waits for the opponent.
+            auto& online = *services_.online;
+            online.send(net::Pick{setup_.fighters[static_cast<std::size_t>(online.side())], id});
+            online.pickSent = true;
+            services_.scenes.pop();
+            break;
+        }
         // The fight takes this screen's place: leaving the fight returns to the character select.
         services_.scenes.replaceTop(std::make_unique<FightScene>(services_, setup_));
         break;

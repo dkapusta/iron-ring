@@ -28,6 +28,10 @@ OptionsScene::OptionsScene(Services& services) : services_(services) {
         "VERSUS CPU, AND THE ARCADE LADDER";
     auto& fx = menu_.add(MenuItem::setting("fx", "SCREEN EFFECTS", {"FULL", "REDUCED"}, s.reducedEffects ? 1 : 0));
     fx.note = "REDUCED: GENTLE SHAKE, NO FLASHES";
+    const auto delay = services_.prefs.get("online-delay").value_or("auto");
+    const int delayChoice = delay.size() == 1 && delay[0] >= '0' && delay[0] <= '4' ? delay[0] - '0' + 1 : 0;
+    menu_.add(MenuItem::setting("delay", "ONLINE DELAY", {"AUTO", "0", "1", "2", "3", "4"}, delayChoice)).note =
+        "FRAMES OF INPUT DELAY ONLINE - MORE MEANS FEWER ROLLBACKS";
     menu_.add(MenuItem::action("controls", "CONTROLS"));
     menu_.add(MenuItem::action("back", "BACK"));
 }
@@ -54,6 +58,8 @@ void OptionsScene::apply(const MenuItem& item) {
         s.cpuDifficulty = item.choice;
     } else if (item.id == "fx") {
         s.reducedEffects = item.choice == 1;
+    } else if (item.id == "delay") {
+        services_.prefs.set("online-delay", item.choice == 0 ? std::string("auto") : std::to_string(item.choice - 1));
     } else if (item.id == "hdr") {
         s.hdr = static_cast<HdrMode>(item.choice);
         services_.resetRenderer(); // scRGB or sRGB output: a renderer of its own
@@ -87,13 +93,13 @@ void OptionsScene::render(const RenderContext& context) {
     const SDL_FRect all{0, 0, services_.width, services_.height};
     SDL_RenderTexture(r, data.backdrop().handle.get(), nullptr, &all);
     data.large().draw(r, "OPTIONS", 320, 22, ui::kWhite, Align::Centre);
-    const SDL_FRect panel{170, 70, 300, 188}; // eleven lines; the focused note goes below it
+    const SDL_FRect panel{170, 68, 300, 206}; // thirteen lines; the focused note goes below it
     ui::frame(r, panel);
     ui::fill(r, panel.x, panel.y, panel.w, panel.h, ui::kNight);
     MenuStyle style;
-    style.y = 84;
+    style.y = 80;
     style.width = 250;
-    style.spacing = 16;
+    style.spacing = 15;
     style.noteGap = 10;
     drawMenu(r, menu_, data.small(), style, blink_);
     if (!services_.prefs.file().empty())

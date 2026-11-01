@@ -278,6 +278,12 @@ void Server::handle(ENetPeer* peer, Client& c, const net::Pick& m) {
     const bool stageOk = m.stage.empty() || rules_.stages.empty() || rules_.stages.count(m.stage) == 1;
     if (!fighterOk || !stageOk) return net::sendTo(peer, net::Failed{net::Problem::BadPick});
     const int side = sideOf(*room, peer);
+    if (room->phase == net::RoomPhase::AfterMatch) {
+        // CHANGE FIGHTERS after a match: a fresh select for both, not a rematch with the old picks.
+        room->picks = {};
+        room->stagePick.clear();
+        room->rematch = {};
+    }
     room->phase = net::RoomPhase::Selecting;
     room->picks[static_cast<std::size_t>(side)] = m.fighter;
     if (side == 0) room->stagePick = m.stage;
@@ -328,7 +334,7 @@ void Server::startFight(Room& room) {
 
 void Server::handle(ENetPeer* peer, Client& c, const net::Inputs& m) {
     Room* room = roomOf(c);
-    if (!room || !room->fight || room->members.size() < 2) return;
+    if (!room || !room->fight || room->members.size() < 2 || m.match != room->fight->id) return;
     const int side = sideOf(*room, peer);
     auto& mine = room->fight->inputs[static_cast<std::size_t>(side)];
     // Keep the contiguous stream; a packet with a gap is dropped (the sender repeats it).
@@ -343,14 +349,15 @@ void Server::handle(ENetPeer* peer, Client& c, const net::Inputs& m) {
 
 void Server::handle(ENetPeer* peer, Client& c, const net::Checksum& m) {
     Room* room = roomOf(c);
-    if (!room || !room->fight || m.tick < 0 || m.tick >= kMaxFightTicks) return;
+    if (!room || !room->fight || m.match != room->fight->id || m.tick < 0 || m.tick >= kMaxFightTicks) return;
     room->fight->reported[static_cast<std::size_t>(sideOf(*room, peer))][m.tick] = m.sum;
     referee(*room);
 }
 
 void Server::handle(ENetPeer* peer, Client& c, const net::Result& m) {
     Room* room = roomOf(c);
-    if (!room || !room->fight || room->fight->referee) return; // the referee decides when there is one
+    if (!room || !room->fight || m.match != room->fight->id || room->fight->referee)
+        return; // the referee decides when there is one
     auto& results = room->fight->results;
     results[static_cast<std::size_t>(sideOf(*room, peer))] = m.winner;
     if (!results[0] || !results[1]) return;
@@ -446,7 +453,7 @@ void Server::broadcastState(Room& room) {
     for (std::size_t i = 0; i < room.members.size(); ++i) {
         const auto& c = clients_.at(room.members[i]);
         state.members.push_back(
-            {c.name, !room.picks[i].empty(),
+            {c.name, !room.picks[i].empty(), room.picks[i],
              static_cast<std::uint16_t>(std::min<enet_uint32>(room.members[i]->roundTripTime, 9999))});
     }
     for (std::size_t i = 0; i < room.members.size(); ++i) {

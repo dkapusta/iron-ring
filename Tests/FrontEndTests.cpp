@@ -1,11 +1,13 @@
 #include "Core/Menu.h"
 #include "Core/PlayerPrefs.h"
+#include "Core/TextInput.h"
 
 #include <doctest/doctest.h>
 
 #include <filesystem>
 #include <fstream>
 #include <string>
+#include <vector>
 
 using namespace iron;
 
@@ -177,4 +179,50 @@ TEST_CASE("fight camera follows the midpoint, stays on the stage, keeps both fig
     for (int i = 0; i < 120; ++i) c.follow(500, 600, 800, 640);
     CHECK(c.x == 160.0f);
     CHECK(c.offset() == 160.0f);
+}
+
+TEST_CASE("TextInput filters, raises and caps what is typed and pasted") {
+    using iron::TextInput;
+    TextInput name(std::string(iron::kNameChars), 12);
+    name.type("  dee  the\tbrawler!");
+    CHECK(name.text() == "DEE THEBRAWL"); // no leading or double spaces, no tab or !, 12 at most
+    name.backspace();
+    CHECK(name.text() == "DEE THEBRAW");
+    name.set("j\xC3\xBCrgen"); // the font has no accents: the bytes are dropped
+    CHECK(name.text() == "JRGEN");
+
+    TextInput address(std::string(iron::kAddressChars), 64);
+    address.paste("play.example.com:7727/ab2cd3\n");
+    CHECK(address.text() == "PLAY.EXAMPLE.COM:7727/AB2CD3");
+    address.begin();
+    address.type("XYZ");
+    address.cancel();
+    CHECK(address.text() == "PLAY.EXAMPLE.COM:7727/AB2CD3");
+}
+
+TEST_CASE("TextInput pad entry cycles through the charset") {
+    iron::TextInput code("ABC", 3);
+    code.cycle(1); // empty: starts with the first character
+    CHECK(code.text() == "A");
+    code.cycle(-1);
+    CHECK(code.text() == "C");
+    code.addCharacter(); // repeats the last one, as arcade name entry does
+    code.cycle(2);
+    CHECK(code.text() == "CB");
+    code.addCharacter();
+    code.addCharacter(); // capped
+    CHECK(code.text() == "CBB");
+    code.removeCharacter();
+    CHECK(code.text() == "CB");
+}
+
+TEST_CASE("Server history keeps distinct entries, most recent first") {
+    std::vector<std::string> history = iron::splitHistory("  A:1  B:2 C:3 ");
+    CHECK(history == std::vector<std::string>{"A:1", "B:2", "C:3"});
+    iron::remember(history, "C:3");
+    iron::remember(history, "D:4", 3);
+    CHECK(history == std::vector<std::string>{"D:4", "C:3", "A:1"});
+    iron::remember(history, "");
+    CHECK(iron::joinHistory(history) == "D:4 C:3 A:1");
+    CHECK(iron::splitHistory("").empty());
 }

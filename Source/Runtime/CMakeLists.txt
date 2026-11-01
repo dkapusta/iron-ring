@@ -16,6 +16,8 @@ add_library(IronRingEngine SHARED
     Game/Hud.h                  Game/Hud.cpp
     Game/MenuView.h             Game/MenuView.cpp
     Game/MoveListScene.h        Game/MoveListScene.cpp
+    Game/OnlineScenes.h         Game/OnlineScenes.cpp
+    Game/OnlineSession.h        Game/OnlineSession.cpp
     Game/OptionsScene.h         Game/OptionsScene.cpp
     Game/Scene.h
     Game/SceneStack.h           Game/SceneStack.cpp
@@ -38,7 +40,7 @@ target_include_directories(IronRingEngine
     PUBLIC  "${CMAKE_CURRENT_SOURCE_DIR}/Public"
     PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")
 target_link_libraries(IronRingEngine PRIVATE
-    IronRingContent IronRingCore IronRingSimulation IronRingVfs
+    IronRingContent IronRingCore IronRingSimulation IronRingVfs IronRingNet
     SDL3::SDL3-static SDL3_mixer::SDL3_mixer-static)
 target_compile_definitions(IronRingEngine PRIVATE
     IR_ENGINE_BUILD

@@ -20,6 +20,7 @@ class AssetLibrary;
 class AudioSystem;
 class Controls;
 class GameData;
+class OnlineSession;
 struct Services;
 
 struct ProductInfo {
@@ -63,6 +64,7 @@ private:
     std::unique_ptr<Controls> controls_;
     std::unique_ptr<GameData> data_;
     SceneStack scenes_;
+    std::unique_ptr<OnlineSession> online_;
     std::unique_ptr<Services> services_;
     int logicalWidth_ = 640, logicalHeight_ = 360;
     struct ScriptedKey {

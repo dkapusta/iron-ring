@@ -3,6 +3,7 @@
 #include "Game/FightScene.h"
 #include "Game/MenuView.h"
 #include "Game/MoveListScene.h"
+#include "Game/OnlineSession.h"
 #include "Game/OptionsScene.h"
 #include "Render/Ui.h"
 
@@ -22,6 +23,13 @@ std::vector<std::string> dummyChoices() {
 FightMenuScene::FightMenuScene(Services& services, FightScene& fight, bool postMatch)
     : services_(services), fight_(fight), postMatch_(postMatch) {
     const auto& setup = fight_.setup();
+    if (fight_.online()) {
+        // Online there is no pause: this is only ever the post-match menu.
+        menu_.add(MenuItem::action("rematch", "REMATCH"));
+        menu_.add(MenuItem::action("fighters", "CHANGE FIGHTERS"));
+        menu_.add(MenuItem::action("leave", "LEAVE ROOM"));
+        return;
+    }
     if (postMatch_) {
         menu_.add(MenuItem::action("restart", "REMATCH"));
     } else {
@@ -51,9 +59,36 @@ void FightMenuScene::handleMenu(const MenuEvent& event) {
     }
 }
 
+void FightMenuScene::fixedUpdate() {
+    ++blink_;
+    if (!fight_.online()) return;
+    auto& online = *services_.online;
+    auto& scenes = services_.scenes;
+    fight_.pumpOnline(); // the opponent may still need this side's last inputs
+    if (services_.settings.autoplay && blink_ == 90) choose("rematch"); // soak tests fight on
+    if (online.hasMatchStart()) {
+        scenes.pop(Transition::Cut); // the rematch: the fight starts it on the way back
+        return;
+    }
+    // The opponent left, changed fighters, or the server went away: back to the room.
+    if (!online.online() || !online.hasOpponent() || online.room()->phase == net::RoomPhase::Selecting)
+        scenes.popTo(scenes.depth() - 2);
+}
+
 void FightMenuScene::choose(const std::string& id) {
     auto& scenes = services_.scenes;
-    if (id == "resume") {
+    if (id == "rematch") {
+        if (rematchSent_) return;
+        services_.online->send(net::Rematch{});
+        rematchSent_ = true;
+        menu_.find("rematch")->label = "WAITING FOR THE OPPONENT";
+    } else if (id == "fighters") {
+        services_.online->wantSelect = true;
+        scenes.popTo(scenes.depth() - 2); // the room opens the select
+    } else if (id == "leave") {
+        services_.online->leaveRoom();
+        scenes.popTo(scenes.depth() - 2);
+    } else if (id == "resume") {
         scenes.pop(Transition::Cut);
     } else if (id == "reset") {
         fight_.resetPositions();

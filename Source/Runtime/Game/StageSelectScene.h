@@ -13,7 +13,7 @@ public:
     StageSelectScene(Services& services, FightSetup setup);
 
     void handleMenu(const MenuEvent& event) override;
-    void fixedUpdate() override { ++clock_; }
+    void fixedUpdate() override;
     void render(const RenderContext& context) override;
     [[nodiscard]] std::string status() const override;
 

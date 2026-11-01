@@ -3,6 +3,7 @@
 #include "Assets/AssetLibrary.h"
 #include "Audio/AudioSystem.h"
 #include "Game/FightMenuScene.h"
+#include "Game/OnlineSession.h"
 #include "Render/Ui.h"
 
 #include <algorithm>
@@ -50,7 +51,9 @@ FightScene::FightScene(Services& services, FightSetup setup)
     training_ = setup_.training;
     dummy_ = setup_.dummy;
     if (training_) overlay_->toggle();
+    if (setup_.online) control_ = Control::Online;
     newMatch();
+    if (setup_.online) startOnline();
     if (setup_.replay) {
         const auto expected = sim::replayContentHash(views_[0]->definition().spec, views_[1]->definition().spec,
                                                      match_->round.stageWidth);
@@ -61,6 +64,18 @@ FightScene::FightScene(Services& services, FightSetup setup)
 }
 
 void FightScene::onEnter() {
+    if (online()) {
+        // Back from the post-match menu: the server started the rematch.
+        if (auto start = services_.online->takeMatchStart()) {
+            const bool newStage = start->stage != services_.data.stages()[stage_].id;
+            setup_.online = std::move(*start);
+            if (newStage) setStage(services_.data.stageIndex(setup_.online->stage));
+            newMatch();
+            startOnline();
+            if (newStage) playStageMusic();
+            return;
+        }
+    }
     if (entered_) return; // back from the pause menu: the music carries on
     entered_ = true;
     playStageMusic();
@@ -106,7 +121,9 @@ void FightScene::newMatch() {
     // deterministic, but a rematch isn't a replay.
     ++matches_;
     for (std::size_t side = 0; side < 2; ++side) {
-        const bool autoplayer = side == 0 && services_.settings.autoplay && control_ != Control::Demo;
+        const int localSide = setup_.online ? setup_.online->side : 0;
+        const bool autoplayer =
+            static_cast<int>(side) == localSide && services_.settings.autoplay && control_ != Control::Demo;
         cpu_[side].emplace(autoplayer ? sim::kCpuLevels - 1 : setup_.cpuLevel,
                            0x1F2E3D4Cu ^ (matches_ * 2654435761u) ^ static_cast<unsigned>(side * 40503u));
     }
@@ -126,6 +143,7 @@ void FightScene::newMatch() {
 }
 
 bool FightScene::human(int side) const {
+    if (control_ == Control::Online) return setup_.online && side == setup_.online->side;
     if (control_ == Control::Demo || setup_.replay) return false;
     return side == 0 || control_ == Control::TwoPlayers;
 }
@@ -146,6 +164,17 @@ void FightScene::handleMenu(const MenuEvent& event) {
         if (event.action == MenuAction::Confirm || event.action == MenuAction::Pause) services_.scenes.pop();
         return;
     }
+    if (event.action == MenuAction::Pause && online()) {
+        // No pause online: a second press within two seconds leaves the match.
+        if (leaveTicks_ > 0) {
+            services_.online->leaveRoom();
+            services_.scenes.pop();
+        } else {
+            leaveTicks_ = 120;
+            audio_.play("menu_move");
+        }
+        return;
+    }
     if (event.action == MenuAction::Pause) {
         audio_.play("menu_confirm");
         openMenu(false);
@@ -153,6 +182,7 @@ void FightScene::handleMenu(const MenuEvent& event) {
 }
 
 void FightScene::handleEvent(const SDL_Event& event) {
+    if (online()) return; // no pause and no developer keys: the other player is live
     if (event.type == SDL_EVENT_WINDOW_FOCUS_LOST && !setup_.attract && !services_.settings.batchMode) {
         openMenu(false); // pause when the player switches away
         return;
@@ -263,6 +293,7 @@ void FightScene::playCues() {
 }
 
 void FightScene::fixedUpdate() {
+    if (online()) return onlineUpdate();
     const auto& round = match_->round;
     const bool demo = control_ == Control::Demo;
     auto& controls = services_.controls;
@@ -297,12 +328,16 @@ void FightScene::fixedUpdate() {
         return;
     }
 
+    present(step.round.count, inputs);
+}
+
+void FightScene::present(int events, const std::array<sim::Input, 2>& inputs) {
     const bool fighting = match_->phase == sim::Phase::Fight;
     if (fighting && training_) inputDisplay_->record(match_->round, inputs);
     if (!fighting || match_->round.hitstop == 0) ++clock_;
-    if (fighting && (step.round.count > 0 || match_->round.hitstop == 0))
-        overlay_->observe(match_->round, step.round.count > 0);
-    for (int side = 0; side < 2; ++side) views_[static_cast<std::size_t>(side)]->update(*match_, side, clock_);
+    if (fighting && (events > 0 || match_->round.hitstop == 0)) overlay_->observe(match_->round, events > 0);
+    for (int side = 0; side < 2; ++side)
+        views_[static_cast<std::size_t>(side)]->update(*match_, side, clock_);
     followCamera(false);
     stageView_->update();
     if (shakeTicks_ > 0) --shakeTicks_; // counts on through hitstop: the shake sells the freeze
@@ -368,6 +403,18 @@ void FightScene::render(const RenderContext& context) {
     const std::string line = setup_.attract ? (blink ? "PRESS START" : "")
                                             : services_.data.stages()[stage_].name + " - " + controlName();
     hud_->draw(r, *match_, views(), ui::upper(line));
+    if (bannerTicks_ > 0) {
+        const SDL_FRect box{170, 160, 300, 40};
+        ui::fill(r, box.x, box.y, box.w, box.h, ui::kNight);
+        ui::frame(r, box);
+        services_.data.small().draw(r, banner_, 320, 168, ui::kCoralLight, Align::Centre, true);
+        services_.data.small().draw(r, "BACK TO THE ROOM...", 320, 184, ui::kFog, Align::Centre, true);
+    } else if (leaveTicks_ > 0) {
+        services_.data.small().draw(r, "PRESS START AGAIN TO LEAVE THE MATCH", 320, 330, ui::kChalk, Align::Centre,
+                                    true);
+    } else if (online() && rollback_ && rollback_->predicted() > sim::kMaxRollback - 2 && blink) {
+        services_.data.small().draw(r, "WAITING FOR THE OPPONENT", 320, 330, ui::kFog, Align::Centre, true);
+    }
 }
 
 void FightScene::saveReplay() {
@@ -426,11 +473,15 @@ void FightScene::finishPlayback() {
 
 std::string FightScene::controlName() const {
     if (setup_.replay) return "REPLAY";
+    if (online() && rollback_)
+        return "ONLINE - PING " + std::to_string(services_.online->pingMs()) + " - DELAY " +
+               std::to_string(rollback_->delay());
     if (training_ && control_ == Control::VsCpu) return "TRAINING - DUMMY " + std::string(sim::dummyName(dummy_));
     switch (control_) {
     case Control::VsCpu: return "VS CPU - " + std::string(sim::cpuLevelName(setup_.cpuLevel));
     case Control::TwoPlayers: return training_ ? "TRAINING - 2P" : "2P";
     case Control::Demo: return "CPU VS CPU";
+    case Control::Online: return "ONLINE";
     }
     return "";
 }
@@ -441,6 +492,160 @@ std::string FightScene::status() const {
                   services_.data.stages()[stage_].name.c_str(), controlName().c_str(), match_->roundNumber,
                   training_ ? "  F4 reset  F6 dummy" : "");
     return line;
+}
+
+// ---- online (docs/design/online.md §4.3) ------------------------------------------------------
+
+int FightScene::inputDelay() const {
+    // "online-delay" in prefs.cfg: auto (from the ping) or 0..4 frames.
+    const auto pref = services_.prefs.get("online-delay").value_or("auto");
+    if (pref.size() == 1 && pref[0] >= '0' && pref[0] <= '4') return pref[0] - '0';
+    const int oneWay = services_.online->pingMs() / 2;
+    return std::clamp((oneWay + 8) / 17 + 1, 1, 3); // a frame of slack over the one-way trip
+}
+
+void FightScene::startOnline() {
+    const auto& start = *setup_.online;
+    rollback_ = std::make_unique<sim::Rollback>(*match_, start.side, inputDelay());
+    acked_ = 0;
+    sentChecksums_ = 0;
+    resultSent_ = finishedOnline_ = false;
+    played_.clear();
+    banner_.clear();
+    bannerTicks_ = leaveTicks_ = 0;
+    services_.online->clearMatchEnd();
+    SDL_Log("Online fight: match %u, side %d, input delay %d", start.match, start.side + 1, rollback_->delay());
+}
+
+void FightScene::pumpOnline() {
+    if (!rollback_) return;
+    auto& online = *services_.online;
+    for (const auto& in : online.takeInputs()) {
+        for (std::size_t k = 0; k < in.inputs.size(); ++k)
+            rollback_->addRemoteInput(in.from + static_cast<int>(k), in.inputs[k]);
+        acked_ = std::max(acked_, in.ack);
+    }
+    // Everything the opponent hasn't acknowledged, every frame: a lost packet costs nothing.
+    const int from = std::max(acked_, rollback_->localTicks() - static_cast<int>(net::kMaxInputsPerPacket));
+    online.send(net::Inputs{from, rollback_->localInputsFrom(from), rollback_->remoteTicks(), setup_.online->match});
+    const auto& sums = rollback_->checksums();
+    for (; sentChecksums_ < sums.size(); ++sentChecksums_)
+        online.send(net::Checksum{sums[sentChecksums_].first, sums[sentChecksums_].second, setup_.online->match});
+    const auto& m = rollback_->state();
+    if (m.finished && !resultSent_ && rollback_->confirmedTicks() == rollback_->tick()) {
+        online.send(net::Result{m.winner, setup_.online->match}); // decides only on servers that don't referee
+        resultSent_ = true;
+    }
+}
+
+void FightScene::playReconciled(const sim::Rollback::TickStep& step) {
+    // Events are keyed by what they are; a re-run of a tick shows only what it didn't show before.
+    const auto key = [](const sim::StepEvents::Event& e) {
+        return (static_cast<std::uint64_t>(e.effect) << 48) ^ (static_cast<std::uint64_t>(e.attacker + 1) << 40) ^
+               (static_cast<std::uint64_t>(e.combo) << 8) ^ (e.counter ? 1u : 0u);
+    };
+    auto& seen = played_[step.tick];
+    sim::MatchStep fresh;
+    for (int i = 0; i < step.step.round.count; ++i) {
+        const auto& e = step.step.round.items[static_cast<std::size_t>(i)];
+        if (std::find(seen.begin(), seen.end(), key(e)) != seen.end()) continue;
+        seen.push_back(key(e));
+        fresh.round.push(e.effect, e.x, e.y, e.attacker, e.combo, e.counter);
+    }
+    const auto flowKey = 0xF100000000000000ULL | static_cast<std::uint64_t>(step.step.flow);
+    if (step.step.flow != sim::FlowEvent::None && std::find(seen.begin(), seen.end(), flowKey) == seen.end()) {
+        seen.push_back(flowKey);
+        fresh.flow = step.step.flow;
+    }
+    playEvents(fresh);
+    // Ticks this old can't be re-run any more.
+    played_.erase(played_.begin(), played_.lower_bound(step.tick - sim::kMaxRollback - 2));
+}
+
+void FightScene::endOnline(std::string why) {
+    if (!banner_.empty()) return;
+    banner_ = std::move(why);
+    bannerTicks_ = 180;
+    audio_.stopMusic(600);
+    SDL_Log("Online fight stopped: %s", banner_.c_str());
+}
+
+void FightScene::onlineUpdate() {
+    auto& online = *services_.online;
+    ++frames_;
+    if (leaveTicks_ > 0) --leaveTicks_;
+    if (bannerTicks_ > 0) {
+        // The match is over without a result: hold the message, then back to the room.
+        if (--bannerTicks_ == 0) services_.scenes.pop(); // the room carries on, or closes itself
+        playCues();
+        return;
+    }
+    if (!online.online()) return endOnline("CONNECTION LOST");
+    if (const auto& end = online.matchEnd(); end && end->reason != net::EndReason::Finished) {
+        const bool mine = end->culprit == static_cast<std::uint8_t>(setup_.online->side);
+        endOnline(end->reason == net::EndReason::Desync ? (end->culprit == 0xFF ? "MATCH OUT OF SYNC"
+                                                           : mine               ? "YOUR GAME WENT OUT OF SYNC"
+                                                                                : "THE OPPONENT WENT OUT OF SYNC")
+                                                        : "THE OPPONENT LEFT");
+        return;
+    }
+    pumpOnline();
+    if (rollback_->state().finished) return settleOnline(); // no new ticks: wait for the result to be confirmed
+    if (!rollback_->canAdvance()) {
+        playCues();
+        return; // too far ahead of the opponent: wait (the picture holds)
+    }
+    // Time sync: the side that runs ahead of the other gives up a frame now and then.
+    const int rttFrames = online.pingMs() / 17;
+    const int ahead = rollback_->tick() - (rollback_->remoteTicks() + rttFrames / 2);
+    if (ahead > 2 && frames_ % 6 == 0) {
+        playCues();
+        return;
+    }
+    const int side = setup_.online->side;
+    const bool autoplay = services_.settings.autoplay;
+    const sim::Input local = autoplay ? cpu_[static_cast<std::size_t>(side)]->think(rollback_->state().round, side)
+                                      : services_.controls.sample(0);
+    rollback_->addLocalInput(local);
+    const auto advance = rollback_->advance();
+    *match_ = rollback_->state(); // the views read the match; it is a small copy
+    int events = 0;
+    for (const auto& step : advance.steps) {
+        playReconciled(step);
+        if (!step.resimulated) events += step.step.round.count;
+    }
+    playCues();
+    pumpOnline();
+    std::array<sim::Input, 2> shown{};
+    shown[static_cast<std::size_t>(side)] = local;
+    present(events, shown);
+}
+
+void FightScene::settleOnline() {
+    // The match ended here (perhaps on a guess). The opponent's last inputs either
+    // confirm it, or a correction re-runs the end and the fight goes on.
+    const auto settle = rollback_->settle();
+    for (const auto& step : settle.steps)
+        playReconciled(step);
+    *match_ = rollback_->state();
+    playCues();
+    const int side = setup_.online->side;
+    if (match_->finished && !finishedOnline_ && rollback_->confirmedTicks() == rollback_->tick()) {
+        finishedOnline_ = true;
+        // The replay holds the inputs both sides confirmed.
+        recorded_.clear();
+        for (int t = 0; t < rollback_->confirmedTicks(); ++t) {
+            const auto remote = rollback_->remoteInput(t).value_or(0);
+            std::array<sim::Input, 2> pair{};
+            pair[static_cast<std::size_t>(side)] = rollback_->localInput(t);
+            pair[static_cast<std::size_t>(1 - side)] = remote;
+            recorded_.push_back(pair);
+        }
+        saveReplay();
+        openMenu(true); // REMATCH, CHANGE FIGHTERS, LEAVE ROOM
+        return;
+    }
+    present(0, {});
 }
 
 } // namespace iron
