@@ -94,7 +94,7 @@ New fighters arrive with procedural placeholder art and their own frame data, mo
 - ✅ Art Pack v3B (venues): final layered art for Dry Dock 4, The Hold and The Broker's Club; no placeholder art is left in the game ([ADR-0025](docs/adr/0025-adopting-art-pack-v3b.md), [review](ArtSource/Pack-v3B/REVIEW.md))
 - ✅ Final art polish (Art Pack v3.1): one portrait backdrop for all fourteen portraits, Greta's and Jun's skin out of their apron and shoe ramps, the chain ring on the three M3 floors, Dry Dock 4's beam and sky, The Hold's lamp ([brief](docs/art/final-polish-brief.md), [review](ArtSource/Pack-v3.1/REVIEW.md))
 
-## M4 — Online 🔜
+## M4 — Online ✅
 
 Two players anywhere fight over the internet with rollback netcode. They meet on an Iron Ring Dedicated Server: a room code, or one pasted invite string, puts a friend in your room. Design: [docs/design/online.md](docs/design/online.md); decisions: [ADR-0026](docs/adr/0026-online-play.md).
 
@@ -116,11 +116,18 @@ Two players anywhere fight over the internet with rollback netcode. They meet on
   - online character and stage select, rollback fights through the relay, rematch;
   - event reconciliation, so sounds and effects never fire twice on re-simulation;
   - disconnect and desync handling, the ping and delay HUD, the ONLINE options, `-netsim`.
-- 🔜 **M4.5 Soak and hardening:**
-  - CI runs a server and two headless clients through a match, plus a load test of 100 rooms and checks of the abuse limits;
-  - **HOST ON THIS PC**.
+- ✅ **M4.5 Soak and hardening:**
+  - `Tools/Server/soak.sh`, run by CI: a real server and two headless clients fight match after match over a simulated 40 ms / 10 % loss link; the referee must never see a desync, and every saved replay must verify;
+  - a load test of 100 refereed rooms (200 players) at once, and tests of every abuse limit (rooms per address, rooms, players, silent connections, message floods);
+  - the server drops connections that flood it (`maxMessagesPerSecond`) and tells the one player too many that it is full;
+  - `docker-compose.yml`, built and started in CI; `build-server.sh`; the default server in `GameSettings.json`;
+  - batch mode draws with SDL's software renderer: a headless run drops from about 1.5 GB to about 140 MB;
+  - **HOST ON THIS PC** moved to *Later / maybe*.
+- **M4 is closed.** Bugs found in online play from here on are fixed under M5.
 
 ## M5 — Release hardening
+
+- ⬜ Fixes from online play tests (anything found after M4 closed)
 
 - ⬜ Crash handler process (a `UnityCrashHandler64.exe` look-alike in spirit: minidump + log upload prompt)
 - ⬜ Installer/packaging, store integration as needed
@@ -129,6 +136,8 @@ Two players anywhere fight over the internet with rollback netcode. They meet on
 - ⬜ macOS: `.app` bundle (`Contents/Frameworks/UnityPlayer.dylib`, `Contents/Resources/Data`), CI job, notarization
 
 ## Later / maybe
+
+- **HOST ON THIS PC**: run a server from the game's ONLINE menu for a LAN or a forwarded port (was M4.5; [docs/design/online.md](docs/design/online.md)).
 
 - A Fatal Fury-style **two-plane** (foreground/background line) mechanic, prototyped as an optional stage rule — only if the single-plane game is already fun.
 
@@ -155,6 +164,8 @@ Two players anywhere fight over the internet with rollback netcode. They meet on
 | 2026-10-31 | Art Pack v2 | Adopted as delivered; the arcade ending animates the champion, the still ending pictures are kept as key art ([ADR-0020](docs/adr/0020-adopting-art-pack-v2.md)) |
 | 2026-10-31 | Art Pack v2.1 | Redrawn crowds and the Foundry sign adopted as delivered; the vertical slice and M2 are complete |
 | 2026-11-01 | Online (M4) | Through a dedicated server, with rollback; private rooms with codes and an opt-in open list; the server referees; no default server unless `GameSettings.json` ships one; HOST ON THIS PC in M4.5; no spectators, rankings, accounts, server browser or voice ([ADR-0026](docs/adr/0026-online-play.md)) |
+| 2026-11-02 | Default server | The game ships `195.161.54.95:7727` as `defaultServer` (the owner's server) |
+| 2026-11-02 | M4 closed | HOST ON THIS PC left out of M4.5 (now *Later / maybe*); online bugs found from here on are M5 work |
 | 2026-11-01 | Version numbers | `0.<milestone>.<patch>` until 1.0: the minor number is the milestone the build delivers (0.4.0 brings M4's online play), the patch counts fixes on it; **1.0.0** when M5 (release hardening) is done. The version is informational: online compatibility is decided by the protocol number and the game-data hash, replays by their content hash. Set once, in the top-level `CMakeLists.txt` |
 
 ## Open questions for the project owner

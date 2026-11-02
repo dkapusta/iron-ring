@@ -41,11 +41,12 @@ Players connect to it with **ONLINE → SERVER `your.address:7727`**. One server
 | `bind` | (all) | Address to listen on, for machines with several. |
 | `name` | IRON RING SERVER | Shown in the lobby (capitals; up to 40 characters). |
 | `motd` | (empty) | One line shown under the name. `#` starts a comment in `server.cfg`, so it can't appear in the text. |
-| `maxPlayers` | 256 | Connections at once. |
+| `maxPlayers` | 256 | Connections at once. One more gets `SERVER IS FULL`. |
 | `maxRooms` | 128 | Rooms at once. |
 | `roomsPerAddress` | 3 | Rooms one IP may hold open. |
 | `idleMinutes` | 30 | Rooms with no activity close. |
 | `joinAttemptsPerMinute` | 5 | Wrong room codes one IP may try per minute. |
+| `maxMessagesPerSecond` | 400 | A connection sending more is dropped. A game sends about 130 a second in a fight. 0 turns the limit off. |
 | `verify` | 1 | Referee every fight with the game's simulation (needs `IronRing_Data`). With 0, the server only relays inputs and compares the two players' checksums and results. |
 | `data` | IronRing_Data | The game data folder, relative to the program unless absolute. |
 | `log` | (empty) | Also append the log to this file. The log always goes to stdout as well. |
@@ -72,15 +73,32 @@ The unit restarts the server if it fails. It runs it as its own user, which can 
 
 ## 5. Docker
 
-From the repository root:
+From the repository root, with Docker Compose (`docker-compose.yml`):
+
+```sh
+docker compose up -d --build       # build the image from this checkout and start the server
+docker compose logs -f             # the log
+docker compose down                # stop it (players get SERVER IS SHUTTING DOWN)
+```
+
+After `git pull`, run `docker compose up -d --build` again. The image packs the game data from the same checkout, so it always matches games built from that checkout. The container restarts by itself unless you stop it, also after a reboot of the machine (when Docker starts at boot, as it does by default).
+
+Settings go in a `.env` file next to `docker-compose.yml` (ignored by git), or in the environment:
+
+```ini
+IRONRING_NAME=MY RING
+IRONRING_MOTD=FRIDAY NIGHT FIGHTS
+IRONRING_PORT=7727          # the UDP port on the machine
+IRONRING_BUILD_JOBS=1       # parallel compile jobs while building the image, about 1 GB of memory each
+```
+
+Without Compose:
 
 ```sh
 docker build -f Tools/Server/Dockerfile -t ironring-server .
-docker run -d --name ironring -p 7727:7727/udp --restart unless-stopped ironring-server
+docker run -d --name ironring -p 7727:7727/udp --restart unless-stopped ironring-server --name "MY RING"
 docker logs -f ironring
 ```
-
-The image packs the game data from the same checkout, so it always matches clients built from that checkout. Settings can be passed after the image name, for example `docker run ... ironring-server --name "MY RING" --motd "NO SANDBAGGING"`.
 
 ## 6. Windows
 
@@ -117,3 +135,7 @@ The server has no accounts and no database.
 - **The log:** connection times, IP addresses, player names, room codes and match results. Mention this to your players if your jurisdiction expects it.
 - **Rooms:** they live only in memory and disappear when the server stops.
 - **IP privacy:** players never see each other's IP addresses, because everything goes through the server.
+
+## 10. Testing a server build
+
+`Tools/Server/soak.sh` (Linux, after `cmake --build --preset release`) runs a real server and two headless game clients through match after match over a simulated bad link. It fails if the referee sees a desync, if too few matches finish, or if a saved replay does not play back the same. CI runs it on every change. The unit tests also run 100 refereed rooms at once against an in-process server and check every abuse limit.

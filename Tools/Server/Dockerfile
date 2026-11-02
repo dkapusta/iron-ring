@@ -1,6 +1,8 @@
 # Iron Ring dedicated server image (docs/server.md).
 #
-#   docker build -f Tools/Server/Dockerfile -t ironring-server .
+#   docker compose up -d --build                 (docker-compose.yml in the repository root)
+# or by hand:
+#   docker build -f Tools/Server/Dockerfile -t ironring-server .        [--build-arg BUILD_JOBS=4]
 #   docker run -d --name ironring -p 7727:7727/udp --restart unless-stopped ironring-server
 #
 # Built from the repository root. The server needs no SDL; the game data it
@@ -11,9 +13,11 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends cmake ninja-build g++ git ca-certificates \
  && rm -rf /var/lib/apt/lists/*
 WORKDIR /src
+# Parallel compile jobs: each needs about 1 GB, so small servers build one at a time.
+ARG BUILD_JOBS=1
 COPY . .
 RUN cmake -S . -B /build -G Ninja -DCMAKE_BUILD_TYPE=Release -DIR_BUILD_PLAYER=OFF -DIR_BUILD_TESTS=OFF \
- && cmake --build /build --target IronRingServer AssetPacker \
+ && cmake --build /build --target IronRingServer AssetPacker -j "${BUILD_JOBS}" \
  && mkdir -p /out \
  && /build/Tools/Release/AssetPacker --project . --pipeline ProjectSettings/AssetPipeline.json \
         --output /out/IronRing_Data \

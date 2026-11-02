@@ -127,7 +127,7 @@ Unity-compatible names where they exist:
 | `-screen-fullscreen 0\|1` | Windowed or fullscreen (default: fullscreen at desktop resolution) |
 | `-screen-width N` / `-screen-height N` | Window size in windowed mode |
 | `-logFile <path>` | Log file location |
-| `-batchmode` | Headless: offscreen video, dummy audio, one tick per frame, quits after `-frames` |
+| `-batchmode` | Headless: offscreen video with SDL's software renderer (unless `-render-driver`), dummy audio, one tick per frame, quits after `-frames`; with `-replay`, quits when the playback ends |
 | `-frames N` | Frames to run in batch mode (default 180) |
 | `-screenshot <path>` | Save the final batch-mode frame as PNG |
 | `-demo` | Skip the menus: a CPU vs CPU match (with `-training` or `-stage`, also straight into a fight) |
@@ -171,11 +171,12 @@ Source/
 Tests/               doctest unit tests + packer smoke test
 Tools/Art/           art importer, procedural generator, art self-test (Python)
 Tools/Audio/         NES sound-chip model, sound effects, venue themes, announcer (Python)
-Tools/Server/        server Dockerfile and systemd unit
+Tools/Server/        server Dockerfile, systemd unit, online soak test (soak.sh)
 ArtSource/           editable sources of the external art (not packed)
 cmake/               dependencies, compiler options, player layout, asset pipeline
 docs/                ADRs, architecture, asset pipeline, research, concept art
 build-server.sh      Linux: build the dedicated server and its data in one step
+docker-compose.yml   the dedicated server in a container (docs/server.md)
 ```
 
 ## Documentation

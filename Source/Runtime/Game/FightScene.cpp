@@ -468,6 +468,8 @@ void FightScene::finishPlayback() {
     const int played = static_cast<int>(playback_), total = static_cast<int>(setup_.replay->inputs.size());
     if (same) SDL_Log("Replay verified: %d ticks, identical result", played);
     else SDL_Log("Replay MISMATCH: the match did not play back the same (%d of %d ticks)", played, total);
+    // A batch run of -replay is a check: it ends with the playback.
+    if (services_.settings.batchMode && !services_.settings.replay.empty()) return services_.scenes.quit();
     services_.scenes.pop();
 }
 

@@ -154,6 +154,13 @@ TEST_CASE("server settings: server.cfg, then the command line") {
 
 namespace {
 
+// Bots pump flat out, far above a game's message rate: no limit unless a test sets one.
+server::Config testConfig() {
+    server::Config config;
+    config.maxMessagesPerSecond = 0;
+    return config;
+}
+
 server::GameRules kitRules() {
     server::GameRules rules;
     rules.version = "test";
@@ -205,7 +212,8 @@ struct Bot {
                     }
                 },
                 e.message);
-            inbox.push_back(std::move(e.message));
+            // The fight's own traffic is handled above; keeping it would add up in the load test.
+            if (!std::holds_alternative<Inputs>(e.message)) inbox.push_back(std::move(e.message));
         }
         if (session && !end) fight();
     }
@@ -248,7 +256,7 @@ struct Harness {
     server::Server srv;
     std::vector<Bot*> bots;
 
-    explicit Harness(server::Config config = {})
+    explicit Harness(server::Config config = testConfig())
         : srv(
               [&] {
                   config.port = 0; // any free port
@@ -358,7 +366,7 @@ TEST_CASE("server: a client that goes out of sync is named") {
 }
 
 TEST_CASE("server: without the referee, the clients' results must agree") {
-    server::Config config;
+    auto config = testConfig();
     config.verify = false;
     Harness h(config);
     Bot host, guest;
@@ -370,7 +378,7 @@ TEST_CASE("server: without the referee, the clients' results must agree") {
 }
 
 TEST_CASE("server: refusals, private rooms, the open list and wrong codes") {
-    server::Config config;
+    auto config = testConfig();
     config.joinAttemptsPerMinute = 3;
     Harness h(config);
 
@@ -440,6 +448,139 @@ TEST_CASE("server: a player leaving mid-match ends it, and the room waits with i
     REQUIRE(h.until([&] { return host.room->members.size() == 1 && host.room->phase == RoomPhase::Waiting; }));
     CHECK(host.room->code == code);
     CHECK(h.srv.rooms() == 1);
+}
+
+TEST_CASE("server: the abuse limits hold") {
+    SUBCASE("rooms per address, then rooms in all") {
+        auto config = testConfig();
+        config.roomsPerAddress = 2;
+        Harness h(config);
+        Bot a, b, c; // all from 127.0.0.1
+        h.connect(a, "A");
+        h.connect(b, "B");
+        h.connect(c, "C");
+        REQUIRE(h.until([&] { return a.welcomed && b.welcomed && c.welcomed; }));
+        a.client.send(CreateRoom{false});
+        b.client.send(CreateRoom{false});
+        REQUIRE(h.until([&] { return a.room && b.room; }));
+        c.client.send(CreateRoom{false});
+        REQUIRE(h.until([&] { return c.failed.has_value(); }));
+        CHECK(*c.failed == Problem::TooManyRooms);
+        CHECK(h.srv.rooms() == 2);
+    }
+    SUBCASE("rooms in all") {
+        auto config = testConfig();
+        config.maxRooms = 1;
+        Harness h(config);
+        Bot a, b;
+        h.connect(a, "A");
+        h.connect(b, "B");
+        REQUIRE(h.until([&] { return a.welcomed && b.welcomed; }));
+        a.client.send(CreateRoom{false});
+        REQUIRE(h.until([&] { return a.room.has_value(); }));
+        b.client.send(CreateRoom{false});
+        REQUIRE(h.until([&] { return b.failed.has_value(); }));
+        CHECK(*b.failed == Problem::ServerFull);
+    }
+    SUBCASE("players: the one too many is told the server is full") {
+        auto config = testConfig();
+        config.maxPlayers = 2;
+        Harness h(config);
+        Bot a, b, c;
+        h.connect(a, "A");
+        h.connect(b, "B");
+        REQUIRE(h.until([&] { return a.welcomed && b.welcomed; }));
+        h.bots.push_back(&c);
+        REQUIRE(c.client.connect("127.0.0.1", h.srv.port()));
+        REQUIRE(h.until([&] { return c.refused && c.dropped; }));
+        const auto& last = c.inbox.back();
+        REQUIRE(std::holds_alternative<Refused>(last));
+        CHECK(std::get<Refused>(last).reason == Refusal::Full);
+        CHECK(h.srv.players() == 2);
+    }
+    SUBCASE("a connection that never says hello is dropped") {
+        auto config = testConfig();
+        config.helloSeconds = 1;
+        Harness h(config);
+        Bot silent;
+        h.bots.push_back(&silent);
+        REQUIRE(silent.client.connect("127.0.0.1", h.srv.port()));
+        REQUIRE(h.until([&] { return silent.client.connected(); }));
+        CHECK(h.until([&] { return silent.dropped; }, 5));
+    }
+    SUBCASE("a flood of messages is cut off") {
+        auto config = testConfig();
+        config.maxMessagesPerSecond = 50;
+        Harness h(config);
+        Bot calm, flood;
+        h.connect(calm, "CALM");
+        h.connect(flood, "FLOOD");
+        REQUIRE(h.until([&] { return calm.welcomed && flood.welcomed; }));
+        for (int i = 0; i < 200; ++i)
+            flood.client.send(ListRooms{});
+        CHECK(h.until([&] { return flood.dropped; }, 5));
+        calm.client.send(CreateRoom{false}); // the others carry on
+        CHECK(h.until([&] { return calm.room.has_value(); }));
+        CHECK_FALSE(calm.dropped);
+    }
+}
+
+TEST_CASE("server: 100 rooms fight at once, and nothing is left afterwards") {
+    // The load test (M4.5): 200 players in 100 rooms, every fight relayed and
+    // refereed at the same time, as fast as the machine goes.
+    constexpr int kRooms = 100;
+    auto config = testConfig();
+    config.maxPlayers = 2 * kRooms;
+    config.maxRooms = kRooms;
+    config.roomsPerAddress = kRooms; // every bot is 127.0.0.1
+    config.joinAttemptsPerMinute = 1000;
+    Harness h(config);
+    std::vector<std::unique_ptr<Bot>> bots;
+    for (int i = 0; i < 2 * kRooms; ++i) {
+        bots.push_back(std::make_unique<Bot>());
+        h.connect(*bots.back(), "BOT" + std::to_string(i));
+    }
+    REQUIRE(h.until([&] { return std::all_of(bots.begin(), bots.end(), [](const auto& b) { return b->welcomed; }); }));
+    CHECK(h.srv.players() == 2 * kRooms);
+    for (int r = 0; r < kRooms; ++r)
+        bots[2 * r]->client.send(CreateRoom{false});
+    REQUIRE(h.until([&] {
+        for (int r = 0; r < kRooms; ++r)
+            if (!bots[2 * r]->room) return false;
+        return true;
+    }));
+    CHECK(h.srv.rooms() == kRooms);
+    for (int r = 0; r < kRooms; ++r)
+        bots[2 * r + 1]->client.send(JoinRoom{bots[2 * r]->room->code});
+    REQUIRE(h.until([&] {
+        for (int r = 0; r < kRooms; ++r)
+            if (!bots[2 * r]->room || bots[2 * r]->room->members.size() != 2) return false;
+        return true;
+    }));
+    for (int r = 0; r < kRooms; ++r) {
+        bots[2 * r]->client.send(Pick{r % 2 ? "dee" : "bram", "pier"});
+        bots[2 * r + 1]->client.send(Pick{r % 3 ? "bram" : "dee", ""});
+    }
+    const auto began = std::chrono::steady_clock::now();
+    REQUIRE(h.until(
+        [&] { return std::all_of(bots.begin(), bots.end(), [](const auto& b) { return b->end.has_value(); }); },
+        240));
+    const double seconds = std::chrono::duration<double>(std::chrono::steady_clock::now() - began).count();
+    int finished = 0;
+    for (int r = 0; r < kRooms; ++r) {
+        const auto& host = *bots[2 * r];
+        const auto& guest = *bots[2 * r + 1];
+        if (host.end->reason == EndReason::Finished && guest.end->reason == EndReason::Finished &&
+            host.end->winner == host.session->state().winner && guest.end->winner == host.end->winner)
+            ++finished;
+    }
+    CHECK(finished == kRooms);
+    MESSAGE(kRooms << " refereed matches at once in " << seconds << " s");
+
+    // Everyone leaves: the server forgets every room and player.
+    for (auto& b : bots)
+        b->client.disconnect();
+    CHECK(h.until([&] { return h.srv.players() == 0 && h.srv.rooms() == 0; }, 30));
 }
 
 TEST_CASE("the server loads the shipped game data for its referee") {

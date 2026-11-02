@@ -46,6 +46,15 @@ jobs:
       - run: ctest --preset core
       - run: Build/core/Server/Debug/IronRingServer --check --verify 0 --port 0
 
+  server-docker:
+    # docker-compose.yml and Tools/Server/Dockerfile build, and the image's server starts.
+    name: Server (Docker image)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - run: IRONRING_BUILD_JOBS=4 docker compose build
+      - run: docker run --rm ironring-server --check --port 0
+
   linux:
     name: Linux (${{ matrix.compiler }})
     runs-on: ubuntu-24.04
@@ -100,6 +109,22 @@ jobs:
           Build/release/Player/Release/IronRing.x86_64 -batchmode -autoplay -screen-fullscreen 0
           -screen-width 640 -screen-height 360 -frames 20000 -keys "10:Return,30:Return,60:Return"
           -screenshot arcade-linux-${{ matrix.compiler }}.png
+
+      - name: Online soak (server + two headless clients)
+        if: matrix.compiler == 'gcc'
+        # A real IronRingServer referees match after match between two autoplaying
+        # clients over a simulated 40 ms / 10 % loss link; every replay must verify.
+        env:
+          FRAMES: "9000"
+          SOAK_DIR: soak-linux
+        run: Tools/Server/soak.sh Build/release
+
+      - uses: actions/upload-artifact@v7
+        if: always() && matrix.compiler == 'gcc'
+        with:
+          name: soak-linux
+          path: soak-linux/
+          if-no-files-found: ignore
 
       - name: Server package
         if: matrix.compiler == 'gcc'
