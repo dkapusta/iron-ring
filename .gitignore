@@ -24,3 +24,6 @@ Player-prev.log
 Screenshot-*.png
 __pycache__/
 *.pyc
+
+# docker compose settings (docker-compose.yml)
+.env

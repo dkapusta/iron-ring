@@ -38,6 +38,9 @@ struct Config {
     bool verify = true;            // referee fights with the game's simulation
     int helloSeconds = 10;         // a connection that doesn't introduce itself is dropped
     int joinAttemptsPerMinute = 5; // wrong room codes per address
+    // A game sends about 130 messages a second in a fight; a connection that
+    // sends far more is broken or hostile and is dropped. 0: no limit (tests).
+    int maxMessagesPerSecond = 400;
 };
 
 // What the server knows of the game: what the referee needs.
@@ -77,7 +80,10 @@ class Server {
         std::uint64_t dataHash = 0;
         bool welcomed = false;
         Clock::time_point connected;
-        std::string room; // code, or empty
+        std::string room;         // code, or empty
+        Clock::time_point window; // maxMessagesPerSecond: the current one-second window
+        int messages = 0;
+        bool dropping = false; // disconnecting: the rest of its traffic is ignored
     };
     struct Fight {
         std::uint32_t id = 0;

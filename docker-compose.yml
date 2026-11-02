@@ -1,0 +1,34 @@
+# Iron Ring dedicated server in a container (docs/server.md, "Docker").
+#
+#   docker compose up -d --build     build from this checkout and start it
+#   docker compose logs -f           the server log
+#   docker compose down              stop it (players get SERVER IS SHUTTING DOWN)
+#
+# After `git pull`, run `docker compose up -d --build` again: the image packs
+# the game data from the same checkout, so it always matches games built from it.
+#
+# Settings come from the environment or a `.env` file next to this one:
+#   IRONRING_PORT=7727               UDP port on the host
+#   IRONRING_NAME=MY RING            shown in the lobby
+#   IRONRING_MOTD=FRIDAY NIGHT FIGHTS
+#   IRONRING_BUILD_JOBS=1            parallel compile jobs (about 1 GB of memory each)
+services:
+  ironring-server:
+    build:
+      context: .
+      dockerfile: Tools/Server/Dockerfile
+      args:
+        BUILD_JOBS: "${IRONRING_BUILD_JOBS:-1}" # raise on machines with more than 2 GB of memory
+    image: ironring-server
+    container_name: ironring-server
+    restart: unless-stopped
+    ports:
+      - "${IRONRING_PORT:-7727}:7727/udp"
+    command: ["--name", "${IRONRING_NAME:-IRON RING SERVER}", "--motd", "${IRONRING_MOTD:-}"]
+    # The server shuts down cleanly on SIGTERM and tells players why.
+    stop_grace_period: 10s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

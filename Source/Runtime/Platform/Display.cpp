@@ -16,8 +16,12 @@ RendererHandle tryCreateRenderer(SDL_Window* window, const PlayerSettings& setti
     SDL_SetPointerProperty(props, SDL_PROP_RENDERER_CREATE_WINDOW_POINTER, window);
     SDL_SetNumberProperty(props, SDL_PROP_RENDERER_CREATE_PRESENT_VSYNC_NUMBER, settings.vsync ? 1 : 0);
     SDL_SetNumberProperty(props, SDL_PROP_RENDERER_CREATE_OUTPUT_COLORSPACE_NUMBER, colorspace);
-    if (!settings.renderDriver.empty())
-        SDL_SetStringProperty(props, SDL_PROP_RENDERER_CREATE_NAME_STRING, settings.renderDriver.c_str());
+    // Batch mode draws offscreen, often on a machine without a GPU: SDL's software
+    // renderer there, since a software OpenGL (Mesa llvmpipe) costs over 1 GB of memory.
+    const std::string driver = !settings.renderDriver.empty() ? settings.renderDriver
+                             : settings.batchMode             ? std::string("software")
+                                                              : std::string();
+    if (!driver.empty()) SDL_SetStringProperty(props, SDL_PROP_RENDERER_CREATE_NAME_STRING, driver.c_str());
     RendererHandle renderer(SDL_CreateRendererWithProperties(props));
     SDL_DestroyProperties(props);
     return renderer;

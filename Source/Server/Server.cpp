@@ -18,6 +18,8 @@ struct NetLibraryHolder {
 
 namespace {
 
+constexpr std::size_t kSparePeers = 8; // over maxPlayers: room to refuse with a reason
+
 constexpr int kMaxFightTicks = 60 * 60 * 30; // half an hour of inputs per side, far beyond any match
 
 std::string addressOf(const ENetPeer* peer) {
@@ -50,7 +52,9 @@ bool Server::start(std::string* error) {
         return false;
     }
     address.port = config_.port;
-    host_ = enet_host_create(&address, static_cast<size_t>(std::max(1, config_.maxPlayers)), net::kChannelCount, 0, 0);
+    // A few peers over maxPlayers, so the server can tell the extra ones it is full.
+    host_ = enet_host_create(&address, static_cast<size_t>(std::max(1, config_.maxPlayers) + kSparePeers),
+                             net::kChannelCount, 0, 0);
     if (!host_) {
         if (error) *error = "cannot open UDP port " + std::to_string(config_.port) + " (in use, or not allowed)";
         return false;
@@ -140,7 +144,14 @@ void Server::onConnect(ENetPeer* peer) {
     c.connected = Clock::now();
     enet_peer_timeout(peer, 0, 0, 10000);
     log("connect " + c.address + " #" + std::to_string(c.id));
-    clients_.emplace(peer, std::move(c));
+    const bool full = static_cast<int>(clients_.size()) >= config_.maxPlayers;
+    auto& added = clients_.emplace(peer, std::move(c)).first->second;
+    if (full) {
+        log(who(added) + ": server full (" + std::to_string(config_.maxPlayers) + " players)");
+        net::sendTo(peer, net::Refused{net::Refusal::Full, {}});
+        added.dropping = true;
+        enet_peer_disconnect_later(peer, 0);
+    }
 }
 
 void Server::onDisconnect(ENetPeer* peer) {
@@ -155,6 +166,21 @@ void Server::onMessage(ENetPeer* peer, net::Message&& message) {
     const auto it = clients_.find(peer);
     if (it == clients_.end()) return;
     Client& c = it->second;
+    if (c.dropping) return;
+    if (config_.maxMessagesPerSecond > 0) {
+        const auto now = Clock::now();
+        if (now - c.window >= std::chrono::seconds(1)) {
+            c.window = now;
+            c.messages = 0;
+        }
+        if (++c.messages > config_.maxMessagesPerSecond) {
+            log(who(c) + ": more than " + std::to_string(config_.maxMessagesPerSecond) +
+                " messages a second, disconnecting");
+            c.dropping = true;
+            enet_peer_disconnect_later(peer, 0);
+            return;
+        }
+    }
     if (!c.welcomed && !std::holds_alternative<net::Hello>(message)) return; // introduce yourself first
     std::visit(
         [&](const auto& m) {

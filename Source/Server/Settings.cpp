@@ -62,6 +62,7 @@ bool applySetting(Settings& s, std::string_view key, std::string_view value) {
     if (key == "roomsPerAddress") return setInt(c.roomsPerAddress, 1, 100);
     if (key == "idleMinutes") return setInt(c.idleMinutes, 1, 24 * 60);
     if (key == "joinAttemptsPerMinute") return setInt(c.joinAttemptsPerMinute, 1, 1000);
+    if (key == "maxMessagesPerSecond") return setInt(c.maxMessagesPerSecond, 0, 100000);
     if (key == "verify") {
         const auto b = flag(value);
         if (b) c.verify = *b;
@@ -136,6 +137,7 @@ std::string usage() {
            "  name=IRON RING SERVER  shown in the lobby\n"
            "  motd=                  message of the day, one line\n"
            "  maxPlayers=256  maxRooms=128  roomsPerAddress=3  idleMinutes=30  joinAttemptsPerMinute=5\n"
+           "  maxMessagesPerSecond=400  a connection sending more is dropped (0: no limit)\n"
            "  verify=1               referee fights with the game's simulation (needs data)\n"
            "  data=IronRing_Data     the game's data folder (relative to the executable)\n"
            "  log=                   also append the log to this file\n"
