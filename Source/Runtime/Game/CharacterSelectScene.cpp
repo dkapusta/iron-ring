@@ -78,7 +78,8 @@ void CharacterSelectScene::pick(int side) {
         const auto& id = services_.data.roster()[static_cast<std::size_t>(cursor_[s])].id;
         auto& online = *services_.online;
         if (online.hosting() && !services_.settings.autoplay) {
-            // The host also picks the venue; the stage select sends both.
+            // The host also picks the venue; the stage select sends both. Meanwhile
+            // the guest sees this fighter as picked (onlineUpdate sends it locked).
             FightSetup setup;
             setup.control = Control::Online;
             setup.fighters[s] = id;
@@ -157,17 +158,39 @@ void CharacterSelectScene::onlineUpdate() {
         return;
     }
     if (followMatchStart(services_, true)) return;
-    // The opponent's side shows their pick once they have made it.
+    const auto& roster = services_.data.roster();
+    const auto indexOf = [&roster](const std::string& id) {
+        for (std::size_t i = 0; i < roster.size(); ++i)
+            if (roster[i].id == id) return static_cast<int>(i);
+        return -1;
+    };
+    // This side's cursor goes to the opponent as it moves (until the pick, which says it all).
+    const auto local = static_cast<std::size_t>(localSide_);
+    if (!online.pickSent) {
+        // Picked but not sent: the host, on the way to the venue (or back from it).
+        const auto& id = roster[static_cast<std::size_t>(cursor_[local])].id;
+        const bool locked = picked_[local];
+        if (id != hoverSent_ || locked != lockedSent_) {
+            online.send(net::Hover{id, locked});
+            hoverSent_ = id;
+            lockedSent_ = locked;
+        }
+    }
+    // The opponent's cursor as it moves, then their pick (a host choosing the venue counts as picked).
     const auto remote = static_cast<std::size_t>(1 - localSide_);
     const auto& member = online.room()->members[remote];
-    const auto& roster = services_.data.roster();
     if (member.picked && !picked_[remote]) {
-        for (std::size_t i = 0; i < roster.size(); ++i)
-            if (roster[i].id == member.fighter) cursor_[remote] = static_cast<int>(i);
+        if (const int i = indexOf(member.fighter); i >= 0) cursor_[remote] = i;
         picked_[remote] = true;
         pickedAt_[remote] = clock_;
     }
-    if (!member.picked) picked_[remote] = false;
+    if (!member.picked) {
+        picked_[remote] = false;
+        if (const int i = indexOf(member.hover); i >= 0) cursor_[remote] = i;
+        if (member.locked && !remoteLocked_) pickedAt_[remote] = clock_;
+    }
+    remoteSeen_ = member.picked || !member.hover.empty();
+    remoteLocked_ = member.locked && !member.picked;
     // -autoplay (soak tests): pick this side's default fighter after a beat.
     if (services_.settings.autoplay && !picked_[static_cast<std::size_t>(localSide_)] && clock_ > 40) pick(localSide_);
 }
@@ -248,13 +271,14 @@ void CharacterSelectScene::drawGrid(SDL_Renderer* r) const {
         const auto s = static_cast<std::size_t>(side);
         if (side == 1 && mode_ == SelectMode::Arcade) continue;
         const bool shared = cursor_[0] == cursor_[1];
+        // Online, the opponent's cursor shows once the server has relayed it.
+        if (mode_ == SelectMode::Online && side != localSide_ && !remoteSeen_) continue;
         if (shared && !picked_[0] && !picked_[1] && (clock_ / 12) % 2 != side) continue;
         if (picked_[s] && (clock_ - pickedAt_[s]) < 20 && (clock_ / 3) % 2 == 0) continue; // flash on pick
         const SDL_FRect cell = cellRect(cursor_[s]);
         const float inset = shared && picked_[0] && picked_[1] ? static_cast<float>(side * 3) : 0;
         ui::outline(r, {cell.x - 2 + inset, cell.y - 2 + inset, cell.w + 4 - 2 * inset, cell.h + 4 - 2 * inset},
                     ui::kSide[side], 2);
-        if (mode_ == SelectMode::Online && side != localSide_ && !picked_[s]) continue; // their cursor isn't shared
         const bool cpu = mode_ != SelectMode::TwoPlayers && mode_ != SelectMode::Online && side == 1;
         const std::string tag = mode_ == SelectMode::Online ? (side == localSide_ ? "YOU" : "THEM")
                                 : cpu                       ? (mode_ == SelectMode::Training ? "DUMMY" : "CPU")
@@ -275,7 +299,7 @@ void CharacterSelectScene::drawSide(SDL_Renderer* r, int side) const {
     const float edge = side == 0 ? 12.0f : services_.width - 12.0f;
 
     // The one-player flow shows the opponent's side only once it is being chosen.
-    if (mode_ == SelectMode::Online && side != localSide_ && !picked_[s]) {
+    if (mode_ == SelectMode::Online && side != localSide_ && !remoteSeen_) {
         const auto& room = services_.online->room();
         const auto name =
             room && room->members.size() == 2 ? ui::upper(room->members[s].name) : std::string("OPPONENT");
@@ -292,7 +316,8 @@ void CharacterSelectScene::drawSide(SDL_Renderer* r, int side) const {
     }
     if (const auto* v = view(cursor_[s])) {
         const auto& def = v->definition();
-        const bool won = picked_[s] && def.animations.count("win");
+        const bool locked = mode_ == SelectMode::Online && side != localSide_ && remoteLocked_;
+        const bool won = (picked_[s] || locked) && def.animations.count("win");
         const auto& animation = def.animation(won ? "win" : "idle");
         const int tick = won ? std::min(clock_ - pickedAt_[s], animation.totalTicks() - 1) : clock_;
         v->sheet().draw(r, animation.at(tick).frame, centre, 262, side == 1);
@@ -322,7 +347,12 @@ void CharacterSelectScene::render(const RenderContext& context) {
     else drawSide(r, 1);
     drawGrid(r);
     if (mode_ == SelectMode::Online && picked_[static_cast<std::size_t>(localSide_)] && !ready()) {
-        data.small().draw(r, "WAITING FOR THE OPPONENT", services_.width / 2, 346, ui::kFog, Align::Centre, true);
+        const auto& room = services_.online->room();
+        const auto remote = static_cast<std::size_t>(1 - localSide_);
+        const std::string line = remoteLocked_ && room && room->members.size() == 2
+                                     ? ui::upper(room->members[remote].name) + " IS CHOOSING THE VENUE"
+                                     : "WAITING FOR THE OPPONENT";
+        data.small().draw(r, line, services_.width / 2, 346, ui::kFog, Align::Centre, true);
     } else if (ready() && mode_ != SelectMode::Arcade) {
         if ((clock_ / 6) % 2 == 0) data.large().draw(r, "VS", services_.width / 2, 110, ui::kBrassLight, Align::Centre);
     } else {

@@ -97,6 +97,8 @@ class Server {
         std::vector<_ENetPeer*> members; // [0] is the host and plays side 0
         net::RoomPhase phase = net::RoomPhase::Waiting;
         std::array<std::string, 2> picks;
+        std::array<std::string, 2> hover; // Hover: the select cursors, shown to the opponent
+        std::array<bool, 2> locked{};
         std::string stagePick;
         std::array<bool, 2> rematch{};
         std::uint32_t matches = 0;
@@ -114,6 +116,7 @@ class Server {
     void handle(_ENetPeer* peer, Client& c, const net::SetOpen& m);
     void handle(_ENetPeer* peer, Client& c, const net::Pick& m);
     void handle(_ENetPeer* peer, Client& c, const net::Rematch& m);
+    void handle(_ENetPeer* peer, Client& c, const net::Hover& m);
     void handle(_ENetPeer* peer, Client& c, const net::Inputs& m);
     void handle(_ENetPeer* peer, Client& c, const net::Checksum& m);
     void handle(_ENetPeer* peer, Client& c, const net::Result& m);

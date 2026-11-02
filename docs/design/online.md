@@ -225,6 +225,7 @@ The simulation is already deterministic, integer-only and copyable; a `Match` co
 ### 4.4 Version safety and desyncs
 
 - **Join checks:** every client sends its protocol version and a **content hash** of the game data that drives the simulation: fighter files, frame data and stages. The server rejects other protocol versions and only pairs equal hashes.
+- **Rules revision:** the content hash also includes `sim::kRulesVersion`, bumped whenever a code change makes the same inputs play out differently (the determinism pins change). So a game and a server from either side of such a change refuse each other, and old replays are rejected instead of failing their check. Revision 2: fighters keep falling and moves finish after a KO.
 - **Checksums:** every 30 ticks, both clients send `Match::checksum()`.
 - **With `verify=1`:** the server runs the same `sim::Match` from the confirmed inputs. It uses the same SDL-free library the game uses and is fast, since there are no graphics. It can then say *which* client went out of sync, and it decides the result.
 - **Without it:** the server compares the two clients' checksums.

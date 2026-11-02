@@ -43,7 +43,9 @@ void FighterView::update(const sim::Match& match, int side, int clock) {
     const bool won = match.lastRound == (side == 0 ? sim::Outcome::Player1 : sim::Outcome::Player2);
 
     if (f.hp == 0) return playFromClock("ko", clock);
-    if (roundOver && won && match.phaseTicks > kWinPoseDelay) return playFromClock("win", clock);
+    // The winner celebrates once landed and done with the last move.
+    if (roundOver && won && match.phaseTicks > kWinPoseDelay && f.y == 0 && f.move < 0)
+        return playFromClock("win", clock);
     if (f.heldTicks > 0) return playFromClock("held", clock);
     if (f.throwTicks > 0) {
         const auto& m = r.spec(f).moves[static_cast<std::size_t>(f.throwSlot)];

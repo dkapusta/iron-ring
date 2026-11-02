@@ -93,13 +93,15 @@ TEST_CASE("every message round-trips") {
         SetOpen{true},
         Pick{"dee", "pier_nine"},
         Rematch{},
+        Hover{"jun", true},
         Checksum{29, 0xDEADBEEF, 3},
         Result{sim::Outcome::Player2, 3},
         Inputs{100, {1, 2, 3, 511}, 98, 3},
         Welcome{"RING", "HELLO", 3, 1},
         Refused{Refusal::Version, "0.2.0"},
         Failed{Problem::RoomFull},
-        RoomState{"K7QX2M", false, RoomPhase::Selecting, 1, {{"A", true, "dee", 40}, {"B", false, "", 55}}},
+        RoomState{"K7QX2M", false, RoomPhase::Selecting, 1,
+                  {{"A", true, "dee", 40, "", false}, {"B", false, "", 55, "sable", true}}},
         RoomList{{{"K7QX2M", "A", 12}}},
         MatchStart{3, {"dee", "bram"}, "pier_nine", 800, 1},
         MatchEnd{EndReason::Desync, sim::Outcome::Running, 1},
@@ -124,7 +126,8 @@ TEST_CASE("random and truncated bytes never decode into nonsense") {
         if (decodeMessage(bytes)) ++decoded; // allowed, but must be a well-formed message
     }
     CHECK(decoded < 2000);
-    const auto bytes = encodeMessage(RoomState{"K7QX2M", false, RoomPhase::Waiting, 0, {{"A", false, "", 1}}});
+    const auto bytes =
+        encodeMessage(RoomState{"K7QX2M", false, RoomPhase::Waiting, 0, {{"A", false, "", 1, "", false}}});
     for (std::size_t n = 0; n < bytes.size(); ++n)
         CHECK_FALSE(decodeMessage({bytes.data(), n}));
     CHECK_FALSE(decodeMessage(encodeMessage(Inputs{-1, {1}, 0})));
@@ -318,6 +321,30 @@ TEST_CASE("server: two players meet by room code and the referee confirms the re
     guest.client.send(Rematch{});
     REQUIRE(h.until([&] { return host.start && guest.start; }));
     CHECK(host.start->match == 2);
+}
+
+TEST_CASE("server: each player sees where the other's cursor is on the select") {
+    Harness h;
+    Bot host, guest;
+    h.connect(host, "HOST");
+    h.connect(guest, "GUEST");
+    REQUIRE(h.until([&] { return host.welcomed && guest.welcomed; }));
+    host.client.send(CreateRoom{false});
+    REQUIRE(h.until([&] { return host.room.has_value(); }));
+    guest.client.send(JoinRoom{host.room->code});
+    REQUIRE(h.until([&] { return guest.room && host.room->members.size() == 2; }));
+
+    guest.client.send(Hover{"bram", true}); // a guest can't lock: only the host goes on to the venue
+    REQUIRE(h.until([&] { return host.room->members[1].hover == "bram"; }));
+    CHECK_FALSE(host.room->members[1].locked);
+    host.client.send(Hover{"dee", true});
+    REQUIRE(h.until([&] { return guest.room->members[0].locked; }));
+    CHECK(guest.room->members[0].hover == "dee");
+    CHECK_FALSE(guest.room->members[0].picked); // locked is not picked: the venue is still to come
+    guest.client.send(Hover{"nobody", false}); // not a fighter on this server
+    host.client.send(Hover{"bram", true});
+    REQUIRE(h.until([&] { return guest.room->members[0].hover == "bram"; }));
+    CHECK(host.room->members[1].hover == "bram");
 }
 
 TEST_CASE("server: a client that goes out of sync is named") {

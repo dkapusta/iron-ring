@@ -43,6 +43,7 @@ MatchStep Match::step(const std::array<Input, 2>& inputs) {
         break;
 
     case Phase::RoundOver:
+        round.settle(); // fighters caught in the air come down; moves finish
         if (++phaseTicks < kRoundOverTicks) break;
         if (wins[0] >= kRoundsToWin || wins[1] >= kRoundsToWin || roundNumber >= kMaxRounds) {
             winner = wins[0] == wins[1] ? Outcome::Draw : (wins[0] > wins[1] ? Outcome::Player1 : Outcome::Player2);
@@ -59,6 +60,7 @@ MatchStep Match::step(const std::array<Input, 2>& inputs) {
         break;
 
     case Phase::MatchOver:
+        round.settle();
         if (!finished && ++phaseTicks >= kMatchOverTicks) {
             finished = true;
             result.flow = FlowEvent::Finished;

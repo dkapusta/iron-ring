@@ -84,7 +84,7 @@ Player/Release/
 
 The folder is self-contained and can be zipped and copied as is. `cmake --install Build/release --prefix ~/.local` installs it, with a desktop entry and icon on Linux ([docs/install.md](docs/install.md)). The player writes `Player.log` (previous run: `Player-prev.log`), `prefs.cfg` (what you chose in Options, plus the last stage picked) F12 screenshots and `Replays/` (the last 50 finished matches outside training, as `.irr` files for `-replay`) to the per-user data folder (`%APPDATA%\dkapusta\Iron Ring\` on Windows, `~/.local/share/dkapusta/Iron Ring/` on Linux). Delete `prefs.cfg` to go back to the defaults.
 
-Online play runs through `IronRingServer`, the dedicated server: one UDP port, no SDL, built with the rest (`Build/release/Server/Release/`). Deploying it, on Linux with systemd, in Docker or on Windows: [docs/server.md](docs/server.md).
+Online play runs through `IronRingServer`, the dedicated server: one UDP port, no SDL, built with the rest (`Build/release/Server/Release/`); on a Linux server, `./build-server.sh` builds just the server and its data. Deploying it, on Linux with systemd, in Docker or on Windows: [docs/server.md](docs/server.md).
 
 ### Playing
 
@@ -175,6 +175,7 @@ Tools/Server/        server Dockerfile and systemd unit
 ArtSource/           editable sources of the external art (not packed)
 cmake/               dependencies, compiler options, player layout, asset pipeline
 docs/                ADRs, architecture, asset pipeline, research, concept art
+build-server.sh      Linux: build the dedicated server and its data in one step
 ```
 
 ## Documentation

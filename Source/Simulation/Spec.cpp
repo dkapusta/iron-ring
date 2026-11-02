@@ -77,6 +77,7 @@ std::uint64_t specHash(const FighterSpec& spec) {
             h *= 1099511628211ULL;
         }
     };
+    add(kRulesVersion);
     const auto box = [&add](const Box& b) {
         add(b.x); add(b.y); add(b.w); add(b.h);
     };

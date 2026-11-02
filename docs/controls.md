@@ -40,7 +40,7 @@ You need an Iron Ring server to meet on. Anyone can run one ([server.md](server.
 1. **ONLINE** on the title menu. Enter your **NAME** (up to 12 characters) and the **SERVER** as `address:port` (the port defaults to 7727). Left/Right on SERVER steps through the servers you used before. **CONNECT**.
 2. In the lobby, one of you chooses **CREATE ROOM**. The room shows a six-character code, such as `K7M2QX`, and **COPY INVITE** puts `address:port/K7M2QX` in the clipboard. Send that to your friend however you like.
 3. Your friend chooses **ONLINE → PASTE INVITE**, or types it into **INVITE** (Return joins). Either connects and joins in one step. With the server already in SERVER, typing just the six-letter code into INVITE is enough, and someone already in the lobby can use **JOIN WITH CODE**.
-4. With two players in the room, both go to the character select. Each of you steers only your own side, with any keys or pad. The room's host (who created it) also picks the venue. The fight starts when both have picked.
+4. With two players in the room, both go to the character select. Each of you steers only your own side, with any keys or pad, and sees the other's cursor move. The room's host (who created it) also picks the venue; meanwhile the other player sees the host's fighter as picked. The fight starts when both have picked.
 5. After a match: **REMATCH** (when both choose it), **CHANGE FIGHTERS** (back to the select) or **LEAVE ROOM**.
 
 Rooms are private: only someone with the code can join. A host can choose **MAKE OPEN** to list the room under **OPEN ROOMS** in the lobby, for anyone on that server to join.
