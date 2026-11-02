@@ -165,3 +165,27 @@ TEST_CASE("round end conditions") {
         CHECK(m.outcome == Outcome::Player1);
     }
 }
+
+TEST_CASE("after a KO, fighters caught in the air come down and moves finish") {
+    Match m;
+    m.reset();
+    for (int i = 0; i < kIntroTicks; ++i) (void)m.step({0, 0});
+    REQUIRE(m.phase == Phase::Fight);
+    // Player 2 KO'd at the top of a jump; player 1 mid-jump and mid-move.
+    auto& [p1, p2] = m.round.fighters;
+    p2.hp = 0;
+    p2.y = 90 * kFixed;
+    p2.vy = 0;
+    p1.y = 40 * kFixed;
+    p1.vy = 3 * kFixed;
+    p1.move = 0;
+    p1.age = 0;
+    (void)m.step({0, 0});
+    REQUIRE(m.phase == Phase::RoundOver);
+    CHECK(m.lastRound == Outcome::Player1);
+    for (int i = 0; i < 120 && m.phase == Phase::RoundOver; ++i) (void)m.step({Up | LightPunch, Up});
+    CHECK(p1.y == 0);
+    CHECK(p2.y == 0);
+    CHECK(p1.move == -1);
+    CHECK(p2.hp == 0); // nothing lands after the bell
+}

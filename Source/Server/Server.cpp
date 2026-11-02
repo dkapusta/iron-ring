@@ -164,7 +164,8 @@ void Server::onMessage(ENetPeer* peer, net::Message&& message) {
             else if constexpr (std::is_same_v<T, net::Hello> || std::is_same_v<T, net::CreateRoom> ||
                                std::is_same_v<T, net::JoinRoom> || std::is_same_v<T, net::ListRooms> ||
                                std::is_same_v<T, net::SetOpen> || std::is_same_v<T, net::Pick> ||
-                               std::is_same_v<T, net::Rematch> || std::is_same_v<T, net::Inputs> ||
+                               std::is_same_v<T, net::Rematch> || std::is_same_v<T, net::Hover> ||
+                               std::is_same_v<T, net::Inputs> ||
                                std::is_same_v<T, net::Checksum> || std::is_same_v<T, net::Result>)
                 handle(peer, c, m);
             // Server-to-client messages arriving here are ignored.
@@ -239,6 +240,8 @@ void Server::handle(ENetPeer* peer, Client& c, const net::JoinRoom& m) {
     room.members.push_back(peer);
     room.phase = net::RoomPhase::Selecting;
     room.picks = {};
+    room.hover = {};
+    room.locked = {};
     room.stagePick.clear();
     room.activity = Clock::now();
     c.room = room.code;
@@ -283,6 +286,8 @@ void Server::handle(ENetPeer* peer, Client& c, const net::Pick& m) {
         room->picks = {};
         room->stagePick.clear();
         room->rematch = {};
+        room->hover = {};
+        room->locked = {};
     }
     room->phase = net::RoomPhase::Selecting;
     room->picks[static_cast<std::size_t>(side)] = m.fighter;
@@ -302,10 +307,25 @@ void Server::handle(ENetPeer* peer, Client& c, const net::Rematch&) {
     if (room->rematch[0] && room->rematch[1]) startFight(*room);
 }
 
+void Server::handle(ENetPeer* peer, Client& c, const net::Hover& m) {
+    Room* room = roomOf(c);
+    if (!room || room->members.size() < 2) return;
+    if (room->phase != net::RoomPhase::Selecting && room->phase != net::RoomPhase::AfterMatch) return;
+    if (!m.fighter.empty() && !rules_.fighters.empty() && rules_.fighters.count(m.fighter) == 0) return;
+    const auto side = static_cast<std::size_t>(sideOf(*room, peer));
+    if (room->hover[side] == m.fighter && room->locked[side] == m.locked) return;
+    room->hover[side] = m.fighter;
+    room->locked[side] = m.locked && side == 0; // only the host goes on to the venue
+    room->activity = Clock::now();
+    broadcastState(*room);
+}
+
 void Server::startFight(Room& room) {
     Fight fight;
     fight.id = ++room.matches;
     fight.fighters = room.picks;
+    room.hover = {};
+    room.locked = {};
     if (!room.stagePick.empty() || rules_.stages.empty()) {
         fight.stage = room.stagePick;
     } else {
@@ -439,6 +459,8 @@ void Server::leaveRoom(ENetPeer* peer, Client& c, net::EndReason why) {
     // The one left becomes the host and waits for a new challenger; the code stays.
     room->phase = net::RoomPhase::Waiting;
     room->picks = {};
+    room->hover = {};
+    room->locked = {};
     room->stagePick.clear();
     room->rematch = {};
     room->activity = Clock::now();
@@ -450,11 +472,16 @@ void Server::broadcastState(Room& room) {
     state.code = room.code;
     state.open = room.open;
     state.phase = room.phase;
+    // Picks count on the select only: after a match they are kept for a rematch,
+    // but a player who goes to CHANGE FIGHTERS must not see the old ones as made.
+    const bool selecting = room.phase == net::RoomPhase::Selecting;
     for (std::size_t i = 0; i < room.members.size(); ++i) {
         const auto& c = clients_.at(room.members[i]);
+        const bool picked = selecting && !room.picks[i].empty();
         state.members.push_back(
-            {c.name, !room.picks[i].empty(), room.picks[i],
-             static_cast<std::uint16_t>(std::min<enet_uint32>(room.members[i]->roundTripTime, 9999))});
+            {c.name, picked, picked ? room.picks[i] : std::string(),
+             static_cast<std::uint16_t>(std::min<enet_uint32>(room.members[i]->roundTripTime, 9999)), room.hover[i],
+             room.locked[i]});
     }
     for (std::size_t i = 0; i < room.members.size(); ++i) {
         state.you = static_cast<std::uint8_t>(i);

@@ -59,6 +59,10 @@ struct Pick { // the fighter for this player; the host's stage counts ("" = rand
     std::string stage;
 };
 struct Rematch {}; // after a match: both send it to fight again with the same picks
+struct Hover {     // on the select: the fighter under this player's cursor, for the opponent to see
+    std::string fighter;
+    bool locked = false; // the host has picked and is choosing the venue
+};
 struct Checksum {  // Match::checksum() after a confirmed tick (sim::Rollback::checksums())
     std::int32_t tick = 0;
     std::uint64_t sum = 0;
@@ -96,6 +100,8 @@ struct RoomMember {
     bool picked = false;
     std::string fighter;    // the pick, once picked (the select shows the opponent's choice)
     std::uint16_t ping = 0; // ms, server <-> that player
+    std::string hover;      // Hover: the fighter under their cursor ("" until they move it)
+    bool locked = false;    // Hover::locked
 };
 struct RoomState {
     std::string code;
@@ -125,7 +131,7 @@ struct MatchEnd {
     std::uint8_t culprit = 0xFF;                 // Desync: the side that went out of sync, when known
 };
 
-using Message = std::variant<Hello, CreateRoom, JoinRoom, ListRooms, LeaveRoom, SetOpen, Pick, Rematch, Checksum,
+using Message = std::variant<Hello, CreateRoom, JoinRoom, ListRooms, LeaveRoom, SetOpen, Pick, Rematch, Hover, Checksum,
                              Result, Inputs, Welcome, Refused, Failed, RoomState, RoomList, MatchStart, MatchEnd>;
 
 [[nodiscard]] std::vector<std::uint8_t> encodeMessage(const Message& message);

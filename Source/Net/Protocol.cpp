@@ -22,6 +22,7 @@ template <> constexpr std::uint8_t kTag<LeaveRoom> = 5;
 template <> constexpr std::uint8_t kTag<SetOpen> = 6;
 template <> constexpr std::uint8_t kTag<Pick> = 7;
 template <> constexpr std::uint8_t kTag<Rematch> = 8;
+template <> constexpr std::uint8_t kTag<Hover> = 12;
 template <> constexpr std::uint8_t kTag<Checksum> = 9;
 template <> constexpr std::uint8_t kTag<Inputs> = 10;
 template <> constexpr std::uint8_t kTag<Result> = 11;
@@ -57,6 +58,10 @@ void put(ByteWriter& w, const Pick& m) {
     w.str(m.stage);
 }
 void put(ByteWriter&, const Rematch&) {}
+void put(ByteWriter& w, const Hover& m) {
+    w.str(m.fighter);
+    w.boolean(m.locked);
+}
 void put(ByteWriter& w, const Checksum& m) {
     w.i32(m.tick);
     w.u64(m.sum);
@@ -98,6 +103,8 @@ void put(ByteWriter& w, const RoomState& m) {
         w.boolean(p.picked);
         w.str(p.fighter);
         w.u16(p.ping);
+        w.str(p.hover);
+        w.boolean(p.locked);
     }
 }
 void put(ByteWriter& w, const RoomList& m) {
@@ -156,6 +163,12 @@ std::optional<Message> get(std::uint8_t tag, ByteReader& r) {
         return m;
     }
     case kTag<Rematch>: return Rematch{};
+    case kTag<Hover>: {
+        Hover m;
+        m.fighter = text(r);
+        m.locked = r.boolean();
+        return m;
+    }
     case kTag<Checksum>: {
         Checksum m;
         m.tick = r.i32();
@@ -209,6 +222,8 @@ std::optional<Message> get(std::uint8_t tag, ByteReader& r) {
             p.picked = r.boolean();
             p.fighter = text(r);
             p.ping = r.u16();
+            p.hover = text(r);
+            p.locked = r.boolean();
             m.members.push_back(p);
         }
         return m;

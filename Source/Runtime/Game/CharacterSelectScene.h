@@ -53,6 +53,11 @@ private:
     std::array<int, 2> pickedAt_{}; // clock tick of the pick (the win pose plays from there)
     int ready_ = 0;
     int localSide_ = 0; // Online: the side this player picks (the host is side 0)
+    // Online: the opponent's cursor as the server relays it (Hover), and what
+    // this side last told the server.
+    bool remoteSeen_ = false, remoteLocked_ = false;
+    std::string hoverSent_;
+    bool lockedSent_ = false;
     int clock_ = 0;
 };
 

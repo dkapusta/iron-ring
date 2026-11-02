@@ -183,6 +183,42 @@ StepEvents Round::step(const std::array<Input, 2>& inputs) {
     return events;
 }
 
+void Round::settle() {
+    if (outcome == Outcome::Running) return;
+    if (effectTicks > 0) --effectTicks;
+    if (hitstop > 0) {
+        --hitstop; // the KO freeze plays out first
+        return;
+    }
+    for (auto& f : fighters) {
+        const FighterSpec& s = spec(f);
+        if (f.throwTicks > 0 || f.heldTicks > 0) {
+            // Time ran out mid-throw: the throw lets go (it can't deal damage any more).
+            f.throwTicks = f.heldTicks = f.techTicks = 0;
+            f.throwSlot = -1;
+        }
+        f.buffered = -1;
+        f.bufferTicks = f.breakTicks = 0;
+        f.guarding = false;
+        if (f.move >= 0 && ++f.age >= currentMove(f).duration()) {
+            f.move = -1;
+            f.age = 0;
+            f.connected = false;
+        }
+        if (f.stun > 0 && --f.stun == 0) f.blockstun = false;
+        if (f.knockdown > 0 && f.y == 0 && f.hp > 0) --f.knockdown; // a KO'd fighter stays down
+        if (f.y > 0 || f.vy > 0) {
+            f.y += f.vy;
+            f.vy -= s.gravity;
+            if (f.y <= 0) {
+                f.y = 0;
+                f.vy = 0;
+            }
+        }
+        clampToStage(f, stageWidth);
+    }
+}
+
 // Edge detection, motion recognition and input buffering. Runs even during
 // hitstop, so attacks and a Breakaway can be entered while the game is frozen.
 void Round::readInputs(const std::array<Input, 2>& inputs, std::array<Input, 2>& pressed, std::array<bool, 2>& techs) {

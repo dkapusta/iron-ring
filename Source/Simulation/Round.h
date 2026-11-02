@@ -110,6 +110,10 @@ struct Round {
     Round(const FighterSpec& p1, const FighterSpec& p2);
     void reset();
     StepEvents step(const std::array<Input, 2>& inputs);
+    // After the round is decided: no inputs, no hits, no clock, but the bodies
+    // keep moving: the KO freeze runs out, airborne fighters fall and land, and
+    // moves play to their end. Match calls it through the round-over pause.
+    void settle();
     [[nodiscard]] std::uint64_t checksum() const;
 
     [[nodiscard]] const FighterSpec& spec(const Fighter& f) const { return *specs[static_cast<std::size_t>(f.side)]; }

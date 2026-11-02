@@ -13,7 +13,7 @@ namespace iron::net {
 
 inline constexpr std::uint16_t kDefaultPort = 7727;
 // Bump when any message changes; clients and servers of other versions refuse each other.
-inline constexpr std::uint16_t kProtocolVersion = 1;
+inline constexpr std::uint16_t kProtocolVersion = 2; // 2: Hover, and match numbers on fight messages
 inline constexpr std::size_t kMaxNameLength = 12;
 inline constexpr std::size_t kMaxPacketBytes = 4096;
 
