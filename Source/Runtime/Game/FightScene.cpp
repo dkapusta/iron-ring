@@ -512,6 +512,7 @@ void FightScene::startOnline() {
     acked_ = 0;
     sentChecksums_ = 0;
     resultSent_ = finishedOnline_ = false;
+    settleTicks_ = 0;
     played_.clear();
     banner_.clear();
     bannerTicks_ = leaveTicks_ = 0;
@@ -632,6 +633,16 @@ void FightScene::settleOnline() {
     *match_ = rollback_->state();
     playCues();
     const int side = setup_.online->side;
+    // The referee has the result, but the opponent's last inputs never came (a server from before
+    // 0.4.2 stops relaying them at the end): after 3 s, take the referee's word, without a replay.
+    const auto& end = services_.online->matchEnd();
+    if (match_->finished && !finishedOnline_ && end && end->reason == net::EndReason::Finished &&
+        ++settleTicks_ > 180 && rollback_->confirmedTicks() < rollback_->tick()) {
+        SDL_Log("Online fight: the last inputs didn't arrive; the referee's result stands (no replay)");
+        finishedOnline_ = true;
+        openMenu(true);
+        return;
+    }
     if (match_->finished && !finishedOnline_ && rollback_->confirmedTicks() == rollback_->tick()) {
         finishedOnline_ = true;
         // The replay holds the inputs both sides confirmed.

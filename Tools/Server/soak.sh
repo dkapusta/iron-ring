@@ -9,7 +9,7 @@
 #
 # Environment: FRAMES (per client, at 60 a second; default 9000 = 2.5 min),
 # NETSIM (default "40,10": 40 ms more latency, 10 % input loss), MIN_MATCHES
-# (default 2), PORT (default 7737), SOAK_DIR (a folder for the logs and
+# (default 2), PORT (default 7737), SERVER (another IronRingServer binary), SOAK_DIR (a folder for the logs and
 # replays, kept; default a temporary one, removed unless KEEP=1 or it failed).
 set -euo pipefail
 
@@ -21,7 +21,7 @@ PORT="${PORT:-7737}"
 
 PLAYER_DIR="$BUILD/Player/Release"
 PLAYER="$(ls "$PLAYER_DIR"/IronRing.x86_64 "$PLAYER_DIR"/IronRing 2>/dev/null | head -1 || true)"
-SERVER="$BUILD/Server/Release/IronRingServer"
+SERVER="${SERVER:-$BUILD/Server/Release/IronRingServer}"
 DATA="$PLAYER_DIR/IronRing_Data"
 for f in "$PLAYER" "$SERVER" "$DATA"; do
     if [ -z "$f" ] || [ ! -e "$f" ]; then

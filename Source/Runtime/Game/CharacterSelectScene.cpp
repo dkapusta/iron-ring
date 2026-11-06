@@ -45,6 +45,7 @@ void CharacterSelectScene::onEnter() {
     // Back from the stage select or a match: pick again, the cursors stay.
     // Online, a pick the server has is kept (the host's stage went with it).
     picked_ = {};
+    stageShown_ = false;
     if (mode_ == SelectMode::Online) picked_[static_cast<std::size_t>(localSide_)] = services_.online->pickSent;
     ready_ = 0;
     services_.data.playTheme(services_.audio, services_.data.menuTheme());
@@ -78,12 +79,8 @@ void CharacterSelectScene::pick(int side) {
         const auto& id = services_.data.roster()[static_cast<std::size_t>(cursor_[s])].id;
         auto& online = *services_.online;
         if (online.hosting() && !services_.settings.autoplay) {
-            // The host also picks the venue; the stage select sends both. Meanwhile
-            // the guest sees this fighter as picked (onlineUpdate sends it locked).
-            FightSetup setup;
-            setup.control = Control::Online;
-            setup.fighters[s] = id;
-            services_.scenes.push(std::make_unique<StageSelectScene>(services_, std::move(setup)));
+            // The host is READY (onlineUpdate tells the guest); once the guest is too,
+            // the host goes on to pick the venue, and the stage select sends both.
         } else {
             online.send(net::Pick{id, ""}); // a guest's stage doesn't count; autoplay: a random venue
             online.pickSent = true;
@@ -121,8 +118,9 @@ void CharacterSelectScene::handleMenu(const MenuEvent& event) {
     const int side = sideFor(event);
     const auto count = static_cast<int>(services_.data.roster().size());
     if (mode_ == SelectMode::Online && (event.action == MenuAction::Back || event.action == MenuAction::Pause)) {
-        // A pick the server has stands; before that, Back leaves the room.
+        // A pick the server has stands; the host's READY can be taken back; before that, Back leaves the room.
         if (services_.online->pickSent) return;
+        if (picked_[static_cast<std::size_t>(localSide_)]) return unpick(localSide_);
         services_.audio.play("menu_back");
         services_.online->leaveRoom();
         services_.scenes.pop();
@@ -191,6 +189,15 @@ void CharacterSelectScene::onlineUpdate() {
     }
     remoteSeen_ = member.picked || !member.hover.empty();
     remoteLocked_ = member.locked && !member.picked;
+    // The host goes on to the venue only once both are READY.
+    if (online.hosting() && !services_.settings.autoplay && picked_[local] && picked_[remote] && !stageShown_) {
+        stageShown_ = true;
+        FightSetup setup;
+        setup.control = Control::Online;
+        setup.fighters[local] = roster[static_cast<std::size_t>(cursor_[local])].id;
+        services_.scenes.push(std::make_unique<StageSelectScene>(services_, std::move(setup)));
+        return;
+    }
     // -autoplay (soak tests): pick this side's default fighter after a beat.
     if (services_.settings.autoplay && !picked_[static_cast<std::size_t>(localSide_)] && clock_ > 40) pick(localSide_);
 }
@@ -340,25 +347,76 @@ void CharacterSelectScene::render(const RenderContext& context) {
     const auto& data = services_.data;
     const SDL_FRect all{0, 0, services_.width, services_.height};
     SDL_RenderTexture(r, data.backdrop().handle.get(), nullptr, &all);
+    if (hostChoosingVenue()) return drawVenueWait(r);
     data.large().draw(r, "SELECT FIGHTER", services_.width / 2, 14, ui::kWhite, Align::Centre);
     data.small().draw(r, title(mode_), services_.width / 2, 42, ui::kBrassLight, Align::Centre, true);
     drawSide(r, 0);
     if (mode_ == SelectMode::Arcade) drawLadder(r);
     else drawSide(r, 1);
     drawGrid(r);
+    if (mode_ == SelectMode::Online) {
+        drawReady(r, 0);
+        drawReady(r, 1);
+    }
     if (mode_ == SelectMode::Online && picked_[static_cast<std::size_t>(localSide_)] && !ready()) {
         const auto& room = services_.online->room();
         const auto remote = static_cast<std::size_t>(1 - localSide_);
-        const std::string line = remoteLocked_ && room && room->members.size() == 2
-                                     ? ui::upper(room->members[remote].name) + " IS CHOOSING THE VENUE"
-                                     : "WAITING FOR THE OPPONENT";
+        const std::string name = room && room->members.size() == 2 ? ui::upper(room->members[remote].name) : "";
+        const std::string line = name.empty() ? "WAITING FOR THE OPPONENT" : "WAITING FOR " + name + " TO BE READY";
         data.small().draw(r, line, services_.width / 2, 346, ui::kFog, Align::Centre, true);
+        if (!services_.online->pickSent)
+            data.small().draw(r, "LIGHT KICK: NOT READY", services_.width / 2, 334, ui::kSteel, Align::Centre, true);
     } else if (ready() && mode_ != SelectMode::Arcade) {
         if ((clock_ / 6) % 2 == 0) data.large().draw(r, "VS", services_.width / 2, 110, ui::kBrassLight, Align::Centre);
     } else {
         data.small().draw(r, "LIGHT PUNCH: PICK - LIGHT KICK: BACK - HEAVY PUNCH: MOVE LIST", services_.width / 2, 346,
                           ui::kFog, Align::Centre, true);
     }
+}
+
+bool CharacterSelectScene::hostChoosingVenue() const {
+    // The guest has picked and the host is READY: the host is on the stage select.
+    return mode_ == SelectMode::Online && !services_.online->hosting() &&
+           picked_[static_cast<std::size_t>(localSide_)] && remoteLocked_;
+}
+
+void CharacterSelectScene::drawReady(SDL_Renderer* r, int side) const {
+    const auto s = static_cast<std::size_t>(side);
+    const bool ready = picked_[s] || (side != localSide_ && remoteLocked_);
+    if (!ready) return;
+    // A READY badge over the side's fighter, in the side's colour.
+    const float centre = side == 0 ? 112.0f : services_.width - 112.0f;
+    const auto& font = services_.data.small();
+    const float w = static_cast<float>(font.measure("READY")) + 12;
+    const SDL_FRect box{centre - w / 2, 70, w, 13};
+    ui::fill(r, box.x, box.y, box.w, box.h, ui::kSide[side]);
+    font.draw(r, "READY", centre, 73, ui::kInk, Align::Centre);
+}
+
+void CharacterSelectScene::drawVenueWait(SDL_Renderer* r) const {
+    // The guest's screen while the host picks the venue: both fighters, READY, and what is going on.
+    const auto& data = services_.data;
+    const auto& room = services_.online->room();
+    const std::string host =
+        room && !room->members.empty() ? ui::upper(room->members[0].name) : std::string("THE HOST");
+    data.large().draw(r, "GET READY", services_.width / 2, 14, ui::kWhite, Align::Centre);
+    data.small().draw(r, "ONLINE", services_.width / 2, 42, ui::kBrassLight, Align::Centre, true);
+    drawSide(r, 0);
+    drawSide(r, 1);
+    drawReady(r, 0);
+    drawReady(r, 1);
+    if ((clock_ / 6) % 2 == 0) data.large().draw(r, "VS", services_.width / 2, 120, ui::kBrassLight, Align::Centre);
+    const SDL_FRect panel{services_.width / 2 - 96, 168, 192, 44};
+    ui::fill(r, panel.x, panel.y, panel.w, panel.h, ui::kNight);
+    ui::frame(r, panel);
+    data.small().draw(r, host, services_.width / 2, 178, ui::kSide[0], Align::Centre, true);
+    const int dots = (clock_ / 20) % 4;
+    // Left-aligned, so the dots grow without the line moving.
+    const float left = services_.width / 2 - static_cast<float>(data.small().measure("IS CHOOSING THE STAGE")) / 2;
+    data.small().draw(r, "IS CHOOSING THE STAGE" + std::string(static_cast<std::size_t>(dots), '.'), left, 192,
+                      ui::kChalk, Align::Left, true);
+    data.small().draw(r, "THE FIGHT STARTS WHEN THE STAGE IS PICKED", services_.width / 2, 346, ui::kFog, Align::Centre,
+                      true);
 }
 
 std::string CharacterSelectScene::status() const {

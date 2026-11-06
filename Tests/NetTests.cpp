@@ -181,6 +181,7 @@ struct Bot {
     std::optional<MatchEnd> end;
     bool welcomed = false, refused = false, dropped = false;
     std::optional<Problem> failed;
+    int inputsReceived = 0; // Inputs messages relayed to this bot
     // Fighting:
     std::unique_ptr<sim::Match> match;
     std::unique_ptr<sim::Rollback> session;
@@ -204,6 +205,7 @@ struct Bot {
                     if constexpr (std::is_same_v<T, MatchStart>) begin(m);
                     if constexpr (std::is_same_v<T, MatchEnd>) end = m;
                     if constexpr (std::is_same_v<T, Inputs>) {
+                        ++inputsReceived;
                         if (session && start && m.match == start->match) {
                             for (std::size_t k = 0; k < m.inputs.size(); ++k)
                                 session->addRemoteInput(m.from + static_cast<int>(k), m.inputs[k]);
@@ -319,6 +321,12 @@ TEST_CASE("server: two players meet by room code and the referee confirms the re
     CHECK(host.end->winner == host.session->state().winner); // the client's view agrees with the referee's
     MESSAGE("match of " << host.session->tick() << " ticks; rollbacks " << host.session->rollbacks() << "/"
                         << guest.session->rollbacks());
+
+    // The referee can finish before a client has the other side's last inputs: the
+    // finished match's inputs are still relayed (0.4.2: both clients waited forever).
+    const int before = host.inputsReceived;
+    guest.client.send(Inputs{0, {0}, 0, guest.start->match});
+    CHECK(h.until([&] { return host.inputsReceived > before; }));
 
     // Both ask for a rematch: a second match starts.
     host.session.reset();

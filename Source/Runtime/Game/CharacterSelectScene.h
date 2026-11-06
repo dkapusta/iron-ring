@@ -56,6 +56,11 @@ private:
     // Online: the opponent's cursor as the server relays it (Hover), and what
     // this side last told the server.
     bool remoteSeen_ = false, remoteLocked_ = false;
+    bool stageShown_ = false; // the host: the stage select is open (both are ready)
+    // Online: this side and the opponent's are both READY, and the host is choosing the venue.
+    [[nodiscard]] bool hostChoosingVenue() const;
+    void drawReady(SDL_Renderer* r, int side) const;
+    void drawVenueWait(SDL_Renderer* r) const;
     std::string hoverSent_;
     bool lockedSent_ = false;
     int clock_ = 0;

@@ -130,6 +130,7 @@ private:
     std::map<int, std::vector<std::uint64_t>> played_; // online: events already shown, by tick
     std::string banner_;                               // online: why the match stopped, or the leave prompt
     int bannerTicks_ = 0, leaveTicks_ = 0, frames_ = 0;
+    int settleTicks_ = 0; // settleOnline: how long the result has waited for the last inputs
     float shakeAmplitude_ = 0;
     int shakeTicks_ = 0, shakeTotal_ = 0, flashTicks_ = 0;
     bool training_ = false;
