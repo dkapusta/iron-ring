@@ -53,14 +53,14 @@ if [ "$RUN" = 1 ]; then
     exec "$APP/Contents/MacOS/IronRing" "$@"
 fi
 
-VERSION=$(project_version "$BUILD")
+VERSION=$(release_version "$(project_version "$BUILD")")
 NAME="IronRing-$VERSION-macos"
 STAGE="Dist/$NAME"
 echo "== Packing $NAME =="
 rm -rf "$STAGE"
 mkdir -p "$STAGE"
 ditto "$APP" "$STAGE/IronRing.app"
-release_notes "$STAGE"
+release_notes "$STAGE" macos IronRing.app
 
 # Sign the bundle as a whole: the engine in Frameworks first, then the app.
 IDENTITY="${IR_CODESIGN_IDENTITY:--}"

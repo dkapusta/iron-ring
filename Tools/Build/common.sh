@@ -36,6 +36,29 @@ project_version() {
     sed -n 's/^CMAKE_PROJECT_VERSION:STATIC=//p' "$1/CMakeCache.txt"
 }
 
+# release_version <version>: the name archives use: major.minor, and the patch only when it
+# isn't 0 (1.0.0 -> 1.0, 1.0.2 -> 1.0.2).
+release_version() {
+    case "$1" in
+        *.*.0) echo "${1%.0}" ;;
+        *) echo "$1" ;;
+    esac
+}
+
+# source_version: the version in the top-level CMakeLists.txt, without configuring.
+source_version() {
+    sed -n 's/^    VERSION \([0-9][0-9.]*\).*/\1/p' CMakeLists.txt | head -1
+}
+
+# tar_folder <folder> <tar.gz>: one folder per archive, Unix permissions kept.
+tar_folder() {
+    local folder="$1" out
+    mkdir -p "$(dirname "$2")"
+    out="$(cd "$(dirname "$2")" && pwd)/$(basename "$2")"
+    rm -f "$out"
+    tar -czf "$out" -C "$(dirname "$folder")" "$(basename "$folder")"
+}
+
 # zip_folder <folder> <zip>: one folder per zip, Unix permissions kept.
 zip_folder() {
     local folder="$1" out
@@ -51,8 +74,14 @@ zip_folder() {
     fi
 }
 
-# release_notes <folder>: the licence texts every release zip carries.
+# release_notes <folder> <platform> <what to start>: what every release archive carries
+# next to the game: the licence texts, a short README.txt and the itch.io app's launch
+# manifest (.itch.toml, docs/building.md#itchio).
 release_notes() {
-    cp LICENSE "$1/LICENSE.txt"
-    cp THIRD_PARTY_NOTICES.md "$1/THIRD_PARTY_NOTICES.md"
+    local folder="$1" platform="$2" start="$3"
+    cp LICENSE "$folder/LICENSE.txt"
+    cp THIRD_PARTY_NOTICES.md "$folder/THIRD_PARTY_NOTICES.md"
+    sed -e "s|@VERSION@|$VERSION|g" -e "s|@START@|$start|g" \
+        "Tools/Build/README-$platform.txt" "Tools/Build/README-common.txt" > "$folder/README.txt"
+    sed -e "s|@START@|$start|g" Tools/Build/itch.toml.in > "$folder/.itch.toml"
 }

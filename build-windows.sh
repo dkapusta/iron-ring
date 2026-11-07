@@ -37,7 +37,7 @@ cmake -S . -B "$BUILD" -G Ninja -DCMAKE_BUILD_TYPE=Release \
 cmake --build "$BUILD" -j "$JOBS"
 
 PLAYER_DIR="$BUILD/Player/Release"
-VERSION=$(project_version "$BUILD")
+VERSION=$(release_version "$(project_version "$BUILD")")
 NAME="IronRing-$VERSION-windows-x64"
 STAGE="Dist/$NAME"
 echo "== Packing $NAME =="
@@ -46,7 +46,7 @@ mkdir -p "$STAGE"
 # The player folder: IronRing.exe, UnityPlayer.dll, IronRing_Data and, only if the
 # toolchain could not link its runtime statically, its DLLs (docs/adr/0009-mingw-static-runtime.md).
 cp -a "$PLAYER_DIR"/. "$STAGE/"
-release_notes "$STAGE"
+release_notes "$STAGE" windows IronRing.exe
 zip_folder "$STAGE" "Dist/$NAME.zip"
-echo "== Ready: Dist/$NAME.zip =="
+echo "== Ready: Dist/$NAME.zip (and the folder Dist/$NAME, for itch.io) =="
 echo "   Unzip anywhere on Windows 10 or 11 (x64) and run $NAME\\IronRing.exe."

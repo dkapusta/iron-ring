@@ -1,32 +1,33 @@
-# Building release zips
+# Building release archives
 
-One script per platform builds the game from a checkout and packs a release zip into `Dist/`. Each zip holds one folder, with the player, its data, `LICENSE.txt` and `THIRD_PARTY_NOTICES.md`. The scripts use the normal presets, so a second run only rebuilds what changed. For day-to-day development, the presets in the [README](../README.md#building) are enough.
+One script per platform builds the game from a checkout and packs a release archive into `Dist/`. Each archive holds one folder, `IronRing-<version>-<platform>/`, with the player and its data, `README.txt` (how to start, controls, online play), `LICENSE.txt`, `THIRD_PARTY_NOTICES.md` and `.itch.toml` ([itch.io](#itchio)). The folder stays in `Dist/` next to the archive. `<version>` is `major.minor`, plus the patch when it isn't 0: 1.0.0 makes `IronRing-1.0-…`, 1.0.2 makes `IronRing-1.0.2-…`. The scripts use the normal presets, so a second run only rebuilds what changed. For day-to-day development, the presets in the [README](../README.md#building) are enough.
 
 | Script | Runs on | Builds | Output |
 | --- | --- | --- | --- |
-| `./build-linux.sh` | Linux | the Linux player (x86-64, or arm64 on an arm64 machine) | `Dist/IronRing-<version>-linux-x64.zip` |
+| `./build-linux.sh` | Linux | the Linux player (x86-64, or arm64 on an arm64 machine) | `Dist/IronRing-<version>-linux-x64.tar.gz` |
 | `./build-windows.sh` | Linux | the Windows x64 player, cross-compiled with MinGW-w64 | `Dist/IronRing-<version>-windows-x64.zip` |
 | `build-windows.bat` (or `.\build-windows.ps1`) | Windows | the Windows x64 player, with Visual Studio (or MinGW: `-MinGW`) | `Dist\IronRing-<version>-windows-x64.zip` |
 | `./build-macos.sh` | macOS | `IronRing.app`, one binary for Apple silicon and Intel | `Dist/IronRing-<version>-macos.zip` |
 | `./build-server.sh` | Linux, macOS | the dedicated server and its data ([server.md](server.md)) | `Build/server/Server/Release/` |
+| `Tools/Build/source-package.sh` | anywhere with git | the source package: the committed tree at HEAD | `Dist/IronRing-<version>-source.zip` |
 
 Common options:
 - `--test` (`-Test` on Windows) runs the tests before packing.
 - `--run` (`-Run`) starts the game instead of packing. Extra arguments go to the game: `./build-linux.sh --run -screen-fullscreen 0`.
 - `JOBS=n` sets the number of parallel compile jobs. By default it is one per CPU, capped at one per GB of memory and swap.
 
-The CI workflow runs every script and keeps the zips as artifacts of the run, in the jobs *Release zips (Linux, Windows cross)*, *macOS* and *Windows (build-windows.ps1)*.
+The CI workflow runs every script and keeps the archives as artifacts of the run, in the jobs *Release archives (Linux, Windows cross)*, *macOS* and *Windows (build-windows.ps1)*.
 
 ## Linux
 
 ```sh
-sudo apt install build-essential cmake ninja-build git zip \
+sudo apt install build-essential cmake ninja-build git \
   libx11-dev libxext-dev libxcursor-dev libxi-dev libxrandr-dev libxss-dev libxfixes-dev libxtst-dev \
   libwayland-dev libxkbcommon-dev libegl1-mesa-dev libgl1-mesa-dev libasound2-dev libpulse-dev libudev-dev libdbus-1-dev
 ./build-linux.sh
 ```
 
-SDL is built from source and opens X11 or Wayland, and ALSA or PulseAudio, at run time. It needs only their headers to build. `zip` is optional: without it, CMake writes the zip.
+SDL is built from source and opens X11 or Wayland, and ALSA or PulseAudio, at run time. It needs only their headers to build. The archive is a `.tar.gz`, which keeps the executable bit.
 
 **glibc.** A Linux build runs on the glibc it was built with, or a newer one. The script prints the version it needs. A build on Ubuntu 24.04 needs glibc 2.38 (Ubuntu 24.04, Debian 13, Fedora 39 or newer). For older distributions, build on the oldest one you want to support.
 
@@ -90,6 +91,25 @@ To publish a build that opens without warnings, you need an Apple Developer Prog
    ```
 
 The script signs with the hardened runtime and a timestamp, sends the zip to Apple and waits (usually a few minutes). It then staples the ticket to the app and packs the zip again. `spctl --assess -vv Dist/IronRing-*-macos/IronRing.app` should print *accepted, source=Notarized Developer ID*.
+
+## itch.io
+
+Every build folder carries an `.itch.toml`, so the itch.io app knows what to start (`IronRing.exe`, `IronRing.x86_64` or `IronRing.app`). Push the folders with [butler](https://itch.io/docs/butler/) rather than uploading archives: butler sends only what changed, and players of the itch.io app get updates as patches.
+
+```sh
+butler login                                    # once
+./build-linux.sh && ./build-windows.sh          # on Linux; ./build-macos.sh on a Mac
+Tools/Build/itch-push.sh <user>/<game>          # e.g. dkapusta/iron-ring
+```
+
+`itch-push.sh` pushes each folder in `Dist/` that exists for the checkout's version to its channel: `windows`, `linux` or `mac`. itch.io tags the platform from the channel name. Run it on the Mac too, to push the `mac` channel from there. `DRY_RUN=1` shows what it would push. `BUTLER_API_KEY` replaces `butler login`, for example in CI.
+
+On the game's itch.io page:
+- set *Kind of project* to *Downloadable*;
+- set the pricing;
+- after the first push, check that each upload shows its platform icon.
+
+You can also upload the archives by hand for players who don't use the app. They can be the same files as the pushed folders.
 
 ## Versions
 
