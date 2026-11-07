@@ -380,7 +380,12 @@ void Server::startFight(Room& room) {
 
 void Server::handle(ENetPeer* peer, Client& c, const net::Inputs& m) {
     Room* room = roomOf(c);
-    if (!room || !room->fight || room->members.size() < 2 || m.match != room->fight->id) return;
+    if (!room || room->members.size() < 2) return;
+    if (!room->fight || m.match != room->fight->id) {
+        if (m.match != 0 && m.match == room->finishedMatch) // the tail of a finished match: relay only
+            net::sendTo(room->members[static_cast<std::size_t>(1 - sideOf(*room, peer))], m);
+        return;
+    }
     const int side = sideOf(*room, peer);
     auto& mine = room->fight->inputs[static_cast<std::size_t>(side)];
     // Keep the contiguous stream; a packet with a gap is dropped (the sender repeats it).
@@ -465,6 +470,7 @@ void Server::endFight(Room& room, net::EndReason why, sim::Outcome winner, std::
         (why == net::EndReason::Finished ? " (winner " + std::to_string(static_cast<int>(winner)) + ")" : ""));
     for (auto* member : room.members)
         net::sendTo(member, net::MatchEnd{why, winner, culprit});
+    room.finishedMatch = why == net::EndReason::Finished ? room.fight->id : 0;
     room.fight.reset();
     room.rematch = {};
     room.phase = room.members.size() == 2 ? net::RoomPhase::AfterMatch : net::RoomPhase::Waiting;

@@ -109,6 +109,10 @@ class Server {
         std::array<bool, 2> rematch{};
         std::uint32_t matches = 0;
         std::optional<Fight> fight;
+        // The match the referee just finished: its last inputs are still relayed, because a client
+        // confirms the result only once it has the other side's inputs up to the end, and the
+        // referee can get there first.
+        std::uint32_t finishedMatch = 0;
         Clock::time_point created, activity;
     };
 
