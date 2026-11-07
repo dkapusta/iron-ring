@@ -1,5 +1,7 @@
 # Iron Ring: crowd art brief (Art Pack v3.2, crowds)
 
+> **Correction (2026-11-07):** §4's top-rail rows (49, 49, 48, 48, 50, 49, 54) are wrong. They mark where the old crowd's bodies merge, not the barrier. See the [v3.2.1 brief](art-pack-v3.2.1-crowd-band-brief.md) for the real barrier rows.
+
 **For:** whoever produced Art Packs v3 and v3.1.
 **From:** the Iron Ring project, 2026-11-07.
 **With:** the current Iron Ring source package. Every path below is relative to its root. This brief has two reference images, `crowd_now.png` and `crowd_reference_spectator.png`. They come next to it in the brief's ZIP, and in the repository under `docs/art/crowd-reference/`.

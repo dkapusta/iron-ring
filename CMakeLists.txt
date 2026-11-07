@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.25)
 
 project(IronRing
-    VERSION 0.4.2
+    VERSION 0.4.3
     DESCRIPTION "Early-90s style arcade fighting game on C++20 / SDL3"
     HOMEPAGE_URL "https://github.com/dkapusta/iron-ring"
     LANGUAGES C CXX)

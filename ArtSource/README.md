@@ -61,3 +61,10 @@ Delivered 2026-11-01 against the [final polish brief](../docs/art/final-polish-b
 - three specks removed.
 
 Adopted, with two project-side edits: the shared portrait backdrop (P1) applied to all thirteen portraits with `Tools/Art/portrait_backdrop.py`, and a radial falloff on The Hold's light pool ([Pack-v3.1/REVIEW.md](Pack-v3.1/REVIEW.md)).
+
+## Art Pack v3.2
+
+Delivered 2026-11-07 against the [crowd brief](../docs/art/art-pack-v3.2-crowds-brief.md): the seven crowd sheets redrawn so the spectators face the ring, with shadowed faces, lit fronts, hands on the rail and cheering forearms, and their previews recomposed.
+
+Adopted as delivered ([Pack-v3.2/REVIEW.md](Pack-v3.2/REVIEW.md)). The brief gave the wrong protected rows, so a band of the old spectators survives above the barrier. The [v3.2.1 brief](../docs/art/art-pack-v3.2.1-crowd-band-brief.md) asks for it to be repainted. The pack's game captures and GIFs (3.6 MB) stay outside the repository; its Pier 9 before/after is in `Pack-v3.2/Checks/`.
+
