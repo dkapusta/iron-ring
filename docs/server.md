@@ -14,7 +14,7 @@ Players connect to it with **ONLINE → SERVER `your.address:7727`**. One server
 | Source | What to do |
 | --- | --- |
 | **CI artifact** | Download `server-linux` or `server-windows` from a CI run of the build you want. Each holds the binary, a `server.cfg` and the `IronRing_Data` folder from the same build. |
-| **Quick build** | On Linux, from a checkout: `./build-server.sh` builds the server and packs `IronRing_Data` next to it in `Build/server/Server/Release/`. `./build-server.sh --run` also starts it, and extra arguments go to the server (`--name "MY RING"`). On machines with little memory it builds one file at a time; if the compiler is still killed, add swap. Re-run it after every `git pull`. |
+| **Quick build** | On Linux (or macOS), from a checkout: `./build-server.sh` builds the server and packs `IronRing_Data` next to it in `Build/server/Server/Release/`. `./build-server.sh --run` also starts it, and extra arguments go to the server (`--name "MY RING"`). On machines with little memory it builds one file at a time; if the compiler is still killed, add swap. Re-run it after every `git pull`. |
 | **Build it** | `cmake --preset release && cmake --build --preset release --target IronRingServer`. The binary lands in `Build/release/Server/Release/`, next to `server.cfg.example`. It needs no SDL, so the `core` preset builds it too. |
 | **Install it** | `cmake --install Build/release --component Server --prefix /opt/ironring-server` installs only the server. Copy `Build/release/Player/Release/IronRing_Data` next to it. |
 | **Docker** | See §5. |

@@ -150,6 +150,112 @@ jobs:
             frontend-linux-${{ matrix.compiler }}.png
             arcade-linux-${{ matrix.compiler }}.png
 
+  packages-linux:
+    # The release zips, made by the same scripts a person runs (docs/building.md):
+    # build-linux.sh, and build-windows.sh cross-compiling with MinGW-w64.
+    name: Release zips (Linux, Windows cross)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q ninja-build zip g++-mingw-w64-x86-64-posix \
+            libx11-dev libxext-dev libxcursor-dev libxi-dev libxrandr-dev libxss-dev libxfixes-dev libxtst-dev \
+            libwayland-dev libxkbcommon-dev libegl1-mesa-dev libgl1-mesa-dev libasound2-dev libpulse-dev \
+            libudev-dev libdbus-1-dev
+      - run: ./build-linux.sh
+      - run: ./build-windows.sh
+      - name: The zips hold one folder each, with the player in it
+        run: |
+          unzip -l Dist/IronRing-*-linux-x64.zip | grep -q 'linux-x64/IronRing.x86_64$'
+          unzip -l Dist/IronRing-*-windows-x64.zip | grep -q 'windows-x64/IronRing.exe$'
+          unzip -l Dist/IronRing-*-windows-x64.zip | grep -q 'windows-x64/IronRing_Data/app.info$'
+      - uses: actions/upload-artifact@v7
+        with:
+          name: release-linux-windows
+          path: Dist/*.zip
+
+  macos:
+    name: macOS (Apple silicon + Intel)
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v7
+      - run: brew install ninja
+
+      - name: Build, test and pack (build-macos.sh)
+        run: ./build-macos.sh --test
+
+      - name: Bundle layout
+        run: |
+          app=Build/macos/Player/Release/IronRing.app
+          ls -R "$app/Contents" | head -40
+          test -x "$app/Contents/MacOS/IronRing"
+          test -f "$app/Contents/Frameworks/UnityPlayer.dylib"
+          test -f "$app/Contents/Resources/Data/app.info"
+          test -f "$app/Contents/Resources/IronRing.icns"
+          plutil -lint "$app/Contents/Info.plist"
+          lipo -archs "$app/Contents/MacOS/IronRing" | grep -q x86_64
+          lipo -archs "$app/Contents/Frameworks/UnityPlayer.dylib" | grep -q arm64
+          otool -L "$app/Contents/MacOS/IronRing"
+          otool -l "$app/Contents/MacOS/IronRing" | grep -A2 LC_RPATH
+          otool -L "$app/Contents/Frameworks/UnityPlayer.dylib" | grep -v /System/Library/ | grep -v /usr/lib/
+
+      - name: Smoke run (batch mode)
+        run: Build/macos/Player/Release/IronRing.app/Contents/MacOS/IronRing $SMOKE_ARGS -screenshot smoke-macos.png
+
+      - name: Smoke run (the packed app, from the zip)
+        run: |
+          mkdir unpacked && ditto -x -k Dist/IronRing-*-macos.zip unpacked
+          codesign --verify --strict --verbose=2 unpacked/*/IronRing.app
+          unpacked/*/IronRing.app/Contents/MacOS/IronRing -batchmode -screen-fullscreen 0 \
+            -screen-width 640 -screen-height 360 -frames 120 -logFile unpacked.log
+          grep "Data folder" unpacked.log
+
+      - name: Online soak (server + two headless clients)
+        env:
+          FRAMES: "5400"
+          MIN_MATCHES: "1"
+          SOAK_DIR: soak-macos
+        run: Tools/Server/soak.sh Build/macos
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: soak-macos
+          path: soak-macos/
+          if-no-files-found: ignore
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: release-macos
+          path: |
+            Dist/*.zip
+            smoke-macos.png
+
+  windows-script:
+    # build-windows.ps1 (what build-windows.bat runs) with the runner's Visual Studio.
+    name: Windows (build-windows.ps1)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Build, test and pack
+        shell: pwsh
+        run: ./build-windows.ps1 -Test
+      - name: Smoke run (the packed folder)
+        shell: pwsh
+        run: |
+          $exe = Get-ChildItem Dist -Recurse -Filter IronRing.exe | Select-Object -First 1
+          $p = Start-Process -FilePath $exe.FullName -Wait -PassThru -NoNewWindow `
+               -ArgumentList "$env:SMOKE_ARGS -screenshot smoke-windows-script.png".Split(' ')
+          if ($p.ExitCode -ne 0) { throw "IronRing.exe exited with $($p.ExitCode)" }
+      - uses: actions/upload-artifact@v7
+        with:
+          name: release-windows-msvc
+          path: |
+            Dist/*.zip
+            smoke-windows-script.png
+
   windows-msvc:
     name: Windows (MSVC)
     runs-on: windows-latest

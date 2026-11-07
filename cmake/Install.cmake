@@ -6,10 +6,13 @@
 #            <prefix>/share/applications/<IR_APP_ID>.desktop
 #            <prefix>/share/icons/hicolor/256x256/apps/<IR_APP_ID>.png
 #   Windows: <prefix>/IronRing/                the player folder
+#   macOS:   <prefix>/IronRing.app             the bundle (--prefix /Applications)
 
 include(GNUInstallDirs)
 
-if(WIN32 OR APPLE)
+if(APPLE)
+    set(_default_dir ".") # the player folder holds only IronRing.app
+elseif(WIN32)
     set(_default_dir "${IR_PRODUCT_NAME}")
 else()
     set(_default_dir "${CMAKE_INSTALL_LIBDIR}/${IR_PRODUCT_NAME}")

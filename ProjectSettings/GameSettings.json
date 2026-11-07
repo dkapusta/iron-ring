@@ -7,7 +7,6 @@
   "textureFilter": "pixelart",
   "startStage": "pier_nine",
   "meterName": "HEAT",
-  "defaultServer": "195.161.54.95:7727",
   "fighters": [
     "Fighters/Dee/dee.fighter.json",
     "Fighters/Bram/bram.fighter.json",

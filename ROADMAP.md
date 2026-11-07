@@ -137,7 +137,9 @@ Two players anywhere fight over the internet with rollback netcode. They meet on
 - ⬜ Installer/packaging, store integration as needed
 - ⬜ Localization, accessibility (colour-blind safe HUD, input assistance)
 - ⬜ Performance budget and capture tooling
-- ⬜ macOS: `.app` bundle (`Contents/Frameworks/UnityPlayer.dylib`, `Contents/Resources/Data`), CI job, notarization
+- ✅ macOS: `IronRing.app` (`Contents/Frameworks/UnityPlayer.dylib`, `Contents/Resources/Data`), universal (Apple silicon + Intel), a CI job, notarization in `build-macos.sh` once there is a Developer ID ([ADR-0027](docs/adr/0027-macos-app-bundle.md); 0.4.5)
+- ✅ Build scripts for every platform, making the release zips: `build-linux.sh`, `build-windows.sh` (MinGW cross), `build-windows.bat`, `build-macos.sh`, next to `build-server.sh`; CI runs them all ([docs/building.md](docs/building.md); 0.4.5)
+- ✅ No default server: the game ships no server address (0.4.5)
 
 ## Later / maybe
 
@@ -153,6 +155,7 @@ Two players anywhere fight over the internet with rollback netcode. They meet on
 | 2026-10-29 | Names | Renamed for Iron Ring ([setting.md](docs/design/setting.md)) |
 | 2026-10-29 | Company name | Keep `dkapusta` |
 | 2026-10-29 | Platforms | Windows + Linux; macOS later (M5) |
+| 2026-11-07 | macOS | An `.app` bundle laid out like a Unity Mac player, universal, macOS 11+; ad hoc signed until there is a Developer ID ([ADR-0027](docs/adr/0027-macos-app-bundle.md)) |
 | 2026-10-29 | MinGW runtime DLLs | Static when the toolchain allows, DLLs copied next to executables otherwise ([ADR-0009](docs/adr/0009-mingw-static-runtime.md)) |
 | 2026-10-29 | License | zlib, matching SDL ([LICENSE](LICENSE), [docs/licensing.md](docs/licensing.md)) |
 | 2026-10-29 | Desperation moves | None. Heat pays only for the Breakaway |
@@ -171,6 +174,7 @@ Two players anywhere fight over the internet with rollback netcode. They meet on
 | 2026-11-02 | Default server | The game ships `195.161.54.95:7727` as `defaultServer` (the owner's server) |
 | 2026-11-02 | M4 closed | HOST ON THIS PC left out of M4.5 (now *Later / maybe*); online bugs found from here on are M5 work |
 | 2026-11-01 | Version numbers | `0.<milestone>.<patch>` until 1.0: the minor number is the milestone the build delivers (0.4.0 brings M4's online play), the patch counts fixes on it; **1.0.0** when M5 (release hardening) is done. The version is informational: online compatibility is decided by the protocol number and the game-data hash, replays by their content hash. Set once, in the top-level `CMakeLists.txt` |
+| 2026-11-07 | Default server removed | Release builds ship no `defaultServer`: players type a server (the owner's or their own) and the game remembers it |
 
 ## Open questions for the project owner
 

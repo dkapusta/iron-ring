@@ -20,9 +20,14 @@ MIN_MATCHES="${MIN_MATCHES:-2}"
 PORT="${PORT:-7737}"
 
 PLAYER_DIR="$BUILD/Player/Release"
-PLAYER="$(ls "$PLAYER_DIR"/IronRing.x86_64 "$PLAYER_DIR"/IronRing 2>/dev/null | head -1 || true)"
 SERVER="${SERVER:-$BUILD/Server/Release/IronRingServer}"
-DATA="$PLAYER_DIR/IronRing_Data"
+if [ -d "$PLAYER_DIR/IronRing.app" ]; then # macOS
+    PLAYER="$PLAYER_DIR/IronRing.app/Contents/MacOS/IronRing"
+    DATA="$PLAYER_DIR/IronRing.app/Contents/Resources/Data"
+else
+    PLAYER="$(ls "$PLAYER_DIR"/IronRing.x86_64 "$PLAYER_DIR"/IronRing.aarch64 2>/dev/null | head -1 || true)"
+    DATA="$PLAYER_DIR/IronRing_Data"
+fi
 for f in "$PLAYER" "$SERVER" "$DATA"; do
     if [ -z "$f" ] || [ ! -e "$f" ]; then
         echo "soak: missing $f (build the release preset first)" >&2
@@ -54,7 +59,7 @@ sleep 1
 
 client() { # name: each client keeps its replays in a folder of its own
     mkdir -p "$WORK/$1"
-    XDG_DATA_HOME="$WORK/$1" "$PLAYER" -batchmode -screen-fullscreen 0 -screen-width 640 -screen-height 360 \
+    IRONRING_USER_FOLDER="$WORK/$1" "$PLAYER" -batchmode -screen-fullscreen 0 -screen-width 640 -screen-height 360 \
         -frames "$FRAMES" -connect "127.0.0.1:$PORT" -online-name "$1" -autoplay -netsim "$NETSIM" \
         -logFile "$WORK/$1.log" > /dev/null 2>&1
 }

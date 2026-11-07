@@ -92,7 +92,8 @@ def main() -> int:
     if "ui" in parts:
         ui.generate(args.assets)
     if "icon" in parts:
-        icon.generate(args.assets, ROOT / "Source" / "Launcher" / "Resources" / "IronRing.ico")
+        icon.generate(args.assets, ROOT / "Source" / "Launcher" / "Resources" / "IronRing.ico",
+                      ROOT / "Source" / "Launcher" / "Resources" / "IronRing.icns")
     if args.sheet:
         contact_sheet(args.sheet)
     return 0

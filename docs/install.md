@@ -13,10 +13,11 @@ DESTDIR=pkg cmake --install Build/release --prefix /usr    # staging for a packa
 | --- | --- |
 | Linux | `<prefix>/lib/IronRing/` (the player folder), `<prefix>/share/applications/io.github.dkapusta.IronRing.desktop`, `<prefix>/share/icons/hicolor/256x256/apps/io.github.dkapusta.IronRing.png` |
 | Windows | `<prefix>/IronRing/` (the player folder; with MinGW, including any runtime DLLs) |
+| macOS | `<prefix>/IronRing.app` (`cmake --install Build/macos --prefix /Applications`) |
 
 - The desktop entry is written at install time, so its `Exec` and `Path` follow `--prefix`; with `DESTDIR` they point at the final prefix while the files land in the staging root.
 - The app id (`IR_APP_ID`, default `io.github.<company>.<product>`) is also given to SDL as the app identifier, so the window's Wayland app id / X11 class match the desktop entry and desktops show the right icon.
-- `IR_INSTALL_DIR` changes the folder's location under the prefix (default `lib/IronRing` on Linux, `IronRing` on Windows).
+- `IR_INSTALL_DIR` changes the folder's location under the prefix (default `lib/IronRing` on Linux, `IronRing` on Windows, the prefix itself on macOS).
 - `~/.local/share/applications` may need `update-desktop-database ~/.local/share/applications` before menus see the entry. Some desktops also need `gtk-update-icon-cache` for the icon.
 
-Store packages, installers and macOS bundles are ROADMAP M5.
+Release zips for every platform come from the build scripts ([building.md](building.md)). Store packages and installers are ROADMAP M5.

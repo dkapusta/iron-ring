@@ -27,3 +27,6 @@ __pycache__/
 
 # docker compose settings (docker-compose.yml)
 .env
+
+# Release zips from the build-*.sh scripts (docs/building.md)
+/Dist/

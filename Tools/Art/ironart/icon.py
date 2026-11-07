@@ -35,7 +35,7 @@ def icon32() -> Image.Image:
     return img
 
 
-def generate(assets: Path, windows_icon: Path) -> None:
+def generate(assets: Path, windows_icon: Path, mac_icon: Path | None = None) -> None:
     base = icon32()
     large = base.resize((256, 256), Image.NEAREST)
     folder = assets / "Resources" / "UI"
@@ -43,4 +43,9 @@ def generate(assets: Path, windows_icon: Path) -> None:
     large.save(folder / "icon.png", optimize=True)
     windows_icon.parent.mkdir(parents=True, exist_ok=True)
     large.save(windows_icon, sizes=[(16, 16), (32, 32), (48, 48), (64, 64), (256, 256)])
+    if mac_icon is not None:  # the macOS bundle's icon: every size up to 1024, scaled without smoothing
+        sizes = [16, 32, 64, 128, 256, 512, 1024]
+        images = [base.resize((n, n), Image.NEAREST) for n in sizes]
+        mac_icon.parent.mkdir(parents=True, exist_ok=True)
+        images[-1].save(mac_icon, format="ICNS", append_images=images[:-1])
     print("icon: done")

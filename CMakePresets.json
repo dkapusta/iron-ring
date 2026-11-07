@@ -30,6 +30,14 @@
       "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Windows" }
     },
     {
+      "name": "macos",
+      "displayName": "macOS release (Ninja, Apple silicon + Intel)",
+      "inherits": "base",
+      "generator": "Ninja",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release", "CMAKE_OSX_ARCHITECTURES": "arm64;x86_64" },
+      "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Darwin" }
+    },
+    {
       "name": "core",
       "displayName": "Core only (no SDL, tests + tools)",
       "inherits": "base",
@@ -41,12 +49,14 @@
     { "name": "debug",   "configurePreset": "debug" },
     { "name": "release", "configurePreset": "release" },
     { "name": "core",    "configurePreset": "core" },
+    { "name": "macos",   "configurePreset": "macos" },
     { "name": "vs2022-release", "configurePreset": "vs2022", "configuration": "Release" }
   ],
   "testPresets": [
     { "name": "debug",   "configurePreset": "debug",   "output": { "outputOnFailure": true } },
     { "name": "release", "configurePreset": "release", "output": { "outputOnFailure": true } },
     { "name": "core",    "configurePreset": "core",    "output": { "outputOnFailure": true } },
+    { "name": "macos",   "configurePreset": "macos",   "output": { "outputOnFailure": true } },
     { "name": "vs2022-release", "configurePreset": "vs2022", "configuration": "Release", "output": { "outputOnFailure": true } }
   ]
 }

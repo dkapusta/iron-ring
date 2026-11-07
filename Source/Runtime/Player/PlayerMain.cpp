@@ -31,7 +31,14 @@ fs::path executableFolder() {
     return base ? fromUtf8(base) : fs::current_path();
 }
 
+// IRONRING_USER_FOLDER replaces the per-user folder (prefs, screenshots, replays), so test
+// runs keep their files apart on every platform (Tools/Server/soak.sh).
 fs::path userFolder(const ProductInfo& info) {
+    if (const char* forced = SDL_getenv("IRONRING_USER_FOLDER"); forced && *forced) {
+        std::error_code ignored;
+        fs::create_directories(fromUtf8(forced), ignored);
+        return fromUtf8(forced);
+    }
     char* pref = SDL_GetPrefPath(info.company.c_str(), info.product.c_str());
     if (!pref) return fs::current_path();
     fs::path path = fromUtf8(pref);
