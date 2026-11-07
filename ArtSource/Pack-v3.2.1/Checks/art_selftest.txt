@@ -1,0 +1,47 @@
+fighters: dee: 55 frames
+fighters: bram: 56 frames
+fighters: sable: 55 frames
+fighters: idris: 55 frames
+fighters: greta: 55 frames
+fighters: jun: 55 frames
+fighters: broker: 55 frames
+stages: PierNine/pier_nine
+stages: LanternRow/lantern_row
+stages: TheCrown/the_crown
+effects: 28 frames
+font: 63 glyphs
+ui: title_logo.png, menu_backdrop.png
+foundry: 6 layers + preview
+venues: dry_dock: 5 layers + preview
+venues: ship_hold: 5 layers + preview
+venues: brokers_club: 5 layers + preview
+imported 56 frames at scale 1.0000 into /tmp/tmp85cjfgvs/sources/Fighters/Bram
+imported 49 frames at scale 1.0000 into /tmp/tmp85cjfgvs/sources/Fighters/Broker
+imported 55 frames at scale 1.0000 into /tmp/tmp85cjfgvs/sources/Fighters/Dee
+imported 55 frames at scale 1.0000 into /tmp/tmp85cjfgvs/sources/Fighters/Greta
+imported 55 frames at scale 1.0000 into /tmp/tmp85cjfgvs/sources/Fighters/Idris
+imported 55 frames at scale 1.0000 into /tmp/tmp85cjfgvs/sources/Fighters/Jun
+imported 55 frames at scale 1.0000 into /tmp/tmp85cjfgvs/sources/Fighters/Sable
+exported 55 references to /tmp/tmp85cjfgvs/roundtrip/refs/dee
+import back with: import_art.py fighter dee <frames> --origin 512 928 --scale 0.25 --manifest /tmp/tmp85cjfgvs/roundtrip/refs/dee/manifest.json
+imported 55 frames at scale 0.2500 into /tmp/tmp85cjfgvs/roundtrip/assets/Fighters/Dee
+exported 56 references to /tmp/tmp85cjfgvs/roundtrip/refs/bram
+import back with: import_art.py fighter bram <frames> --origin 512 928 --scale 0.25 --manifest /tmp/tmp85cjfgvs/roundtrip/refs/bram/manifest.json
+imported 56 frames at scale 0.2500 into /tmp/tmp85cjfgvs/roundtrip/assets/Fighters/Bram
+exported 55 references to /tmp/tmp85cjfgvs/roundtrip/refs/sable
+import back with: import_art.py fighter sable <frames> --origin 512 928 --scale 0.25 --manifest /tmp/tmp85cjfgvs/roundtrip/refs/sable/manifest.json
+imported 55 frames at scale 0.2500 into /tmp/tmp85cjfgvs/roundtrip/assets/Fighters/Sable
+exported 55 references to /tmp/tmp85cjfgvs/roundtrip/refs/idris
+import back with: import_art.py fighter idris <frames> --origin 512 928 --scale 0.25 --manifest /tmp/tmp85cjfgvs/roundtrip/refs/idris/manifest.json
+imported 55 frames at scale 0.2500 into /tmp/tmp85cjfgvs/roundtrip/assets/Fighters/Idris
+exported 55 references to /tmp/tmp85cjfgvs/roundtrip/refs/greta
+import back with: import_art.py fighter greta <frames> --origin 512 928 --scale 0.25 --manifest /tmp/tmp85cjfgvs/roundtrip/refs/greta/manifest.json
+imported 55 frames at scale 0.2500 into /tmp/tmp85cjfgvs/roundtrip/assets/Fighters/Greta
+exported 55 references to /tmp/tmp85cjfgvs/roundtrip/refs/jun
+import back with: import_art.py fighter jun <frames> --origin 512 928 --scale 0.25 --manifest /tmp/tmp85cjfgvs/roundtrip/refs/jun/manifest.json
+imported 55 frames at scale 0.2500 into /tmp/tmp85cjfgvs/roundtrip/assets/Fighters/Jun
+exported 49 references to /tmp/tmp85cjfgvs/roundtrip/refs/broker
+  plus 6 procedural references for frames not drawn yet: champion_0, champion_1, champion_2, champion_3, champion_4, champion_5
+import back with: import_art.py fighter broker <frames> --origin 512 928 --scale 0.25 --manifest /tmp/tmp85cjfgvs/roundtrip/refs/broker/manifest.json
+imported 55 frames at scale 0.2500 into /tmp/tmp85cjfgvs/roundtrip/assets/Fighters/Broker
+art selftest: ok

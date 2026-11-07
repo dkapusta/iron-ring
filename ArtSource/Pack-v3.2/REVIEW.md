@@ -2,7 +2,7 @@
 
 **Reviewed:** 2026-11-07, against the [crowd brief](../../docs/art/art-pack-v3.2-crowds-brief.md), with the project tools and in the game.
 
-**Verdict:** adopted as delivered. The crowds now face the ring in all seven venues. One defect remains, and it comes from the brief, not the pack: a band of the **old** spectators survives between the new figures and the barrier. It is the subject of a follow-up, [Art Pack v3.2.1](../../docs/art/art-pack-v3.2.1-crowd-band-brief.md).
+**Verdict:** adopted as delivered. The crowds now face the ring in all seven venues. One defect remains, and it comes from the brief, not the pack: a band of the **old** spectators survives between the new figures and the barrier. It is the subject of a follow-up, [Art Pack v3.2.1](../../docs/art/art-pack-v3.2.1-crowd-band-brief.md), which fixed it ([review](../Pack-v3.2.1/REVIEW.md)).
 
 ## What the pack does
 

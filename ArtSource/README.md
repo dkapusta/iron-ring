@@ -68,3 +68,7 @@ Delivered 2026-11-07 against the [crowd brief](../docs/art/art-pack-v3.2-crowds-
 
 Adopted as delivered ([Pack-v3.2/REVIEW.md](Pack-v3.2/REVIEW.md)). The brief gave the wrong protected rows, so a band of the old spectators survives above the barrier. The [v3.2.1 brief](../docs/art/art-pack-v3.2.1-crowd-band-brief.md) asks for it to be repainted. The pack's game captures and GIFs (3.6 MB) stay outside the repository; its Pier 9 before/after is in `Pack-v3.2/Checks/`.
 
+## Art Pack v3.2.1
+
+Delivered 2026-11-07 against the [crowd band brief](../docs/art/art-pack-v3.2.1-crowd-band-brief.md). The band of old spectators above each barrier is repainted as a continuation of the v3.2 figures, behind ropes, chains and mesh where the barrier is see-through, and the rail hands are moved onto the real barriers. Adopted as delivered ([Pack-v3.2.1/REVIEW.md](Pack-v3.2.1/REVIEW.md)). The pack's game captures and GIFs stay outside the repository.
+
