@@ -31,7 +31,11 @@ An early-90s style arcade fighting game about the **Iron Ring** — an illegal, 
 
 ## Building
 
-Requirements: CMake ≥ 3.25, Ninja (or Visual Studio 2022), a C++20 compiler (MSVC 19.3x, GCC/MinGW-w64 ≥ 12, Clang ≥ 15), Git (FetchContent clones the dependencies on first configure). Supported platforms: **Windows and Linux**; macOS is planned later.
+Requirements: CMake ≥ 3.25, Ninja (or Visual Studio 2022), a C++20 compiler (MSVC 19.3x, GCC/MinGW-w64 ≥ 12, Clang ≥ 15), Git (FetchContent clones the dependencies on first configure). Supported platforms: **Windows, Linux and macOS** (11 or later, Apple silicon and Intel).
+
+**Release zips.** One script per platform builds and packs `Dist/IronRing-<version>-<platform>.zip`: `./build-linux.sh`, `./build-windows.sh` (cross-compiled from Linux), `build-windows.bat` (on Windows, with Visual Studio) and `./build-macos.sh` (`IronRing.app`, signed and notarized when given a Developer ID). Requirements, signing and the glibc note: [docs/building.md](docs/building.md).
+
+**Presets**, for development:
 
 ```sh
 cmake --preset release          # first configure of a preset downloads SDL3 & friends (a few minutes)
@@ -49,7 +53,9 @@ Windows with Visual Studio: `cmake --preset vs2022` then `cmake --build --preset
 
 For fully self-contained Windows builds from CLion, add an MSYS2 UCRT64 toolchain (*Settings → Build, Execution, Deployment → Toolchains*) or use the Visual Studio toolchain.
 
-Cross-compiling for Windows from Linux: see `cmake/toolchains/mingw-w64-x86_64.cmake` (pass a host-built `AssetPacker` via `-DIR_ASSET_PACKER=...`).
+Cross-compiling for Windows from Linux: `./build-windows.sh` does it all; by hand, see `cmake/toolchains/mingw-w64-x86_64.cmake` (pass a host-built `AssetPacker` via `-DIR_ASSET_PACKER=...`).
+
+macOS: `cmake --preset macos && cmake --build --preset macos` (needs the Xcode command line tools and `brew install cmake ninja`); the player is `Build/macos/Player/Release/IronRing.app`.
 
 Core-only (no SDL; simulation, archives, tools and tests): `cmake --preset core && cmake --build --preset core && ctest --preset core`.
 
@@ -82,7 +88,9 @@ Player/Release/
     └── level1..7                one venue's theme each, mounted while in use
 ```
 
-The folder is self-contained and can be zipped and copied as is. `cmake --install Build/release --prefix ~/.local` installs it, with a desktop entry and icon on Linux ([docs/install.md](docs/install.md)). The player writes `Player.log` (previous run: `Player-prev.log`), `prefs.cfg` (what you chose in Options, plus the last stage picked) F12 screenshots and `Replays/` (the last 50 finished matches outside training, as `.irr` files for `-replay`) to the per-user data folder (`%APPDATA%\dkapusta\Iron Ring\` on Windows, `~/.local/share/dkapusta/Iron Ring/` on Linux). Delete `prefs.cfg` to go back to the defaults.
+On macOS the same files form `IronRing.app`: the launcher in `Contents/MacOS/`, `UnityPlayer.dylib` in `Contents/Frameworks/` and the data in `Contents/Resources/Data/` ([ADR-0027](docs/adr/0027-macos-app-bundle.md)).
+
+The folder is self-contained and can be zipped and copied as is. `cmake --install Build/release --prefix ~/.local` installs it, with a desktop entry and icon on Linux ([docs/install.md](docs/install.md)). The player writes `Player.log` (previous run: `Player-prev.log`), `prefs.cfg` (what you chose in Options, plus the last stage picked) F12 screenshots and `Replays/` (the last 50 finished matches outside training, as `.irr` files for `-replay`) to the per-user data folder (`%APPDATA%\dkapusta\Iron Ring\` on Windows, `~/.local/share/dkapusta/Iron Ring/` on Linux, `~/Library/Application Support/dkapusta/Iron Ring/` on macOS). Delete `prefs.cfg` to go back to the defaults.
 
 Online play runs through `IronRingServer`, the dedicated server: one UDP port, no SDL, built with the rest (`Build/release/Server/Release/`); on a Linux server, `./build-server.sh` builds just the server and its data. Deploying it, on Linux with systemd, in Docker or on Windows: [docs/server.md](docs/server.md).
 
@@ -175,7 +183,11 @@ Tools/Server/        server Dockerfile, systemd unit, online soak test (soak.sh)
 ArtSource/           editable sources of the external art (not packed)
 cmake/               dependencies, compiler options, player layout, asset pipeline
 docs/                ADRs, architecture, asset pipeline, research, concept art
-build-server.sh      Linux: build the dedicated server and its data in one step
+build-linux.sh       release zips, one script per platform (docs/building.md)
+build-windows.sh     ... Windows x64, cross-compiled from Linux with MinGW-w64
+build-windows.bat    ... Windows x64 on Windows (runs build-windows.ps1)
+build-macos.sh       ... macOS, IronRing.app (Apple silicon + Intel)
+build-server.sh      Linux or macOS: build the dedicated server and its data in one step
 docker-compose.yml   the dedicated server in a container (docs/server.md)
 ```
 

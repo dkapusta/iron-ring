@@ -280,6 +280,6 @@ Each step is one or two PRs, as in M3.
 1. **Fights go through the server, not peer-to-peer** (§4.1): players need no port forwarding, and their IPs stay private. Direct connections may come later, behind the same protocol.
 2. **Rooms are private by default.** Joining takes the code or an invite; the host can opt in to the OPEN ROOMS list. Quick match is not planned.
 3. **The server referees by default** (`verify=1`, which needs the game data on the server). With `verify=0`, it compares the two clients' checksums only.
-4. **No default server.** Players type or paste an address. If `GameSettings.json` ships a `defaultServer` value, the SERVER field starts with it. Since 2026-11-02 the game ships the project's own server, `195.161.54.95:7727`; a player's recent servers come first once they have connected anywhere.
+4. **No default server.** Players type or paste an address. If `GameSettings.json` ships a `defaultServer` value, the SERVER field starts with it. The game shipped the owner's server there from 2026-11-02 to 2026-11-07; release builds ship none. Once a player has connected anywhere, their most recent server fills the field.
 5. **HOST ON THIS PC** was planned as a small extra in M4.5: the same server code, run inside the game. Left out when M4 closed (2026-11-02); it is on the roadmap under *Later / maybe*.
 6. **Not planned:** spectators, rankings, accounts, a server browser and voice.

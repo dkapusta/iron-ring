@@ -35,7 +35,7 @@ Choose a field (your name, the server, a room code) to edit it. On a keyboard, t
 
 ## Playing online
 
-You need an Iron Ring server to meet on. The SERVER field starts with the project's server, `195.161.54.95:7727` (`defaultServer` in `ProjectSettings/GameSettings.json`), and anyone can run their own ([server.md](server.md)).
+You need an Iron Ring server to meet on: one a friend runs, or your own ([server.md](server.md)). The game ships no server address. Type it into SERVER once; after that the field starts with the last server you used.
 
 1. **ONLINE** on the title menu. Enter your **NAME** (up to 12 characters) and the **SERVER** as `address:port` (the port defaults to 7727). Left/Right on SERVER steps through the servers you used before. **CONNECT**.
 2. In the lobby, one of you chooses **CREATE ROOM**. The room shows a six-character code, such as `K7M2QX`, and **COPY INVITE** puts `address:port/K7M2QX` in the clipboard. Send that to your friend however you like.

@@ -10,5 +10,7 @@
 *.ogg   binary
 *.flac  binary
 *.pdf   binary
+*.ico   binary
+*.icns  binary
 *.assets   binary
 *.resource binary

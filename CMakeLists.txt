@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 3.25)
 
+# macOS: the oldest system the player runs on (11 Big Sur: the first with Apple
+# silicon). Must be set before project(). Ignored elsewhere.
+set(CMAKE_OSX_DEPLOYMENT_TARGET "11.0" CACHE STRING "Minimum macOS version")
+
 project(IronRing
-    VERSION 0.4.4
+    VERSION 0.4.5
     DESCRIPTION "Early-90s style arcade fighting game on C++20 / SDL3"
     HOMEPAGE_URL "https://github.com/dkapusta/iron-ring"
     LANGUAGES C CXX)

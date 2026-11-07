@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Builds the Iron Ring dedicated server and packs the game data next to it,
-# from this checkout (docs/server.md). Linux; needs cmake, ninja and g++.
+# from this checkout (docs/server.md). Linux or macOS; needs cmake, ninja and a C++20 compiler.
 #
 #   ./build-server.sh            build into Build/server/Server/Release/
 #   ./build-server.sh --run      build, then run it (extra arguments go to the server)
@@ -11,6 +11,7 @@
 set -euo pipefail
 
 cd "$(dirname "$0")"
+source Tools/Build/common.sh
 BUILD=Build/server
 OUT="$BUILD/Server/Release"
 
@@ -21,21 +22,14 @@ if [ "${1:-}" = "--run" ]; then
 fi
 
 for tool in cmake ninja c++; do
-    if ! command -v "$tool" > /dev/null; then
-        echo "Missing $tool. On Ubuntu: sudo apt install -y build-essential cmake ninja-build git" >&2
-        exit 1
-    fi
+    need "$tool" "On Ubuntu: sudo apt install -y build-essential cmake ninja-build git; on macOS: brew install cmake ninja"
 done
 
 # The compiler needs about 1 GB per parallel job; small servers build one file at a time.
-jobs=$(nproc)
-mem_mb=$(awk '/MemTotal|SwapTotal/ {sum += $2} END {print int(sum / 1024)}' /proc/meminfo)
-if [ "$mem_mb" -lt 1500 ]; then
-    jobs=1
-    echo "Only ${mem_mb} MB of memory and swap: building one file at a time." >&2
+jobs=$(build_jobs)
+if [ "$jobs" = 1 ] && [ -z "${JOBS:-}" ]; then
+    echo "Little memory and swap: building one file at a time." >&2
     echo "If the compiler gets killed, add swap (see docs/server.md)." >&2
-elif [ $((mem_mb / 1024)) -lt "$jobs" ]; then
-    jobs=$((mem_mb / 1024))
 fi
 
 echo "== Building the server at $(git rev-parse --short HEAD 2>/dev/null || echo '?') ($jobs jobs) =="
