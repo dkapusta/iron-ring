@@ -1,0 +1,10 @@
+# Project checks of the v3.2.1 sheets against v3.2 (fee247c), 2026-11-07.
+# Band per venue (start, solid row): pier 49/60, lantern 49/61, foundry 48/60, crown 48/60, dry dock 50/68, hold 49/70, club 54/68.
+# 'above' = the old waist-height hands removed; 'below' = hands on the real barrier (rows 60-63 only); rim and dotted runs counted above the solid row.
+pier_nine     768x672 alpha [0, 255] colours 17 off-palette 0 changed above/in/below band: 944/56553/2208 rim 0 dotted-runs 0 heads True
+lantern_row   768x672 alpha [0, 255] colours 19 off-palette 0 changed above/in/below band: 976/61877/2472 rim 0 dotted-runs 0 heads True
+foundry       768x672 alpha [0, 255] colours 15 off-palette 0 changed above/in/below band: 736/63629/2208 rim 0 dotted-runs 0 heads True
+the_crown     768x672 alpha [0, 255] colours 12 off-palette 0 changed above/in/below band: 800/63262/2208 rim 0 dotted-runs 0 heads True
+dry_dock      768x672 alpha [0, 255] colours 15 off-palette 0 changed above/in/below band: 816/71667/0 rim 0 dotted-runs 0 heads True
+ship_hold     768x672 alpha [0, 255] colours 15 off-palette 0 changed above/in/below band: 936/80359/0 rim 0 dotted-runs 0 heads True
+brokers_club  768x672 alpha [0, 255] colours 16 off-palette 0 changed above/in/below band: 1120/53364/0 rim 0 dotted-runs 0 heads True
