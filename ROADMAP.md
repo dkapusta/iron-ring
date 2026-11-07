@@ -130,7 +130,8 @@ Two players anywhere fight over the internet with rollback netcode. They meet on
 - 🔜 Fixes from online play tests (anything found after M4 closed):
   - ✅ the online select marks each side **READY**; the host picks the venue only once both are; the guest sees both fighters and *HOST IS CHOOSING THE STAGE* meanwhile (0.4.2)
   - ✅ a match could hang at the end, waiting for the opponent's last inputs: the server now relays the finished match's tail, and a client takes the referee's result after 3 s (0.4.2; found by the soak test)
-  - 🔜 crowds that face the ring: Art Pack v3.2 brief ([docs/art/art-pack-v3.2-crowds-brief.md](docs/art/art-pack-v3.2-crowds-brief.md))
+  - ✅ crowds that face the ring: Art Pack v3.2 ([brief](docs/art/art-pack-v3.2-crowds-brief.md), [review](ArtSource/Pack-v3.2/REVIEW.md))
+  - 🔜 the band of old spectators left above the barrier (the v3.2 brief's protected rows were wrong): Art Pack v3.2.1 ([brief](docs/art/art-pack-v3.2.1-crowd-band-brief.md))
 
 - ⬜ Crash handler process (a `UnityCrashHandler64.exe` look-alike in spirit: minidump + log upload prompt)
 - ⬜ Installer/packaging, store integration as needed

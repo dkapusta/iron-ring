@@ -1,0 +1,11 @@
+# Project checks of the delivered crowd sheets against 0.4.2 (2026-11-07).
+# 'barrier changed' counts changed pixels from the brief's protected row down: all within the 2 rows
+# of the hand overlays, none below. 'rim' counts sodium_2 pixels next to transparency above that row.
+# Every colour is in Tools/Art/ironart/palette.py (checked separately: 0 off-palette in all seven).
+pier_nine     (768, 672) RGBA alpha [0, 255] colours 19 (new vs old sheet: 0) barrier changed 2105 (2+ rows below rail: 0) heads True rim 0
+lantern_row   (768, 672) RGBA alpha [0, 255] colours 19 (new vs old sheet: 2) barrier changed 2159 (2+ rows below rail: 0) heads True rim 0
+foundry       (768, 672) RGBA alpha [0, 255] colours 15 (new vs old sheet: 1) barrier changed 2134 (2+ rows below rail: 0) heads True rim 0
+the_crown     (768, 672) RGBA alpha [0, 255] colours 14 (new vs old sheet: 1) barrier changed 2145 (2+ rows below rail: 0) heads True rim 0
+dry_dock      (768, 672) RGBA alpha [0, 255] colours 18 (new vs old sheet: 2) barrier changed 1989 (2+ rows below rail: 0) heads True rim 0
+ship_hold     (768, 672) RGBA alpha [0, 255] colours 20 (new vs old sheet: 2) barrier changed 2201 (2+ rows below rail: 0) heads True rim 0
+brokers_club  (768, 672) RGBA alpha [0, 255] colours 19 (new vs old sheet: 2) barrier changed 1999 (2+ rows below rail: 0) heads True rim 0
