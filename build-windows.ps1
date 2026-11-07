@@ -55,7 +55,8 @@ if ($Test) {
 $playerDir = Join-Path $build "Player\Release"
 if ($Run) { & (Join-Path $playerDir "IronRing.exe") @args; exit $LASTEXITCODE }
 
-$version = (Select-String -Path (Join-Path $build "CMakeCache.txt") -Pattern '^CMAKE_PROJECT_VERSION:STATIC=(.*)$').Matches[0].Groups[1].Value
+$fullVersion = (Select-String -Path (Join-Path $build "CMakeCache.txt") -Pattern '^CMAKE_PROJECT_VERSION:STATIC=(.*)$').Matches[0].Groups[1].Value
+$version = $fullVersion -replace '^(\d+\.\d+)\.0$', '$1'   # 1.0.0 -> 1.0 (Tools/Build/common.sh)
 $name = "IronRing-$version-windows-x64"
 $stage = Join-Path "Dist" $name
 Write-Host "== Packing $name =="
@@ -64,6 +65,9 @@ New-Item -ItemType Directory -Force $stage | Out-Null
 Copy-Item -Recurse (Join-Path $playerDir "*") $stage
 Copy-Item LICENSE (Join-Path $stage "LICENSE.txt")
 Copy-Item THIRD_PARTY_NOTICES.md $stage
+$readme = (Get-Content -Raw Tools\Build\README-windows.txt) + (Get-Content -Raw Tools\Build\README-common.txt)
+Set-Content -NoNewline (Join-Path $stage "README.txt") ($readme -replace '@VERSION@', $version -replace '@START@', 'IronRing.exe')
+Set-Content -NoNewline (Join-Path $stage ".itch.toml") ((Get-Content -Raw Tools\Build\itch.toml.in) -replace '@START@', 'IronRing.exe')
 $zip = Join-Path "Dist" "$name.zip"
 if (Test-Path $zip) { Remove-Item $zip }
 Compress-Archive -Path $stage -DestinationPath $zip

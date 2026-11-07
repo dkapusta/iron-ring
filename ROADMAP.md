@@ -125,21 +125,23 @@ Two players anywhere fight over the internet with rollback netcode. They meet on
   - **HOST ON THIS PC** moved to *Later / maybe*.
 - **M4 is closed.** Bugs found in online play from here on are fixed under M5.
 
-## M5 — Release hardening
+## M5 — Release hardening ✅ (1.0.0)
 
-- 🔜 Fixes from online play tests (anything found after M4 closed):
+Iron Ring 1.0: Windows, Linux and macOS builds, release archives from one script per platform, and itch.io channels. The macOS builds are being tested by the owner on Intel and Apple silicon Macs; fixes from that go into 1.0.x.
+
+- ✅ Fixes from online play tests (anything found after M4 closed):
   - ✅ the online select marks each side **READY**; the host picks the venue only once both are; the guest sees both fighters and *HOST IS CHOOSING THE STAGE* meanwhile (0.4.2)
   - ✅ a match could hang at the end, waiting for the opponent's last inputs: the server now relays the finished match's tail, and a client takes the referee's result after 3 s (0.4.2; found by the soak test)
   - ✅ crowds that face the ring: Art Pack v3.2 ([brief](docs/art/art-pack-v3.2-crowds-brief.md), [review](ArtSource/Pack-v3.2/REVIEW.md))
   - ✅ the band of old spectators left above the barrier (the v3.2 brief's protected rows were wrong): Art Pack v3.2.1 ([brief](docs/art/art-pack-v3.2.1-crowd-band-brief.md), [review](ArtSource/Pack-v3.2.1/REVIEW.md))
 
-- ⬜ Crash handler process (a `UnityCrashHandler64.exe` look-alike in spirit: minidump + log upload prompt)
-- ⬜ Installer/packaging, store integration as needed
-- ⬜ Localization, accessibility (colour-blind safe HUD, input assistance)
-- ⬜ Performance budget and capture tooling
 - ✅ macOS: `IronRing.app` (`Contents/Frameworks/UnityPlayer.dylib`, `Contents/Resources/Data`), universal (Apple silicon + Intel), a CI job, notarization in `build-macos.sh` once there is a Developer ID ([ADR-0027](docs/adr/0027-macos-app-bundle.md); 0.4.5)
-- ✅ Build scripts for every platform, making the release zips: `build-linux.sh`, `build-windows.sh` (MinGW cross), `build-windows.bat`, `build-macos.sh`, next to `build-server.sh`; CI runs them all ([docs/building.md](docs/building.md); 0.4.5)
+- ✅ Build scripts for every platform, making the release archives: `build-linux.sh`, `build-windows.sh` (MinGW cross), `build-windows.bat`, `build-macos.sh`, next to `build-server.sh`; CI runs them all ([docs/building.md](docs/building.md); 0.4.5)
 - ✅ No default server: the game ships no server address (0.4.5)
+- ✅ itch.io: an `.itch.toml` launch manifest in every build, and `Tools/Build/itch-push.sh` to push the windows, linux and mac channels with butler ([docs/building.md](docs/building.md#itchio); 1.0.0)
+- ✅ The source package, `IronRing-<version>-source.zip`, from `Tools/Build/source-package.sh` (1.0.0)
+
+Dropped from M5 by the owner (2026-11-07): a crash handler, installers, other stores, localization, accessibility features and performance tooling.
 
 ## Later / maybe
 
@@ -175,6 +177,7 @@ Two players anywhere fight over the internet with rollback netcode. They meet on
 | 2026-11-02 | M4 closed | HOST ON THIS PC left out of M4.5 (now *Later / maybe*); online bugs found from here on are M5 work |
 | 2026-11-01 | Version numbers | `0.<milestone>.<patch>` until 1.0: the minor number is the milestone the build delivers (0.4.0 brings M4's online play), the patch counts fixes on it; **1.0.0** when M5 (release hardening) is done. The version is informational: online compatibility is decided by the protocol number and the game-data hash, replays by their content hash. Set once, in the top-level `CMakeLists.txt` |
 | 2026-11-07 | Default server removed | Release builds ship no `defaultServer`: players type a server (the owner's or their own) and the game remembers it |
+| 2026-11-07 | 1.0 scope | M5 closes with the platform builds and itch.io; no crash handler, installers, localization, accessibility features or performance tooling. Archives are named by `major.minor` (`IronRing-1.0-…`), with the patch only when it isn't 0 |
 
 ## Open questions for the project owner
 

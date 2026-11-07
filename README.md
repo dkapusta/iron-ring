@@ -9,7 +9,7 @@ An early-90s style arcade fighting game about the **Iron Ring** — an illegal, 
 
 *Above: a real frame captured with `-batchmode -demo -frames 520 -screenshot` at 1920 × 1080: Bram Hollis slams Dee Marlowe to the deck at Pier 9. Fighters and stages are from Iron Ring Art Packs v1 and v2 ([ADR-0012](docs/adr/0012-adopting-external-art.md), [ADR-0020](docs/adr/0020-adopting-art-pack-v2.md)); the music (a theme per venue), sound effects and announcer are generated on a model of the NES sound chip ([docs/audio.md](docs/audio.md)).*
 
-> **Status: M2 — Complete local play, done; M3 (roster and world) next.** M1 delivered Dee vs Bram with data-driven fighters, throws, specials, knockdowns, best-of-3 rounds, a pixel-art HUD, a training mode, venue themes and an announcer. M2: the front end (title with an attract demo, character and stage select, options, pause and rematch menus), saved options, gamepads and remapping, layered scrolling stages with a reacting crowd, the hit-feel pass (counter hits, combos and cancels, a Breakaway that guard-cancels, Heat that lasts the match), the arcade ladder against a CPU with five levels, and Art Packs v2 and v2.1 (every venue layered, redrawn crowds, champion endings), completing the Dee vs Bram vertical slice. See [ROADMAP.md](ROADMAP.md).
+> **Status: 1.0.** Every milestone is done ([ROADMAP.md](ROADMAP.md)). Six fighters and seven venues. Arcade mode, with a story and an ending for each fighter and a boss after the title. Versus CPU at five levels, 2 players, training and replays. Online play with rollback through a dedicated server you can host yourself ([docs/server.md](docs/server.md)). Builds for Windows, Linux and macOS, plus itch.io channels ([docs/building.md](docs/building.md)).
 
 ![The title menu, character select, stage select and pause menu](docs/images/m2-front-end.png)
 
@@ -33,7 +33,7 @@ An early-90s style arcade fighting game about the **Iron Ring** — an illegal, 
 
 Requirements: CMake ≥ 3.25, Ninja (or Visual Studio 2022), a C++20 compiler (MSVC 19.3x, GCC/MinGW-w64 ≥ 12, Clang ≥ 15), Git (FetchContent clones the dependencies on first configure). Supported platforms: **Windows, Linux and macOS** (11 or later, Apple silicon and Intel).
 
-**Release zips.** One script per platform builds and packs `Dist/IronRing-<version>-<platform>.zip`: `./build-linux.sh`, `./build-windows.sh` (cross-compiled from Linux), `build-windows.bat` (on Windows, with Visual Studio) and `./build-macos.sh` (`IronRing.app`, signed and notarized when given a Developer ID). Requirements, signing and the glibc note: [docs/building.md](docs/building.md).
+**Release archives.** One script per platform builds and packs `Dist/IronRing-<version>-<platform>.zip` (`.tar.gz` on Linux): `./build-linux.sh`, `./build-windows.sh` (cross-compiled from Linux), `build-windows.bat` (on Windows, with Visual Studio) and `./build-macos.sh` (`IronRing.app`, signed and notarized when given a Developer ID). `Tools/Build/itch-push.sh` pushes them to itch.io with butler, and `Tools/Build/source-package.sh` packs the source. Requirements, signing, itch.io and the glibc note: [docs/building.md](docs/building.md).
 
 **Presets**, for development:
 
@@ -180,6 +180,7 @@ Tests/               doctest unit tests + packer smoke test
 Tools/Art/           art importer, procedural generator, art self-test (Python)
 Tools/Audio/         NES sound-chip model, sound effects, venue themes, announcer (Python)
 Tools/Server/        server Dockerfile, systemd unit, online soak test (soak.sh)
+Tools/Build/         shared by the build scripts; itch.io push, source package, archive READMEs
 ArtSource/           editable sources of the external art (not packed)
 cmake/               dependencies, compiler options, player layout, asset pipeline
 docs/                ADRs, architecture, asset pipeline, research, concept art

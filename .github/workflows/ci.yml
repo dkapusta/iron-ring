@@ -153,7 +153,7 @@ jobs:
   packages-linux:
     # The release zips, made by the same scripts a person runs (docs/building.md):
     # build-linux.sh, and build-windows.sh cross-compiling with MinGW-w64.
-    name: Release zips (Linux, Windows cross)
+    name: Release archives (Linux, Windows cross)
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
@@ -166,15 +166,18 @@ jobs:
             libudev-dev libdbus-1-dev
       - run: ./build-linux.sh
       - run: ./build-windows.sh
-      - name: The zips hold one folder each, with the player in it
+      - name: The archives hold one folder each, with the player in it
         run: |
-          unzip -l Dist/IronRing-*-linux-x64.zip | grep -q 'linux-x64/IronRing.x86_64$'
+          tar -tzf Dist/IronRing-*-linux-x64.tar.gz | grep -q 'linux-x64/IronRing.x86_64$'
+          tar -tzf Dist/IronRing-*-linux-x64.tar.gz | grep -q 'linux-x64/.itch.toml$'
           unzip -l Dist/IronRing-*-windows-x64.zip | grep -q 'windows-x64/IronRing.exe$'
           unzip -l Dist/IronRing-*-windows-x64.zip | grep -q 'windows-x64/IronRing_Data/app.info$'
       - uses: actions/upload-artifact@v7
         with:
           name: release-linux-windows
-          path: Dist/*.zip
+          path: |
+            Dist/*.zip
+            Dist/*.tar.gz
 
   macos:
     name: macOS (Apple silicon + Intel)

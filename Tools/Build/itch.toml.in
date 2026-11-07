@@ -1,0 +1,4 @@
+# The itch.io app's launch manifest (https://itch.io/docs/itch/integrating/manifest.html).
+[[actions]]
+name = "play"
+path = "@START@"
