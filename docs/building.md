@@ -15,7 +15,7 @@ Common options:
 - `--run` (`-Run`) starts the game instead of packing. Extra arguments go to the game: `./build-linux.sh --run -screen-fullscreen 0`.
 - `JOBS=n` sets the number of parallel compile jobs. By default it is one per CPU, capped at one per GB of memory and swap.
 
-CI runs every script on every push and keeps the zips as artifacts of the run: *Release zips (Linux, Windows cross)*, *macOS* and *Windows (build-windows.ps1)*.
+The CI workflow runs every script and keeps the zips as artifacts of the run, in the jobs *Release zips (Linux, Windows cross)*, *macOS* and *Windows (build-windows.ps1)*.
 
 ## Linux
 
