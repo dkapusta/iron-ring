@@ -1,6 +1,6 @@
 # Building release zips
 
-One script per platform builds the game from a checkout and packs a release zip into `Dist/`. Each zip holds one folder, with the player, its data, `LICENSE.txt` and `THIRD_PARTY_NOTICES.md`. The scripts use the normal presets, so a second run only rebuilds what changed. For day-to-day development, the presets in the [README](../README.md#building) are enough.
+One script per platform builds the game from a checkout and packs a release zip into `Dist/`. Each zip holds one folder, with the player, its data, `LICENSE.txt`, `THIRD_PARTY_NOTICES.md` and `Licenses/` (the full third-party licence texts). The scripts use the normal presets, so a second run only rebuilds what changed. For day-to-day development, the presets in the [README](../README.md#building) are enough.
 
 | Script | Runs on | Builds | Output |
 | --- | --- | --- | --- |
@@ -93,4 +93,4 @@ The script signs with the hardened runtime and a timestamp, sends the zip to App
 
 ## Versions
 
-The version comes from `project(... VERSION)` in the top-level `CMakeLists.txt` (`0.<milestone>.<patch>` until 1.0, see the [ROADMAP](../ROADMAP.md) decisions log). Online play needs both players and the server on the same commit's game data, whatever the platform: a Mac and a Windows PC built from one commit can fight each other.
+The version comes from `project(... VERSION)` in the top-level `CMakeLists.txt` (`0.<milestone>.<patch>` up to 0.4.5, then **1.0.0**, the release; see the [ROADMAP](../ROADMAP.md) decisions log). Online play needs both players and the server on the same commit's game data, whatever the platform: a Mac and a Windows PC built from one commit can fight each other.

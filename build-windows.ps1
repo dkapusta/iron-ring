@@ -64,6 +64,9 @@ New-Item -ItemType Directory -Force $stage | Out-Null
 Copy-Item -Recurse (Join-Path $playerDir "*") $stage
 Copy-Item LICENSE (Join-Path $stage "LICENSE.txt")
 Copy-Item THIRD_PARTY_NOTICES.md $stage
+$licences = Join-Path $build "Licenses"   # third-party licence texts (cmake/Licenses.cmake)
+if (-not (Test-Path $licences)) { Fail "Missing ${licences}: the configure step collects the third-party licence texts." }
+Copy-Item -Recurse $licences (Join-Path $stage "Licenses")
 $zip = Join-Path "Dist" "$name.zip"
 if (Test-Path $zip) { Remove-Item $zip }
 Compress-Archive -Path $stage -DestinationPath $zip

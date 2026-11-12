@@ -4,7 +4,7 @@ The guiding rule comes from the concept kit and still holds: **polish one matchu
 
 Milestones are ordered; items inside a milestone are roughly ordered. ✅ done · 🔜 next · ⬜ planned.
 
-**Where it stands (0.4.5):** M0–M4 are done; M5, release hardening, is in progress.
+**Where it stands: finished.** M0–M5 are done and Iron Ring 1.0.0 is released; no further work is planned (*Not planned*, below).
 
 ## How art is made
 
@@ -127,30 +127,33 @@ Two players anywhere fight over the internet with rollback netcode. They meet on
   - **HOST ON THIS PC** moved to *Later / maybe*.
 - **M4 is closed.** Bugs found in online play from here on are fixed under M5.
 
-## M5 — Release hardening 🔜
+## M5 — Release hardening ✅
 
-The game is feature-complete; M5 makes it a release. **1.0.0** when it is done.
+The game was feature-complete at M4; M5 made it a release: **1.0.0**.
 
-- 🔜 Fixes from online play tests (anything found after M4 closed):
+- ✅ Fixes from online play tests (anything found after M4 closed):
   - ✅ the online select marks each side **READY**; the host picks the venue only once both are; the guest sees both fighters and *HOST IS CHOOSING THE STAGE* meanwhile (0.4.2)
   - ✅ a match could hang at the end, waiting for the opponent's last inputs: the server now relays the finished match's tail, and a client takes the referee's result after 3 s (0.4.2; found by the soak test)
   - ✅ crowds that face the ring: Art Pack v3.2 ([brief](docs/art/art-pack-v3.2-crowds-brief.md), [review](ArtSource/Pack-v3.2/REVIEW.md))
   - ✅ the band of old spectators left above the barrier (the v3.2 brief's protected rows were wrong): Art Pack v3.2.1 ([brief](docs/art/art-pack-v3.2.1-crowd-band-brief.md), [review](ArtSource/Pack-v3.2.1/REVIEW.md))
-
-- ⬜ Crash handler process (a `UnityCrashHandler64.exe` look-alike in spirit: minidump + log upload prompt)
-- ⬜ Third-party licence texts in the release zips: today they carry `LICENSE.txt` and `THIRD_PARTY_NOTICES.md` only; the full texts of SDL, SDL_mixer, miniz, nlohmann/json, ENet (and, in MinGW builds, the runtime's `COPYING.MinGW-w64-runtime.txt`) should go in too
-- ⬜ Installer/packaging, store integration as needed
-- ⬜ Localization, accessibility (colour-blind safe HUD, input assistance)
-- ⬜ Performance budget and capture tooling
 - ✅ macOS: `IronRing.app` (`Contents/Frameworks/UnityPlayer.dylib`, `Contents/Resources/Data`), universal (Apple silicon + Intel), a CI job, notarization in `build-macos.sh` once there is a Developer ID ([ADR-0027](docs/adr/0027-macos-app-bundle.md); 0.4.5)
 - ✅ Build scripts for every platform, making the release zips: `build-linux.sh`, `build-windows.sh` (MinGW cross), `build-windows.bat`, `build-macos.sh`, next to `build-server.sh`; CI runs them all ([docs/building.md](docs/building.md); 0.4.5)
 - ✅ No default server: the game ships no server address (0.4.5)
+- ✅ Third-party licence texts: the configure step collects the full texts of SDL, SDL_mixer, miniz, nlohmann/json and ENet (and, in MinGW builds, the MinGW-w64 runtime and winpthreads) into `Licenses/`, which every release zip and `cmake --install` carry (`cmake/Licenses.cmake`; 1.0.0)
+- ✅ Release documentation: README, docs index and screenshots of the 1.0 build (1.0.0)
 
-## Later / maybe
+**M5 is closed, and with it the roadmap: Iron Ring 1.0.0 is the finished game.**
 
+## Not planned
+
+The roadmap is finished; nothing below will be implemented. These are recorded for anyone who forks the project.
+
+- **Crash handler** process (a `UnityCrashHandler64.exe` look-alike in spirit: minidump + log upload prompt). Was M5.
+- **Installers and store packages.** The release zips and `cmake --install` are the distribution. Was M5.
+- **Localization and accessibility** (a colour-blind safe HUD, input assistance). Was M5. The *reduced* screen effects option is in.
+- **Performance budget and capture tooling.** Was M5.
 - **HOST ON THIS PC**: run a server from the game's ONLINE menu for a LAN or a forwarded port (was M4.5; [docs/design/online.md](docs/design/online.md)).
-
-- A Fatal Fury-style **two-plane** (foreground/background line) mechanic, prototyped as an optional stage rule — only if the single-plane game is already fun.
+- A Fatal Fury-style **two-plane** (foreground/background line) mechanic, as an optional stage rule.
 
 ## Decisions log
 
@@ -180,7 +183,8 @@ The game is feature-complete; M5 makes it a release. **1.0.0** when it is done.
 | 2026-11-02 | M4 closed | HOST ON THIS PC left out of M4.5 (now *Later / maybe*); online bugs found from here on are M5 work |
 | 2026-11-01 | Version numbers | `0.<milestone>.<patch>` until 1.0: the minor number is the milestone the build delivers (0.4.0 brings M4's online play), the patch counts fixes on it; **1.0.0** when M5 (release hardening) is done. The version is informational: online compatibility is decided by the protocol number and the game-data hash, replays by their content hash. Set once, in the top-level `CMakeLists.txt` |
 | 2026-11-07 | Default server removed | Release builds ship no `defaultServer`: players type a server (the owner's or their own) and the game remembers it |
+| 2026-11-12 | 1.0.0 | M5 closed with the third-party licence texts in the release zips; Iron Ring is released as **1.0.0** and the roadmap is finished. The remaining M5 items (crash handler, installers, localization and accessibility, performance tooling) are *Not planned* |
 
 ## Open questions for the project owner
 
-None at the moment.
+None. The project is finished.

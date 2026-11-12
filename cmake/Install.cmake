@@ -22,6 +22,16 @@ set(IR_INSTALL_DIR "${_default_dir}" CACHE STRING "Install destination of the pl
 install(DIRECTORY "${IR_PLAYER_OUTPUT_DIR}/" DESTINATION "${IR_INSTALL_DIR}" USE_SOURCE_PERMISSIONS
         COMPONENT Player)
 
+# The licence texts (Licenses.cmake) beside the player. Not on macOS: files added
+# inside a signed IronRing.app would break its signature; the release zip carries them.
+if(NOT APPLE)
+    install(FILES "${PROJECT_SOURCE_DIR}/LICENSE" DESTINATION "${IR_INSTALL_DIR}/Licenses"
+            RENAME "IronRing.txt" COMPONENT Player)
+    install(DIRECTORY "${IR_LICENSES_DIR}/" DESTINATION "${IR_INSTALL_DIR}/Licenses" COMPONENT Player)
+    install(FILES "${PROJECT_SOURCE_DIR}/THIRD_PARTY_NOTICES.md" DESTINATION "${IR_INSTALL_DIR}/Licenses"
+            COMPONENT Player)
+endif()
+
 if(UNIX AND NOT APPLE)
     install(FILES "${PROJECT_SOURCE_DIR}/Assets/Resources/UI/icon.png"
             DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/256x256/apps"

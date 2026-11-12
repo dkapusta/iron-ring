@@ -60,7 +60,7 @@ echo "== Packing $NAME =="
 rm -rf "$STAGE"
 mkdir -p "$STAGE"
 ditto "$APP" "$STAGE/IronRing.app"
-release_notes "$STAGE"
+release_notes "$STAGE" "$BUILD"
 
 # Sign the bundle as a whole: the engine in Frameworks first, then the app.
 IDENTITY="${IR_CODESIGN_IDENTITY:--}"

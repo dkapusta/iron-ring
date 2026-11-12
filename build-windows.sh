@@ -46,7 +46,7 @@ mkdir -p "$STAGE"
 # The player folder: IronRing.exe, UnityPlayer.dll, IronRing_Data and, only if the
 # toolchain could not link its runtime statically, its DLLs (docs/adr/0009-mingw-static-runtime.md).
 cp -a "$PLAYER_DIR"/. "$STAGE/"
-release_notes "$STAGE"
+release_notes "$STAGE" "$BUILD"
 zip_folder "$STAGE" "Dist/$NAME.zip"
 echo "== Ready: Dist/$NAME.zip =="
 echo "   Unzip anywhere on Windows 10 or 11 (x64) and run $NAME\\IronRing.exe."

@@ -7,17 +7,19 @@ An early-90s style arcade fighting game about the **Iron Ring** — an illegal, 
 
 ![Bram Hollis slams Dee Marlowe to the deck at Pier 9](docs/images/demo-capture.png)
 
-*Above: a real frame captured with `-batchmode -demo -frames 520 -screenshot` at 1920 × 1080: Bram Hollis slams Dee Marlowe to the deck at Pier 9. Fighters and stages are from the Iron Ring art packs ([ArtSource/](ArtSource/README.md)); the music (a theme per venue), sound effects and announcer are generated on a model of the NES sound chip ([docs/audio.md](docs/audio.md)).*
+*Above: a frame of 1.0.0 captured with `-batchmode -demo -frames 520 -screenshot` at 1920 × 1080: Bram Hollis slams Dee Marlowe to the deck at Pier 9. Fighters and stages are from the Iron Ring art packs ([ArtSource/](ArtSource/README.md)); the music (a theme per venue), sound effects and announcer are generated on a model of the NES sound chip ([docs/audio.md](docs/audio.md)).*
 
-> **Status: version 0.4.5 — feature-complete, in release hardening (M5).** Local play (versus, 2 players, training, an arcade ladder with a story and an ending per fighter, a CPU with five levels), six playable fighters plus the Broker as the arcade boss, seven layered venues with their own themes, and online play through a dedicated server with rollback netcode are all done, with final art throughout. What remains before **1.0.0** is packaging, a crash handler, localization and accessibility, and performance tooling. See [ROADMAP.md](ROADMAP.md).
+> **Iron Ring 1.0 — finished.** Everything on the [roadmap](ROADMAP.md) is done and no new features are planned. The release has local play (versus, 2 players, training, an arcade ladder with a story and an ending per fighter, a CPU with five levels), six playable fighters plus the Broker as the arcade boss, seven layered venues each with its own theme, and online play through a dedicated server with rollback netcode, with final art throughout, on Windows, Linux and macOS.
 
-![The title menu, character select, stage select and pause menu](docs/images/m2-front-end.png)
+![The title menu, character select, stage select and pause menu](docs/images/front-end.png)
 
-*The front end (M2): title menu, character select (the unbuilt fighters are locked), stage select and the pause menu. Logo, menu backdrop and select portraits from Art Pack v2 ([asset spec §5](docs/art/asset-spec.md#5-ui)).*
+*The front end of 1.0.0: the title menu, the character select with all six fighters (Dee Marlowe against a CPU Jun Arata), the stage select and the pause menu ([asset spec §5](docs/art/asset-spec.md#5-ui)).*
 
-![The four venues: Pier 9, Lantern Row, The Foundry and The Crown](docs/images/m2-venues.png)
+![The seven venues and the ONLINE menu](docs/images/venues.png)
 
-*Four of the seven venues, Pier 9, Lantern Row, The Foundry and The Crown (Dry Dock 4, The Hold and The Broker's Club are the others): six or seven layers each over an 800 px world, a camera that follows the fight, a crowd that cheers a K.O. ([ADR-0017](docs/adr/0017-layered-stages-and-camera.md)).*
+*All seven venues, CPU against CPU: Pier 9, Lantern Row, The Hold, The Foundry, The Crown, Dry Dock 4 and The Broker's Club. Each has six or seven layers over an 800 px world, a camera that follows the fight, a crowd that cheers a K.O. ([ADR-0017](docs/adr/0017-layered-stages-and-camera.md)), and its own theme. Last, the ONLINE menu: a player name, a server and an invite are all it takes ([docs/controls.md](docs/controls.md#playing-online)).*
+
+*Every picture above is a real frame of the 1.0.0 build in batch mode (`-batchmode -screenshot`, driven by `-demo`, `-stage`, `-fighters` and `-keys`).*
 
 ## Highlights
 
@@ -220,11 +222,11 @@ Start at the [documentation index](docs/README.md). The most useful entry points
 
 ## Contributing
 
-Issues and pull requests are welcome. Read [AGENTS.md](AGENTS.md) first: it holds the working agreements for anyone changing the code, human or coding agent — how to build and verify, module boundaries, the determinism rules of the simulation, how art and audio are regenerated, and which documents to update. A change is done when every CI job is green with warnings as errors. Decisions that cross modules get an ADR.
+Iron Ring is complete: it isn't in active development, and new features are out of scope (the roadmap's *Not planned* list records the ideas that were left out). Forks are welcome under the zlib licence. If you change the code, read [AGENTS.md](AGENTS.md) first: it holds the working agreements for anyone changing the code, human or coding agent — how to build and verify, module boundaries, the determinism rules of the simulation, how art and audio are regenerated, and which documents to update. A change is done when every CI job is green with warnings as errors. Decisions that cross modules get an ADR.
 
 ## Content and licensing
 
-Iron Ring is free and open source under the **[zlib License](LICENSE)**, the same licence as SDL. It covers the code, documentation and the assets ([docs/licensing.md](docs/licensing.md)). Third-party components keep their own licences, listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Iron Ring is free and open source under the **[zlib License](LICENSE)**, the same licence as SDL. It covers the code, documentation and the assets ([docs/licensing.md](docs/licensing.md)). Third-party components keep their own licences, listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md); every release zip and `cmake --install` also carries their full texts in a `Licenses/` folder.
 
 The fighters, portraits, stages, title logo and menu backdrop are the Iron Ring art packs (v1 to v3.2.1), generated for this project and contributed under its licence ([ArtSource/](ArtSource/README.md), which keeps each pack's provenance and review); effects, fonts and the icon are drawn by `Tools/Art/`; all music, sound effects and announcer lines are generated by `Tools/Audio/` (the announcer's speech source is eSpeak NG, a tool: only its rendered output ships). Nothing from the *Brass Current* concept kit ships any more. No Fatal Fury (or any other franchise) artwork, characters, names, logos or audio are included; Fatal Fury 2 is used only as genre and era reference ([docs/research/fatal-fury-2.md](docs/research/fatal-fury-2.md)).
 

@@ -59,7 +59,7 @@ echo "== Packing $NAME =="
 rm -rf "$STAGE"
 mkdir -p "$STAGE"
 cp -a "$PLAYER_DIR/$EXE" "$PLAYER_DIR/UnityPlayer.so" "$PLAYER_DIR/IronRing_Data" "$STAGE/"
-release_notes "$STAGE"
+release_notes "$STAGE" "$BUILD"
 zip_folder "$STAGE" "Dist/$NAME.zip"
 echo "== Ready: Dist/$NAME.zip =="
 GLIBC=$(objdump -T "$STAGE/$EXE" "$STAGE/UnityPlayer.so" 2>/dev/null | grep -o 'GLIBC_[0-9.]*' | sort -uV | tail -1 || true)

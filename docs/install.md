@@ -20,4 +20,4 @@ DESTDIR=pkg cmake --install Build/release --prefix /usr    # staging for a packa
 - `IR_INSTALL_DIR` changes the folder's location under the prefix (default `lib/IronRing` on Linux, `IronRing` on Windows, the prefix itself on macOS).
 - `~/.local/share/applications` may need `update-desktop-database ~/.local/share/applications` before menus see the entry. Some desktops also need `gtk-update-icon-cache` for the icon.
 
-Release zips for every platform come from the build scripts ([building.md](building.md)). Store packages and installers are ROADMAP M5.
+Release zips for every platform come from the build scripts ([building.md](building.md)). Every install also gets a `Licenses/` folder beside the player (on Linux and Windows) with Iron Ring's licence, the third-party notices and their full licence texts. Installers and store packages are not planned (ROADMAP).

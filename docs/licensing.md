@@ -53,7 +53,7 @@ Things to know before choosing:
 
 - **AI-generated art.** In several jurisdictions (including the US Copyright Office's current position) purely AI-generated images may not be copyrightable at all; a licence on them may be partly unenforceable, and the human-authored parts (prompts, selection, edits, character bios) are what's protected. CC0 or CC BY are the honest choices for such assets.
 - **Names and logo** are better protected by trademark than copyright. Open code and art do not have to give away the right to call a fork "Iron Ring".
-- **Third-party notices** (SDL, miniz, json, ENet, winpthreads) must ship with releases regardless of our choice: `THIRD_PARTY_NOTICES.md` is in every release zip; the full licence texts are a ROADMAP M5 item.
+- **Third-party notices** (SDL, miniz, json, ENet, winpthreads) must ship with releases regardless of our choice: every release zip carries `THIRD_PARTY_NOTICES.md` and the full licence texts in `Licenses/` (`cmake/Licenses.cmake`).
 
 ## Suggested combinations
 

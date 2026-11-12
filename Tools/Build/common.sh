@@ -51,8 +51,16 @@ zip_folder() {
     fi
 }
 
-# release_notes <folder>: the licence texts every release zip carries.
+# release_notes <folder> <build dir>: the licence texts every release zip carries:
+# Iron Ring's own, the notices, and the full third-party texts that the configure
+# step collected into <build dir>/Licenses (cmake/Licenses.cmake).
 release_notes() {
+    if [ ! -d "$2/Licenses" ]; then
+        echo "Missing $2/Licenses: the configure step collects the third-party licence texts." >&2
+        exit 1
+    fi
     cp LICENSE "$1/LICENSE.txt"
     cp THIRD_PARTY_NOTICES.md "$1/THIRD_PARTY_NOTICES.md"
+    rm -rf "$1/Licenses"
+    cp -R "$2/Licenses" "$1/Licenses"
 }

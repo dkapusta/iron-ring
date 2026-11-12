@@ -29,4 +29,4 @@ Iron Ring itself is licensed under the [zlib License](LICENSE). It builds on the
 
 MSVC builds use the Microsoft C/C++ runtime that ships with Windows (UCRT) and the Visual C++ Redistributable (`vcruntime140.dll`).
 
-The full licence texts are distributed with each component's sources (under `Build/_deps/<name>-src/` after configuring) and must be bundled with binary releases. The release zips currently include this file and Iron Ring's `LICENSE.txt`; adding the full texts is an open item in [ROADMAP.md](ROADMAP.md) (M5).
+The full licence texts are distributed with each component's sources (under `Build/_deps/<name>-src/` after configuring) and must be bundled with binary releases. The configure step copies them into `Build/<preset>/Licenses/` (`cmake/Licenses.cmake`, which stops the configure if one is missing), and every release zip carries that folder next to this file and Iron Ring's `LICENSE.txt`; `cmake --install` puts it beside the player. The MinGW-w64 runtime and winpthreads texts are kept in `cmake/licenses/`, because toolchains store them in different places. stb_vorbis and dr_flac are used under their public-domain (Unlicense) option.
