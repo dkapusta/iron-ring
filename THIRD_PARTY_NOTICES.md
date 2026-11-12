@@ -29,4 +29,4 @@ Iron Ring itself is licensed under the [zlib License](LICENSE). It builds on the
 
 MSVC builds use the Microsoft C/C++ runtime that ships with Windows (UCRT) and the Visual C++ Redistributable (`vcruntime140.dll`).
 
-The full licence texts are distributed with each component's sources (under `Build/_deps/<name>-src/` after configuring) and must be bundled with binary releases; collecting them into the release package is part of ROADMAP M5.
+The full licence texts are distributed with each component's sources (under `Build/_deps/<name>-src/` after configuring) and must be bundled with binary releases. The release zips currently include this file and Iron Ring's `LICENSE.txt`; adding the full texts is an open item in [ROADMAP.md](ROADMAP.md) (M5).

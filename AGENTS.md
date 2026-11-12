@@ -8,13 +8,13 @@ Guidance for anyone changing this repository, human or AI coding agent. Read thi
 cmake --preset debug && cmake --build --preset debug && ctest --preset debug
 ```
 
-- `core` preset (no SDL) is the fastest loop for `Source/Core`, `Source/Vfs`, `Source/Simulation`, `Source/Content` and `Tests/`.
+- `core` preset (no SDL) is the fastest loop for `Source/Core`, `Source/Vfs`, `Source/Simulation`, `Source/Content`, `Source/Net`, `Source/Server` and `Tests/`.
 - Player smoke test (no display needed):
   `Build/debug/Player/Debug/IronRing.x86_64 -batchmode -demo -screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -frames 420 -screenshot /tmp/shot.png`
   Exit code 0 and a sensible PNG is the bar for any change to `Source/Runtime` or `Assets/`. Look at the image.
 - Configure with `-DIR_WARNINGS_AS_ERRORS=ON` before declaring work done. CI (`.github/workflows/ci.yml`) enforces it on Linux GCC/Clang and Windows MSVC/MinGW — a change isn't done until every job is green.
 - Names and world facts come from [docs/design/setting.md](docs/design/setting.md); the Brass Current kit is visual reference only.
-- Offline or slow network: point FetchContent at local checkouts, e.g. `-DFETCHCONTENT_SOURCE_DIR_SDL3=/src/SDL` (also `_SDL3_MIXER`, `_MINIZ`, `_NLOHMANN_JSON`, `_DOCTEST`).
+- Offline or slow network: point FetchContent at local checkouts, e.g. `-DFETCHCONTENT_SOURCE_DIR_SDL3=/src/SDL` (also `_SDL3_MIXER`, `_MINIZ`, `_NLOHMANN_JSON`, `_ENET`, `_DOCTEST`).
 
 ## Module boundaries (enforced by CMake targets)
 
@@ -23,6 +23,8 @@ cmake --preset debug && cmake --build --preset debug && ctest --preset debug
 | `IronRingSimulation` | C++ standard library | SDL, I/O, clocks, randomness, floating point in state |
 | `IronRingCore`, `IronRingVfs` | std, nlohmann/json, miniz | SDL |
 | `IronRingContent` | Simulation, nlohmann/json | SDL, file I/O (reads through a callback) |
+| `IronRingNet` | Simulation, ENet | SDL |
+| `IronRingServerCore`, `IronRingServer` | Net, Simulation, Content, Vfs, Core, ENet, nlohmann/json | SDL, Runtime |
 | `AssetPacker` | Core libraries, Content | SDL, Runtime |
 | `IronRingEngine` (UnityPlayer) | everything above + SDL3, SDL3_mixer | — |
 | `IronRingPlayer` (launcher) | `Public/IronRing/Player.h` only | anything else |

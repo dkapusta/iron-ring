@@ -3,13 +3,13 @@
 [![CI](https://github.com/dkapusta/iron-ring/actions/workflows/ci.yml/badge.svg)](https://github.com/dkapusta/iron-ring/actions/workflows/ci.yml)
 [![License: Zlib](https://img.shields.io/badge/license-zlib-blue.svg)](LICENSE)
 
-An early-90s style arcade fighting game about the **Iron Ring** — an illegal, invitation-only fight-club tournament in the dying port city of Grayhaven, 1992. Big pixel-art sprites, four attack buttons, throws and specials, short explosive exchanges, built on a small, testable C++20 / SDL3 codebase. Setting and cast: [docs/design/setting.md](docs/design/setting.md).
+An early-90s style arcade fighting game about the **Iron Ring** — an illegal, invitation-only fight-club tournament in the dying port city of Grayhaven, 1992. Big pixel-art sprites, four attack buttons, throws and specials, short explosive exchanges, six fighters and a boss, seven venues, an arcade story mode and online play with rollback netcode, built on a small, testable C++20 / SDL3 codebase for Windows, Linux and macOS. Setting and cast: [docs/design/setting.md](docs/design/setting.md).
 
 ![Bram Hollis slams Dee Marlowe to the deck at Pier 9](docs/images/demo-capture.png)
 
-*Above: a real frame captured with `-batchmode -demo -frames 520 -screenshot` at 1920 × 1080: Bram Hollis slams Dee Marlowe to the deck at Pier 9. Fighters and stages are from Iron Ring Art Packs v1 and v2 ([ADR-0012](docs/adr/0012-adopting-external-art.md), [ADR-0020](docs/adr/0020-adopting-art-pack-v2.md)); the music (a theme per venue), sound effects and announcer are generated on a model of the NES sound chip ([docs/audio.md](docs/audio.md)).*
+*Above: a real frame captured with `-batchmode -demo -frames 520 -screenshot` at 1920 × 1080: Bram Hollis slams Dee Marlowe to the deck at Pier 9. Fighters and stages are from the Iron Ring art packs ([ArtSource/](ArtSource/README.md)); the music (a theme per venue), sound effects and announcer are generated on a model of the NES sound chip ([docs/audio.md](docs/audio.md)).*
 
-> **Status: M2 — Complete local play, done; M3 (roster and world) next.** M1 delivered Dee vs Bram with data-driven fighters, throws, specials, knockdowns, best-of-3 rounds, a pixel-art HUD, a training mode, venue themes and an announcer. M2: the front end (title with an attract demo, character and stage select, options, pause and rematch menus), saved options, gamepads and remapping, layered scrolling stages with a reacting crowd, the hit-feel pass (counter hits, combos and cancels, a Breakaway that guard-cancels, Heat that lasts the match), the arcade ladder against a CPU with five levels, and Art Packs v2 and v2.1 (every venue layered, redrawn crowds, champion endings), completing the Dee vs Bram vertical slice. See [ROADMAP.md](ROADMAP.md).
+> **Status: version 0.4.5 — feature-complete, in release hardening (M5).** Local play (versus, 2 players, training, an arcade ladder with a story and an ending per fighter, a CPU with five levels), six playable fighters plus the Broker as the arcade boss, seven layered venues with their own themes, and online play through a dedicated server with rollback netcode are all done, with final art throughout. What remains before **1.0.0** is packaging, a crash handler, localization and accessibility, and performance tooling. See [ROADMAP.md](ROADMAP.md).
 
 ![The title menu, character select, stage select and pause menu](docs/images/m2-front-end.png)
 
@@ -17,7 +17,7 @@ An early-90s style arcade fighting game about the **Iron Ring** — an illegal, 
 
 ![The four venues: Pier 9, Lantern Row, The Foundry and The Crown](docs/images/m2-venues.png)
 
-*The four venues, Pier 9, Lantern Row, The Foundry and The Crown: six or seven layers each over an 800 px world, a camera that follows the fight, a crowd that cheers a K.O. ([ADR-0017](docs/adr/0017-layered-stages-and-camera.md)).*
+*Four of the seven venues, Pier 9, Lantern Row, The Foundry and The Crown (Dry Dock 4, The Hold and The Broker's Club are the others): six or seven layers each over an 800 px world, a camera that follows the fight, a crowd that cheers a K.O. ([ADR-0017](docs/adr/0017-layered-stages-and-camera.md)).*
 
 ## Highlights
 
@@ -26,8 +26,10 @@ An early-90s style arcade fighting game about the **Iron Ring** — an illegal, 
 - **Unity-style build layout** — a deliberate gimmick. The output folder looks like a Unity player: `IronRing.exe`, `UnityPlayer.dll`, `IronRing_Data/` with `globalgamemanagers`, `resources.assets`, `sharedassets0.assets`, `boot.config`, `app.info`. [ADR-0003](docs/adr/0003-unity-style-player-layout.md)
 - **Asset pipeline.** `AssetPacker` bakes `Assets/` and `ProjectSettings/` into deterministic ZIP archives with Unity-like names; the runtime mounts them into a virtual file system. [ADR-0004](docs/adr/0004-asset-archives.md)
 - **Deterministic simulation.** Integer-only 60 Hz combat core, no SDL dependency, snapshot checksums; started as a bit-exact port of the concept-kit prototype. [ADR-0006](docs/adr/0006-deterministic-simulation.md)
+- **Online play with rollback.** Two players anywhere meet in a room on an Iron Ring dedicated server (`IronRingServer`: one UDP port, no SDL, Linux/Windows/Docker), share one invite string, and fight with prediction and re-simulation; the server relays and referees. A soak test of a real server and two headless clients runs in CI. [ADR-0026](docs/adr/0026-online-play.md), [docs/server.md](docs/server.md)
+- **Replays.** Every finished match is saved as a small `.irr` file and verified bit for bit on playback (`-replay`).
 - **Fighters are data.** One `<id>.fighter.json` per fighter: frame data, boxes, throws, specials and animation timing, validated at build time. [ADR-0010](docs/adr/0010-fighter-content-format.md)
-- **Dependencies via CMake FetchContent**, pinned to release tags: SDL 3.4.18, SDL3_mixer 3.2.4, miniz 3.1.2, nlohmann/json 3.12.0, doctest 2.5.3. [ADR-0002](docs/adr/0002-dependencies-via-fetchcontent.md)
+- **Dependencies via CMake FetchContent**, pinned to release tags: SDL 3.4.18, SDL3_mixer 3.2.4, miniz 3.1.2, nlohmann/json 3.12.0, ENet 1.3.18, doctest 2.5.3. [ADR-0002](docs/adr/0002-dependencies-via-fetchcontent.md)
 
 ## Building
 
@@ -117,12 +119,19 @@ The full scheme for both players, the menus and pads, with each fighter's moves 
 
 Player 2's default keys use the numeric keypad; without one, rebind them in Options → Controls.
 
-Moves, written for a fighter facing right (numpad notation: 6 = forward, 2 = down, 3 = down-forward):
+The roster, with each fighter's special written for a fighter facing right (numpad notation: 6 = forward, 2 = down, 3 = down-forward; P = either punch, K = either kick). Every move, for either side, is in [docs/controls.md](docs/controls.md):
 
-| Fighter | LP | HP | LK | HK | Throw | Special |
-| --- | --- | --- | --- | --- | --- | --- |
-| **Dee Marlowe** | Stiff Jab | Cross Counter | Shin Kick | Leg Sweep (low, knockdown) | Clinch Toss | **Rush Uppercut** — 236 + P (↓↘→ + punch; facing left ↓↙←) |
-| **Bram Hollis** | Palm Shove | Anchor Hook | Boot Kick | Hull Breaker (low, knockdown) | Pier Toss | **Dock Hoist** — 63214 + P (→↘↓↙← + punch; facing left ←↙↓↘→), command throw, can't be teched |
+| Fighter | Style | Special |
+| --- | --- | --- |
+| **Dee Marlowe** | boxer / counter | **Rush Uppercut** — 236 + P, a rising uppercut that knocks down |
+| **Bram Hollis** | grappler / power | **Dock Hoist** — 63214 + P, a command throw that can't be teched |
+| **Sable Reyes** | mobile kickboxer | **Switch Step** — 236 + K, a long step into a flying knee |
+| **Idris Okafor** | long-range striker | **Bowline Heel** — 214 + K, a turning heel kick at head height |
+| **Greta Voll** | power brawler | **Ladle Drop** — 623 + P, a lunging double-fist hammer |
+| **Jun Arata** | rushdown / feint | **Sleight Feint** — 236 + P, a low dash and elbow, plus on block |
+| **The Broker** | boss (arcade only) | waits at his club for whoever takes the Crown |
+
+Every fighter also has a throw (LP + LK, close) with a tech window, and the Breakaway (Guard + HP + HK for 50 Heat while blocking).
 
 In a fight: F3 training overlay (boxes, frame data, frame advantage) · F4 reset positions (training) · F6 next dummy behaviour (training). Developer keys: Tab vs CPU → 2 players → CPU vs CPU · F2 next stage · F5 new match · F1 debug overlay. Anywhere: F11 or Alt+Enter fullscreen · F12 screenshot. Default bindings live in [`ProjectSettings/InputManager.json`](ProjectSettings/InputManager.json), your changes in `prefs.cfg`; fighter data in `Assets/Fighters/<Name>/<id>.fighter.json`.
 
@@ -180,6 +189,7 @@ Tests/               doctest unit tests + packer smoke test
 Tools/Art/           art importer, procedural generator, art self-test (Python)
 Tools/Audio/         NES sound-chip model, sound effects, venue themes, announcer (Python)
 Tools/Server/        server Dockerfile, systemd unit, online soak test (soak.sh)
+Tools/Build/         shared helpers of the build-*.sh release scripts
 ArtSource/           editable sources of the external art (not packed)
 cmake/               dependencies, compiler options, player layout, asset pipeline
 docs/                ADRs, architecture, asset pipeline, research, concept art
@@ -193,21 +203,29 @@ docker-compose.yml   the dedicated server in a container (docs/server.md)
 
 ## Documentation
 
+Start at the [documentation index](docs/README.md). The most useful entry points:
+
+- [docs/controls.md](docs/controls.md) — keys, pads, online play and every fighter's moves
+- [docs/building.md](docs/building.md) — release zips for each platform, signing, glibc
+- [docs/server.md](docs/server.md) — running an Iron Ring server (systemd, Docker, Windows)
+- [docs/install.md](docs/install.md) — `cmake --install`, desktop entry, packaging
 - [ROADMAP.md](ROADMAP.md) — milestones, decisions log and open questions
-- [docs/design/setting.md](docs/design/setting.md) — the Iron Ring world, roster and venues
-- [AGENTS.md](AGENTS.md) — working agreements for contributors and coding agents
+- [docs/design/setting.md](docs/design/setting.md) — the Iron Ring world, roster and venues; [online.md](docs/design/online.md), [heat.md](docs/design/heat.md)
 - [docs/architecture.md](docs/architecture.md) — module map and runtime flow
-- [docs/licensing.md](docs/licensing.md) — licence choice and rationale
 - [docs/asset-pipeline.md](docs/asset-pipeline.md) — adding content, archives, virtual paths
 - [docs/art/asset-spec.md](docs/art/asset-spec.md) — the art contract: sizes, frames, pivots, timing, layout; [generation prompts](docs/art/generation-prompts.md)
 - [docs/audio.md](docs/audio.md) — sound effects, venue themes, the announcer, mix groups and how to change them
-- [docs/adr/](docs/adr/) — architecture decision records
-- [docs/research/](docs/research/) — reference analysis (Fatal Fury 2) and concept-kit review
+- [docs/adr/](docs/adr/README.md) — architecture decision records
+- [docs/licensing.md](docs/licensing.md) — licence choice and rationale
+
+## Contributing
+
+Issues and pull requests are welcome. Read [AGENTS.md](AGENTS.md) first: it holds the working agreements for anyone changing the code, human or coding agent — how to build and verify, module boundaries, the determinism rules of the simulation, how art and audio are regenerated, and which documents to update. A change is done when every CI job is green with warnings as errors. Decisions that cross modules get an ADR.
 
 ## Content and licensing
 
 Iron Ring is free and open source under the **[zlib License](LICENSE)**, the same licence as SDL. It covers the code, documentation and the assets ([docs/licensing.md](docs/licensing.md)). Third-party components keep their own licences, listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-The fighters, portraits and stages are Iron Ring Art Pack v1, generated for this project and covered by its licence ([ArtSource/](ArtSource/README.md)); effects, fonts and the icon are drawn by `Tools/Art/`; all music, sound effects and announcer lines are generated by `Tools/Audio/` (the announcer's speech source is eSpeak NG, a tool: only its rendered output ships). Nothing from the *Brass Current* concept kit ships any more. No Fatal Fury (or any other franchise) artwork, characters, names, logos or audio are included; Fatal Fury 2 is used only as genre and era reference ([docs/research/fatal-fury-2.md](docs/research/fatal-fury-2.md)).
+The fighters, portraits, stages, title logo and menu backdrop are the Iron Ring art packs (v1 to v3.2.1), generated for this project and contributed under its licence ([ArtSource/](ArtSource/README.md), which keeps each pack's provenance and review); effects, fonts and the icon are drawn by `Tools/Art/`; all music, sound effects and announcer lines are generated by `Tools/Audio/` (the announcer's speech source is eSpeak NG, a tool: only its rendered output ships). Nothing from the *Brass Current* concept kit ships any more. No Fatal Fury (or any other franchise) artwork, characters, names, logos or audio are included; Fatal Fury 2 is used only as genre and era reference ([docs/research/fatal-fury-2.md](docs/research/fatal-fury-2.md)).
 
 Unity and UnityPlayer are trademarks of Unity Technologies. Iron Ring is not affiliated with or endorsed by Unity, and contains no Unity code; the file naming is a stylistic choice that can be changed with one CMake variable ([ADR-0003](docs/adr/0003-unity-style-player-layout.md)).
