@@ -4,6 +4,8 @@ The guiding rule comes from the concept kit and still holds: **polish one matchu
 
 Milestones are ordered; items inside a milestone are roughly ordered. ✅ done · 🔜 next · ⬜ planned.
 
+**Where it stands (0.4.5):** M0–M4 are done; M5, release hardening, is in progress.
+
 ## How art is made
 
 1. **Placeholder art and guidelines (here).** New content first ships with placeholder art from `Tools/Art/` and a written contract: the [asset spec](docs/art/asset-spec.md), [prompts](docs/art/generation-prompts.md) and pose references.
@@ -125,7 +127,9 @@ Two players anywhere fight over the internet with rollback netcode. They meet on
   - **HOST ON THIS PC** moved to *Later / maybe*.
 - **M4 is closed.** Bugs found in online play from here on are fixed under M5.
 
-## M5 — Release hardening
+## M5 — Release hardening 🔜
+
+The game is feature-complete; M5 makes it a release. **1.0.0** when it is done.
 
 - 🔜 Fixes from online play tests (anything found after M4 closed):
   - ✅ the online select marks each side **READY**; the host picks the venue only once both are; the guest sees both fighters and *HOST IS CHOOSING THE STAGE* meanwhile (0.4.2)
@@ -134,6 +138,7 @@ Two players anywhere fight over the internet with rollback netcode. They meet on
   - ✅ the band of old spectators left above the barrier (the v3.2 brief's protected rows were wrong): Art Pack v3.2.1 ([brief](docs/art/art-pack-v3.2.1-crowd-band-brief.md), [review](ArtSource/Pack-v3.2.1/REVIEW.md))
 
 - ⬜ Crash handler process (a `UnityCrashHandler64.exe` look-alike in spirit: minidump + log upload prompt)
+- ⬜ Third-party licence texts in the release zips: today they carry `LICENSE.txt` and `THIRD_PARTY_NOTICES.md` only; the full texts of SDL, SDL_mixer, miniz, nlohmann/json, ENet (and, in MinGW builds, the runtime's `COPYING.MinGW-w64-runtime.txt`) should go in too
 - ⬜ Installer/packaging, store integration as needed
 - ⬜ Localization, accessibility (colour-blind safe HUD, input assistance)
 - ⬜ Performance budget and capture tooling
@@ -171,7 +176,7 @@ Two players anywhere fight over the internet with rollback netcode. They meet on
 | 2026-10-31 | Art Pack v2 | Adopted as delivered; the arcade ending animates the champion, the still ending pictures are kept as key art ([ADR-0020](docs/adr/0020-adopting-art-pack-v2.md)) |
 | 2026-10-31 | Art Pack v2.1 | Redrawn crowds and the Foundry sign adopted as delivered; the vertical slice and M2 are complete |
 | 2026-11-01 | Online (M4) | Through a dedicated server, with rollback; private rooms with codes and an opt-in open list; the server referees; no default server unless `GameSettings.json` ships one; HOST ON THIS PC in M4.5; no spectators, rankings, accounts, server browser or voice ([ADR-0026](docs/adr/0026-online-play.md)) |
-| 2026-11-02 | Default server | The game ships `195.161.54.95:7727` as `defaultServer` (the owner's server) |
+| 2026-11-02 | Default server | The game ships the owner's server as `defaultServer` (reversed on 2026-11-07, below) |
 | 2026-11-02 | M4 closed | HOST ON THIS PC left out of M4.5 (now *Later / maybe*); online bugs found from here on are M5 work |
 | 2026-11-01 | Version numbers | `0.<milestone>.<patch>` until 1.0: the minor number is the milestone the build delivers (0.4.0 brings M4's online play), the patch counts fixes on it; **1.0.0** when M5 (release hardening) is done. The version is informational: online compatibility is decided by the protocol number and the game-data hash, replays by their content hash. Set once, in the top-level `CMakeLists.txt` |
 | 2026-11-07 | Default server removed | Release builds ship no `defaultServer`: players type a server (the owner's or their own) and the game remembers it |
